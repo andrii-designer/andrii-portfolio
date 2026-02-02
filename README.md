@@ -30,6 +30,8 @@ npm run dev
 
 Then open [http://localhost:3000](http://localhost:3000).
 
+**If the dev server fails:** `npm run build` has been verified. If you see a system error such as `uv_interface_addresses` or "Unknown system error 1", it is likely an environment/sandbox restriction. Run `npm run dev` in your normal terminal outside restricted environments. If you see other errors, check that Node and npm are up to date and that no other process is using port 3000.
+
 ## Other scripts
 
 - `npm run build` — production build
