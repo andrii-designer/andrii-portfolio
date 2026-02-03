@@ -575,3 +575,195 @@
 - Images: descriptive `alt` attributes
 - Links: keyboard accessible via `<Link>`
 - Reduced motion: respected via `useReducedMotion()`
+
+---
+
+## Services Section (feature/figma-services) — 2026-02-03
+
+### Branch
+- `feature/figma-services`
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Section name** | Services |
+| **Index** | ( 002 ) |
+| **Label** | WHAT CAN I PROVIDE YOU WITH |
+| **Heading** | Services |
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/components/Title/Title.tsx` | Reusable title component with index, label, and heading |
+| `src/components/Title/index.ts` | Barrel export for Title |
+| `src/components/Services/Services.tsx` | Main Services section with IntersectionObserver scroll behavior |
+| `src/components/Services/ServiceItem.tsx` | Individual service item with active/inactive states |
+| `src/components/Services/index.ts` | Barrel export for Services |
+| `public/assets/images/services/placeholder.svg` | Placeholder SVG for service images (533x353 aspect) |
+| `public/assets/images/services/service-image-1.png` | Copied service image from assets |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added Services section import and JSX directly below Works |
+
+### Layout Specs
+
+#### Title Component (Reusable)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Container direction | vertical (flex-col) | — |
+| Container alignment | left (flex-start) | — |
+| Gap between label and heading | 0px | — |
+| Label gap between elements | 8px | `--token-space-8` |
+| Label padding top/bottom | 6px | `--token-space-6` |
+| Label font size | 16px | `--token-size-label-md` |
+| Label font weight | 600 | `--token-weight-semibold` |
+| Label text transform | uppercase | — |
+| Heading font size | 150px | `--token-size-display-1` |
+| Heading font weight | 600 | `--token-weight-semibold` |
+| Heading line height | 100% | `--token-leading-100` |
+| Heading letter spacing | -6px | — |
+
+#### Services Section Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Section background | base | `--token-color-base` |
+| Section top padding | 24px | `--token-space-24` |
+| Section bottom padding | 192px | `--token-space-192` |
+| Section left/right padding | 24px (via section-inner) | `--token-space-24` |
+| Gap title → services container | 256px | `--token-space-256` |
+| Gap services list → button | 48px | `--token-space-48` |
+
+#### Service Item (Active State)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Container padding top/bottom | 24px | `--token-space-24` |
+| Border bottom | 1px solid accent | `--token-color-accent` |
+| Layout | flex row (desktop), column (mobile) | — |
+| Gap between columns | 24px | `--token-space-24` |
+| Dot size | 6px | `--token-space-6` |
+| Title font size | 48px | `--token-size-h3` |
+| Title font weight | 600 | `--token-weight-semibold` |
+| Description font size | 14px | `--token-size-body-xs` |
+| Description font weight | 600 | `--token-weight-semibold` |
+| Image aspect ratio | 533:353 (~1.509:1) | — |
+| Image border-radius | 0px | — |
+| Image max-width | 533px | — |
+
+#### Service Item (Inactive State)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Container padding top/bottom | 24px | `--token-space-24` |
+| Border bottom | 1px solid accent | `--token-color-accent` |
+| Layout | flex row with dot and title | — |
+| Dot size | 6px | `--token-space-6` |
+| Title font size | 48px | `--token-size-h3` |
+| Title font weight | 500 (medium) | `--token-weight-medium` |
+
+### IntersectionObserver Activation Behavior
+
+The Services section implements scroll-based activation using IntersectionObserver:
+
+1. **Observer Configuration**:
+   - Root: viewport (null)
+   - Root margin: `-40% 0px -40% 0px` (triggers when item is in middle 20% of viewport)
+   - Threshold: `[0, 0.5, 1]` (multiple intersection points)
+
+2. **Activation Logic**:
+   - Observes all service items via refs
+   - When an item crosses the threshold and is most visible, it becomes active
+   - Only one item can be active at a time
+   - Previous active item automatically deactivates
+
+3. **Reduced Motion**:
+   - When `prefers-reduced-motion` is enabled, keeps first item active (no scroll behavior)
+   - Uses `useReducedMotion()` hook from Framer Motion
+
+4. **Graceful Fallback**:
+   - If JS is disabled, all items show in inactive state (titles only)
+   - Semantic HTML ensures content remains accessible
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-6` | 6px | Dot size, label vertical padding |
+| `--token-space-8` | 8px | Label element gap |
+| `--token-space-24` | 24px | Section padding, service item padding, gaps |
+| `--token-space-48` | 48px | Services list to button gap |
+| `--token-space-192` | 192px | Section bottom padding |
+| `--token-space-256` | 256px | Title to services container gap |
+| `--token-size-display-1` | 150px | Section heading |
+| `--token-size-h3` | 48px | Service title |
+| `--token-size-body-xs` | 14px | Service description |
+| `--token-size-label-md` | 16px | Label text |
+| `--token-weight-semibold` | 600 | Headings, active title, description |
+| `--token-weight-medium` | 500 | Inactive title |
+| `--token-color-accent` | #060606 | Text, borders, dots |
+| `--token-color-base` | #e3e3e5 | Section background |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css`.
+
+### Pixel-Perfect Checklist (Services Section)
+
+| Item | Status |
+|------|--------|
+| Title component reusable (works with Works and Services) | ✅ Pass |
+| Label container: "( 002 )  WHAT CAN I PROVIDE YOU WITH" uppercase | ✅ Pass |
+| Label weight: semibold (600) | ✅ Pass |
+| Label gap between elements: 8px | ✅ Pass |
+| Label vertical padding: 6px | ✅ Pass |
+| Heading "Services" using display-1 (150px) | ✅ Pass |
+| Gap label → heading: 0px | ✅ Pass |
+| Section top padding: 24px | ✅ Pass |
+| Section bottom padding: 192px | ✅ Pass |
+| Gap title container → services: 256px | ✅ Pass |
+| Service item padding: 24px top/bottom | ✅ Pass |
+| Service item border: 1px solid accent | ✅ Pass |
+| Active item: dot + title + description + image | ✅ Pass |
+| Inactive item: dot + title only | ✅ Pass |
+| Image aspect ratio: 533:353 | ✅ Pass |
+| Image border-radius: 0px | ✅ Pass |
+| IntersectionObserver scroll activation | ✅ Pass |
+| Only one active item at a time | ✅ Pass |
+| Respects prefers-reduced-motion | ✅ Pass |
+| Book a call button positioned bottom-right | ✅ Pass |
+| Uses existing design tokens | ✅ Pass |
+| `npm run lint` passes (no new errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Accessibility
+
+- Section: `aria-label="Services"`
+- Service titles: `<h3>` for proper heading hierarchy
+- Descriptions: `<p>` for semantic text
+- Dot indicators: `aria-hidden="true"` (decorative)
+- Images: descriptive `alt` attributes
+- Book a call button: keyboard accessible
+- Data attributes: `data-service-index`, `data-active` for debugging
+- Reduced motion: respected via `useReducedMotion()`
+
+### Responsive Behavior
+
+| Breakpoint | Layout | Notes |
+|------------|--------|-------|
+| Desktop (≥768px) | Two-column active item (text + image) | Image max-width 533px |
+| Mobile (<768px) | Stacked active item (text above image) | Full-width image |
+
+### Service Items Data
+
+| Index | Title | Description |
+|-------|-------|-------------|
+| 0 | Web & Mobile Apps | We'll discuss your goals, define the scope, and outline a clear plan so you know exactly what to expect. |
+| 1 | 3D & Motion design | Creating immersive 3D visuals and smooth motion graphics that bring your brand to life. |
+| 2 | Branding | Building cohesive brand identities that resonate with your audience and stand out in the market. |
+| 3 | 3D, 2D | Crafting detailed 2D and 3D illustrations that communicate your ideas with visual impact. |

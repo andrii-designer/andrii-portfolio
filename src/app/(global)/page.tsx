@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Works from "@/components/Works";
+import Services from "@/components/Services";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -89,6 +90,20 @@ export default function HomePage() {
             index="001"
             projects={worksProjects}
           />
+        </div>
+      </section>
+
+      {/* Services Section — directly below Works */}
+      {/* Section handles its own padding: 24px top/left/right, 192px bottom */}
+      <section
+        className="section-wrap"
+        style={{
+          backgroundColor: "var(--token-color-base)", // Services section uses base background
+        }}
+        data-node-id="services-section"
+      >
+        <div className="section-inner">
+          <Services />
         </div>
       </section>
     </>
