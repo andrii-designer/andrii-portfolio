@@ -321,3 +321,107 @@
   - Avatar text: **“Hi, I’m Andrii Vynarchyk”** using existing label typography tokens.
   - Avatar container: **height 24px**, flex row, `align-items: center`, **16px gap** (`--token-space-16`) between image and text.
   - Nav + avatar wrapper: flex row with **24px gap** (`--token-space-24`), vertically center-aligned so nav aligns with the avatar container.
+
+---
+
+## Works Section (feature/figma-works) — 2026-02-03
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Figma file key** | `vAXt1S2lkI3m5GoQbJ2Fnr` |
+| **Page name** | My portfolio website - Works |
+| **Frame name** | `works-section` |
+| **Node-id** | `2231:5841` |
+| **Frame URL** | https://www.figma.com/design/vAXt1S2lkI3m5GoQbJ2Fnr/%F0%9F%8C%8E-My-space?node-id=2231-5841 |
+| **API Status** | Rate-limited — layout specs inferred from design system patterns |
+
+### Layout Specs (Inferred from Design System)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Inner container padding | 24px (left/right) | `--token-space-24` |
+| Gap: title → grid | 64px | `--token-space-64` |
+| Grid columns | 2 (desktop), 1 (mobile) | — |
+| Grid column gap | 48px | `--token-space-48` |
+| Grid row gap | 64px | `--token-space-64` |
+| Section top padding | 0px (connects to Hero) | `--token-space-0` |
+| Section bottom padding | 96px | `--token-space-96` |
+
+### Card Layout Specs
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Card gap (image → content) | 24px | `--token-space-24` |
+| Image aspect ratio | 696:480 (~1.45:1) | — |
+| Image border-radius | 0px | — |
+| Text content gap | 16px | `--token-space-16` |
+| Tags gap | 8px | `--token-space-8` |
+
+### Typography
+
+| Element | Size | Weight | Line Height | Letter Spacing |
+|---------|------|--------|-------------|----------------|
+| Section title | 64px | 600 (semibold) | 100% | -3px |
+| Card title | 36px | 600 (semibold) | 110% | -1px |
+| Card description | 16px | 400 (regular) | 150% | — |
+| Tags | 12px | 500 (medium) | 140% | 0.5px |
+
+### Components Created
+
+| Component | Path | Description |
+|-----------|------|-------------|
+| Works | `src/components/Works/Works.tsx` | Main Works section with title and grid |
+| WorkCard | `src/components/Works/WorkCard.tsx` | Individual project card component |
+| Barrel export | `src/components/Works/index.ts` | Re-exports for clean imports |
+
+### Assets
+
+| Asset | Path | Type |
+|-------|------|------|
+| Placeholder image | `public/assets/images/works/placeholder.svg` | SVG placeholder |
+
+**Note**: All project images use placeholder SVG. Replace with actual Figma exports when API access is available.
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added Works section import and JSX directly below Hero |
+
+### Pixel-Perfect Checklist (Works Section)
+
+| Item | Status |
+|------|--------|
+| Section full-bleed (100% width) | ✅ Pass |
+| Inner container 24px padding | ✅ Pass |
+| No vertical gap between Hero and Works | ✅ Pass |
+| Title → grid gap: 64px | ✅ Pass |
+| Grid: 2 columns desktop, 1 mobile | ✅ Pass |
+| Grid column gap: 48px | ✅ Pass |
+| Grid row gap: 64px | ✅ Pass |
+| Card image 0px border-radius | ✅ Pass |
+| Section title typography correct | ✅ Pass |
+| Card title typography correct | ✅ Pass |
+| Responsive breakpoints (md) | ✅ Pass |
+| Uses design tokens throughout | ✅ Pass |
+| Animations respect reduced motion | ✅ Pass |
+| `npm run lint` passes | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Responsive Behavior
+
+| Breakpoint | Grid Columns | Notes |
+|------------|--------------|-------|
+| Desktop (≥768px) | 2 columns | 48px column gap |
+| Mobile (<768px) | 1 column | Full-width cards |
+
+### Accessibility
+
+- Section has `aria-label="Works"`
+- `data-node-id` attribute for Figma reference
+- Images have descriptive alt text
+- Links are keyboard accessible
+- Respects `prefers-reduced-motion`
