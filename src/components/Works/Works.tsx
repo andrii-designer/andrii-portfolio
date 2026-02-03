@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Title from "@/components/Title";
 import WorkCard, { WorkCardProps } from "./WorkCard";
 
 /**
@@ -9,7 +10,7 @@ import WorkCard, { WorkCardProps } from "./WorkCard";
  *
  * Layout specs (from Figma screenshot):
  * - Section padding: 24px top, 192px bottom, 24px left/right (via section-inner)
- * - Title container: vertical stack, gap 0 between label and heading
+ * - Title container: uses reusable Title component
  * - Label: "( 001 )  MY WORKS" - 16px, semibold, uppercase, 6px vertical padding
  * - Heading: "Works" - 150px display-1, semibold
  * - Gap title container → grid: 256px
@@ -44,15 +45,6 @@ const Works = ({ title = "Works", index = "001", projects }: WorksProps) => {
         transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
       };
 
-  const titleMotion = prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 24 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-50px" },
-        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
-      };
-
   const cardMotion = (cardIndex: number) =>
     prefersReducedMotion
       ? {}
@@ -78,69 +70,12 @@ const Works = ({ title = "Works", index = "001", projects }: WorksProps) => {
       aria-label="Works"
       data-node-id="2231:5841"
     >
-      {/* Title Container — vertical stack, gap 0 */}
-      <motion.div
-        {...titleMotion}
-        className="works-title flex flex-col w-full"
-        style={{
-          gap: 0, /* No gap between label and heading */
-          alignItems: "flex-start", /* Left-aligned */
-        }}
-      >
-        {/* Label Container — "( 001 )  MY WORKS" */}
-        <div
-          className="works-label inline-flex items-center"
-          style={{
-            gap: "var(--token-space-8)", /* 8px gap between label elements */
-            paddingTop: "var(--token-space-6)", /* 6px top padding */
-            paddingBottom: "var(--token-space-6)", /* 6px bottom padding */
-            paddingLeft: 0,
-            paddingRight: 0,
-          }}
-        >
-          <span
-            className="label-index text-accent"
-            style={{
-              fontFamily: "var(--token-font-family-base)",
-              fontSize: "var(--token-size-label-md)", /* 16px */
-              fontWeight: "var(--token-weight-semibold)", /* 600 */
-              lineHeight: "var(--token-leading-140)", /* 1.4 */
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-            }}
-          >
-            ( {index} )
-          </span>
-          <span
-            className="label-text text-accent"
-            style={{
-              fontFamily: "var(--token-font-family-base)",
-              fontSize: "var(--token-size-label-md)", /* 16px */
-              fontWeight: "var(--token-weight-semibold)", /* 600 */
-              lineHeight: "var(--token-leading-140)", /* 1.4 */
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-            }}
-          >
-            MY WORKS
-          </span>
-        </div>
-
-        {/* Section Heading — "Works" using display-1 (150px) */}
-        <h2
-          className="works-heading text-accent"
-          style={{
-            fontFamily: "var(--token-font-family-base)",
-            fontSize: "var(--token-size-display-1)", /* 150px */
-            fontWeight: "var(--token-weight-semibold)", /* 600 */
-            lineHeight: "var(--token-leading-100)", /* 1.0 */
-            letterSpacing: "-6px",
-            margin: 0,
-          }}
-        >
-          {title}
-        </h2>
-      </motion.div>
+      {/* Title Component — reusable */}
+      <Title
+        index={`( ${index} )`}
+        label="my works"
+        heading={title}
+      />
 
       {/* Projects Grid — 2 columns on desktop, 1 on mobile */}
       {/* Gap between title and grid: 256px */}

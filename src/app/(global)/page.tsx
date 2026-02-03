@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Works from "@/components/Works";
 import Services from "@/components/Services";
+import Image from "next/image";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -98,12 +99,38 @@ export default function HomePage() {
       <section
         className="section-wrap"
         style={{
-          backgroundColor: "var(--token-color-base)", // Services section uses base background
+          backgroundColor: "var(--token-color-primary)", // Services section uses primary background
         }}
         data-node-id="services-section"
       >
         <div className="section-inner">
           <Services />
+        </div>
+      </section>
+
+      {/* Video Section — Full width, no side padding */}
+      {/* Separate from Services to allow full-bleed video with 16:9 aspect ratio */}
+      <section
+        className="w-full"
+        style={{
+          backgroundColor: "var(--token-color-primary)",
+        }}
+        data-node-id="video-section"
+      >
+        <div
+          className="relative w-full"
+          style={{
+            aspectRatio: "16 / 9",
+          }}
+        >
+          {/* Placeholder image — replace with video when ready */}
+          <Image
+            src="/assets/images/works/placeholder.svg"
+            alt="Video preview"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </section>
     </>
