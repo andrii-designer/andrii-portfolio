@@ -13,6 +13,35 @@
 | **Horizontal container padding** | **24px** (left and right) |
 | **Vertical gaps** | header → content: **48px**, title → bottom-row: **128px** |
 
+### Verification block (used for full-bleed + header/avatar + nav dot + BookCallButton)
+
+| Field | Value |
+|-------|-------|
+| **File key** | `vAXt1S2lkI3m5GoQbJ2Fnr` |
+| **Page name** | 🌎 My space |
+| **Frame name** | `hero-section` |
+| **Node-id** | `2224:4166` |
+| **Frame dimensions** | **1440 × 782** |
+| **Confirm (design vs runtime)** | Figma section frames are visually **1440px** wide in the design, but runtime requirement is **full-bleed sections (100% viewport width)** while preserving **24px left/right inner padding** via `--token-space-24`. |
+| **Avatar asset** | `public/hero-assets/avatar.png` |
+| **Logo asset** | `public/hero-assets/logo.svg` |
+| **Nav items (labels)** | Work, Services, About, Book a call (`src/components/Header/Header.tsx` default links) |
+
+### Changes implemented (feature/figma-home-hero-fixes)
+
+- **Full-bleed sections + 24px inner padding**:
+  - Updated `.section-wrap`/`.section-inner` defaults in `src/app/globals.css` to be full-bleed with `--token-space-24` side padding.
+  - Added `.section-inner--constrained` (1440px) for optional use-cases.
+- **Header avatar + top-aligned layout**:
+  - Updated `src/components/Header/Header.tsx` to render logo left, nav + avatar+name right, and keep top-aligned flex layout inside `.section-inner`.
+- **Nav hover/focus dot for every item**:
+  - Added `.nav-item::after` hover/focus indicator in `src/app/globals.css` using `--token-color-primary`.
+- **Reusable BookCall button + arrow orientation**:
+  - Added `src/components/Button/BookCallButton.tsx` + `src/components/Button/index.ts`.
+  - Updated `src/components/Hero/Hero.tsx` to use `BookCallButton` so the arrow points **right** (no rotation).
+- **Tokens**:
+  - Added `--token-space-6` (for the 6px nav dot) and added the source entry in `src/styles/spacing and colors.css`.
+
 ### Re-verification (feature/figma-home-hero-fixes branch)
 
 | Measurement | Figma Value | Token Used | Implementation |

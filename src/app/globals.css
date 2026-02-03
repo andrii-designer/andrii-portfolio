@@ -31,20 +31,26 @@ a {
 
 /**
  * Section layout pattern — used for all top-level page sections
- * Sections are centered horizontally with max-width 1440px
- * Inner content has 24px horizontal padding via spacing token
+ * Sections are full-bleed (100% viewport width)
+ * Inner content preserves 24px horizontal padding via spacing token
  */
 .section-wrap {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
+  display: block;
 }
 
 .section-inner {
   width: 100%;
+  max-width: none;
   padding-left: var(--token-space-24);
   padding-right: var(--token-space-24);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Optional constrained variant (use only where explicitly needed) */
+.section-inner--constrained {
+  max-width: 1440px;
 }
 
 /**
@@ -64,4 +70,32 @@ a {
 
 .nav-item:last-child {
   padding-right: 0;
+}
+
+/**
+ * Nav hover/focus dot (for each nav item)
+ * Dot color uses --token-color-primary
+ */
+.nav-item {
+  position: relative;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(-1 * var(--token-space-8));
+  width: var(--token-space-6);
+  height: var(--token-space-6);
+  border-radius: 9999px;
+  background: var(--token-color-primary);
+  opacity: 0;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.nav-item:hover::after,
+.nav-item:focus-within::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }

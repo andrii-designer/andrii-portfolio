@@ -8,7 +8,7 @@ import Link from "next/link";
  * 
  * Layout specs:
  * - Height: 70px
- * - Uses .section-wrap (max-width: 1440px, centered) + .section-inner (24px padding)
+ * - Uses .section-wrap (full-bleed) + .section-inner (24px side padding)
  * - Flex layout: justify-content: space-between, align-items: flex-start
  * - Logo aligned to top
  * - Nav items top-aligned with logo
@@ -46,17 +46,16 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
   return (
     <header
       className={`section-wrap ${className || ""}`}
-      role="banner"
       style={{
         height: "70px",
         paddingTop: "var(--token-space-16)",
       }}
     >
       <div
-        className="section-inner flex items-start justify-between"
+        className="section-inner flex justify-between items-start"
         style={{ height: "100%" }}
       >
-        {/* Logo — aligned to top (flex-start) */}
+        {/* Left: Logo — aligned to top */}
         <Link href="/" aria-label="Home" tabIndex={0}>
           <Image
             src="/hero-assets/logo.svg"
@@ -68,50 +67,75 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
           />
         </Link>
 
-        {/* Navigation — Primary */}
-        <nav aria-label="Primary">
-          <ul className="flex items-start" style={{ margin: 0, padding: 0, listStyle: "none" }}>
-            {links.map((item, index) => (
-              <li
-                key={item.label}
-                className="nav-item flex items-center"
-                style={{
-                  paddingLeft: index === 0 ? 0 : "var(--token-space-12)",
-                  paddingRight: index === links.length - 1 ? 0 : "var(--token-space-12)",
-                }}
-              >
-                {index > 0 && (
-                  <span
-                    className="text-accent"
+        {/* Right: Nav + Avatar block (top-aligned) */}
+        <div className="flex items-start" style={{ gap: "var(--token-space-16)" }}>
+          <nav aria-label="Primary">
+            <ul className="flex items-start" style={{ margin: 0, padding: 0, listStyle: "none" }}>
+              {links.map((item, index) => (
+                <li
+                  key={item.label}
+                  className="nav-item flex items-center"
+                  style={{
+                    paddingLeft: index === 0 ? 0 : "var(--token-space-12)",
+                    paddingRight: index === links.length - 1 ? 0 : "var(--token-space-12)",
+                  }}
+                >
+                  {index > 0 && (
+                    <span
+                      className="text-accent"
+                      style={{
+                        fontFamily: "var(--token-font-family-base)",
+                        fontSize: "var(--token-size-label-md)",
+                        fontWeight: "var(--token-weight-semibold)",
+                        lineHeight: "var(--token-leading-115)",
+                        paddingRight: "var(--token-space-12)",
+                      }}
+                      aria-hidden="true"
+                    >
+                      /
+                    </span>
+                  )}
+                  <Link
+                    href={item.href}
+                    className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     style={{
                       fontFamily: "var(--token-font-family-base)",
                       fontSize: "var(--token-size-label-md)",
                       fontWeight: "var(--token-weight-semibold)",
                       lineHeight: "var(--token-leading-115)",
-                      paddingRight: "var(--token-space-12)",
                     }}
-                    aria-hidden="true"
+                    tabIndex={0}
                   >
-                    /
-                  </span>
-                )}
-                <Link
-                  href={item.href}
-                  className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                  style={{
-                    fontFamily: "var(--token-font-family-base)",
-                    fontSize: "var(--token-size-label-md)",
-                    fontWeight: "var(--token-weight-semibold)",
-                    lineHeight: "var(--token-leading-115)",
-                  }}
-                  tabIndex={0}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex items-start" style={{ gap: "var(--token-space-8)" }}>
+            <Image
+              src="/hero-assets/avatar.png"
+              alt="Andrii Vynarchyk avatar"
+              width={24}
+              height={24}
+              priority
+              style={{ borderRadius: 0 }}
+            />
+            <span
+              className="text-accent"
+              style={{
+                fontFamily: "var(--token-font-family-base)",
+                fontSize: "var(--token-size-label-sm)",
+                fontWeight: "var(--token-weight-semibold)",
+                lineHeight: "var(--token-leading-115)",
+                letterSpacing: "-0.5px",
+              }}
+            >
+              Andrii
+            </span>
+          </div>
+        </div>
       </div>
     </header>
   );

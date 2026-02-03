@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { BookCallButton } from "@/components/Button";
 
 /**
  * Hero — Figma node-id: 2224:4198 (Content frame)
@@ -100,46 +100,9 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       >
         {/* CTA Button — Figma node-id: 2231:5208 */}
         {cta && (
-          <Link
-            href={cta.href}
-            className="group flex items-center py-[12px] transition-opacity hover:opacity-70"
-            style={{
-              gap: "var(--token-space-32)", /* 32px gap between content and arrow */
-            }}
-            aria-label={cta.text}
-            data-node-id="2231:5208"
-          >
-            <span
-              className="flex items-center"
-              style={{ gap: "var(--token-space-24)" }} /* 24px gap */
-            >
-              <span
-                className="size-24 shrink-0 rounded-full bg-accent"
-                aria-hidden="true"
-              />
-              <span
-                className="text-accent"
-                style={{
-                  fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-h5)", /* 24px */
-                  fontWeight: "var(--token-weight-semibold)", /* 600 */
-                  lineHeight: "var(--token-leading-140)", /* 1.4 / 140% */
-                  letterSpacing: "-0.5px", /* Exact letter-spacing from Figma */
-                }}
-              >
-                {cta.text}
-              </span>
-            </span>
-            <span className="flex size-[16px] shrink-0 -rotate-90 items-center justify-center">
-              <Image
-                src="/hero-assets/arrow-icon.svg"
-                alt=""
-                width={16}
-                height={19}
-                aria-hidden="true"
-              />
-            </span>
-          </Link>
+          <div data-node-id="2231:5208">
+            <BookCallButton href={cta.href} label={cta.text} />
+          </div>
         )}
 
         {/* Video Preview — Figma node-id: 2224:4206 */}

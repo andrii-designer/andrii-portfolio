@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
  *
  * Layout pattern:
  * - Uses .section-wrap + .section-inner from global layout (24px padding via --token-space-24)
- * - Hero section is centered within 1440px container
+ * - Hero section is full-bleed (100% viewport width) with 24px inner padding
  *
  * Figma verification (node 2224:4166):
  * - Horizontal padding: 24px (handled by layout's .section-inner)

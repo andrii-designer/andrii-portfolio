@@ -5,14 +5,13 @@ import Footer from "@/components/Footer";
  * Global layout — matches Figma hero-section container (2228:4742)
  * 
  * Layout pattern:
- * - Uses .section-wrap for centering (max-width: 1440px, margin: auto)
+ * - Uses .section-wrap for full-bleed sections (100% width)
  * - Uses .section-inner for horizontal padding (24px via --token-space-24)
  * - Individual page sections use the .section-wrap + .section-inner pattern
  * 
  * Tokens used:
  * - Background: --token-color-primary (#d2d2d6)
  * - Spacing: --token-space-16 (pt), --token-space-24 (horizontal padding)
- * - Max width: 1440px (from Figma frame)
  *
  * Figma verification:
  * - Container horizontal padding: 24px (left and right)
