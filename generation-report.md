@@ -425,3 +425,148 @@
 - Images have descriptive alt text
 - Links are keyboard accessible
 - Respects `prefers-reduced-motion`
+
+---
+
+## Works Section Update (feature/figma-works) — 2026-02-03 (Revision 2)
+
+### Figma Verification Block
+
+| Field | Value |
+|-------|-------|
+| **File key** | `vAXt1S2lkI3m5GoQbJ2Fnr` |
+| **Page name** | My portfolio website - Works |
+| **Frame name** | `works-section` |
+| **Node-id** | `2231:5841` |
+| **API Status** | Rate-limited — layout specs extracted from screenshot |
+| **Screenshot provided** | Yes — used for precise measurements |
+
+### Layout Changes Applied
+
+#### A) Title Container Structure
+| Property | Value | Token |
+|----------|-------|-------|
+| Container direction | vertical (flex-col) | — |
+| Container alignment | left (flex-start) | — |
+| Gap between label and heading | 0px | — |
+
+#### B) Label Container ("( 001 )  MY WORKS")
+| Property | Value | Token |
+|----------|-------|-------|
+| Display | inline-flex | — |
+| Gap between text elements | 8px | `--token-space-8` |
+| Padding top/bottom | 6px | `--token-space-6` |
+| Padding left/right | 0px | — |
+| Font size | 16px | `--token-size-label-md` |
+| Font weight | 500 (medium) | `--token-weight-medium` |
+| Text transform | uppercase | — |
+| Letter spacing | 0.5px | — |
+| Content | "( 001 )" + "MY WORKS" | — |
+
+#### C) Section Heading ("Works")
+| Property | Value | Token |
+|----------|-------|-------|
+| Font size | 150px | `--token-size-display-1` |
+| Font weight | 600 (semibold) | `--token-weight-semibold` |
+| Line height | 100% | `--token-leading-100` |
+| Letter spacing | -6px | — |
+
+#### D) Section Padding
+| Property | Value | Token |
+|----------|-------|-------|
+| Padding top | 24px | `--token-space-24` |
+| Padding bottom | 192px | `--token-space-192` |
+| Padding left/right | 24px (via section-inner) | `--token-space-24` |
+
+#### E) Gap Title → Grid
+| Property | Value | Token |
+|----------|-------|-------|
+| Margin top on grid | 256px | `--token-space-256` |
+
+#### F) Projects Grid
+| Property | Value | Token |
+|----------|-------|-------|
+| Columns (desktop) | 2 | — |
+| Columns (mobile) | 1 | — |
+| Column gap | 24px | `--token-space-24` |
+| Row gap | 64px | `--token-space-64` |
+| Card width | 100% of column | — |
+
+#### G) Project Card
+| Property | Value | Token |
+|----------|-------|-------|
+| Gap image → text | 24px | `--token-space-24` |
+| Image aspect ratio | 684:455 (~1.502:1) | — |
+| Image border-radius | 0px | — |
+| Image object-fit | cover | — |
+| Gap title → client | 12px | `--token-space-12` |
+
+#### H) Card Typography
+| Element | Size | Weight | Line Height | Token |
+|---------|------|--------|-------------|-------|
+| Title (h5) | 24px | 600 | 120% | `--token-size-h5` |
+| Client (p) | 16px | 400 | 140% | `--token-size-label-md` |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/components/Works/Works.tsx` | Complete rewrite with title container, label, display heading, and correct spacing |
+| `src/components/Works/WorkCard.tsx` | Simplified props (title, client), updated aspect ratio to 684:455, typography tokens |
+| `src/components/Works/index.ts` | No changes (barrel export) |
+| `src/app/(global)/page.tsx` | Updated project data to match Figma (title + client instead of description + tags) |
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-6` | 6px | Label vertical padding |
+| `--token-space-8` | 8px | Label element gap |
+| `--token-space-12` | 12px | Card title → client gap |
+| `--token-space-24` | 24px | Section padding, grid column gap, card image → text gap |
+| `--token-space-64` | 64px | Grid row gap |
+| `--token-space-192` | 192px | Section bottom padding |
+| `--token-space-256` | 256px | Title → grid gap |
+| `--token-size-display-1` | 150px | Section heading |
+| `--token-size-h5` | 24px | Card title |
+| `--token-size-label-md` | 16px | Label text, client text |
+| `--token-weight-medium` | 500 | Label text |
+| `--token-weight-semibold` | 600 | Section heading, card title |
+| `--token-weight-regular` | 400 | Client text |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css`.
+
+### Pixel-Perfect Checklist (Works Section — Revision 2)
+
+| Item | Status |
+|------|--------|
+| Label container: "( 001 )  MY WORKS" uppercase | ✅ Pass |
+| Label gap between elements: 8px | ✅ Pass |
+| Label vertical padding: 6px | ✅ Pass |
+| Heading "Works" using display-1 (150px) | ✅ Pass |
+| Gap label → heading: 0px | ✅ Pass |
+| Section top padding: 24px | ✅ Pass |
+| Section bottom padding: 192px | ✅ Pass |
+| Gap title container → grid: 256px | ✅ Pass |
+| Grid columns: 2 desktop, 1 mobile | ✅ Pass |
+| Grid column gap: 24px | ✅ Pass |
+| Grid row gap: 64px | ✅ Pass |
+| Card image aspect ratio: 684:455 | ✅ Pass |
+| Card image border-radius: 0px | ✅ Pass |
+| Card gap image → text: 24px | ✅ Pass |
+| Card title (h5): 24px semibold | ✅ Pass |
+| Card client: 16px regular | ✅ Pass |
+| Gap title → client: 12px | ✅ Pass |
+| Uses existing design tokens | ✅ Pass |
+| `npm run lint` passes | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Accessibility
+
+- Section: `aria-label="Works"`
+- Heading: `<h2>` for section title
+- Card title: `<h5>` for project title
+- Card client: `<p>` for descriptive text
+- Images: descriptive `alt` attributes
+- Links: keyboard accessible via `<Link>`
+- Reduced motion: respected via `useReducedMotion()`

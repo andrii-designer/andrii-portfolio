@@ -10,7 +10,7 @@ import Works from "@/components/Works";
  *
  * Works section:
  * - Figma node-id: 2231:5841 (works-section frame)
- * - Placed directly below Hero with no vertical gap
+ * - Placed directly below Hero with no vertical gap beyond Works' own 24px top padding
  *
  * Layout pattern:
  * - Uses .section-wrap + .section-inner from global layout (24px padding via --token-space-24)
@@ -18,42 +18,38 @@ import Works from "@/components/Works";
  *
  * Tokens used:
  * - Background: --token-color-primary (#d2d2d6)
- * - Spacing: --token-space-48, --token-space-64, --token-space-96, --token-space-128
+ * - Spacing: --token-space-24, --token-space-48, --token-space-64, --token-space-192, --token-space-256
  */
 
-/** Sample project data — placeholder images for Works section */
+/** Sample project data — placeholder images for Works section (matches Figma screenshot) */
 const worksProjects = [
   {
-    title: "Portfolio Dashboard",
-    description: "A comprehensive portfolio management dashboard for tracking investments and analyzing performance metrics.",
-    tags: ["Web App", "Dashboard", "Finance"],
+    title: "Find Your Perfect Clinical Rotation",
+    client: "RotationsPlus",
     imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Portfolio Dashboard project preview",
-    href: "/projects/portfolio-dashboard",
+    imageAlt: "Clinical Rotation platform project preview",
+    href: "/projects/rotations-plus",
   },
   {
-    title: "E-Commerce Platform",
-    description: "Modern e-commerce solution with seamless checkout experience and inventory management.",
-    tags: ["Web App", "E-Commerce", "Retail"],
+    title: "Find Your Perfect Clinical Rotation",
+    client: "RotationsPlus",
     imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "E-Commerce Platform project preview",
-    href: "/projects/ecommerce-platform",
+    imageAlt: "Clinical Rotation platform project preview",
+    href: "/projects/rotations-plus-2",
   },
   {
-    title: "Mobile Banking App",
-    description: "Secure and intuitive mobile banking application with real-time transaction tracking.",
-    tags: ["Mobile App", "Finance", "iOS/Android"],
+    title: "Find Your Perfect Clinical Rotation",
+    client: "RotationsPlus",
     imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Mobile Banking App project preview",
-    href: "/projects/mobile-banking",
+    imageAlt: "Clinical Rotation platform project preview",
+    href: "/projects/rotations-plus-3",
   },
   {
-    title: "Healthcare Portal",
-    description: "Patient-centric healthcare portal for appointment scheduling and medical records access.",
-    tags: ["Web App", "Healthcare", "Portal"],
+    title: "Find Your Perfect Clinical Rotation",
+    client: "RotationsPlus",
     imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Healthcare Portal project preview",
-    href: "/projects/healthcare-portal",
+    imageAlt: "Clinical Rotation platform project preview",
+    href: "/projects/rotations-plus-4",
   },
 ];
 
@@ -79,16 +75,15 @@ export default function HomePage() {
       </section>
 
       {/* Works Section — Figma node-id: 2231:5841 */}
+      {/* Section handles its own padding: 24px top, 192px bottom */}
       <section
         className="section-wrap"
-        style={{
-          paddingTop: "var(--token-space-0)", /* No top padding — directly below Hero */
-        }}
         data-node-id="2231:5841"
       >
         <div className="section-inner">
           <Works
             title="Works"
+            index="001"
             projects={worksProjects}
           />
         </div>
