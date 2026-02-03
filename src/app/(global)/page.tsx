@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Works from "@/components/Works";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
 import Image from "next/image";
 
 /**
@@ -131,6 +132,20 @@ export default function HomePage() {
             className="object-cover"
             priority
           />
+        </div>
+      </section>
+
+      {/* Process Section — below Video */}
+      {/* Section handles its own padding: 24px top/left/right, 192px bottom */}
+      <section
+        className="section-wrap"
+        style={{
+          backgroundColor: "var(--token-color-primary)", // Process section uses primary background
+        }}
+        data-node-id="process-section"
+      >
+        <div className="section-inner">
+          <Process />
         </div>
       </section>
     </>

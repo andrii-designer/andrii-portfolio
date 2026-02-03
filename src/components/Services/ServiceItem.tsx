@@ -143,7 +143,7 @@ const ServiceItem = ({
                 className="service-description text-accent"
                 style={{
                   fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-body-xs)", /* 14px */
+                  fontSize: "var(--token-size-body-lg)", /* 18px */
                   fontWeight: "var(--token-weight-semibold)", /* 600 */
                   lineHeight: "var(--token-leading-150)", /* 1.5 */
                   margin: 0,

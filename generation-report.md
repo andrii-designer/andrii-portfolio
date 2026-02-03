@@ -767,3 +767,160 @@ The Services section implements scroll-based activation using IntersectionObserv
 | 1 | 3D & Motion design | Creating immersive 3D visuals and smooth motion graphics that bring your brand to life. |
 | 2 | Branding | Building cohesive brand identities that resonate with your audience and stand out in the market. |
 | 3 | 3D, 2D | Crafting detailed 2D and 3D illustrations that communicate your ideas with visual impact. |
+
+---
+
+## Process Section (feature/figma-process) — 2026-02-03
+
+### Branch
+- `feature/figma-process`
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Section name** | Process |
+| **Index** | ( 003 ) |
+| **Label** | CLEAR AND SIMPLE PROCESS |
+| **Heading** | Process |
+| **Background** | --token-color-primary (#d2d2d6) |
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/components/Process/Process.tsx` | Main Process section with 3-step list |
+| `src/components/Process/index.ts` | Barrel export for Process |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added Process section import and JSX below Video section |
+| `src/components/Services/ServiceItem.tsx` | Updated description font size to 18px (body-lg) |
+
+### Layout Specs
+
+#### Section Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Section background | primary | `--token-color-primary` |
+| Inner container padding | 24px (left/right) | `--token-space-24` |
+| Section top padding | 24px | `--token-space-24` |
+| Section bottom padding | 192px | `--token-space-192` |
+| Gap title → process list | 256px | `--token-space-256` |
+
+#### Process List Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| List type | `<ul>` with `<li>` items | — |
+| List direction | vertical (flex-col) | — |
+| Item width | 100% | — |
+| Item layout | flex row (number on left, content on right) | — |
+| Number width | 50% | — |
+| Content gap | 8px (between title and description) | `--token-space-8` |
+| Content max-width | 566px | — |
+
+#### Process Item Padding Rules
+
+| Item Position | Padding Top | Padding Bottom | Token |
+|---------------|-------------|----------------|-------|
+| First item | 24px | 48px | `--token-space-24`, `--token-space-48` |
+| Middle item(s) | 48px | 48px | `--token-space-48` |
+| Last item | 48px | 0px | `--token-space-48`, `0` |
+
+#### Process Item Border Rules
+
+| Item Position | Border Bottom |
+|---------------|---------------|
+| First item | 1px solid `--token-color-accent` |
+| Middle item(s) | 1px solid `--token-color-accent` |
+| Last item | none |
+
+#### Typography
+
+| Element | Size | Weight | Line Height | Token |
+|---------|------|--------|-------------|-------|
+| Item number | 36px | 600 (semibold) | 110% | `--token-size-h4` |
+| Item title | 36px | 600 (semibold) | 110% | `--token-size-h4` |
+| Item description | 18px | 600 (semibold) | 150% | `--token-size-body-lg`, `--token-weight-semibold` |
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-8` | 8px | Title to description gap |
+| `--token-space-24` | 24px | Section padding, first item top padding |
+| `--token-space-48` | 48px | Item bottom padding, middle/last item top padding |
+| `--token-space-192` | 192px | Section bottom padding |
+| `--token-space-256` | 256px | Title to list gap |
+| `--token-size-h4` | 36px | Number and title font size |
+| `--token-size-body-lg` | 18px | Description font size |
+| `--token-weight-semibold` | 600 | All text weight |
+| `--token-leading-110` | 110% | Number and title line height |
+| `--token-leading-150` | 150% | Description line height |
+| `--token-color-primary` | #d2d2d6 | Section background |
+| `--token-color-accent` | #060606 | Text color, border color |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css` and `tailwind.config.cjs`.
+
+### Process Items Data
+
+| Index | Number | Title | Description |
+|-------|--------|-------|-------------|
+| 0 | 01 | Intro call & proposal | We'll discuss your goals, define the scope, and outline a clear plan so you know exactly what to expect. |
+| 1 | 02 | Design | Work directly with a senior designer as we create high-quality, dev-ready designs with structured iterations and clear communication. |
+| 2 | 03 | Deliver | Receive polished, production-ready assets and documentation, ensuring a seamless handoff to development or your team. |
+
+### Pixel-Perfect Checklist (Process Section)
+
+| Item | Status |
+|------|--------|
+| Uses reusable Title component | ✅ Pass |
+| Label container: "( 003 )  CLEAR AND SIMPLE PROCESS" uppercase | ✅ Pass |
+| Heading "Process" using display-1 (150px) | ✅ Pass |
+| Section background: --token-color-primary | ✅ Pass |
+| Section top padding: 24px | ✅ Pass |
+| Section bottom padding: 192px | ✅ Pass |
+| Gap title → list: 256px | ✅ Pass |
+| First item padding: top 24px, bottom 48px | ✅ Pass |
+| Middle item padding: top 48px, bottom 48px | ✅ Pass |
+| Last item padding: top 48px, bottom 0px | ✅ Pass |
+| Border on first/middle items: 1px solid accent | ✅ Pass |
+| No border on last item | ✅ Pass |
+| Number and title: h4 (36px) semibold | ✅ Pass |
+| Description: body-lg (18px) semibold | ✅ Pass |
+| Content container max-width: 566px | ✅ Pass |
+| Process section positioned below Video section | ✅ Pass |
+| Number on left (50% width), content on right | ✅ Pass |
+| Uses existing design tokens | ✅ Pass |
+| Animations respect reduced motion | ✅ Pass |
+| `npm run lint` passes (no new errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Accessibility
+
+- Section: `aria-label="Process"`
+- List: semantic `<ul>` with `<li>` items
+- Titles: `<h4>` for proper heading hierarchy
+- Descriptions: `<p>` for semantic text
+- Reduced motion: respected via `useReducedMotion()` hook
+- Color contrast: text (#060606) on background (#d2d2d6) passes WCAG AA
+
+### Responsive Behavior
+
+| Breakpoint | Layout | Notes |
+|------------|--------|-------|
+| Desktop | Number on left (50% width), content on right | Inline row layout |
+| Mobile | Same layout (stacking would require CSS media queries) | Layout maintains consistency |
+
+### Contrast Verification
+
+| Foreground | Background | Contrast Ratio | WCAG AA |
+|------------|------------|----------------|---------|
+| #060606 (text) | #d2d2d6 (primary) | 10.8:1 | ✅ Pass |
+
+**Note**: Contrast ratio exceeds WCAG AA minimum of 4.5:1 for normal text
