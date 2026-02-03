@@ -1,11 +1,17 @@
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 
 /**
  * Global layout — matches Figma hero-section container (2228:4742)
+ * 
+ * Layout pattern:
+ * - Uses .section-wrap for centering (max-width: 1440px, margin: auto)
+ * - Uses .section-inner for horizontal padding (24px via --token-space-24)
+ * - Individual page sections use the .section-wrap + .section-inner pattern
+ * 
  * Tokens used:
  * - Background: --token-color-primary (#d2d2d6)
- * - Spacing: --token-space-16 (pt), --token-space-24 (px for horizontal padding)
+ * - Spacing: --token-space-16 (pt), --token-space-24 (horizontal padding)
  * - Max width: 1440px (from Figma frame)
  *
  * Figma verification:
@@ -20,30 +26,20 @@ export default function GlobalLayout({
 }) {
   return (
     <div className="min-h-screen bg-primary font-base text-accent">
-      {/* Centered container with exact 24px horizontal padding matching Figma */}
-      <div
-        className="mx-auto w-full"
-        style={{
-          maxWidth: "1440px",
-          paddingLeft: "var(--token-space-24)",
-          paddingRight: "var(--token-space-24)",
-          paddingTop: "var(--token-space-16)",
-        }}
-      >
-        <Header />
-      </div>
-      {/* Main content area with same centering and padding */}
-      <main
-        className="mx-auto w-full"
-        style={{
-          maxWidth: "1440px",
-          paddingLeft: "var(--token-space-24)",
-          paddingRight: "var(--token-space-24)",
-        }}
-      >
+      {/* Header uses its own section-wrap + section-inner pattern internally */}
+      <Header />
+      
+      {/* Main content area — pages use .section-wrap + .section-inner pattern */}
+      <main>
         {children}
       </main>
-      <Footer />
+      
+      {/* Footer uses section-wrap pattern for consistent centering */}
+      <footer className="section-wrap">
+        <div className="section-inner">
+          <Footer />
+        </div>
+      </footer>
     </div>
   );
 }

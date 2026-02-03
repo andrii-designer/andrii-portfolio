@@ -28,3 +28,40 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/**
+ * Section layout pattern — used for all top-level page sections
+ * Sections are centered horizontally with max-width 1440px
+ * Inner content has 24px horizontal padding via spacing token
+ */
+.section-wrap {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.section-inner {
+  width: 100%;
+  padding-left: var(--token-space-24);
+  padding-right: var(--token-space-24);
+}
+
+/**
+ * Header navigation item padding pattern
+ * Base: 12px left/right padding
+ * First item: no left padding
+ * Last item: no right padding
+ */
+.nav-item {
+  padding-left: var(--token-space-12);
+  padding-right: var(--token-space-12);
+}
+
+.nav-item:first-child {
+  padding-left: 0;
+}
+
+.nav-item:last-child {
+  padding-right: 0;
+}

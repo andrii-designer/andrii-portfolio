@@ -143,10 +143,12 @@ const Hero = ({ title, cta, media }: HeroProps) => {
         )}
 
         {/* Video Preview — Figma node-id: 2224:4206 */}
+        {/* Corner radius: 0px (per Figma spec — all media have 0 border-radius) */}
         {media && (
           <figure
-            className="relative h-[220px] w-[330px] shrink-0 overflow-hidden rounded-[20px]
+            className="relative h-[220px] w-[330px] shrink-0 overflow-hidden rounded-none
               max-md:w-full max-md:h-auto max-md:aspect-[330/220]"
+            style={{ borderRadius: 0 }}
             data-node-id="2224:4206"
           >
             {media.type === "image" ? (
@@ -155,13 +157,15 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 alt="Portfolio preview"
                 fill
                 sizes="(max-width: 768px) 100vw, 330px"
-                className="object-cover"
+                className="rounded-none object-cover"
+                style={{ borderRadius: 0 }}
                 loading="lazy"
               />
             ) : (
               <video
                 src={media.src}
-                className="h-full w-full object-cover"
+                className="h-full w-full rounded-none object-cover"
+                style={{ borderRadius: 0 }}
                 muted
                 autoPlay
                 loop

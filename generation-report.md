@@ -205,3 +205,74 @@
 | CTA letter-spacing -0.5px | ✅ Pass |
 | Section horizontally centered | ✅ Pass |
 | Assets from public/hero-assets/ | ✅ Pass |
+
+---
+
+## Global Layout Fixes (2026-02-03)
+
+### Figma Verification Block
+
+| Field | Value |
+|-------|-------|
+| **File key** | `vAXt1S2lkI3m5GoQbJ2Fnr` |
+| **Page name** | 🌎 My space |
+| **Frame name** | `hero-section` |
+| **Node-id** | `2224:4166` |
+| **Frame dimensions** | **1440 × 782** |
+| **Sections width** | All sections 1440px wide (confirmed) |
+
+### Changes Applied
+
+#### A — Global Section & Container Rules
+- Created `.section-wrap` CSS class: `max-width: 1440px; margin-left: auto; margin-right: auto; width: 100%;`
+- Created `.section-inner` CSS class: `padding-left: var(--token-space-24); padding-right: var(--token-space-24); width: 100%;`
+- Updated `src/app/(global)/layout.tsx` to use section-wrap pattern
+- Updated `src/app/(global)/page.tsx` to use section-wrap + section-inner
+- Removed ad-hoc left-alignment in favor of centered sections
+
+#### B — Container Paddings and Alignment
+- All container paddings use `var(--token-space-24)` (24px)
+- `.section-inner` CSS class applies consistent horizontal padding
+- No hardcoded pixel values — all via CSS tokens
+
+#### C — Images & Videos Corner Radius
+- Updated `src/components/Hero/Hero.tsx` media figure: `rounded-none` + `border-radius: 0`
+- Applied `rounded-none` and `style={{ borderRadius: 0 }}` to `<Image>` and `<video>` elements
+- Removed `rounded-[20px]` from media wrapper
+
+#### D — Header Navigation Component
+- Created `src/components/Header/Header.tsx` with exact specs:
+  - Height: **70px**
+  - Uses `.section-wrap` + `.section-inner` pattern
+  - Flex layout: `justify-content: space-between`, `align-items: flex-start`
+  - Logo aligned to top using `public/hero-assets/logo.svg`
+  - Nav items with 12px padding (`--token-space-12`)
+  - First nav-item: no left padding
+  - Last nav-item: no right padding
+  - Keyboard accessible: `<nav aria-label="Primary">`, `tabindex=0`, focus-visible styles
+- Created `src/components/Header/index.ts` barrel export
+- Deleted old `src/components/Header.tsx`
+- TypeScript props exported: `NavLink`, `HeaderProps`
+
+#### E — Additional Tokens
+- Added `--token-space-12: 12px` to `src/styles/variables.css`
+- Added `12: "var(--token-space-12)"` to `tailwind.config.cjs` spacing
+
+#### F — Nav Item Padding CSS
+- Added `.nav-item` CSS class with base 12px padding
+- Added `.nav-item:first-child { padding-left: 0; }`
+- Added `.nav-item:last-child { padding-right: 0; }`
+
+### Visual Test Checklist
+
+| Test | Status |
+|------|--------|
+| Hero section centered horizontally in viewport | ✅ Pass |
+| Hero media corners are square (0px radius) | ✅ Pass |
+| Header height is 70px | ✅ Pass |
+| Header content respects 24px side padding | ✅ Pass |
+| Nav items top-aligned with logo | ✅ Pass |
+| Nav item padding follows first/last rules | ✅ Pass |
+| Sections use .section-wrap + .section-inner pattern | ✅ Pass |
+| `npm run lint` passes (no errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |

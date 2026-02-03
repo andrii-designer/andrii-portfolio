@@ -5,8 +5,12 @@ import Hero from "@/components/Hero";
  * Figma node-id: 2224:4166 (hero-section frame)
  * Frame dimensions: 1440 × 782
  *
+ * Layout pattern:
+ * - Uses .section-wrap + .section-inner from global layout (24px padding via --token-space-24)
+ * - Hero section is centered within 1440px container
+ *
  * Figma verification (node 2224:4166):
- * - Horizontal padding: 24px (handled by layout)
+ * - Horizontal padding: 24px (handled by layout's .section-inner)
  * - Gap header → content: 48px
  * - Gap title → bottom-row: 128px
  *
@@ -16,18 +20,21 @@ import Hero from "@/components/Hero";
  */
 export default function HomePage() {
   return (
-    <div
-      className="flex w-full flex-col pb-24"
+    <section
+      className="section-wrap"
       style={{
-        gap: "var(--token-space-48)", /* Gap between header and content: 48px */
+        paddingTop: "var(--token-space-48)", /* Gap between header and content: 48px */
+        paddingBottom: "var(--token-space-24)",
       }}
       data-node-id="2228:4742"
     >
-      <Hero
-        title="Digital designer helping founders and product owners"
-        cta={{ text: "Book a call", href: "/contact" }}
-        media={{ type: "image", src: "/hero-assets/video-preview.png" }}
-      />
-    </div>
+      <div className="section-inner">
+        <Hero
+          title="Digital designer helping founders and product owners"
+          cta={{ text: "Book a call", href: "/contact" }}
+          media={{ type: "image", src: "/hero-assets/video-preview.png" }}
+        />
+      </div>
+    </section>
   );
 }

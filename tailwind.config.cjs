@@ -54,6 +54,7 @@ module.exports = {
         0: "var(--token-space-0)",
         4: "var(--token-space-4)",
         8: "var(--token-space-8)",
+        12: "var(--token-space-12)",
         16: "var(--token-space-16)",
         24: "var(--token-space-24)",
         32: "var(--token-space-32)",
