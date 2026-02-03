@@ -131,7 +131,12 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
               width={24}
               height={24}
               priority
-              style={{ borderRadius: "9999px" }}
+              style={{
+                borderRadius: "9999px",
+                width: "24px",
+                height: "24px",
+                objectFit: "cover",
+              }}
             />
             <span
               className="text-accent"
