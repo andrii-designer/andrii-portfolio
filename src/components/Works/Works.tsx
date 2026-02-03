@@ -10,7 +10,7 @@ import WorkCard, { WorkCardProps } from "./WorkCard";
  * Layout specs (from Figma screenshot):
  * - Section padding: 24px top, 192px bottom, 24px left/right (via section-inner)
  * - Title container: vertical stack, gap 0 between label and heading
- * - Label: "( 001 )  MY WORKS" - 16px, medium, uppercase, 6px vertical padding
+ * - Label: "( 001 )  MY WORKS" - 16px, semibold, uppercase, 6px vertical padding
  * - Heading: "Works" - 150px display-1, semibold
  * - Gap title container → grid: 256px
  * - Grid: 2 columns desktop, 1 mobile
@@ -19,7 +19,7 @@ import WorkCard, { WorkCardProps } from "./WorkCard";
  *
  * Tokens used:
  * - Spacing: --token-space-6, --token-space-8, --token-space-24, --token-space-64, --token-space-192, --token-space-256
- * - Typography: --token-size-display-1, --token-size-label-md, --token-weight-semibold, --token-weight-medium
+ * - Typography: --token-size-display-1, --token-size-label-md, --token-weight-semibold
  * - Colors: --token-color-accent
  */
 
@@ -103,7 +103,7 @@ const Works = ({ title = "Works", index = "001", projects }: WorksProps) => {
             style={{
               fontFamily: "var(--token-font-family-base)",
               fontSize: "var(--token-size-label-md)", /* 16px */
-              fontWeight: "var(--token-weight-medium)", /* 500 */
+              fontWeight: "var(--token-weight-semibold)", /* 600 */
               lineHeight: "var(--token-leading-140)", /* 1.4 */
               textTransform: "uppercase",
               letterSpacing: "0.5px",
@@ -116,7 +116,7 @@ const Works = ({ title = "Works", index = "001", projects }: WorksProps) => {
             style={{
               fontFamily: "var(--token-font-family-base)",
               fontSize: "var(--token-size-label-md)", /* 16px */
-              fontWeight: "var(--token-weight-medium)", /* 500 */
+              fontWeight: "var(--token-weight-semibold)", /* 600 */
               lineHeight: "var(--token-leading-140)", /* 1.4 */
               textTransform: "uppercase",
               letterSpacing: "0.5px",

@@ -10,7 +10,7 @@ import Works from "@/components/Works";
  *
  * Works section:
  * - Figma node-id: 2231:5841 (works-section frame)
- * - Placed directly below Hero with no vertical gap beyond Works' own 24px top padding
+ * - Placed directly below Hero (Hero has 24px bottom padding; Works has 24px top padding)
  *
  * Layout pattern:
  * - Uses .section-wrap + .section-inner from global layout (24px padding via --token-space-24)
@@ -61,7 +61,7 @@ export default function HomePage() {
         className="section-wrap"
         style={{
           paddingTop: "var(--token-space-48)", /* Gap between header and content: 48px */
-          paddingBottom: "var(--token-space-0)", /* No bottom padding — Works follows directly */
+          paddingBottom: "var(--token-space-24)", /* Hero bottom padding: 24px */
         }}
         data-node-id="2228:4742"
       >
@@ -78,6 +78,9 @@ export default function HomePage() {
       {/* Section handles its own padding: 24px top, 192px bottom */}
       <section
         className="section-wrap"
+        style={{
+          backgroundColor: "var(--token-color-base)", // Works section uses base background (not primary)
+        }}
         data-node-id="2231:5841"
       >
         <div className="section-inner">

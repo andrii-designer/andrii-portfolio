@@ -450,6 +450,11 @@
 | Container alignment | left (flex-start) | — |
 | Gap between label and heading | 0px | — |
 
+#### Works Section Background
+| Property | Value | Token |
+|----------|-------|-------|
+| Section background | base | `--token-color-base` |
+
 #### B) Label Container ("( 001 )  MY WORKS")
 | Property | Value | Token |
 |----------|-------|-------|
@@ -458,7 +463,7 @@
 | Padding top/bottom | 6px | `--token-space-6` |
 | Padding left/right | 0px | — |
 | Font size | 16px | `--token-size-label-md` |
-| Font weight | 500 (medium) | `--token-weight-medium` |
+| Font weight | 600 (semibold) | `--token-weight-semibold` |
 | Text transform | uppercase | — |
 | Letter spacing | 0.5px | — |
 | Content | "( 001 )" + "MY WORKS" | — |
@@ -530,8 +535,7 @@
 | `--token-size-display-1` | 150px | Section heading |
 | `--token-size-h5` | 24px | Card title |
 | `--token-size-label-md` | 16px | Label text, client text |
-| `--token-weight-medium` | 500 | Label text |
-| `--token-weight-semibold` | 600 | Section heading, card title |
+| `--token-weight-semibold` | 600 | Section heading, card title, label text |
 | `--token-weight-regular` | 400 | Client text |
 
 **Note**: No new tokens were needed — all required values already existed in `variables.css`.
@@ -541,6 +545,7 @@
 | Item | Status |
 |------|--------|
 | Label container: "( 001 )  MY WORKS" uppercase | ✅ Pass |
+| Label weight: semibold (600) | ✅ Pass |
 | Label gap between elements: 8px | ✅ Pass |
 | Label vertical padding: 6px | ✅ Pass |
 | Heading "Works" using display-1 (150px) | ✅ Pass |
