@@ -54,33 +54,15 @@ a {
 }
 
 /**
- * Header navigation item padding pattern
- * Base: 12px left/right padding
- * First item: no left padding
- * Last item: no right padding
+ * Header navigation interactions (link items only)
+ * Note: padding for link items is controlled in `Header.tsx` so dividers ("/") can
+ * be their own independent list items with zero horizontal padding.
  */
-.nav-item {
-  padding-left: var(--token-space-12);
-  padding-right: var(--token-space-12);
-}
-
-.nav-item:first-child {
-  padding-left: 0;
-}
-
-.nav-item:last-child {
-  padding-right: 0;
-}
-
-/**
- * Nav hover/focus dot (for each nav item)
- * Dot color uses --token-color-primary
- */
-.nav-item {
+.header-nav-link {
   position: relative;
 }
 
-.nav-item::after {
+.header-nav-link::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -94,8 +76,16 @@ a {
   transition: opacity 0.16s ease, transform 0.16s ease;
 }
 
-.nav-item:hover::after,
-.nav-item:focus-within::after {
+.header-nav-link:hover::after,
+.header-nav-link:focus-within::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+/* Header nav divider ("/") — independent, non-interactive, no horizontal padding */
+.header-nav-divider {
+  padding-left: 0;
+  padding-right: 0;
+  pointer-events: none;
+  user-select: none;
 }

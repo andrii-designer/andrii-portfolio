@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 
 /**
  * Header — Figma node-id: 2228:4741
@@ -67,60 +68,70 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
           />
         </Link>
 
-        {/* Right: Nav + Avatar block (top-aligned) */}
-        <div className="flex items-start" style={{ gap: "var(--token-space-16)" }}>
+        {/* Right: Nav + Avatar block */}
+        <div className="flex items-center" style={{ gap: "var(--token-space-24)" }}>
           <nav aria-label="Primary">
-            <ul className="flex items-start" style={{ margin: 0, padding: 0, listStyle: "none" }}>
+            <ul className="flex items-center" style={{ margin: 0, padding: 0, listStyle: "none" }}>
               {links.map((item, index) => (
-                <li
-                  key={item.label}
-                  className="nav-item flex items-center"
-                  style={{
-                    paddingLeft: index === 0 ? 0 : "var(--token-space-12)",
-                    paddingRight: index === links.length - 1 ? 0 : "var(--token-space-12)",
-                  }}
-                >
-                  {index > 0 && (
-                    <span
-                      className="text-accent"
+                <Fragment key={item.label}>
+                  <li
+                    className="header-nav-link flex items-center"
+                    style={{
+                      paddingLeft: index === 0 ? 0 : "var(--token-space-12)",
+                      paddingRight: index === links.length - 1 ? 0 : "var(--token-space-12)",
+                    }}
+                  >
+                    <Link
+                      href={item.href}
+                      className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                       style={{
                         fontFamily: "var(--token-font-family-base)",
                         fontSize: "var(--token-size-label-md)",
                         fontWeight: "var(--token-weight-semibold)",
                         lineHeight: "var(--token-leading-115)",
-                        paddingRight: "var(--token-space-12)",
                       }}
+                      tabIndex={0}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+
+                  {index !== links.length - 1 && (
+                    <li
+                      className="header-nav-divider flex items-center text-accent"
                       aria-hidden="true"
+                      style={{
+                        paddingLeft: 0,
+                        paddingRight: 0,
+                        fontFamily: "var(--token-font-family-base)",
+                        fontSize: "var(--token-size-label-md)",
+                        fontWeight: "var(--token-weight-semibold)",
+                        lineHeight: "var(--token-leading-115)",
+                      }}
                     >
                       /
-                    </span>
+                    </li>
                   )}
-                  <Link
-                    href={item.href}
-                    className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    style={{
-                      fontFamily: "var(--token-font-family-base)",
-                      fontSize: "var(--token-size-label-md)",
-                      fontWeight: "var(--token-weight-semibold)",
-                      lineHeight: "var(--token-leading-115)",
-                    }}
-                    tabIndex={0}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                </Fragment>
               ))}
             </ul>
           </nav>
 
-          <div className="flex items-start" style={{ gap: "var(--token-space-8)" }}>
+          <div
+            className="header-avatar flex"
+            style={{
+              height: "24px",
+              alignItems: "center",
+              gap: "var(--token-space-16)",
+            }}
+          >
             <Image
               src="/hero-assets/avatar.png"
-              alt="Andrii Vynarchyk avatar"
+              alt="Avatar of Andrii Vynarchyk"
               width={24}
               height={24}
               priority
-              style={{ borderRadius: 0 }}
+              style={{ borderRadius: "9999px" }}
             />
             <span
               className="text-accent"
@@ -132,7 +143,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 letterSpacing: "-0.5px",
               }}
             >
-              Andrii
+              Hi, I’m Andrii Vynarchyk
             </span>
           </div>
         </div>

@@ -305,3 +305,19 @@
 | Sections use .section-wrap + .section-inner pattern | ✅ Pass |
 | `npm run lint` passes (no errors) | ✅ Pass |
 | `npm run build` passes | ✅ Pass |
+
+---
+
+## Header Navigation Divider + Avatar Container Fix (2026-02-03)
+
+- **Navigation divider structure**:
+  - Updated header nav markup so each “/” divider is its **own independent `<li>`** (not inside/around link containers).
+  - Divider list items contain only the `/` character, have **no horizontal padding**, and are non-interactive (`pointer-events: none` via `.header-nav-divider`).
+  - Navigation links remain keyboard-accessible within `<nav aria-label="Primary">`.
+  - Link list items use **12px left/right padding** with **first link: no left padding** and **last link: no right padding**.
+
+- **Avatar container dimensions & spacing**:
+  - Avatar image: `public/hero-assets/avatar.png`, **24×24**, fully rounded (circle), with descriptive `alt`.
+  - Avatar text: **“Hi, I’m Andrii Vynarchyk”** using existing label typography tokens.
+  - Avatar container: **height 24px**, flex row, `align-items: center`, **16px gap** (`--token-space-16`) between image and text.
+  - Nav + avatar wrapper: flex row with **24px gap** (`--token-space-24`), vertically center-aligned so nav aligns with the avatar container.
