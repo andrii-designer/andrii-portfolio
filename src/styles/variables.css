@@ -10,7 +10,8 @@
   --token-color-accent: #060606;
 
   /* Typography — font family */
-  --token-font-family-base: Manrope, system-ui, sans-serif;
+  /* Uses the CSS variable set by next/font/google for optimal font loading */
+  --token-font-family-base: var(--font-manrope), 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   /* Typography — font sizes */
   --token-size-display-1: 150px;

@@ -14,6 +14,7 @@ module.exports = {
       },
       fontFamily: {
         base: ["var(--token-font-family-base)", "system-ui", "sans-serif"],
+        manrope: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "'Segoe UI'", "Roboto", "'Helvetica Neue'", "Arial", "sans-serif"],
       },
       fontSize: {
         "display-1": "var(--token-size-display-1)",

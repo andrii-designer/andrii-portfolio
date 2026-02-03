@@ -8,12 +8,21 @@ import { motion, useReducedMotion } from "framer-motion";
  * Hero — Figma node-id: 2224:4198 (Content frame)
  * Part of hero-section frame (2224:4166)
  *
+ * Figma verification (node 2224:4166):
+ * - Frame dimensions: 1440 × 782
+ * - Gap title → bottom-row: 128px (--token-space-128)
+ * - Title: 84px, semibold (600), line-height 1.1, letter-spacing -6px
+ * - CTA: 24px, semibold (600), line-height 1.4, letter-spacing -0.5px
+ *
  * Tokens used:
  * - Colors: --token-color-accent (#060606), --token-color-primary (#d2d2d6)
- * - Typography: --token-font-family-base, --token-size-h1 (84px), --token-size-h5 (24px), --token-weight-semibold, --token-leading-110, --token-leading-140
- * - Spacing: --token-space-24, --token-space-32, --token-space-48, --token-space-128
+ * - Typography: --token-font-family-base (Manrope), --token-size-h1 (84px), --token-size-h5 (24px)
+ * - Typography: --token-weight-semibold (600), --token-leading-110, --token-leading-140
+ * - Spacing: --token-space-24, --token-space-32, --token-space-128
  *
- * Figma frame dimensions: 1440 × 782
+ * Assets from public/hero-assets/:
+ * - arrow-icon.svg (CTA arrow)
+ * - video-preview.png (media preview)
  */
 
 export type HeroProps = {
@@ -52,17 +61,28 @@ const Hero = ({ title, cta, media }: HeroProps) => {
   return (
     <motion.section
       {...containerMotion}
-      className="flex w-full flex-col gap-128"
+      className="flex w-full flex-col"
+      style={{
+        gap: "var(--token-space-128)", /* Gap title → bottom-row: 128px (exact from Figma) */
+        fontFamily: "var(--token-font-family-base)", /* Manrope font */
+      }}
       aria-label="Hero"
       data-node-id="2224:4198"
     >
       {/* Hero Title — Figma node-id: 2224:4199 */}
+      {/* Typography: 84px, semibold (600), line-height 1.1, letter-spacing -6px */}
       <motion.h1
         {...titleMotion}
-        className="max-w-[920px] text-h1 font-semibold leading-110 tracking-[-6px] text-accent
-          max-lg:text-h2 max-lg:tracking-[-4px] max-lg:max-w-[700px]
-          max-md:text-h3 max-md:tracking-[-1px] max-md:max-w-full
-          max-sm:text-h4"
+        className="max-w-[920px] text-accent
+          max-lg:max-w-[700px]
+          max-md:max-w-full"
+        style={{
+          fontFamily: "var(--token-font-family-base)",
+          fontSize: "var(--token-size-h1)", /* 84px */
+          fontWeight: "var(--token-weight-semibold)", /* 600 */
+          lineHeight: "var(--token-leading-110)", /* 1.1 / 110% */
+          letterSpacing: "-6px", /* Exact letter-spacing from Figma */
+        }}
         data-node-id="2224:4199"
       >
         {title}
@@ -71,24 +91,42 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       {/* Bottom Row — Figma node-id: 2224:4200 */}
       <motion.div
         {...bottomRowMotion}
-        className="flex w-full items-end justify-between gap-24
-          max-md:flex-col max-md:items-start max-md:gap-48"
+        className="flex w-full items-end justify-between
+          max-md:flex-col max-md:items-start"
+        style={{
+          gap: "var(--token-space-24)", /* 24px gap between CTA and media */
+        }}
         data-node-id="2224:4200"
       >
         {/* CTA Button — Figma node-id: 2231:5208 */}
         {cta && (
           <Link
             href={cta.href}
-            className="group flex items-center gap-32 py-[12px] transition-opacity hover:opacity-70"
+            className="group flex items-center py-[12px] transition-opacity hover:opacity-70"
+            style={{
+              gap: "var(--token-space-32)", /* 32px gap between content and arrow */
+            }}
             aria-label={cta.text}
             data-node-id="2231:5208"
           >
-            <span className="flex items-center gap-24">
+            <span
+              className="flex items-center"
+              style={{ gap: "var(--token-space-24)" }} /* 24px gap */
+            >
               <span
                 className="size-24 shrink-0 rounded-full bg-accent"
                 aria-hidden="true"
               />
-              <span className="text-h5 font-semibold leading-140 tracking-[-0.5px] text-accent">
+              <span
+                className="text-accent"
+                style={{
+                  fontFamily: "var(--token-font-family-base)",
+                  fontSize: "var(--token-size-h5)", /* 24px */
+                  fontWeight: "var(--token-weight-semibold)", /* 600 */
+                  lineHeight: "var(--token-leading-140)", /* 1.4 / 140% */
+                  letterSpacing: "-0.5px", /* Exact letter-spacing from Figma */
+                }}
+              >
                 {cta.text}
               </span>
             </span>
