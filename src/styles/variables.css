@@ -21,14 +21,14 @@
   --token-size-h4: 36px;
   --token-size-h5: 24px;
   --token-size-h6: 20px;
-  --token-size-body-lg: 24px;
-  --token-size-body-md: 20px;
-  --token-size-body-sm: 18px;
-  --token-size-body-xs: 16px;
-  --token-size-overline: 12px;
+  --token-size-body-lg: 18px;
+  --token-size-body-md: 16px;
+  --token-size-body-sm: 12px;
+  --token-size-body-xs: 14px;
   --token-size-label-lg: 18px;
   --token-size-label-md: 16px;
   --token-size-label-sm: 14px;
+  --token-size-overline: 12px;
 
   /* Typography — line heights */
   --token-leading-100: 100%;
