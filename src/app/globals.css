@@ -89,3 +89,56 @@ a {
   pointer-events: none;
   user-select: none;
 }
+
+/**
+ * Label Link tokens — underlined link variants of label sizes
+ * All use 115% line height, medium weight, 0px letter spacing, with underline
+ * - label-link-lg: 18px
+ * - label-link-md: 16px
+ * - label-link-sm: 14px
+ */
+.label-link-lg {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-label-lg); /* 18px */
+  font-weight: var(--token-weight-medium); /* 500 */
+  line-height: var(--token-leading-115); /* 115% */
+  letter-spacing: 0px;
+  color: var(--token-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.label-link-md {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-label-md); /* 16px */
+  font-weight: var(--token-weight-medium); /* 500 */
+  line-height: var(--token-leading-115); /* 115% */
+  letter-spacing: 0px;
+  color: var(--token-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.label-link-sm {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-label-sm); /* 14px */
+  font-weight: var(--token-weight-medium); /* 500 */
+  line-height: var(--token-leading-115); /* 115% */
+  letter-spacing: 0px;
+  color: var(--token-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.label-link-lg:hover,
+.label-link-md:hover,
+.label-link-sm:hover {
+  text-decoration-thickness: 2px;
+}
+
+.label-link-lg:focus-visible,
+.label-link-md:focus-visible,
+.label-link-sm:focus-visible {
+  outline: 2px solid var(--token-color-accent);
+  outline-offset: 2px;
+}

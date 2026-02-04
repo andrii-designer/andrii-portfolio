@@ -351,20 +351,12 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                     >
                       •
                     </span>
+                    {/* LinkedIn link using label-link-md token (16px, medium, underlined) */}
                     <a
                       href={currentTestimonial.linkedInUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="testimonials-linkedin-link"
-                      style={{
-                        fontFamily: "var(--token-font-family-base)",
-                        fontSize: "var(--token-size-label-md)" /* 16px */,
-                        fontWeight: "var(--token-weight-medium)" /* 500 */,
-                        lineHeight: "var(--token-leading-115)" /* 115% */,
-                        letterSpacing: "0px",
-                        color: "var(--token-color-accent)",
-                        textDecoration: "none",
-                      }}
+                      className="label-link-md"
                     >
                       LinkedIn
                     </a>
@@ -403,6 +395,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             </span>
 
             {/* Previous Button — 70x70px, active (dark bg) when not on first slide */}
+            {/* disabled arrow.svg points LEFT, active arrow.svg points RIGHT */}
+            {/* Previous button should always point LEFT: disabled uses disabled arrow (no rotation), active uses active arrow (rotate 180°) */}
             <button
               type="button"
               onClick={() => paginate(-1)}
@@ -436,12 +430,14 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                 height={16}
                 aria-hidden="true"
                 style={{
-                  transform: "rotate(180deg)",
+                  /* Disabled arrow points LEFT (no rotation needed), Active arrow points RIGHT (rotate 180° to point LEFT) */
+                  transform: isFirstSlide ? "none" : "rotate(180deg)",
                 }}
               />
             </button>
 
             {/* Next Button — 70x70px, active (dark bg) when not on last slide */}
+            {/* Next button should always point RIGHT: disabled uses disabled arrow (rotate 180°), active uses active arrow (no rotation) */}
             <button
               type="button"
               onClick={() => paginate(1)}
@@ -474,6 +470,10 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                 width={25}
                 height={16}
                 aria-hidden="true"
+                style={{
+                  /* Disabled arrow points LEFT (rotate 180° to point RIGHT), Active arrow points RIGHT (no rotation needed) */
+                  transform: isLastSlide ? "rotate(180deg)" : "none",
+                }}
               />
             </button>
           </div>
@@ -483,14 +483,6 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
       {/* Focus styles for navigation buttons */}
       <style jsx>{`
         .testimonials-nav-btn:focus-visible {
-          outline: 2px solid var(--token-color-accent);
-          outline-offset: 2px;
-        }
-        .testimonials-linkedin-link:hover,
-        .testimonials-linkedin-link:focus {
-          text-decoration: underline;
-        }
-        .testimonials-linkedin-link:focus-visible {
           outline: 2px solid var(--token-color-accent);
           outline-offset: 2px;
         }

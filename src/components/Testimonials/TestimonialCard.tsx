@@ -60,12 +60,12 @@ const TestimonialCard = ({
         width: "100%",
       }}
     >
-      {/* Decorative quotation mark SVG */}
+      {/* Decorative quotation mark SVG — 48px gap to testimonial text */}
       <div
         aria-hidden="true"
         className="testimonial-quote"
         style={{
-          marginBottom: "var(--token-space-24)",
+          marginBottom: "var(--token-space-48)" /* 48px gap */,
           userSelect: "none",
         }}
       >

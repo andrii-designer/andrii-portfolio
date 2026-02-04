@@ -992,7 +992,7 @@ The Services section implements scroll-based activation using IntersectionObserv
 |----------|-------|-------|
 | Asset | quote.svg | — |
 | Dimensions | 31×24px | — |
-| Margin bottom | 24px | `--token-space-24` |
+| Gap to testimonial text | 48px | `--token-space-48` |
 
 #### Control Row
 
@@ -1029,9 +1029,13 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Page indicator letter spacing | 0px | — |
 | Page indicator line height | 115% | `--token-leading-115` |
 | Active button bg | `--token-color-accent` (#060606) | `--token-color-accent` |
-| Active arrow asset | active arrow.svg (25×16px, rotated 180° for prev) | — |
-| Disabled arrow asset | disabled arrow.svg (25×16px) | — |
 | Disabled button bg | transparent | — |
+
+**Arrow Assets & Direction Logic:**
+- `active arrow.svg` (25×16px) — points RIGHT (base color fill)
+- `disabled arrow.svg` (25×16px) — points LEFT (primary color fill)
+- Previous button: uses disabled arrow (no rotation) when disabled, active arrow (rotate 180°) when active → always points LEFT
+- Next button: uses active arrow (no rotation) when active, disabled arrow (rotate 180°) when disabled → always points RIGHT
 
 ### Slider Behavior
 
@@ -1092,8 +1096,21 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Token | Size | Line Height | Usage |
 |-------|------|-------------|-------|
 | `--token-size-label-lg` | 18px | 115% | Large labels |
-| `--token-size-label-md` | 16px | 115% | Client role, LinkedIn, page indicator |
+| `--token-size-label-md` | 16px | 115% | Client role, page indicator |
 | `--token-size-label-sm` | 14px | 115% | Small labels |
+
+### Label Link Classes (Added to globals.css)
+
+| Class | Size | Weight | Line Height | Underline |
+|-------|------|--------|-------------|-----------|
+| `.label-link-lg` | 18px | medium (500) | 115% | Yes (2px offset) |
+| `.label-link-md` | 16px | medium (500) | 115% | Yes (2px offset) |
+| `.label-link-sm` | 14px | medium (500) | 115% | Yes (2px offset) |
+
+- All label-link classes have `text-decoration: underline` with `text-underline-offset: 2px`
+- Hover state: `text-decoration-thickness: 2px`
+- Focus-visible: outline ring
+- Used for: LinkedIn link in testimonials
 
 **Note**: No new tokens were needed — all required values already existed in `variables.css` and `tailwind.config.cjs`.
 
@@ -1117,6 +1134,7 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Section bottom padding: 192px | ✅ Pass |
 | Gap title → content: 256px | ✅ Pass |
 | Decorative quote mark: quote.svg (31×24px) | ✅ Pass |
+| Quote to testimonial gap: 48px | ✅ Pass |
 | Testimonial text max-width: 1038px | ✅ Pass |
 | Testimonial text: h4 (36px) semibold | ✅ Pass |
 | Gap testimonial → control row: 80px | ✅ Pass |
@@ -1128,11 +1146,12 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Page indicator: "1/3" format, label-md (16px) medium, 0px, 115% | ✅ Pass |
 | Gap indicator to arrows: 64px | ✅ Pass |
 | Control buttons: 70×70px | ✅ Pass |
-| First slide: left arrow disabled (no bg), right arrow active (dark bg) | ✅ Pass |
-| Middle slides: both arrows active (dark bg) | ✅ Pass |
-| Last slide: left arrow active (dark bg), right arrow disabled (no bg) | ✅ Pass |
-| Active arrow: active arrow.svg (rotated 180° for prev) | ✅ Pass |
-| Disabled arrow: disabled arrow.svg | ✅ Pass |
+| First slide: left arrow disabled (no bg, points LEFT), right arrow active (dark bg, points RIGHT) | ✅ Pass |
+| Middle slides: both arrows active (dark bg, prev points LEFT, next points RIGHT) | ✅ Pass |
+| Last slide: left arrow active (dark bg, points LEFT), right arrow disabled (no bg, points RIGHT) | ✅ Pass |
+| Previous arrow: disabled arrow.svg (no rotation) when disabled, active arrow.svg (rotate 180°) when active | ✅ Pass |
+| Next arrow: active arrow.svg (no rotation) when active, disabled arrow.svg (rotate 180°) when disabled | ✅ Pass |
+| LinkedIn link uses label-link-md class (underlined) | ✅ Pass |
 | Keyboard navigation (arrow keys) | ✅ Pass |
 | Touch/swipe support | ✅ Pass |
 | Respects prefers-reduced-motion | ✅ Pass |
