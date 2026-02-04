@@ -53,8 +53,8 @@ export default function AboutDescription() {
             style={{
               flex: "1 1 auto",
               minWidth: 0,
-              width: "566px",
-              maxWidth: "566px",
+              width: "100%",
+              maxWidth: "none",
               display: "flex",
               flexDirection: "column",
               gap: "var(--token-space-24)",
