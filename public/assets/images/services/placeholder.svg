@@ -1,0 +1,7 @@
+<svg width="533" height="353" viewBox="0 0 533 353" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="533" height="353" fill="#E3E3E5"/>
+  <rect x="0.5" y="0.5" width="532" height="352" stroke="#D2D2D6"/>
+  <path d="M266.5 140L296.5 200H236.5L266.5 140Z" fill="#D2D2D6"/>
+  <circle cx="266.5" cy="200" r="30" fill="#D2D2D6"/>
+  <text x="266.5" y="260" text-anchor="middle" fill="#060606" font-family="system-ui, sans-serif" font-size="14" font-weight="500">Service Preview</text>
+</svg>

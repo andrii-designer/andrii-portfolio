@@ -10,7 +10,8 @@
   --token-color-accent: #060606;
 
   /* Typography — font family */
-  --token-font-family-base: Manrope, system-ui, sans-serif;
+  /* Uses the CSS variable set by next/font/google for optimal font loading */
+  --token-font-family-base: var(--font-manrope), 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   /* Typography — font sizes */
   --token-size-display-1: 150px;
@@ -21,14 +22,14 @@
   --token-size-h4: 36px;
   --token-size-h5: 24px;
   --token-size-h6: 20px;
-  --token-size-body-lg: 24px;
-  --token-size-body-md: 20px;
-  --token-size-body-sm: 18px;
-  --token-size-body-xs: 16px;
-  --token-size-overline: 12px;
+  --token-size-body-lg: 18px;
+  --token-size-body-md: 16px;
+  --token-size-body-sm: 12px;
+  --token-size-body-xs: 14px;
   --token-size-label-lg: 18px;
   --token-size-label-md: 16px;
   --token-size-label-sm: 14px;
+  --token-size-overline: 12px;
 
   /* Typography — line heights */
   --token-leading-100: 100%;
@@ -49,7 +50,9 @@
   /* Spacing (source: spacing and colors.css) */
   --token-space-0: 0px;
   --token-space-4: 4px;
+  --token-space-6: 6px;
   --token-space-8: 8px;
+  --token-space-12: 12px;
   --token-space-16: 16px;
   --token-space-24: 24px;
   --token-space-32: 32px;
