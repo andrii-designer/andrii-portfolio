@@ -3,6 +3,7 @@ import Works from "@/components/Works";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
+import BookCall from "@/components/BookCall";
 import Image from "next/image";
 
 /**
@@ -169,6 +170,9 @@ export default function HomePage() {
           <Testimonials />
         </div>
       </section>
+
+      {/* Book a call Section — directly below Testimonials */}
+      <BookCall />
     </>
   );
 }
