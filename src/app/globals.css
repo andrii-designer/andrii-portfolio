@@ -104,8 +104,8 @@ a {
   line-height: var(--token-leading-115); /* 115% */
   letter-spacing: 0px;
   color: var(--token-color-accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  display: inline-block;
+  text-decoration: none !important;
 }
 
 .label-link-md {
@@ -115,8 +115,8 @@ a {
   line-height: var(--token-leading-115); /* 115% */
   letter-spacing: 0px;
   color: var(--token-color-accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  display: inline-block;
+  text-decoration: none !important;
 }
 
 .label-link-sm {
@@ -126,14 +126,17 @@ a {
   line-height: var(--token-leading-115); /* 115% */
   letter-spacing: 0px;
   color: var(--token-color-accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  display: inline-block;
+  text-decoration: none !important;
 }
 
 .label-link-lg:hover,
 .label-link-md:hover,
 .label-link-sm:hover {
+  text-decoration: underline !important;
+  text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }
 
 .label-link-lg:focus-visible,
