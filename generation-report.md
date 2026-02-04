@@ -1311,3 +1311,186 @@ The Services section implements scroll-based activation using IntersectionObserv
 - Illustration: descriptive `alt="Book a call illustration"`
 - Button: keyboard accessible via BookCallButton component
 - Button: visible focus styles inherited from BookCallButton
+
+---
+
+## Footer Section (feature/figma-footer) — 2026-02-04
+
+### Branch
+- `feature/figma-footer`
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Section name** | Footer |
+| **Background** | --token-color-base (#e3e3e5) |
+| **Email** | andriyvynar@gmail.com |
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/components/Footer/Footer.tsx` | Main Footer section with email, copy icon, links, logo, and copyright |
+| `src/components/Footer/index.ts` | Barrel export for Footer |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added Footer section import and JSX as last section on page |
+
+### Files Deleted
+
+| File | Reason |
+|------|--------|
+| `src/components/Footer.tsx` | Replaced with new Footer component in dedicated folder |
+
+### Assets Used
+
+| Asset | Path | Type |
+|-------|------|------|
+| **Copy icon** | `public/assets/images/footer/copy icon.svg` | SVG (38x38px) |
+| **Logo** | `public/hero-assets/logo.svg` | SVG (rendered at 150px height) |
+
+### Layout Specs
+
+#### Section Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Section background | base | `--token-color-base` |
+| Inner container padding left/right | 24px | `--token-space-24` |
+| Inner container padding top | 128px | `--token-space-128` |
+| Inner container padding bottom | 24px | `--token-space-24` |
+
+#### Content Layout
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Main content gap | 48px | `--token-space-48` |
+| Top row layout | flex row, space-between | — |
+| Bottom row margin-top | 128px | `--token-space-128` |
+| Logo height | 150px | — |
+
+#### Email Row
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Email font size | 36px | `--token-size-h4` |
+| Email font weight | 600 (semibold) | `--token-weight-semibold` |
+| Email → copy icon gap | 32px | `--token-space-32` |
+| Email → button gap | 48px | `--token-space-48` |
+
+#### Navigation Links
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Link font size | 24px | `--token-size-h5` |
+| Link font weight | 500 (medium) | `--token-weight-medium` |
+| Link column gap | 128px | `--token-space-128` |
+| Link item vertical gap | 8px | `--token-space-8` |
+
+#### Copyright
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Font size | 12px | `--token-size-body-sm` |
+| Font weight | 600 (semibold) | `--token-weight-semibold` |
+| Text | "Copyright © 2025 Andrii Vynarchyk. All Rights Reserved." | — |
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-8` | 8px | Link item vertical gap |
+| `--token-space-24` | 24px | Section side/bottom padding, various gaps |
+| `--token-space-32` | 32px | Email → copy icon gap |
+| `--token-space-48` | 48px | Email → button gap, main content gap |
+| `--token-space-128` | 128px | Section top padding, link column gap, bottom row margin |
+| `--token-size-h4` | 36px | Email font size |
+| `--token-size-h5` | 24px | Link font size |
+| `--token-size-body-sm` | 12px | Copyright font size (paragraphs-xs-semibold) |
+| `--token-weight-semibold` | 600 | Email, copyright weight |
+| `--token-weight-medium` | 500 | Link weight |
+| `--token-leading-110` | 110% | Email line height |
+| `--token-leading-140` | 140% | Link, copyright line height |
+| `--token-color-accent` | #060606 | Text color |
+| `--token-color-base` | #e3e3e5 | Section background |
+| `--token-color-primary` | #d2d2d6 | Copy icon fill color |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css`. The `--token-size-body-sm` (12px) is used for copyright text as the equivalent of `paragraphs-xs-semibold`.
+
+### Copy Icon Behavior
+
+| Feature | Implementation |
+|---------|----------------|
+| **Clipboard API** | Primary method using `navigator.clipboard.writeText()` |
+| **Fallback** | `document.execCommand('copy')` for older browsers |
+| **Status feedback** | `aria-live="polite"` region announces "Email copied to clipboard" |
+| **Visual feedback** | Button hover state with opacity transition |
+| **Keyboard accessible** | `<button>` element with focus-visible ring |
+| **Timeout** | Status resets to idle after 2 seconds |
+
+### Navigation Links Data
+
+#### Internal Links Column
+| Label | Href |
+|-------|------|
+| Work | #work |
+| Services | #services |
+| About | /about |
+
+#### Social Links Column
+| Label | Href |
+|-------|------|
+| LinkedIn | https://linkedin.com/in/andriivynarchyk |
+| Instagram | https://instagram.com/andriivynarchyk |
+| Behance | https://behance.net/andriivynarchyk |
+| Dribbble | https://dribbble.com/andriivynarchyk |
+
+### Pixel-Perfect Checklist (Footer Section)
+
+| Item | Status |
+|------|--------|
+| Section uses .section-wrap + .section-inner pattern | ✅ Pass |
+| Section top padding: 128px (--token-space-128) | ✅ Pass |
+| Section side paddings: 24px (--token-space-24) | ✅ Pass |
+| Section bottom padding: 24px (--token-space-24) | ✅ Pass |
+| Section background: --token-color-base | ✅ Pass |
+| Email uses h4 token (36px) semibold | ✅ Pass |
+| Email → copy icon gap: 32px (--token-space-32) | ✅ Pass |
+| Email → button gap: 48px (--token-space-48) | ✅ Pass |
+| Link columns gap: 128px (--token-space-128) | ✅ Pass |
+| Link text uses h5 token (24px) medium | ✅ Pass |
+| Logo height: 150px | ✅ Pass |
+| Copyright uses body-sm (12px) semibold | ✅ Pass |
+| Copy icon SVG path: public/assets/images/footer/copy icon.svg | ✅ Pass |
+| Copy icon keyboard accessible (button element) | ✅ Pass |
+| Copy icon has aria-label | ✅ Pass |
+| Copy status announced via aria-live region | ✅ Pass |
+| Links have focus-visible styles | ✅ Pass |
+| Logo link has aria-label | ✅ Pass |
+| Footer rendered as last section on page | ✅ Pass |
+| Uses existing design tokens (no new tokens added) | ✅ Pass |
+| `npm run lint` passes (no new errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Responsive Behavior
+
+| Breakpoint | Layout | Notes |
+|------------|--------|-------|
+| Desktop | Horizontal (space-between) | Email+button left, links right; logo right, copyright left |
+| Mobile | Stacked (column) | All elements stack vertically with 48px gaps |
+
+### Accessibility
+
+- Footer: `<footer>` element with `role="contentinfo"`
+- Navigation: `<nav aria-label="Footer navigation">`
+- Copy button: `<button>` with dynamic `aria-label` based on status
+- Status announcement: `<div role="status" aria-live="polite" aria-atomic="true">`
+- Logo link: `aria-label="Go to home page"`
+- All links/buttons: visible focus-visible states with ring
+- Social links: `target="_blank" rel="noopener noreferrer"` for security
+- Copy icon SVG: `aria-hidden="true" focusable="false"`

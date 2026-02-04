@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
+import Footer from "@/components/Footer";
 import Image from "next/image";
 
 /**
@@ -173,6 +174,10 @@ export default function HomePage() {
 
       {/* Book a call Section — directly below Testimonials */}
       <BookCall />
+
+      {/* Footer Section — last section on page */}
+      {/* Top padding: 128px, side paddings: 24px, bottom padding: 24px */}
+      <Footer />
     </>
   );
 }
