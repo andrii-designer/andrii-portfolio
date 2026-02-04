@@ -14,8 +14,10 @@ import TestimonialCard, { TestimonialData } from "./TestimonialCard";
  * - Title index: "( 004 )", label: "WHAT DO CLIENTS SAY", heading: "Testimonials"
  * - Testimonial text: h4 token (36px, semibold), max-width 1038px
  * - Gap between testimonial text and control row: 80px
- * - Control row: avatar (48x48), client info (name + role + LinkedIn), slider controls
- * - Slider: 3 testimonials, prev/next arrows, page indicator "1/3"
+ * - Control row: avatar (70x70 square), client info (name + role + LinkedIn), slider controls
+ * - Client name: h6 token (20px)
+ * - Role/LinkedIn/indicator: Label Medium (20px, medium weight, -0.5px letter spacing)
+ * - Slider: 3 testimonials, prev/next arrows (70x70px), page indicator "1/3"
  *
  * Accessibility:
  * - Carousel region with aria-label
@@ -26,7 +28,7 @@ import TestimonialCard, { TestimonialData } from "./TestimonialCard";
  *
  * Tokens used:
  * - Spacing: --token-space-24, --token-space-80, --token-space-192
- * - Typography: --token-size-h4, --token-size-body-md, --token-weight-semibold
+ * - Typography: --token-size-h4, --token-size-h6, --token-weight-medium
  * - Colors: --token-color-accent, --token-color-base
  */
 
@@ -264,13 +266,12 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               gap: "var(--token-space-16)",
             }}
           >
-            {/* Avatar */}
+            {/* Avatar — 70x70px square */}
             <div
               className="testimonials-avatar"
               style={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "9999px",
+                width: "70px",
+                height: "70px",
                 overflow: "hidden",
                 flexShrink: 0,
               }}
@@ -278,8 +279,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               <Image
                 src={currentTestimonial.avatarSrc}
                 alt={`${currentTestimonial.clientName}'s profile photo`}
-                width={48}
-                height={48}
+                width={70}
+                height={70}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -297,11 +298,12 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                 gap: "var(--token-space-4)",
               }}
             >
+              {/* Client name — h6 token (20px) */}
               <span
                 className="testimonials-client-name"
                 style={{
                   fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-body-md)" /* 16px */,
+                  fontSize: "var(--token-size-h6)" /* 20px */,
                   fontWeight: "var(--token-weight-semibold)" /* 600 */,
                   lineHeight: "var(--token-leading-140)" /* 140% */,
                   color: "var(--token-color-accent)",
@@ -309,6 +311,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               >
                 {currentTestimonial.clientName}
               </span>
+              {/* Role and LinkedIn — Label Medium (20px, medium, -0.5px) */}
               <div
                 className="testimonials-client-meta"
                 style={{
@@ -322,9 +325,10 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   className="testimonials-client-role"
                   style={{
                     fontFamily: "var(--token-font-family-base)",
-                    fontSize: "var(--token-size-body-sm)" /* 12px */,
-                    fontWeight: "var(--token-weight-regular)" /* 400 */,
+                    fontSize: "var(--token-size-h6)" /* 20px */,
+                    fontWeight: "var(--token-weight-medium)" /* 500 */,
                     lineHeight: "var(--token-leading-140)" /* 140% */,
+                    letterSpacing: "-0.5px",
                     color: "var(--token-color-accent)",
                   }}
                 >
@@ -336,7 +340,9 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                       aria-hidden="true"
                       style={{
                         fontFamily: "var(--token-font-family-base)",
-                        fontSize: "var(--token-size-body-sm)",
+                        fontSize: "var(--token-size-h6)" /* 20px */,
+                        fontWeight: "var(--token-weight-medium)" /* 500 */,
+                        letterSpacing: "-0.5px",
                         color: "var(--token-color-accent)",
                       }}
                     >
@@ -349,9 +355,10 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                       className="testimonials-linkedin-link"
                       style={{
                         fontFamily: "var(--token-font-family-base)",
-                        fontSize: "var(--token-size-body-sm)" /* 12px */,
-                        fontWeight: "var(--token-weight-regular)" /* 400 */,
+                        fontSize: "var(--token-size-h6)" /* 20px */,
+                        fontWeight: "var(--token-weight-medium)" /* 500 */,
                         lineHeight: "var(--token-leading-140)" /* 140% */,
+                        letterSpacing: "-0.5px",
                         color: "var(--token-color-accent)",
                         textDecoration: "none",
                       }}
@@ -374,14 +381,15 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               gap: "var(--token-space-16)",
             }}
           >
-            {/* Page Indicator */}
+            {/* Page Indicator — Label Medium (20px, medium, -0.5px) */}
             <span
               className="testimonials-indicator"
               style={{
                 fontFamily: "var(--token-font-family-base)",
-                fontSize: "var(--token-size-body-md)" /* 16px */,
-                fontWeight: "var(--token-weight-regular)" /* 400 */,
+                fontSize: "var(--token-size-h6)" /* 20px */,
+                fontWeight: "var(--token-weight-medium)" /* 500 */,
                 lineHeight: "var(--token-leading-140)" /* 140% */,
+                letterSpacing: "-0.5px",
                 color: "var(--token-color-accent)",
               }}
               aria-live="polite"
@@ -390,7 +398,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               {currentIndex + 1}/{totalSlides}
             </span>
 
-            {/* Previous Button */}
+            {/* Previous Button — 70x70px, uses disabled arrow SVG */}
             <button
               type="button"
               onClick={() => paginate(-1)}
@@ -399,43 +407,33 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Previous testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--prev"
               style={{
-                width: "48px",
-                height: "48px",
+                width: "70px",
+                height: "70px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: isFirstSlide
-                  ? "transparent"
-                  : "transparent",
+                backgroundColor: "transparent",
                 border: "none",
                 cursor: isFirstSlide ? "not-allowed" : "pointer",
-                opacity: isFirstSlide ? 0.3 : 1,
+                opacity: isFirstSlide ? 1 : 1,
                 transition: "opacity 0.2s ease",
                 outline: "none",
+                padding: 0,
               }}
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <Image
+                src="/assets/images/testimonials/disabled arrow.svg"
+                alt=""
+                width={25}
+                height={16}
                 aria-hidden="true"
                 style={{
-                  transform: "rotate(180deg)",
+                  opacity: isFirstSlide ? 0.5 : 1,
                 }}
-              >
-                <path
-                  d="M9 6L15 12L9 18"
-                  stroke="var(--token-color-accent)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </button>
 
-            {/* Next Button */}
+            {/* Next Button — 70x70px with accent background, uses active arrow SVG */}
             <button
               type="button"
               onClick={() => paginate(1)}
@@ -444,8 +442,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Next testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--next"
               style={{
-                width: "48px",
-                height: "48px",
+                width: "70px",
+                height: "70px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -454,27 +452,19 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   : "var(--token-color-accent)",
                 border: "none",
                 cursor: isLastSlide ? "not-allowed" : "pointer",
-                opacity: isLastSlide ? 0.3 : 1,
+                opacity: isLastSlide ? 0.5 : 1,
                 transition: "opacity 0.2s ease, background-color 0.2s ease",
                 outline: "none",
+                padding: 0,
               }}
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <Image
+                src="/assets/images/testimonials/active arrow.svg"
+                alt=""
+                width={25}
+                height={16}
                 aria-hidden="true"
-              >
-                <path
-                  d="M9 6L15 12L9 18"
-                  stroke={isLastSlide ? "var(--token-color-accent)" : "var(--token-color-base)"}
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              />
             </button>
           </div>
         </div>

@@ -1,12 +1,14 @@
 "use client";
 
+import Image from "next/image";
+
 /**
  * TestimonialCard — Individual testimonial slide content
  *
  * Layout specs (from Figma reference):
  * - Testimonial text: h4 token (36px, semibold), max-width 1038px
- * - Large quotation mark decorative element above/left of text
- * - Client info: avatar (48x48 circle), name, role, optional LinkedIn link
+ * - Quote SVG decorative element above/left of text
+ * - Client info: avatar (70x70 square), name, role, optional LinkedIn link
  *
  * Tokens used:
  * - Typography: --token-size-h4, --token-weight-semibold
@@ -58,21 +60,22 @@ const TestimonialCard = ({
         width: "100%",
       }}
     >
-      {/* Decorative quotation mark */}
+      {/* Decorative quotation mark SVG */}
       <div
         aria-hidden="true"
         className="testimonial-quote"
         style={{
-          fontFamily: "var(--token-font-family-base)",
-          fontSize: "48px",
-          fontWeight: "var(--token-weight-bold)",
-          lineHeight: 1,
-          color: "var(--token-color-accent)",
           marginBottom: "var(--token-space-24)",
           userSelect: "none",
         }}
       >
-        {"\u201C"}
+        <Image
+          src="/assets/images/testimonials/quote.svg"
+          alt=""
+          width={31}
+          height={24}
+          aria-hidden="true"
+        />
       </div>
 
       {/* Testimonial text — h4 token (36px) */}

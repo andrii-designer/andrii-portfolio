@@ -952,6 +952,9 @@ The Services section implements scroll-based activation using IntersectionObserv
 | `public/assets/images/testimonials/avatar-1.png` | Joe Jesuele avatar (copied from assets) |
 | `public/assets/images/testimonials/avatar-2.svg` | Placeholder avatar 2 |
 | `public/assets/images/testimonials/avatar-3.svg` | Placeholder avatar 3 |
+| `public/assets/images/testimonials/quote.svg` | Decorative quotation mark SVG (31x24px) |
+| `public/assets/images/testimonials/active arrow.svg` | Active/next arrow SVG (25x16px, base color fill) |
+| `public/assets/images/testimonials/disabled arrow.svg` | Disabled/prev arrow SVG (25x16px, primary color fill) |
 
 ### Files Modified
 
@@ -987,9 +990,8 @@ The Services section implements scroll-based activation using IntersectionObserv
 
 | Property | Value | Token |
 |----------|-------|-------|
-| Character | " (left double quotation) | — |
-| Font size | 48px | — |
-| Font weight | 700 (bold) | `--token-weight-bold` |
+| Asset | quote.svg | — |
+| Dimensions | 31×24px | — |
 | Margin bottom | 24px | `--token-space-24` |
 
 #### Control Row
@@ -1006,11 +1008,12 @@ The Services section implements scroll-based activation using IntersectionObserv
 |----------|-------|-------|
 | Layout | flex row | — |
 | Gap | 16px | `--token-space-16` |
-| Avatar size | 48×48px circle | — |
-| Client name font size | 16px | `--token-size-body-md` |
+| Avatar size | 70×70px square | — |
+| Client name font size | 20px | `--token-size-h6` |
 | Client name font weight | 600 | `--token-weight-semibold` |
-| Client role font size | 12px | `--token-size-body-sm` |
-| Client role font weight | 400 | `--token-weight-regular` |
+| Client role/LinkedIn font size | 20px | `--token-size-h6` |
+| Client role/LinkedIn font weight | 500 | `--token-weight-medium` |
+| Client role/LinkedIn letter spacing | -0.5px | — |
 
 #### Navigation Controls (Right Side)
 
@@ -1018,10 +1021,15 @@ The Services section implements scroll-based activation using IntersectionObserv
 |----------|-------|-------|
 | Layout | flex row | — |
 | Gap | 16px | `--token-space-16` |
-| Button size | 48×48px | — |
+| Button size | 70×70px | — |
 | Page indicator format | "X/3" (e.g., "1/3") | — |
+| Page indicator font size | 20px | `--token-size-h6` |
+| Page indicator font weight | 500 | `--token-weight-medium` |
+| Page indicator letter spacing | -0.5px | — |
 | Active next button bg | `--token-color-accent` (#060606) | `--token-color-accent` |
-| Disabled button opacity | 0.3 | — |
+| Active arrow asset | active arrow.svg (25×16px) | — |
+| Disabled arrow asset | disabled arrow.svg (25×16px) | — |
+| Disabled button opacity | 0.5 | — |
 
 ### Slider Behavior
 
@@ -1066,15 +1074,13 @@ The Services section implements scroll-based activation using IntersectionObserv
 | `--token-space-192` | 192px | Section bottom padding |
 | `--token-space-256` | 256px | Title to content gap |
 | `--token-size-h4` | 36px | Testimonial text font size |
-| `--token-size-body-md` | 16px | Client name, page indicator |
-| `--token-size-body-sm` | 12px | Client role, LinkedIn link |
+| `--token-size-h6` | 20px | Client name, role, LinkedIn, page indicator |
 | `--token-weight-semibold` | 600 | Testimonial text, client name |
-| `--token-weight-regular` | 400 | Client role, page indicator |
-| `--token-weight-bold` | 700 | Quote mark |
+| `--token-weight-medium` | 500 | Client role, LinkedIn, page indicator |
 | `--token-leading-120` | 120% | Testimonial text line height |
 | `--token-leading-140` | 140% | Client info line height |
 | `--token-color-accent` | #060606 | Text color, active button background |
-| `--token-color-base` | #e3e3e5 | Section background, inactive button arrow |
+| `--token-color-base` | #e3e3e5 | Section background |
 
 **Note**: No new tokens were needed — all required values already existed in `variables.css` and `tailwind.config.cjs`.
 
@@ -1097,17 +1103,20 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Section top padding: 24px | ✅ Pass |
 | Section bottom padding: 192px | ✅ Pass |
 | Gap title → content: 256px | ✅ Pass |
+| Decorative quote mark: quote.svg (31×24px) | ✅ Pass |
 | Testimonial text max-width: 1038px | ✅ Pass |
 | Testimonial text: h4 (36px) semibold | ✅ Pass |
 | Gap testimonial → control row: 80px | ✅ Pass |
-| Avatar: 48×48 circle with alt text | ✅ Pass |
-| Client name: 16px semibold | ✅ Pass |
-| Client role: 12px regular | ✅ Pass |
-| LinkedIn link present with dot separator | ✅ Pass |
-| Page indicator: "1/3" format | ✅ Pass |
+| Avatar: 70×70px square with alt text | ✅ Pass |
+| Client name: h6 (20px) semibold | ✅ Pass |
+| Client role: 20px medium, -0.5px letter spacing | ✅ Pass |
+| LinkedIn link: 20px medium, -0.5px letter spacing | ✅ Pass |
+| Page indicator: "1/3" format, 20px medium, -0.5px | ✅ Pass |
+| Control buttons: 70×70px | ✅ Pass |
+| Previous arrow: disabled arrow.svg | ✅ Pass |
+| Next arrow: active arrow.svg with accent bg | ✅ Pass |
 | Left arrow disabled on first slide | ✅ Pass |
 | Right arrow disabled on last slide | ✅ Pass |
-| Active button has accent background | ✅ Pass |
 | Keyboard navigation (arrow keys) | ✅ Pass |
 | Touch/swipe support | ✅ Pass |
 | Respects prefers-reduced-motion | ✅ Pass |
