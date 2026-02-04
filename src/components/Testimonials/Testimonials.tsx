@@ -459,7 +459,6 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                 transition: "background-color 0.2s ease",
                 outline: "none",
                 padding: 0,
-                marginLeft: "var(--token-space-8)" /* 8px gap between arrows */,
               }}
             >
               <Image

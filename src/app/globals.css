@@ -109,7 +109,7 @@ a {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 0% 2px;
+  background-size: 0% 1px;
   transition: background-size 0.16s ease;
 }
 
@@ -125,7 +125,7 @@ a {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 0% 2px;
+  background-size: 0% 1px;
   transition: background-size 0.16s ease;
 }
 
@@ -141,14 +141,14 @@ a {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 0% 2px;
+  background-size: 0% 1px;
   transition: background-size 0.16s ease;
 }
 
 .label-link-lg:hover,
 .label-link-md:hover,
 .label-link-sm:hover {
-  background-size: 100% 2px;
+  background-size: 100% 1px;
 }
 
 .label-link-lg:focus-visible,
