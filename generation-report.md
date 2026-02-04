@@ -1007,29 +1007,31 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Property | Value | Token |
 |----------|-------|-------|
 | Layout | flex row | — |
-| Gap | 16px | `--token-space-16` |
+| Gap avatar to text | 24px | `--token-space-24` |
 | Avatar size | 70×70px square | — |
 | Client name font size | 20px | `--token-size-h6` |
 | Client name font weight | 600 | `--token-weight-semibold` |
-| Client role/LinkedIn font size | 20px | `--token-size-h6` |
+| Client role/LinkedIn font size | 16px | `--token-size-label-md` |
 | Client role/LinkedIn font weight | 500 | `--token-weight-medium` |
-| Client role/LinkedIn letter spacing | -0.5px | — |
+| Client role/LinkedIn letter spacing | 0px | — |
+| Client role/LinkedIn line height | 115% | `--token-leading-115` |
 
 #### Navigation Controls (Right Side)
 
 | Property | Value | Token |
 |----------|-------|-------|
 | Layout | flex row | — |
-| Gap | 16px | `--token-space-16` |
+| Gap indicator to arrows | 64px | `--token-space-64` |
 | Button size | 70×70px | — |
 | Page indicator format | "X/3" (e.g., "1/3") | — |
-| Page indicator font size | 20px | `--token-size-h6` |
+| Page indicator font size | 16px | `--token-size-label-md` |
 | Page indicator font weight | 500 | `--token-weight-medium` |
-| Page indicator letter spacing | -0.5px | — |
-| Active next button bg | `--token-color-accent` (#060606) | `--token-color-accent` |
-| Active arrow asset | active arrow.svg (25×16px) | — |
+| Page indicator letter spacing | 0px | — |
+| Page indicator line height | 115% | `--token-leading-115` |
+| Active button bg | `--token-color-accent` (#060606) | `--token-color-accent` |
+| Active arrow asset | active arrow.svg (25×16px, rotated 180° for prev) | — |
 | Disabled arrow asset | disabled arrow.svg (25×16px) | — |
-| Disabled button opacity | 0.5 | — |
+| Disabled button bg | transparent | — |
 
 ### Slider Behavior
 
@@ -1037,8 +1039,9 @@ The Services section implements scroll-based activation using IntersectionObserv
 |---------|----------------|
 | Total slides | 3 testimonials |
 | Navigation | Previous/Next arrow buttons |
-| First slide | Left arrow disabled (`aria-disabled="true"`, opacity 0.3) |
-| Last slide | Right arrow disabled (`aria-disabled="true"`, opacity 0.3) |
+| First slide | Left arrow disabled (no bg, uses disabled arrow.svg) |
+| Middle slides | Both arrows active (dark bg, uses active arrow.svg rotated for prev) |
+| Last slide | Right arrow disabled (no bg, uses disabled arrow.svg) |
 | Page indicator | Live-updated "X/3" format with `aria-live="polite"` |
 | Keyboard navigation | Arrow left/right keys supported |
 | Touch support | Swipe left/right on touch devices (50px threshold) |
@@ -1068,19 +1071,29 @@ The Services section implements scroll-based activation using IntersectionObserv
 |-------|-------|-------|
 | `--token-space-4` | 4px | Client text gap |
 | `--token-space-8` | 8px | Client meta gap |
-| `--token-space-16` | 16px | Avatar to text gap, nav button gap |
-| `--token-space-24` | 24px | Section padding, quote margin, control row gap |
+| `--token-space-24` | 24px | Section padding, quote margin, control row gap, avatar to text gap |
+| `--token-space-64` | 64px | Gap indicator to arrows |
 | `--token-space-80` | 80px | Gap testimonial to control row |
 | `--token-space-192` | 192px | Section bottom padding |
 | `--token-space-256` | 256px | Title to content gap |
 | `--token-size-h4` | 36px | Testimonial text font size |
-| `--token-size-h6` | 20px | Client name, role, LinkedIn, page indicator |
+| `--token-size-h6` | 20px | Client name |
+| `--token-size-label-md` | 16px | Client role, LinkedIn, page indicator |
 | `--token-weight-semibold` | 600 | Testimonial text, client name |
 | `--token-weight-medium` | 500 | Client role, LinkedIn, page indicator |
+| `--token-leading-115` | 115% | Label text line height |
 | `--token-leading-120` | 120% | Testimonial text line height |
-| `--token-leading-140` | 140% | Client info line height |
+| `--token-leading-140` | 140% | Client name line height |
 | `--token-color-accent` | #060606 | Text color, active button background |
 | `--token-color-base` | #e3e3e5 | Section background |
+
+### Label Token Reference
+
+| Token | Size | Line Height | Usage |
+|-------|------|-------------|-------|
+| `--token-size-label-lg` | 18px | 115% | Large labels |
+| `--token-size-label-md` | 16px | 115% | Client role, LinkedIn, page indicator |
+| `--token-size-label-sm` | 14px | 115% | Small labels |
 
 **Note**: No new tokens were needed — all required values already existed in `variables.css` and `tailwind.config.cjs`.
 
@@ -1108,15 +1121,18 @@ The Services section implements scroll-based activation using IntersectionObserv
 | Testimonial text: h4 (36px) semibold | ✅ Pass |
 | Gap testimonial → control row: 80px | ✅ Pass |
 | Avatar: 70×70px square with alt text | ✅ Pass |
+| Gap avatar to text: 24px | ✅ Pass |
 | Client name: h6 (20px) semibold | ✅ Pass |
-| Client role: 20px medium, -0.5px letter spacing | ✅ Pass |
-| LinkedIn link: 20px medium, -0.5px letter spacing | ✅ Pass |
-| Page indicator: "1/3" format, 20px medium, -0.5px | ✅ Pass |
+| Client role: label-md (16px) medium, 0px letter spacing, 115% line height | ✅ Pass |
+| LinkedIn link: label-md (16px) medium, 0px letter spacing, 115% line height | ✅ Pass |
+| Page indicator: "1/3" format, label-md (16px) medium, 0px, 115% | ✅ Pass |
+| Gap indicator to arrows: 64px | ✅ Pass |
 | Control buttons: 70×70px | ✅ Pass |
-| Previous arrow: disabled arrow.svg | ✅ Pass |
-| Next arrow: active arrow.svg with accent bg | ✅ Pass |
-| Left arrow disabled on first slide | ✅ Pass |
-| Right arrow disabled on last slide | ✅ Pass |
+| First slide: left arrow disabled (no bg), right arrow active (dark bg) | ✅ Pass |
+| Middle slides: both arrows active (dark bg) | ✅ Pass |
+| Last slide: left arrow active (dark bg), right arrow disabled (no bg) | ✅ Pass |
+| Active arrow: active arrow.svg (rotated 180° for prev) | ✅ Pass |
+| Disabled arrow: disabled arrow.svg | ✅ Pass |
 | Keyboard navigation (arrow keys) | ✅ Pass |
 | Touch/swipe support | ✅ Pass |
 | Respects prefers-reduced-motion | ✅ Pass |
