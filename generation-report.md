@@ -1182,3 +1182,132 @@ The Services section implements scroll-based activation using IntersectionObserv
 - Respects prefers-reduced-motion media query
 - Focus visible states for all interactive elements
 - Avatar images have descriptive alt text
+
+---
+
+## Book a Call Section (feature/figma-book-a-call) — 2026-02-04
+
+### Branch
+- `feature/figma-book-a-call`
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Section name** | Book a call |
+| **Index** | ( 005 ) |
+| **Label** | BOOK A CALL |
+| **Heading** | Book a call |
+| **Background** | --token-color-primary (#d2d2d6) |
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/components/BookCall/BookCall.tsx` | Main Book a call section with Title, illustration, h4 text, and BookCallButton |
+| `src/components/BookCall/index.ts` | Barrel export for BookCall |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added BookCall section import and JSX directly below Testimonials |
+
+### Illustration Asset Used
+
+| Property | Value |
+|----------|-------|
+| **File path** | `public/assets/images/book a call/illustration.svg` |
+| **Type** | Local SVG (already present in repo) |
+| **Placeholder used** | No — matched existing asset |
+
+### Layout Specs
+
+#### Section Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Section background | primary | `--token-color-primary` |
+| Inner container padding left/right | 24px | `--token-space-24` |
+| Inner container padding top | 24px | `--token-space-24` |
+| Inner container padding bottom | 192px | `--token-space-192` |
+| Gap title → content | 256px | `--token-space-256` |
+
+#### Content Layout
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Layout | flex row, space-between | — |
+| Align items | flex-start (top) | — |
+| Illustration height | 420px | — |
+| Illustration object-position | left top | — |
+| Text+button container max-width | 566px | — |
+| Text+button container min-height | 420px | — |
+| Text+button justify-content | space-between | — |
+
+#### Typography
+
+| Element | Size | Weight | Line Height | Token |
+|---------|------|--------|-------------|-------|
+| h4 text | 36px | 600 (semibold) | 120% | `--token-size-h4`, `--token-weight-semibold`, `--token-leading-120` |
+
+#### Text Content
+
+| Property | Value |
+|----------|-------|
+| h4 message | "Get your project moving and start seeing results!" |
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-24` | 24px | Section padding (left/right/top) |
+| `--token-space-48` | 48px | Mobile row gap |
+| `--token-space-192` | 192px | Section bottom padding |
+| `--token-space-256` | 256px | Title to content gap |
+| `--token-size-h4` | 36px | h4 text font size |
+| `--token-weight-semibold` | 600 | h4 text weight |
+| `--token-leading-120` | 120% | h4 text line height |
+| `--token-color-accent` | #060606 | Text color |
+| `--token-color-primary` | #d2d2d6 | Section background |
+| `--token-font-family-base` | Manrope | Font family |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css`.
+
+### Pixel-Perfect Checklist (Book a Call Section)
+
+| Item | Status |
+|------|--------|
+| Uses reusable Title component | ✅ Pass |
+| Label container: "( 005 )  BOOK A CALL" uppercase | ✅ Pass |
+| Heading "Book a call" using display-1 (150px) | ✅ Pass |
+| Section background: --token-color-primary | ✅ Pass |
+| Section padding: 24px left/right/top, 192px bottom | ✅ Pass |
+| Gap title → content: 256px | ✅ Pass |
+| Illustration height: 420px | ✅ Pass |
+| Illustration aligned top-left (object-position: left top) | ✅ Pass |
+| h4 text uses --token-size-h4 (36px) semibold | ✅ Pass |
+| Text+button container max-width: 566px | ✅ Pass |
+| Button sticks to bottom (justify-content: space-between) | ✅ Pass |
+| Content distributed horizontally (space-between) | ✅ Pass |
+| Primary button (BookCallButton) used | ✅ Pass |
+| Uses existing design tokens | ✅ Pass |
+| Section placed immediately after Testimonials | ✅ Pass |
+| `npm run lint` passes (no new errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Responsive Behavior
+
+| Breakpoint | Layout | Notes |
+|------------|--------|-------|
+| Desktop (≥768px) | Horizontal (space-between) | Illustration left, text+button right |
+| Mobile (<768px) | Stacked (column) | Illustration above text+button, 48px gap |
+
+### Accessibility
+
+- Section: semantic `<section>` element
+- Heading: `<h4>` for proper heading hierarchy
+- Illustration: descriptive `alt="Book a call illustration"`
+- Button: keyboard accessible via BookCallButton component
+- Button: visible focus styles inherited from BookCallButton
