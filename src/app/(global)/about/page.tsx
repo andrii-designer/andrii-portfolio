@@ -1,11 +1,21 @@
-/**
- * About page — skeleton only.
- * Use tokens: --token-* for colors, spacing, typography.
- */
+import { AboutDescription } from "@/components/About";
+import { Skills } from "@/components/Skills";
+import RecentWorks from "@/components/RecentWorks";
+import Footer from "@/components/Footer";
+
 export default function AboutPage() {
   return (
-    <div>
-      {/* About page skeleton */}
-    </div>
+    <>
+      <AboutDescription />
+
+      {/* Skills Section */}
+      <Skills />
+
+      {/* Recent Works — last content section above Footer */}
+      <RecentWorks />
+
+      {/* Footer */}
+      <Footer />
+    </>
   );
 }
