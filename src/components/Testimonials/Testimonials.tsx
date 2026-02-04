@@ -55,7 +55,7 @@ const defaultTestimonials: TestimonialData[] = [
     text: "Working with Andrii was a fantastic experience. His attention to detail and creative approach brought our vision to life. The final product exceeded our expectations.",
     clientName: "Sarah Chen",
     clientRole: "Product Manager at TechCorp",
-    avatarSrc: "/assets/images/testimonials/avatar-2.svg",
+    avatarSrc: "/assets/images/testimonials/avatar-2.png",
     linkedInUrl: "https://linkedin.com",
   },
   {
@@ -63,7 +63,7 @@ const defaultTestimonials: TestimonialData[] = [
     text: "Andrii's design expertise transformed our platform. He understood our needs perfectly and delivered a solution that was both beautiful and functional. Highly recommended.",
     clientName: "Michael Torres",
     clientRole: "CEO at StartupXYZ",
-    avatarSrc: "/assets/images/testimonials/avatar-3.svg",
+    avatarSrc: "/assets/images/testimonials/avatar-3.png",
     linkedInUrl: "https://linkedin.com",
   },
 ];
