@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
+import type React from "react";
+import { Fragment, useCallback, useState } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Header — Figma node-id: 2228:4741
@@ -19,6 +21,12 @@ import { Fragment } from "react";
  * - First item: no left padding
  * - Last item: no right padding
  * 
+ * Navigation behavior:
+ * - Work → scrolls to #works section (on home page) or navigates to /#works
+ * - Services → scrolls to #services section (on home page) or navigates to /#services
+ * - About → navigates to /about page
+ * - Book a call → scrolls to #book-a-call section (on home page) or navigates to /#book-a-call
+ * 
  * Tokens used:
  * - Colors: --token-color-accent (#060606)
  * - Typography: --token-font-family-base, --token-size-label-md, --token-size-label-sm
@@ -29,6 +37,8 @@ import { Fragment } from "react";
 export type NavLink = {
   label: string;
   href: string;
+  /** If true, this is an anchor link that should smooth scroll on the home page */
+  isAnchor?: boolean;
 };
 
 export type HeaderProps = {
@@ -37,19 +47,57 @@ export type HeaderProps = {
 };
 
 const defaultNavLinks: NavLink[] = [
-  { label: "Work", href: "/projects" },
-  { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
-  { label: "Book a call", href: "/contact" },
+  { label: "Work", href: "/#works", isAnchor: true },
+  { label: "Services", href: "/#services", isAnchor: true },
+  { label: "About", href: "/about", isAnchor: false },
+  { label: "Book a call", href: "/#book-a-call", isAnchor: true },
 ];
 
 export default function Header({ links = defaultNavLinks, className }: HeaderProps) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
+
+  const DOT_SIZE = "var(--token-space-12)"; // 12px
+  const DOT_TOTAL_SPACE = "var(--token-space-8)"; // 8px gap after dot
+  const SHIFT_LEFT = "calc(-1 * (var(--token-space-12) + var(--token-space-8)))"; // Shift left by 20px (dot + gap)
+
+  /**
+   * Handle smooth scroll for anchor links when on home page.
+   * If not on home page, navigation to /#section will be handled by Next.js router.
+   */
+  const handleAnchorClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAnchor?: boolean) => {
+      if (!isAnchor) return; // Let normal links navigate
+
+      const hash = href.split("#")[1];
+      if (!hash) return;
+
+      if (isHomePage) {
+        e.preventDefault();
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          // Update URL hash without scrolling (already handled)
+          window.history.pushState(null, "", `#${hash}`);
+        }
+      }
+      // If not on home page, let Next.js handle navigation to /#hash
+    },
+    [isHomePage]
+  );
+
   return (
     <header
       className={`section-wrap ${className || ""}`}
       style={{
         height: "70px",
         paddingTop: "var(--token-space-16)",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
       }}
     >
       <div
@@ -77,22 +125,63 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                   <li
                     className="header-nav-link flex items-center"
                     style={{
-                      paddingLeft: index === 0 ? 0 : "var(--token-space-12)",
-                      paddingRight: index === links.length - 1 ? 0 : "var(--token-space-12)",
+                      paddingLeft: index === 0 ? 0 : "var(--token-space-8)",
+                      paddingRight: index === links.length - 1 ? 0 : "var(--token-space-8)",
+                      transform:
+                        activeNavIndex !== null && index < activeNavIndex
+                          ? `translateX(${SHIFT_LEFT})`
+                          : "translateX(0)",
+                      transition: "transform 0.16s ease",
+                      willChange: "transform",
                     }}
                   >
                     <Link
                       href={item.href}
-                      className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      onClick={(e) => handleAnchorClick(e, item.href, item.isAnchor)}
+                      onMouseEnter={() => setActiveNavIndex(index)}
+                      onMouseLeave={() => setActiveNavIndex(null)}
+                      onFocus={() => setActiveNavIndex(index)}
+                      onBlur={() => setActiveNavIndex(null)}
+                      className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 inline-flex items-center"
                       style={{
                         fontFamily: "var(--token-font-family-base)",
                         fontSize: "var(--token-size-label-md)",
                         fontWeight: "var(--token-weight-semibold)",
                         lineHeight: "var(--token-leading-115)",
+                        transition: "opacity 0.16s ease",
                       }}
                       tabIndex={0}
                     >
-                      {item.label}
+                      {/* Dot — positioned with negative margin to stay within padding */}
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: DOT_SIZE,
+                          height: DOT_SIZE,
+                          display: "inline-block",
+                          flexShrink: 0,
+                          marginLeft: activeNavIndex === index ? "calc(-1 * var(--token-space-12))" : 0,
+                          marginRight: activeNavIndex === index ? DOT_TOTAL_SPACE : 0,
+                          transition: "margin-left 0.16s ease, margin-right 0.16s ease",
+                          willChange: "margin-left, margin-right",
+                        }}
+                      >
+                        {/* Dot that scales from 0 to 1 (grows from center) */}
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: 9999,
+                            background: "var(--token-color-accent)",
+                            transform: activeNavIndex === index ? "scale(1)" : "scale(0)",
+                            transition: "transform 0.16s ease",
+                            willChange: "transform",
+                          }}
+                        />
+                      </span>
+                      <span>{item.label}</span>
                     </Link>
                   </li>
 
@@ -107,6 +196,12 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                         fontSize: "var(--token-size-label-md)",
                         fontWeight: "var(--token-weight-semibold)",
                         lineHeight: "var(--token-leading-115)",
+                        transform:
+                          activeNavIndex !== null && index < activeNavIndex
+                            ? `translateX(${SHIFT_LEFT})`
+                            : "translateX(0)",
+                        transition: "transform 0.16s ease",
+                        willChange: "transform",
                       }}
                     >
                       /
@@ -139,13 +234,12 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
               }}
             />
             <span
-              className="text-accent"
+              className="text-accent uppercase"
               style={{
                 fontFamily: "var(--token-font-family-base)",
-                fontSize: "var(--token-size-label-sm)",
+                fontSize: "var(--token-size-label-md)",
                 fontWeight: "var(--token-weight-semibold)",
                 lineHeight: "var(--token-leading-115)",
-                letterSpacing: "-0.5px",
               }}
             >
               Hi, I’m Andrii Vynarchyk

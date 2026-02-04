@@ -1,5 +1,4 @@
 import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer";
 
 /**
  * Global layout — matches Figma hero-section container (2228:4742)
@@ -17,6 +16,9 @@ import Footer from "@/components/Footer";
  * - Container horizontal padding: 24px (left and right)
  * - Top padding: 16px
  * - Gap header → content: 48px
+ * 
+ * Note: Footer is rendered in individual pages (e.g., page.tsx) rather than
+ * in the global layout to allow per-page control over footer placement.
  */
 export default function GlobalLayout({
   children,
@@ -29,16 +31,11 @@ export default function GlobalLayout({
       <Header />
       
       {/* Main content area — pages use .section-wrap + .section-inner pattern */}
-      <main>
+      {/* Footer is rendered within individual pages as the last section */}
+      {/* paddingTop accounts for fixed header height (70px) */}
+      <main style={{ paddingTop: "70px" }}>
         {children}
       </main>
-      
-      {/* Footer uses section-wrap pattern for consistent centering */}
-      <footer className="section-wrap">
-        <div className="section-inner">
-          <Footer />
-        </div>
-      </footer>
     </div>
   );
 }

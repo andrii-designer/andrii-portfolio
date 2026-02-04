@@ -35,7 +35,7 @@ export type FooterProps = {
 
 /** Navigation link columns data */
 const internalLinks = [
-  { label: "Work", href: "#work" },
+  { label: "Work", href: "#works" },
   { label: "Services", href: "#services" },
   { label: "About", href: "/about" },
 ];
@@ -114,7 +114,7 @@ export default function Footer({ className = "" }: FooterProps) {
           paddingRight: "var(--token-space-24)",
           paddingTop: "var(--token-space-128)",
           paddingBottom: "var(--token-space-24)",
-          backgroundColor: "var(--token-color-base)",
+          backgroundColor: "var(--token-color-primary)",
         }}
       >
         {/* Main footer content area */}
@@ -235,22 +235,14 @@ export default function Footer({ className = "" }: FooterProps) {
                   padding: 0,
                   display: "flex",
                   flexDirection: "column",
-                  gap: "var(--token-space-8)",
+                  gap: "var(--token-space-16)",
                 }}
               >
                 {internalLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="footer-link text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                      style={{
-                        fontFamily: "var(--token-font-family-base)",
-                        fontSize: "var(--token-size-h5)",
-                        fontWeight: "var(--token-weight-medium)",
-                        lineHeight: "var(--token-leading-140)",
-                        display: "inline-block",
-                        transition: "opacity 0.16s ease",
-                      }}
+                      className="text-link-h5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       {link.label}
                     </Link>
@@ -266,7 +258,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   padding: 0,
                   display: "flex",
                   flexDirection: "column",
-                  gap: "var(--token-space-8)",
+                  gap: "var(--token-space-16)",
                 }}
               >
                 {socialLinks.map((link) => (
@@ -275,15 +267,7 @@ export default function Footer({ className = "" }: FooterProps) {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="footer-link text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                      style={{
-                        fontFamily: "var(--token-font-family-base)",
-                        fontSize: "var(--token-size-h5)",
-                        fontWeight: "var(--token-weight-medium)",
-                        lineHeight: "var(--token-leading-140)",
-                        display: "inline-block",
-                        transition: "opacity 0.16s ease",
-                      }}
+                      className="text-link-h5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       {link.label}
                     </a>
@@ -303,7 +287,7 @@ export default function Footer({ className = "" }: FooterProps) {
               alignItems: "flex-end",
               flexWrap: "wrap",
               gap: "var(--token-space-24)",
-              marginTop: "var(--token-space-128)",
+              marginTop: "var(--token-space-256)",
             }}
           >
             {/* Copyright text */}
@@ -344,9 +328,6 @@ export default function Footer({ className = "" }: FooterProps) {
 
       {/* CSS for hover states */}
       <style jsx>{`
-        .footer-link:hover {
-          opacity: 0.7;
-        }
         .footer-copy-btn:hover {
           opacity: 0.7;
         }

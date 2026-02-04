@@ -83,6 +83,7 @@ export default function HomePage() {
       {/* Works Section — Figma node-id: 2231:5841 */}
       {/* Section handles its own padding: 24px top, 192px bottom */}
       <section
+        id="works"
         className="section-wrap"
         style={{
           backgroundColor: "var(--token-color-base)", // Works section uses base background (not primary)
@@ -101,6 +102,7 @@ export default function HomePage() {
       {/* Services Section — directly below Works */}
       {/* Section handles its own padding: 24px top/left/right, 192px bottom */}
       <section
+        id="services"
         className="section-wrap"
         style={{
           backgroundColor: "var(--token-color-primary)", // Services section uses primary background
@@ -173,7 +175,7 @@ export default function HomePage() {
       </section>
 
       {/* Book a call Section — directly below Testimonials */}
-      <BookCall />
+      <BookCall id="book-a-call" />
 
       {/* Footer Section — last section on page */}
       {/* Top padding: 128px, side paddings: 24px, bottom padding: 24px */}

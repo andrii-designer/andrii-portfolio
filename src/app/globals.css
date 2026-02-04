@@ -30,6 +30,38 @@ a {
 }
 
 /**
+ * Text Link tokens — link with underline on hover/focus
+ * Uses background-size trick for smooth underline without shifting layout.
+ * 
+ * Usage: Apply .text-link-h5 class to links that use h5 sizing (24px)
+ * 
+ * Pattern matches:
+ * - Font size: h5 (24px)
+ * - Font weight: semibold (600)
+ * - Line height: 140%
+ * - Underline: appears on hover/focus (1px thin line)
+ */
+.text-link-h5 {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-h5); /* 24px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-140); /* 140% */
+  color: var(--token-color-accent);
+  display: inline-block;
+  text-decoration: none !important;
+  background-image: linear-gradient(var(--token-color-accent), var(--token-color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.2s ease;
+}
+
+.text-link-h5:hover,
+.text-link-h5:focus-visible {
+  background-size: 100% 1px;
+}
+
+/**
  * Section layout pattern — used for all top-level page sections
  * Sections are full-bleed (100% viewport width)
  * Inner content preserves 24px horizontal padding via spacing token
@@ -60,26 +92,6 @@ a {
  */
 .header-nav-link {
   position: relative;
-}
-
-.header-nav-link::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(-1 * var(--token-space-8));
-  width: var(--token-space-6);
-  height: var(--token-space-6);
-  border-radius: 9999px;
-  background: var(--token-color-primary);
-  opacity: 0;
-  transition: opacity 0.16s ease, transform 0.16s ease;
-}
-
-.header-nav-link:hover::after,
-.header-nav-link:focus-within::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 /* Header nav divider ("/") — independent, non-interactive, no horizontal padding */

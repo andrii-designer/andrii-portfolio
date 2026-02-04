@@ -6,9 +6,13 @@ import { BookCallButton } from "@/components/Button";
 const ILLUSTRATION_SRC = "/assets/images/book%20a%20call/illustration.svg";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
-export default function BookCall() {
+export type BookCallProps = {
+  id?: string;
+};
+
+export default function BookCall({ id }: BookCallProps) {
   return (
-    <section className="section-wrap">
+    <section id={id} className="section-wrap">
       <div
         className="section-inner bookcall-wrapper"
         style={{
