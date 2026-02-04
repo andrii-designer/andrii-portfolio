@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Works from "@/components/Works";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
+import Testimonials from "@/components/Testimonials";
 import Image from "next/image";
 
 /**
@@ -146,6 +147,26 @@ export default function HomePage() {
       >
         <div className="section-inner">
           <Process />
+        </div>
+      </section>
+
+      {/* Testimonials Section — below Process */}
+      {/* Section handles its own padding: 24px top/left/right, 192px bottom */}
+      <section
+        className="section-wrap"
+        style={{
+          backgroundColor: "var(--token-color-base)", // Testimonials section uses base background
+        }}
+        data-node-id="testimonials-section"
+      >
+        <div
+          className="section-inner"
+          style={{
+            paddingLeft: "var(--token-space-24)",
+            paddingRight: "var(--token-space-24)",
+          }}
+        >
+          <Testimonials />
         </div>
       </section>
     </>

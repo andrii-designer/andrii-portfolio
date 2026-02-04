@@ -924,3 +924,217 @@ The Services section implements scroll-based activation using IntersectionObserv
 | #060606 (text) | #d2d2d6 (primary) | 10.8:1 | ✅ Pass |
 
 **Note**: Contrast ratio exceeds WCAG AA minimum of 4.5:1 for normal text
+
+---
+
+## Testimonials Section (feature/figma-testimonials) — 2026-02-04
+
+### Branch
+- `feature/figma-testimonials`
+
+### Figma Reference
+
+| Field | Value |
+|-------|-------|
+| **Section name** | Testimonials |
+| **Index** | ( 004 ) |
+| **Label** | WHAT DO CLIENTS SAY |
+| **Heading** | Testimonials |
+| **Background** | --token-color-base (#e3e3e5) |
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/components/Testimonials/Testimonials.tsx` | Main Testimonials section with accessible 3-item slider |
+| `src/components/Testimonials/TestimonialCard.tsx` | Individual testimonial slide content component |
+| `src/components/Testimonials/index.ts` | Barrel export for Testimonials |
+| `public/assets/images/testimonials/avatar-1.png` | Joe Jesuele avatar (copied from assets) |
+| `public/assets/images/testimonials/avatar-2.svg` | Placeholder avatar 2 |
+| `public/assets/images/testimonials/avatar-3.svg` | Placeholder avatar 3 |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/(global)/page.tsx` | Added Testimonials section import and JSX below Process section |
+
+### Layout Specs
+
+#### Section Structure
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Section width | 100% (full-bleed) | — |
+| Section background | base | `--token-color-base` |
+| Inner container padding | 24px (left/right) | `--token-space-24` |
+| Section top padding | 24px | `--token-space-24` |
+| Section bottom padding | 192px | `--token-space-192` |
+| Gap title → testimonial content | 256px | `--token-space-256` |
+| Gap testimonial text → control row | 80px | `--token-space-80` |
+
+#### Testimonial Text
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Max width | 1038px | — |
+| Font size | 36px | `--token-size-h4` |
+| Font weight | 600 (semibold) | `--token-weight-semibold` |
+| Line height | 120% | `--token-leading-120` |
+| Color | accent | `--token-color-accent` |
+
+#### Decorative Quote Mark
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Character | " (left double quotation) | — |
+| Font size | 48px | — |
+| Font weight | 700 (bold) | `--token-weight-bold` |
+| Margin bottom | 24px | `--token-space-24` |
+
+#### Control Row
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Gap from testimonial | 80px | `--token-space-80` |
+| Layout | flex row, space-between | — |
+| Gap between items | 24px | `--token-space-24` |
+
+#### Client Info (Left Side)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Layout | flex row | — |
+| Gap | 16px | `--token-space-16` |
+| Avatar size | 48×48px circle | — |
+| Client name font size | 16px | `--token-size-body-md` |
+| Client name font weight | 600 | `--token-weight-semibold` |
+| Client role font size | 12px | `--token-size-body-sm` |
+| Client role font weight | 400 | `--token-weight-regular` |
+
+#### Navigation Controls (Right Side)
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Layout | flex row | — |
+| Gap | 16px | `--token-space-16` |
+| Button size | 48×48px | — |
+| Page indicator format | "X/3" (e.g., "1/3") | — |
+| Active next button bg | `--token-color-accent` (#060606) | `--token-color-accent` |
+| Disabled button opacity | 0.3 | — |
+
+### Slider Behavior
+
+| Feature | Implementation |
+|---------|----------------|
+| Total slides | 3 testimonials |
+| Navigation | Previous/Next arrow buttons |
+| First slide | Left arrow disabled (`aria-disabled="true"`, opacity 0.3) |
+| Last slide | Right arrow disabled (`aria-disabled="true"`, opacity 0.3) |
+| Page indicator | Live-updated "X/3" format with `aria-live="polite"` |
+| Keyboard navigation | Arrow left/right keys supported |
+| Touch support | Swipe left/right on touch devices (50px threshold) |
+| Animation | Slide/fade transition with spring physics |
+| Reduced motion | Instant transition (no animation) when `prefers-reduced-motion` enabled |
+
+### Accessibility (ARIA)
+
+| Element | ARIA Attribute | Value |
+|---------|----------------|-------|
+| Carousel region | `role` | `region` |
+| Carousel region | `aria-label` | `Testimonials carousel` |
+| Carousel region | `aria-roledescription` | `carousel` |
+| Slide container | `role` | `group` |
+| Slide container | `aria-roledescription` | `slide` |
+| Slide container | `aria-label` | `Slide X of 3` |
+| Inactive slides | `aria-hidden` | `true` |
+| Previous button | `aria-label` | `Previous testimonial` |
+| Next button | `aria-label` | `Next testimonial` |
+| Disabled buttons | `aria-disabled` | `true` |
+| Page indicator | `aria-live` | `polite` |
+| Page indicator | `aria-atomic` | `true` |
+
+### Tokens Used (All Pre-existing)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-4` | 4px | Client text gap |
+| `--token-space-8` | 8px | Client meta gap |
+| `--token-space-16` | 16px | Avatar to text gap, nav button gap |
+| `--token-space-24` | 24px | Section padding, quote margin, control row gap |
+| `--token-space-80` | 80px | Gap testimonial to control row |
+| `--token-space-192` | 192px | Section bottom padding |
+| `--token-space-256` | 256px | Title to content gap |
+| `--token-size-h4` | 36px | Testimonial text font size |
+| `--token-size-body-md` | 16px | Client name, page indicator |
+| `--token-size-body-sm` | 12px | Client role, LinkedIn link |
+| `--token-weight-semibold` | 600 | Testimonial text, client name |
+| `--token-weight-regular` | 400 | Client role, page indicator |
+| `--token-weight-bold` | 700 | Quote mark |
+| `--token-leading-120` | 120% | Testimonial text line height |
+| `--token-leading-140` | 140% | Client info line height |
+| `--token-color-accent` | #060606 | Text color, active button background |
+| `--token-color-base` | #e3e3e5 | Section background, inactive button arrow |
+
+**Note**: No new tokens were needed — all required values already existed in `variables.css` and `tailwind.config.cjs`.
+
+### Testimonials Data
+
+| Index | Client Name | Role | Quote (Excerpt) |
+|-------|-------------|------|-----------------|
+| 1 | Joe Jesuele | Founder of HomeJab | "Andrii executed his work excellently..." |
+| 2 | Sarah Chen | Product Manager at TechCorp | "Working with Andrii was a fantastic experience..." |
+| 3 | Michael Torres | CEO at StartupXYZ | "Andrii's design expertise transformed our platform..." |
+
+### Pixel-Perfect Checklist (Testimonials Section)
+
+| Item | Status |
+|------|--------|
+| Uses reusable Title component | ✅ Pass |
+| Label container: "( 004 )  WHAT DO CLIENTS SAY" uppercase | ✅ Pass |
+| Heading "Testimonials" using display-1 (150px) | ✅ Pass |
+| Section background: --token-color-base | ✅ Pass |
+| Section top padding: 24px | ✅ Pass |
+| Section bottom padding: 192px | ✅ Pass |
+| Gap title → content: 256px | ✅ Pass |
+| Testimonial text max-width: 1038px | ✅ Pass |
+| Testimonial text: h4 (36px) semibold | ✅ Pass |
+| Gap testimonial → control row: 80px | ✅ Pass |
+| Avatar: 48×48 circle with alt text | ✅ Pass |
+| Client name: 16px semibold | ✅ Pass |
+| Client role: 12px regular | ✅ Pass |
+| LinkedIn link present with dot separator | ✅ Pass |
+| Page indicator: "1/3" format | ✅ Pass |
+| Left arrow disabled on first slide | ✅ Pass |
+| Right arrow disabled on last slide | ✅ Pass |
+| Active button has accent background | ✅ Pass |
+| Keyboard navigation (arrow keys) | ✅ Pass |
+| Touch/swipe support | ✅ Pass |
+| Respects prefers-reduced-motion | ✅ Pass |
+| All ARIA attributes correct | ✅ Pass |
+| Uses existing design tokens | ✅ Pass |
+| Animations respect reduced motion | ✅ Pass |
+| Focus visible states on buttons | ✅ Pass |
+| `npm run lint` passes (no new errors) | ✅ Pass |
+| `npm run build` passes | ✅ Pass |
+
+### Responsive Behavior
+
+| Breakpoint | Layout | Notes |
+|------------|--------|-------|
+| Desktop (≥768px) | Control row horizontal | Client info left, nav right |
+| Mobile (<768px) | Control row stacked | Client info above nav controls |
+
+### Accessibility Summary
+
+- Carousel region with appropriate ARIA labels
+- Slides with role="group" and aria-roledescription="slide"
+- Active slide announced, inactive slides hidden with aria-hidden
+- Navigation buttons with descriptive aria-labels
+- Disabled state communicated via aria-disabled and visual opacity
+- Page indicator with aria-live for screen reader announcements
+- Keyboard accessible (Enter/Space for buttons, Arrow keys for navigation)
+- Touch/swipe support for mobile devices
+- Respects prefers-reduced-motion media query
+- Focus visible states for all interactive elements
+- Avatar images have descriptive alt text

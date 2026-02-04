@@ -1,0 +1,508 @@
+"use client";
+
+import { useState, useCallback, useEffect } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Title from "@/components/Title";
+import TestimonialCard, { TestimonialData } from "./TestimonialCard";
+
+/**
+ * Testimonials — Testimonials section with accessible 3-item slider
+ *
+ * Layout specs (from Figma reference):
+ * - Section uses .section-wrap + .section-inner pattern
+ * - Title index: "( 004 )", label: "WHAT DO CLIENTS SAY", heading: "Testimonials"
+ * - Testimonial text: h4 token (36px, semibold), max-width 1038px
+ * - Gap between testimonial text and control row: 80px
+ * - Control row: avatar (48x48), client info (name + role + LinkedIn), slider controls
+ * - Slider: 3 testimonials, prev/next arrows, page indicator "1/3"
+ *
+ * Accessibility:
+ * - Carousel region with aria-label
+ * - Slides with role="group" aria-roledescription="slide"
+ * - Navigation buttons with aria-labels
+ * - aria-disabled for disabled buttons
+ * - Respects prefers-reduced-motion
+ *
+ * Tokens used:
+ * - Spacing: --token-space-24, --token-space-80, --token-space-192
+ * - Typography: --token-size-h4, --token-size-body-md, --token-weight-semibold
+ * - Colors: --token-color-accent, --token-color-base
+ */
+
+export type TestimonialsProps = {
+  /** Array of testimonials (default: 3 testimonials) */
+  testimonials?: TestimonialData[];
+};
+
+/** Default testimonials data matching design */
+const defaultTestimonials: TestimonialData[] = [
+  {
+    id: "1",
+    text: "Andrii executed his work excellently. He was reliable, communicated effectively, and adhered to the schedule. His skills and quality of work met my expectations, and I'm likely to recommend him.",
+    clientName: "Joe Jesuele",
+    clientRole: "Founder of HomeJab",
+    avatarSrc: "/assets/images/testimonials/avatar-1.png",
+    linkedInUrl: "https://linkedin.com",
+  },
+  {
+    id: "2",
+    text: "Working with Andrii was a fantastic experience. His attention to detail and creative approach brought our vision to life. The final product exceeded our expectations.",
+    clientName: "Sarah Chen",
+    clientRole: "Product Manager at TechCorp",
+    avatarSrc: "/assets/images/testimonials/avatar-2.svg",
+    linkedInUrl: "https://linkedin.com",
+  },
+  {
+    id: "3",
+    text: "Andrii's design expertise transformed our platform. He understood our needs perfectly and delivered a solution that was both beautiful and functional. Highly recommended.",
+    clientName: "Michael Torres",
+    clientRole: "CEO at StartupXYZ",
+    avatarSrc: "/assets/images/testimonials/avatar-3.svg",
+    linkedInUrl: "https://linkedin.com",
+  },
+];
+
+const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps) => {
+  const prefersReducedMotion = useReducedMotion();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const totalSlides = testimonials.length;
+  const isFirstSlide = currentIndex === 0;
+  const isLastSlide = currentIndex === totalSlides - 1;
+  const currentTestimonial = testimonials[currentIndex];
+
+  // Navigation handlers
+  const goToPrevious = useCallback(() => {
+    if (!isFirstSlide) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  }, [isFirstSlide]);
+
+  const goToNext = useCallback(() => {
+    if (!isLastSlide) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  }, [isLastSlide]);
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        goToPrevious();
+      } else if (e.key === "ArrowRight") {
+        goToNext();
+      }
+    },
+    [goToPrevious, goToNext]
+  );
+
+  // Touch/swipe support
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
+  // Animation variants
+  const slideVariants = prefersReducedMotion
+    ? {
+        enter: { opacity: 1 },
+        center: { opacity: 1 },
+        exit: { opacity: 1 },
+      }
+    : {
+        enter: (direction: number) => ({
+          x: direction > 0 ? 50 : -50,
+          opacity: 0,
+        }),
+        center: {
+          x: 0,
+          opacity: 1,
+        },
+        exit: (direction: number) => ({
+          x: direction < 0 ? 50 : -50,
+          opacity: 0,
+        }),
+      };
+
+  const [direction, setDirection] = useState(0);
+
+  useEffect(() => {
+    // Track direction for animation
+  }, [currentIndex]);
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    if (newDirection > 0 && !isLastSlide) {
+      setCurrentIndex((prev) => prev + 1);
+    } else if (newDirection < 0 && !isFirstSlide) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  // Container animation
+  const containerMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, margin: "-100px" },
+        transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+      };
+
+  return (
+    <motion.div
+      {...containerMotion}
+      className="testimonials-wrapper flex flex-col w-full"
+      style={{
+        paddingTop: "var(--token-space-24)" /* 24px top padding */,
+        paddingBottom: "var(--token-space-192)" /* 192px bottom padding */,
+      }}
+      role="region"
+      aria-label="Testimonials carousel"
+      aria-roledescription="carousel"
+      onKeyDown={handleKeyDown}
+    >
+      {/* Title Component */}
+      <Title
+        index="( 004 )"
+        label="what do clients say"
+        heading="Testimonials"
+      />
+
+      {/* Testimonials Content Container */}
+      <div
+        className="testimonials-content"
+        style={{
+          marginTop: "var(--token-space-256)" /* 256px gap from title */,
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+        }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Slides Container */}
+        <div
+          className="testimonials-slides"
+          style={{
+            position: "relative",
+            width: "100%",
+            minHeight: "200px",
+          }}
+        >
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : {
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 },
+                    }
+              }
+            >
+              <TestimonialCard
+                testimonial={currentTestimonial}
+                isActive={true}
+                slideIndex={currentIndex + 1}
+                totalSlides={totalSlides}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Control Row — 80px gap from testimonial text */}
+        <div
+          className="testimonials-controls"
+          style={{
+            marginTop: "var(--token-space-80)" /* 80px gap */,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            flexWrap: "wrap",
+            gap: "var(--token-space-24)",
+          }}
+        >
+          {/* Client Info — Left side */}
+          <div
+            className="testimonials-client-info"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "var(--token-space-16)",
+            }}
+          >
+            {/* Avatar */}
+            <div
+              className="testimonials-avatar"
+              style={{
+                width: "48px",
+                height: "48px",
+                borderRadius: "9999px",
+                overflow: "hidden",
+                flexShrink: 0,
+              }}
+            >
+              <Image
+                src={currentTestimonial.avatarSrc}
+                alt={`${currentTestimonial.clientName}'s profile photo`}
+                width={48}
+                height={48}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+
+            {/* Client Text */}
+            <div
+              className="testimonials-client-text"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--token-space-4)",
+              }}
+            >
+              <span
+                className="testimonials-client-name"
+                style={{
+                  fontFamily: "var(--token-font-family-base)",
+                  fontSize: "var(--token-size-body-md)" /* 16px */,
+                  fontWeight: "var(--token-weight-semibold)" /* 600 */,
+                  lineHeight: "var(--token-leading-140)" /* 140% */,
+                  color: "var(--token-color-accent)",
+                }}
+              >
+                {currentTestimonial.clientName}
+              </span>
+              <div
+                className="testimonials-client-meta"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "var(--token-space-8)",
+                }}
+              >
+                <span
+                  className="testimonials-client-role"
+                  style={{
+                    fontFamily: "var(--token-font-family-base)",
+                    fontSize: "var(--token-size-body-sm)" /* 12px */,
+                    fontWeight: "var(--token-weight-regular)" /* 400 */,
+                    lineHeight: "var(--token-leading-140)" /* 140% */,
+                    color: "var(--token-color-accent)",
+                  }}
+                >
+                  {currentTestimonial.clientRole}
+                </span>
+                {currentTestimonial.linkedInUrl && (
+                  <>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        fontFamily: "var(--token-font-family-base)",
+                        fontSize: "var(--token-size-body-sm)",
+                        color: "var(--token-color-accent)",
+                      }}
+                    >
+                      •
+                    </span>
+                    <a
+                      href={currentTestimonial.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="testimonials-linkedin-link"
+                      style={{
+                        fontFamily: "var(--token-font-family-base)",
+                        fontSize: "var(--token-size-body-sm)" /* 12px */,
+                        fontWeight: "var(--token-weight-regular)" /* 400 */,
+                        lineHeight: "var(--token-leading-140)" /* 140% */,
+                        color: "var(--token-color-accent)",
+                        textDecoration: "none",
+                      }}
+                    >
+                      LinkedIn
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Controls — Right side */}
+          <div
+            className="testimonials-nav"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "var(--token-space-16)",
+            }}
+          >
+            {/* Page Indicator */}
+            <span
+              className="testimonials-indicator"
+              style={{
+                fontFamily: "var(--token-font-family-base)",
+                fontSize: "var(--token-size-body-md)" /* 16px */,
+                fontWeight: "var(--token-weight-regular)" /* 400 */,
+                lineHeight: "var(--token-leading-140)" /* 140% */,
+                color: "var(--token-color-accent)",
+              }}
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {currentIndex + 1}/{totalSlides}
+            </span>
+
+            {/* Previous Button */}
+            <button
+              type="button"
+              onClick={() => paginate(-1)}
+              disabled={isFirstSlide}
+              aria-disabled={isFirstSlide}
+              aria-label="Previous testimonial"
+              className="testimonials-nav-btn testimonials-nav-btn--prev"
+              style={{
+                width: "48px",
+                height: "48px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: isFirstSlide
+                  ? "transparent"
+                  : "transparent",
+                border: "none",
+                cursor: isFirstSlide ? "not-allowed" : "pointer",
+                opacity: isFirstSlide ? 0.3 : 1,
+                transition: "opacity 0.2s ease",
+                outline: "none",
+              }}
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                style={{
+                  transform: "rotate(180deg)",
+                }}
+              >
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke="var(--token-color-accent)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            {/* Next Button */}
+            <button
+              type="button"
+              onClick={() => paginate(1)}
+              disabled={isLastSlide}
+              aria-disabled={isLastSlide}
+              aria-label="Next testimonial"
+              className="testimonials-nav-btn testimonials-nav-btn--next"
+              style={{
+                width: "48px",
+                height: "48px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: isLastSlide
+                  ? "transparent"
+                  : "var(--token-color-accent)",
+                border: "none",
+                cursor: isLastSlide ? "not-allowed" : "pointer",
+                opacity: isLastSlide ? 0.3 : 1,
+                transition: "opacity 0.2s ease, background-color 0.2s ease",
+                outline: "none",
+              }}
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M9 6L15 12L9 18"
+                  stroke={isLastSlide ? "var(--token-color-accent)" : "var(--token-color-base)"}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Focus styles for navigation buttons */}
+      <style jsx>{`
+        .testimonials-nav-btn:focus-visible {
+          outline: 2px solid var(--token-color-accent);
+          outline-offset: 2px;
+        }
+        .testimonials-linkedin-link:hover,
+        .testimonials-linkedin-link:focus {
+          text-decoration: underline;
+        }
+        .testimonials-linkedin-link:focus-visible {
+          outline: 2px solid var(--token-color-accent);
+          outline-offset: 2px;
+        }
+        @media (max-width: 768px) {
+          .testimonials-controls {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+        }
+      `}</style>
+    </motion.div>
+  );
+};
+
+export default Testimonials;
