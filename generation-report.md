@@ -66,6 +66,37 @@
 - `feature/figma-home-hero-v2` (original)
 - `feature/figma-home-hero-fixes` (current fixes branch)
 
+---
+
+## About — Recent Works (2026-02-04)
+
+### Branch
+
+- `feature/about-recent-works`
+
+### Commit
+
+- `3e345797a130ffadf0335b30a29b4b88ffce3c22`
+
+### Summary
+
+- Added **Recent Works** as the last content section on the About page (directly above `Footer`).
+- Section matches Home → Works styling/tokens and renders **exactly 2 cards** (1 row on desktop, 1 column on mobile).
+- **Bottom padding**: Skills = `--token-space-192`, Recent Works = `--token-space-192`.
+
+### Files Created/Modified
+
+#### Created
+- `src/components/RecentWorks/RecentWorks.tsx`
+- `src/components/RecentWorks/index.ts`
+
+#### Modified
+- `src/app/(global)/about/page.tsx`
+
+### Placeholders
+
+- Work card images use `public/assets/images/works/placeholder.svg` (swap `imageSrc` in `src/components/RecentWorks/RecentWorks.tsx`).
+
 ## Tokens Used (exact mapping from Figma)
 
 ### Colors
