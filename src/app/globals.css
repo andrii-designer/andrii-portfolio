@@ -62,33 +62,42 @@ a {
 }
 
 /**
- * Header theme — auto-toggle when scrolling over dark sections
- * Scoped to header only; does not change global tokens.
- * Manual override: add data-header-theme="dark" or "light" on a top-level section.
+ * Header — fixed bar with instant mix-blend-mode inversion
+ * .header-inner uses difference blend so header appears light over dark and dark over light.
+ * Add data-header-solid on a section to force solid #060606 (no blending) when overlapping.
  */
-:root {
-  --header-color-default: #060606;
-  --header-color-inverted: #E3E3E5;
+header.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  isolation: isolate;
 }
 
-header {
-  color: var(--header-color-default);
+header .header-inner {
+  color: #ffffff;
+  mix-blend-mode: difference;
+  transition: color 0.12s linear, opacity 0.12s linear;
 }
 
-header[data-header-theme="dark"],
-header.header--inverted {
-  color: var(--header-color-inverted);
-}
-
-header[data-header-theme="dark"] *,
-header.header--inverted * {
-  color: inherit;
-}
-
-header a,
-header svg {
+header .header-inner a,
+header .header-inner button,
+header .header-inner svg {
   color: inherit;
   fill: currentColor;
+}
+
+header.header--solid .header-inner {
+  mix-blend-mode: normal;
+  color: #060606;
+}
+
+@supports not (mix-blend-mode: difference) {
+  header .header-inner {
+    mix-blend-mode: normal;
+    color: #060606;
+  }
 }
 
 /**

@@ -1882,40 +1882,33 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 
 ---
 
-## Header auto-theme over dark sections (2026-02-06)
+## Header — instant mix-blend-mode inversion (2026-02-06)
 
 ### Summary
 
-- Header automatically switches its foreground color to light (`#E3E3E5`) when scrolling over visually dark sections (dark background or dark-dominant images).
-- Detection order: **manual override** (`data-header-theme="dark"` or `"light"` on section) → **computed background color** (luminance &lt; 0.5 ⇒ dark) → **image sampling** (canvas 32×32 average luminance, cached by image src) → **default light**.
-- CSS scoped to header only: `--header-color-default`, `--header-color-inverted`; no global token changes.
+- **Previous header theme system fully removed**: IntersectionObserver-based dark/light detection, scroll listeners, background/image sampling, theme state, and all related CSS variables and selectors have been deleted. Header no longer uses JS-driven color switching.
+- **New approach**: Instant Photoshop/Figma-like inversion using CSS `mix-blend-mode: difference` on the header inner content. Header appears light over dark areas and dark over light areas with no delay or flicker.
+- **Solid override**: Sections can disable blending (force solid `#060606` header) by adding `data-header-solid` or `data-header-theme="light"`. A lightweight `useHeaderSolidObserver` hook toggles the class `header--solid` on the header when such a section overlaps the top of the viewport.
+
+### Files removed
+
+| File | Reason |
+|------|--------|
+| `src/hooks/useHeaderTheme.tsx` | Old theme-switch logic (observers, image sampling, debounce) removed in full reset. |
 
 ### Files added
 
 | File | Description |
 |------|-------------|
-| `src/hooks/useHeaderTheme.tsx` | Reusable hook: IntersectionObserver on `section, [data-header-theme-watch], .section-wrap` (excluding header), rootMargin `0px 0px -80% 0px`, debounce 80ms, returns `theme` and `setTheme` for manual override. SSR-safe (effect runs only client-side). |
+| `src/hooks/useHeaderSolidObserver.ts` | Lightweight hook: observes `[data-header-solid]` and `[data-header-theme="light"]`; toggles `header--solid` on header when any overlap the top of the viewport. IntersectionObserver only — no scroll listeners or image analysis. |
 
 ### Files modified
 
 | File | Changes |
 |------|---------|
-| `src/components/Header/Header.tsx` | Added `headerRef`, `useHeaderTheme(headerRef)`, `data-header-theme={theme}`, class `header--inverted` when dark; nav dot background set to `currentColor` so it inverts with header. |
-| `src/app/globals.css` | Added `:root` vars `--header-color-default`, `--header-color-inverted`; `header` base color; `header[data-header-theme="dark"]` / `header.header--inverted` use inverted color; `header a, header svg` inherit and `fill: currentColor`. |
+| `src/components/Header/Header.tsx` | Removed `useHeaderTheme`, theme state, `data-header-theme`, `header--inverted`. Added `ref`, `useHeaderSolidObserver(headerRef)`, classes `site-header` and `header--solid` when overlapping solid sections; inner wrapper has class `header-inner`. Position/fixed moved to CSS. Nav dot uses `currentColor` so it inverts with blend. |
+| `src/app/globals.css` | Replaced previous header theme CSS with mix-blend-mode rules: `header.site-header` (fixed, z-index 60, isolation), `header .header-inner` (color #ffffff, mix-blend-mode: difference), `header.header--solid .header-inner` (normal, color #060606), `@supports not (mix-blend-mode: difference)` fallback (normal, #060606). |
 
-### Detection strategy
+### How to disable blending
 
-1. **Attribute override**: If the active section has `data-header-theme="dark"` or `"light"`, that value is used.
-2. **Background color**: If `getComputedStyle.backgroundColor` is not transparent, parse RGB and compute relative luminance; &lt; 0.5 ⇒ dark.
-3. **Image sampling**: If the section contains a visible `<img>`, draw a 32×32 sample to a canvas and compute average pixel luminance; &lt; 0.5 ⇒ dark. Results cached per image `src` to avoid repeated sampling. CORS/canvas taint handled: on failure, fallback to background luminance or default light; hook does not throw.
-4. **Default**: Light.
-
-### Caching and performance
-
-- Image luminance results are cached in a module-level `Map<string, boolean>` keyed by image `src`, so each image is sampled at most once per session.
-- Theme updates are debounced (80ms) to avoid rapid toggles while scrolling.
-- Observer and scroll listener are cleaned up on unmount.
-
-### Optional designer usage
-
-- To force a section as dark or light regardless of background/image, add `data-header-theme="dark"` or `data-header-theme="light"` to the top-level `section` or wrapper (e.g. `.section-wrap`). Alternatively use `data-header-theme-watch` to include a custom element in the observed set.
+- Add **`data-header-solid`** or **`data-header-theme="light"`** to a top-level section (e.g. `<section data-header-solid>`). When that section overlaps the header zone (top of viewport), the header switches to solid `#060606` with no blending.

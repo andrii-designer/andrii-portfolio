@@ -5,7 +5,7 @@ import Link from "next/link";
 import type React from "react";
 import { Fragment, useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import useHeaderTheme from "@/hooks/useHeaderTheme";
+import useHeaderSolidObserver from "@/hooks/useHeaderSolidObserver";
 
 /**
  * Header — Figma node-id: 2228:4741
@@ -61,7 +61,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
   const isHomePage = pathname === "/";
   const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
   const headerRef = useRef<HTMLElement>(null);
-  const { theme } = useHeaderTheme(headerRef);
+  const isSolid = useHeaderSolidObserver(headerRef);
 
   const DOT_SIZE = "var(--token-space-12)"; // 12px
   const DOT_TOTAL_SPACE = "var(--token-space-8)"; // 8px gap after dot
@@ -99,20 +99,14 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
   return (
     <header
       ref={headerRef}
-      className={`section-wrap ${theme === "dark" ? "header--inverted" : ""} ${className || ""}`}
-      data-header-theme={theme}
+      className={`section-wrap site-header ${isSolid ? "header--solid" : ""} ${className || ""}`}
       style={{
         height: "70px",
         paddingTop: "var(--token-space-16)",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
       }}
     >
       <div
-        className="section-inner flex justify-between items-start"
+        className="section-inner header-inner flex justify-between items-start"
         style={{ height: "100%" }}
       >
         {/* Left: Logo — aligned to top */}
