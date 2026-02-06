@@ -1526,3 +1526,103 @@ The Services section implements scroll-based activation using IntersectionObserv
 - All links/buttons: visible focus-visible states with ring
 - Social links: `target="_blank" rel="noopener noreferrer"` for security
 - Copy icon SVG: `aria-hidden="true" focusable="false"`
+
+---
+
+## Case Study Hero Section (feature/case-study) — 2026-02-05
+
+### Branch
+- `feature/case-study`
+
+### Summary
+- Created **CaseStudyHero** reusable component for individual case study pages.
+- Wired into `/case-studies/[slug]` route as the first section.
+- Component follows the project's `.section-wrap` + `.section-inner` layout pattern.
+- Full-bleed hero image sits outside `.section-inner` (zero side padding).
+- Title uses `--token-size-display-1` (150px) with responsive scaling.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyHero.tsx` | CaseStudyHero component with props: title, client, services, heroImage |
+| `src/features/case-study/components/index.ts` | Barrel export for CaseStudyHero |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Case study detail page — imports CaseStudyHero, placeholder content, Footer |
+| `public/assets/case-studies/placeholder-hero.png` | Placeholder hero image (reference design screenshot) |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/globals.css` | Added `.case-study-hero` CSS rules: responsive title typography, meta row layout, meta item styling, full-bleed visual, prefers-reduced-motion |
+
+### Tokens Added
+**None** — all required tokens already existed in `src/styles/variables.css`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-size-display-1` | 150px | Hero title font-size (desktop) |
+| `--token-space-24` | 24px | Side paddings via `.section-inner` |
+| `--token-space-128` | 128px | Gap between title and meta row |
+| `--token-space-64` | 64px | Meta row gap (desktop, between client and services) |
+| `--token-space-16` | 16px | Meta row gap (mobile, stacked) |
+| `--token-space-4` | 4px | Meta item gap (label → value) |
+| `--token-size-overline` | 12px | Meta label font-size (uppercase) |
+| `--token-size-body-md` | 16px | Meta value font-size |
+| `--token-weight-semibold` | 600 | Title and meta label weight |
+| `--token-weight-regular` | 400 | Meta value weight |
+| `--token-leading-100` | 100% | Title line-height |
+
+### Responsive Title Scaling
+
+| Breakpoint | Font-size Token | Letter-spacing |
+|------------|-----------------|----------------|
+| Desktop (>1024px) | `--token-size-display-1` (150px) | -6px |
+| Tablet (≤1024px) | `--token-size-h1` (84px) | -4px |
+| Mobile (≤768px) | `--token-size-h2` (64px) | -3px |
+| Small (≤480px) | `--token-size-h3` (48px) | -2px |
+
+### Full-Bleed Hero Image
+
+| Property | Value |
+|----------|-------|
+| **Placeholder path** | `public/assets/case-studies/placeholder-hero.png` |
+| **Runtime src** | `/assets/case-studies/placeholder-hero.png` |
+| **Dimensions** | 1600×900 (responsive via `sizes="100vw"`, `width: 100%`) |
+| **Side padding** | 0px (sits outside `.section-inner`) |
+| **Top margin** | `--token-space-64` (64px from meta row) |
+
+### Visual Acceptance Checklist
+
+| Item | Status |
+|------|--------|
+| Title uses `--token-size-display-1` (150px) | ✅ Pass |
+| Side paddings = 24px (via `.section-inner` + `--token-space-24`) | ✅ Pass |
+| Gap between title and meta = 128px (`--token-space-128`) | ✅ Pass |
+| Full-bleed image has zero side padding | ✅ Pass |
+| Meta row side-by-side on desktop (gap: 64px) | ✅ Pass |
+| Meta row stacked on mobile ≤768px (gap: 16px) | ✅ Pass |
+| Meta labels uppercase, overline (12px) | ✅ Pass |
+| Responsive title scaling at 1024/768/480px breakpoints | ✅ Pass |
+| `<h1>` used for case study title | ✅ Pass |
+| Hero image has descriptive alt text | ✅ Pass |
+| `prefers-reduced-motion` respected (no auto-animations) | ✅ Pass |
+| Component is reusable via props (title, client, services, heroImage) | ✅ Pass |
+| `section-wrap` + `section-inner` layout pattern used | ✅ Pass |
+| Uses existing design tokens (no new tokens added) | ✅ Pass |
+
+### Accessibility
+
+- `<section aria-label="Case study hero">` for landmark navigation
+- `<h1>` for the case study title (proper heading hierarchy)
+- Hero image: descriptive `alt` attribute using title fallback
+- Meta labels: `<strong>` for semantic emphasis
+- `prefers-reduced-motion: reduce` respected via CSS rule
+- No auto-playing animations on the hero visual
+
+### Routing Note
+
+This project uses **Next.js App Router** (not Pages Router). The case study page is at:
+- `src/app/(global)/case-studies/[slug]/page.tsx`
+- Inherits the `(global)` layout which includes the Header component
+- URL pattern: `/case-studies/raccord`, `/case-studies/[any-slug]`
