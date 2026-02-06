@@ -313,10 +313,10 @@ export default function Footer({ className = "" }: FooterProps) {
               <Image
                 src="/hero-assets/logo.svg"
                 alt="Andrii Vynarchyk logo"
-                width={150}
-                height={150}
+                width={160}
+                height={160}
                 style={{
-                  height: "150px",
+                  height: "var(--token-space-160)",
                   width: "auto",
                 }}
                 priority={false}

@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
  * Header — Figma node-id: 2228:4741
  *
  * Layout specs:
- * - Height: 70px
+ * - Height: --token-space-64 (64px)
  * - Uses .section-wrap (full-bleed) + .section-inner (24px side padding)
  * - Flex layout: justify-content: space-between, align-items: flex-start
  * - Logo aligned to top
@@ -140,7 +140,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
     <header
       className={`section-wrap ${className || ""}`}
       style={{
-        height: "70px",
+        height: "var(--token-space-64)",
         paddingTop: "var(--token-space-16)",
         position: "fixed",
         top: 0,
@@ -179,8 +179,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="md:hidden flex items-center justify-center p-2 text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             style={{
-              minWidth: "44px",
-              minHeight: "44px",
+              minWidth: "var(--token-space-48)",
+              minHeight: "var(--token-space-48)",
             }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -198,7 +198,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             <div
               className="header-avatar flex order-1 md:hidden"
               style={{
-                height: "24px",
+                height: "var(--token-space-24)",
                 alignItems: "center",
                 gap: "var(--token-space-16)",
               }}
@@ -211,8 +211,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 priority
                 style={{
                   borderRadius: "9999px",
-                  width: "24px",
-                  height: "24px",
+                  width: "var(--token-space-24)",
+                  height: "var(--token-space-24)",
                   objectFit: "cover",
                 }}
               />
@@ -334,7 +334,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             <div
               className="header-avatar hidden lg:flex order-2"
               style={{
-                height: "24px",
+                height: "var(--token-space-24)",
                 alignItems: "center",
                 gap: "var(--token-space-16)",
               }}
@@ -347,8 +347,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 priority
                 style={{
                   borderRadius: "9999px",
-                  width: "24px",
-                  height: "24px",
+                  width: "var(--token-space-24)",
+                  height: "var(--token-space-24)",
                   objectFit: "cover",
                 }}
               />

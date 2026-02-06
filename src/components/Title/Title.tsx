@@ -59,7 +59,7 @@ const Title = ({
       {...titleMotion}
       className={`title flex flex-col w-full ${className}`}
       style={{
-        gap: 0, /* No gap between label and heading */
+        gap: "var(--token-space-0)", /* No gap between label and heading */
         alignItems: "flex-start", /* Left-aligned */
       }}
     >

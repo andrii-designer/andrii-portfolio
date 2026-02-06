@@ -215,7 +215,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           style={{
             position: "relative",
             width: "100%",
-            minHeight: "200px",
+            minHeight: "var(--token-space-192)",
           }}
         >
           <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -269,12 +269,12 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               gap: "var(--token-space-24)" /* 24px gap between avatar and text */,
             }}
           >
-            {/* Avatar — 70x70px square */}
+            {/* Avatar — 64×64px square (--token-space-64) */}
             <div
               className="testimonials-avatar"
               style={{
-                width: "70px",
-                height: "70px",
+                width: "var(--token-space-64)",
+                height: "var(--token-space-64)",
                 overflow: "hidden",
                 flexShrink: 0,
               }}
@@ -282,8 +282,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               <Image
                 src={currentTestimonial.avatarSrc}
                 alt={`${currentTestimonial.clientName}'s profile photo`}
-                width={70}
-                height={70}
+                width={64}
+                height={64}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -373,7 +373,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              gap: 0,
+              gap: "var(--token-space-0)",
             }}
           >
             {/* Page Indicator — Label Medium (16px, medium, 0px letter spacing, 115% line height) */}
@@ -394,7 +394,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               {currentIndex + 1}/{totalSlides}
             </span>
 
-            {/* Previous Button — 70x70px, active (dark bg) when not on first slide */}
+            {/* Previous Button — 64×64px (--token-space-64), active (dark bg) when not on first slide */}
             {/* disabled arrow.svg points LEFT, active arrow.svg points RIGHT */}
             {/* Previous button should always point LEFT: disabled uses disabled arrow (no rotation), active uses active arrow (rotate 180°) */}
             <button
@@ -405,8 +405,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Previous testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--prev"
               style={{
-                width: "70px",
-                height: "70px",
+                width: "var(--token-space-64)",
+                height: "var(--token-space-64)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -436,7 +436,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               />
             </button>
 
-            {/* Next Button — 70x70px, active (dark bg) when not on last slide */}
+            {/* Next Button — 64×64px (--token-space-64), active (dark bg) when not on last slide */}
             {/* Next button should always point RIGHT: disabled uses disabled arrow (rotate 180°), active uses active arrow (no rotation) */}
             <button
               type="button"
@@ -446,8 +446,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Next testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--next"
               style={{
-                width: "70px",
-                height: "70px",
+                width: "var(--token-space-64)",
+                height: "var(--token-space-64)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

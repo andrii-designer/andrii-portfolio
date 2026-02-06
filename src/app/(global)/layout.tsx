@@ -15,7 +15,7 @@ import Header from "@/components/Header/Header";
  * Figma verification:
  * - Container horizontal padding: 24px (left and right)
  * - Top padding: 16px
- * - Gap header → content: 48px
+ * - Gap header → content: 64px (--token-space-64)
  * 
  * Note: Footer is rendered in individual pages (e.g., page.tsx) rather than
  * in the global layout to allow per-page control over footer placement.
@@ -32,8 +32,8 @@ export default function GlobalLayout({
       
       {/* Main content area — pages use .section-wrap + .section-inner pattern */}
       {/* Footer is rendered within individual pages as the last section */}
-      {/* paddingTop accounts for fixed header height (70px) */}
-      <main style={{ paddingTop: "70px" }}>
+      {/* paddingTop clears fixed header (uses --token-space-64 to match header height) */}
+      <main style={{ paddingTop: "var(--token-space-64)" }}>
         {children}
       </main>
     </div>

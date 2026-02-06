@@ -46,7 +46,7 @@ const SkillsList = ({ skills }: SkillsListProps) => {
         padding: 0,
         display: "flex",
         flexDirection: "column",
-        gap: 0,
+        gap: "var(--token-space-0)",
       }}
     >
       {skills.map((skill, index) => {

@@ -119,7 +119,7 @@ const Process = ({
 
     return {
       paddingTop: isFirst ? "var(--token-space-24)" : "var(--token-space-48)",
-      paddingBottom: isLast ? 0 : "var(--token-space-48)",
+      paddingBottom: isLast ? "var(--token-space-0)" : "var(--token-space-48)",
     };
   };
 
