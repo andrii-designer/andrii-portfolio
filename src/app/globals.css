@@ -62,9 +62,9 @@ a {
 }
 
 /**
- * Section layout pattern — used for all top-level page sections
- * Sections are full-bleed (100% viewport width)
- * Inner content preserves 24px horizontal padding via spacing token
+ * Section layout pattern — used for all top-level page sections (responsive baseline).
+ * Sections are full-bleed (100% viewport width).
+ * Inner content uses token-based horizontal padding (var(--token-space-24)); desktop layout unchanged.
  */
 .section-wrap {
   width: 100%;
