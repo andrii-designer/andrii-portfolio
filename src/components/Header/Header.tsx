@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import useHeaderDarkObserver from "@/hooks/useHeaderDarkObserver";
 
 /**
  * Header — Figma node-id: 2228:4741
@@ -59,6 +60,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const isDark = useHeaderDarkObserver(headerRef);
 
   const DOT_SIZE = "var(--token-space-12)"; // 12px
   const DOT_TOTAL_SPACE = "var(--token-space-8)"; // 8px gap after dot
@@ -95,7 +98,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
 
   return (
     <header
-      className={`section-wrap ${className || ""}`}
+      ref={headerRef}
+      className={`section-wrap site-header ${isDark ? "header--dark" : ""} ${className || ""}`}
       style={{
         height: "70px",
         paddingTop: "var(--token-space-16)",
@@ -107,7 +111,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
       }}
     >
       <div
-        className="section-inner flex justify-between items-start"
+        className="section-inner header-inner flex justify-between items-start"
         style={{ height: "100%" }}
       >
         {/* Left: Logo — aligned to top */}
@@ -198,7 +202,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
 
                   {index !== links.length - 1 && (
                     <li
-                      className="header-nav-divider flex items-center text-accent"
+                      className="header-nav-divider divider flex items-center text-accent"
                       aria-hidden="true"
                       style={{
                         paddingLeft: 0,

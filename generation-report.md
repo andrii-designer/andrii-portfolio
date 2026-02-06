@@ -1882,33 +1882,33 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 
 ---
 
-## Header — instant mix-blend-mode inversion (2026-02-06)
+## Header — IntersectionObserver-based dark-section toggle (2026-02-06)
 
 ### Summary
 
-- **Previous header theme system fully removed**: IntersectionObserver-based dark/light detection, scroll listeners, background/image sampling, theme state, and all related CSS variables and selectors have been deleted. Header no longer uses JS-driven color switching.
-- **New approach**: Instant Photoshop/Figma-like inversion using CSS `mix-blend-mode: difference` on the header inner content. Header appears light over dark areas and dark over light areas with no delay or flicker.
-- **Solid override**: Sections can disable blending (force solid `#060606` header) by adding `data-header-solid` or `data-header-theme="light"`. A lightweight `useHeaderSolidObserver` hook toggles the class `header--solid` on the header when such a section overlaps the top of the viewport.
+- **Blend-mode experiment reverted**: Previous mix-blend-mode and useHeaderSolidObserver implementation was fully removed; base header restored.
+- **New approach**: Deterministic header color toggle using `useHeaderDarkObserver`. When the header overlaps any section marked as dark (`.dark-section` or `data-header-theme="dark"`), the class `header--dark` is applied and header links/logo use light color `#E3E3E5`. Default (over light backgrounds) remains `#060606`.
+- **No image sampling**: Hook uses only IntersectionObserver (selector + rootMargin). No per-pixel or canvas operations.
 
-### Files removed
-
-| File | Reason |
-|------|--------|
-| `src/hooks/useHeaderTheme.tsx` | Old theme-switch logic (observers, image sampling, debounce) removed in full reset. |
-
-### Files added
+### Files created
 
 | File | Description |
 |------|-------------|
-| `src/hooks/useHeaderSolidObserver.ts` | Lightweight hook: observes `[data-header-solid]` and `[data-header-theme="light"]`; toggles `header--solid` on header when any overlap the top of the viewport. IntersectionObserver only — no scroll listeners or image analysis. |
+| `src/hooks/useHeaderDarkObserver.ts` | Hook: `useHeaderDarkObserver(headerRef, options?)`. Observes `.dark-section` and `[data-header-theme="dark"]`; rootMargin from measured header height (fallback 80px) so intersection = “section in header zone”. Debounce 20ms. Returns `isDark`. Fallback: if IntersectionObserver unsupported, uses scroll listener + first dark-section bounding rect. |
 
 ### Files modified
 
 | File | Changes |
 |------|---------|
-| `src/components/Header/Header.tsx` | Removed `useHeaderTheme`, theme state, `data-header-theme`, `header--inverted`. Added `ref`, `useHeaderSolidObserver(headerRef)`, classes `site-header` and `header--solid` when overlapping solid sections; inner wrapper has class `header-inner`. Position/fixed moved to CSS. Nav dot uses `currentColor` so it inverts with blend. |
-| `src/app/globals.css` | Replaced previous header theme CSS with mix-blend-mode rules: `header.site-header` (fixed, z-index 60, isolation), `header .header-inner` (color #ffffff, mix-blend-mode: difference), `header.header--solid .header-inner` (normal, color #060606), `@supports not (mix-blend-mode: difference)` fallback (normal, #060606). |
+| `src/components/Header/Header.tsx` | Added `headerRef`, `useHeaderDarkObserver(headerRef)`, classes `site-header` and `header--dark` when `isDark`; inner wrapper has `header-inner`; nav divider has class `divider` for CSS. Logo/nav/buttons unchanged. |
+| `src/app/globals.css` | Added `.site-header .header-inner` default `#060606` and 160ms color transition; `.site-header .header-inner a, button, svg, .divider` inherit/fill/stroke/border; `.site-header.header--dark .header-inner` `#E3E3E5`; `.site-header .no-toggle` stays `#060606` with isolation. |
 
-### How to disable blending
+### How to mark dark sections
 
-- Add **`data-header-solid`** or **`data-header-theme="light"`** to a top-level section (e.g. `<section data-header-solid>`). When that section overlaps the header zone (top of viewport), the header switches to solid `#060606` with no blending.
+- Add **`class="dark-section"`** or **`data-header-theme="dark"`** to the section element that should trigger light header when the header overlaps it.
+- Example: `<section class="dark-section">...</section>` or `<section data-header-theme="dark">...</section>`.
+
+### Fallback behavior
+
+- If `headerRef` measurement fails, rootMargin uses `-80px` (80px header zone).
+- If `IntersectionObserver` is not supported, the hook falls back to a scroll listener that checks the first matching dark section’s `getBoundingClientRect()` against the header height and sets `isDark` accordingly.
