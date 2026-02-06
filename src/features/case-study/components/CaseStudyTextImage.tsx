@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 
 export type CaseStudyTextImageProps = {
   title: string;
@@ -8,29 +11,59 @@ export type CaseStudyTextImageProps = {
 
 /**
  * CaseStudyTextImage — reusable text + full-width image section.
- *
- * Layout pattern:
- * - Uses .section-wrap for full-bleed section.
- * - Uses .section-inner for horizontal paddings (24px via --token-space-24).
- * - Text row: title left, paragraph right with 80px gap on desktop.
- * - Full-bleed image sits outside .section-inner with zero side padding.
- *
- * Tokens:
- * - Section top padding: --token-space-128.
- * - Horizontal gap between title and paragraph: --token-space-80.
- * - Gap paragraph → image: --token-space-80.
- * - Title typography: --token-size-h2 + existing heading styles.
- * - Paragraph typography: --token-size-body-lg.
- *
- * Responsive:
- * - ≥768px: title left, paragraph right in a single row.
- * - <768px: stacked vertically with --token-space-64 gap.
+ * Animation: Same scroll-reveal system as Home/About (whileInView, useReducedMotion).
  */
 export default function CaseStudyTextImage({
   title,
   paragraph,
   image,
 }: CaseStudyTextImageProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const containerMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, margin: "-100px" },
+        transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+      };
+
+  const titleMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+      };
+
+  const paragraphMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1] as const,
+          delay: 0.1,
+        },
+      };
+
+  const imageMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, margin: "-50px" },
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1] as const,
+          delay: 0.15,
+        },
+      };
+
   const bodyText =
     paragraph ??
     "Your content changes context as users move across surfaces. This section explains the strategic outcome, not just the visuals.";
@@ -39,7 +72,8 @@ export default function CaseStudyTextImage({
   const alt = image ? `${title} image` : "Case study visual placeholder";
 
   return (
-    <section
+    <motion.section
+      {...containerMotion}
       className="case-study-text-image section-wrap"
       aria-label="Case study text and image"
     >
@@ -56,10 +90,12 @@ export default function CaseStudyTextImage({
               textAlign: "left",
             }}
           >
-            <h2 className="section-title">{title}</h2>
+            <motion.h2 className="section-title" {...titleMotion}>
+              {title}
+            </motion.h2>
           </div>
 
-          <div
+          <motion.div
             className="paragraph-wrap"
             style={{
               maxWidth: "566px",
@@ -68,16 +104,17 @@ export default function CaseStudyTextImage({
               textAlign: "left",
               marginTop: "var(--token-space-80)",
             }}
+            {...paragraphMotion}
           >
             <p className="section-paragraph">{bodyText}</p>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Full-bleed image below: no side padding */}
-      <div
+      <motion.div
         className="text-image-visual full-bleed"
         style={{ marginTop: "var(--token-space-80)" }}
+        {...imageMotion}
       >
         <Image
           src={src}
@@ -88,8 +125,7 @@ export default function CaseStudyTextImage({
           style={{ width: "100%", height: "auto", display: "block" }}
           priority={false}
         />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
-

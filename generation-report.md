@@ -1811,3 +1811,40 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 ### Props
 
 - **None** — Same as the About page: `<RecentWorks />` is invoked with no props. The component uses its internal data source; behavior is identical to the About page.
+
+---
+
+## Case Study Page — Scroll-Reveal Animations (feature/case-study)
+
+### Summary
+
+- Applied the **same scroll-reveal animation system** used on Home and About to the entire Case Study page.
+- No shared animation module exists in the repo; Home/About components each use `framer-motion` (`motion`, `useReducedMotion`) inline with the same pattern. That pattern was **detected and reused** in all Case Study components.
+
+### Animation system detected (reused)
+
+- **Source**: Home page components (`Hero`, `Works`, `Title`) and About-related components (`RecentWorks`, `Services`, `Skills`, `Process`, `Testimonials`) all use:
+  - `import { motion, useReducedMotion } from "framer-motion";`
+  - No `MotionInView` or shared lib; each component defines its own `containerMotion`, `titleMotion`, etc. with the same values.
+- **Import path used**: Same as Home/About — `framer-motion` only (no new modules created).
+- **Variants/thresholds used (reused verbatim)**:
+  - **Section container**: `initial: { opacity: 0 }`, `whileInView: { opacity: 1 }`, `viewport: { once: true, margin: "-100px" }`, `transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }`.
+  - **Title/item blocks**: `initial: { opacity: 0, y: 24 }` (or `y: 16` for meta), `whileInView: { opacity: 1, y: 0 }`, `viewport: { once: true, margin: "-50px" }`, `transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }` (title) or `duration: 0.5` with optional `delay: 0.1` / `0.15`.
+  - **Images**: `initial: { opacity: 0 }`, `whileInView: { opacity: 1 }`, `viewport: { once: true, margin: "-50px" }`, `transition: { duration: 0.5, delay: 0.15 }`.
+- **Reduced motion**: When `useReducedMotion()` is true, all motion props are `{}` so children render instantly (no animation). Same behavior as Home/About.
+
+### Files updated
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/CaseStudyHero.tsx` | Added `"use client"`, `motion` + `useReducedMotion` from framer-motion; wrapped section, h1, meta row, and hero-visual in motion elements with container/title/meta/image variants. |
+| `src/features/case-study/components/CaseStudyIntro.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, heading, intro text block, and intro-visual with scroll-reveal. |
+| `src/features/case-study/components/CaseStudyTextImage.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, h2 title, paragraph block, and full-bleed image. |
+| `src/features/case-study/components/CaseStudyTextImageGrid.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, h2 title, paragraph block, and images grid. |
+
+### Scope and safety
+
+- **Layout, spacing, tokens**: Unchanged. Only animation wrappers and variant props were added; DOM structure and CSS classes preserved.
+- **Home/About**: Not modified. Only Case Study components were updated.
+- **Page** (`case-studies/[slug]/page.tsx`): Not modified. RecentWorks already has its own scroll-reveal; no wrapper added on the page.
+- **Fallback**: When `prefers-reduced-motion` is active, all motion props are empty objects so content is visible immediately (reused Home/About behavior).

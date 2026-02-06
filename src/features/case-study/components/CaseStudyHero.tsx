@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * Props for the CaseStudyHero component.
@@ -22,17 +25,7 @@ export type CaseStudyHeroProps = {
  * - Uses .section-inner for horizontal padding (24px via --token-space-24)
  * - Full-bleed hero image sits outside .section-inner (zero side padding)
  *
- * Design tokens:
- * - Title font-size: --token-size-display-1 (150px), scales responsively
- *   via CSS rules in globals.css (.case-study-hero .hero-title)
- * - Side paddings: --token-space-24 (24px) via .section-inner
- * - Gap title → meta: --token-space-128 (128px)
- * - Meta row gap: --token-space-64 (desktop), --token-space-16 (mobile)
- *
- * Accessibility:
- * - <h1> for the case study title
- * - Descriptive alt text on hero image (falls back to title)
- * - Respects prefers-reduced-motion (no auto-animations on visual)
+ * Animation: Same scroll-reveal system as Home/About (whileInView, useReducedMotion).
  */
 export default function CaseStudyHero({
   title,
@@ -40,16 +33,75 @@ export default function CaseStudyHero({
   services,
   heroImage,
 }: CaseStudyHeroProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const containerMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, margin: "-100px" },
+        transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+      };
+
+  const titleMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
+      };
+
+  const metaMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 16 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1] as const,
+          delay: 0.1,
+        },
+      };
+
+  const imageMotion = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, margin: "-50px" },
+        transition: {
+          duration: 0.5,
+          ease: [0.25, 0.1, 0.25, 1] as const,
+          delay: 0.15,
+        },
+      };
+
   return (
-    <section className="case-study-hero section-wrap" aria-label="Case study hero">
-      <div className="section-inner">
+    <motion.section
+      {...containerMotion}
+      className="case-study-hero section-wrap"
+      aria-label="Case study hero"
+    >
+      <div
+        className="section-inner"
+        style={{
+          paddingTop: "var(--token-space-48)",
+          paddingBottom: "var(--token-space-48)",
+        }}
+      >
         <header className="hero-header">
-          <h1 className="hero-title">{title}</h1>
+          <motion.h1 className="hero-title" {...titleMotion}>
+            {title}
+          </motion.h1>
         </header>
 
-        <div
+        <motion.div
           className="hero-meta"
           style={{ marginTop: "var(--token-space-128)" }}
+          {...metaMotion}
         >
           {client && (
             <div className="hero-meta-item">
@@ -65,11 +117,10 @@ export default function CaseStudyHero({
               </span>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
-      {/* Full-bleed image below: no side paddings */}
-      <div className="hero-visual">
+      <motion.div className="hero-visual" {...imageMotion}>
         <Image
           src={heroImage || "/assets/case-studies/placeholder-hero.png"}
           alt={`${title} hero image`}
@@ -79,7 +130,7 @@ export default function CaseStudyHero({
           sizes="100vw"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
