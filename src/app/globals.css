@@ -178,6 +178,13 @@ a {
  *
  * Letter-spacing tightens proportionally with font-size reduction.
  */
+.case-study-hero,
+.case-study-intro,
+.case-study-text-image,
+.case-study-text-image-grid {
+  font-family: var(--token-font-family-base);
+}
+
 .case-study-hero .hero-title {
   font-size: var(--token-size-display-1); /* 150px */
   font-weight: var(--token-weight-semibold); /* 600 */
@@ -239,6 +246,7 @@ a {
 
 .case-study-hero .hero-meta-label {
   display: block;
+  font-family: var(--token-font-family-base);
   font-size: var(--token-size-overline); /* 12px */
   font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-140); /* 140% */
@@ -248,6 +256,7 @@ a {
 }
 
 .case-study-hero .hero-meta-value {
+  font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-md); /* 16px */
   font-weight: var(--token-weight-regular); /* 400 */
   line-height: var(--token-leading-150); /* 150% */
@@ -320,6 +329,7 @@ a {
  * Case Study Intro — paragraph text
  */
 .case-study-intro .intro-paragraph {
+  font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-lg); /* 18px */
   font-weight: var(--token-weight-regular); /* 400 */
   line-height: var(--token-leading-150); /* 150% */
@@ -382,6 +392,7 @@ section.case-study-text-image-grid .section-title {
 
 section.case-study-text-image .section-paragraph,
 section.case-study-text-image-grid .section-paragraph {
+  font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-lg) !important; /* 18px */
   font-weight: var(--token-weight-semibold) !important; /* 600 */
   line-height: var(--token-leading-150) !important; /* 150% */
