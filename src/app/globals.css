@@ -169,3 +169,275 @@ a {
   outline: 2px solid var(--token-color-accent);
   outline-offset: 2px;
 }
+
+/**
+ * Case Study Hero — responsive title typography
+ *
+ * Token source-of-truth: --token-size-display-1 (150px) at desktop.
+ * Scales down at each breakpoint for mobile legibility.
+ *
+ * Letter-spacing tightens proportionally with font-size reduction.
+ */
+.case-study-hero .hero-title {
+  font-size: var(--token-size-display-1); /* 150px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-100); /* 100% */
+  letter-spacing: -6px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+@media (max-width: 1024px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h1); /* 84px */
+    letter-spacing: -4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h2); /* 64px */
+    letter-spacing: -3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h3); /* 48px */
+    letter-spacing: -2px;
+  }
+}
+
+/**
+ * Case Study Hero — meta row (Client / Services)
+ *
+ * Desktop: side-by-side with --token-space-64 gap
+ * Mobile (≤768px): stacked vertically with --token-space-16 gap
+ */
+.case-study-hero .hero-meta {
+  display: flex;
+  flex-direction: row;
+  gap: var(--token-space-64);
+}
+
+@media (max-width: 768px) {
+  .case-study-hero .hero-meta {
+    flex-direction: column;
+    gap: var(--token-space-16);
+  }
+}
+
+/**
+ * Case Study Hero — meta item (label + value pair)
+ * Block layout: uppercase label on top, value below
+ */
+.case-study-hero .hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-space-4);
+}
+
+.case-study-hero .hero-meta-label {
+  display: block;
+  font-size: var(--token-size-overline); /* 12px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-140); /* 140% */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--token-color-accent);
+}
+
+.case-study-hero .hero-meta-value {
+  font-size: var(--token-size-body-md); /* 16px */
+  font-weight: var(--token-weight-regular); /* 400 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+}
+
+/**
+ * Case Study Hero — full-bleed visual
+ * No side paddings — image spans full viewport width.
+ * Sits outside .section-inner to bypass 24px container padding.
+ */
+.case-study-hero .hero-visual {
+  width: 100%;
+  margin-top: 0;
+}
+
+/**
+ * Case Study Hero — prefers-reduced-motion
+ * No auto-animations on the hero visual.
+ * (Component renders a static image; this rule future-proofs
+ * against any transition additions.)
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-hero,
+  .case-study-hero * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Case Study Intro — title typography and layout
+ *
+ * Token source-of-truth: --token-size-h1 (84px) at desktop, matching
+ * the Skills section title on the About page.
+ * Scales down at each breakpoint for mobile legibility.
+ */
+.case-study-intro .intro-heading {
+  font-size: var(--token-size-h1); /* 84px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-100); /* 100% */
+  letter-spacing: -6px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+@media (max-width: 1024px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h2); /* 64px */
+    letter-spacing: -4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h3); /* 48px */
+    letter-spacing: -3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h4); /* 36px */
+    letter-spacing: -2px;
+  }
+}
+
+/**
+ * Case Study Intro — paragraph text
+ */
+.case-study-intro .intro-paragraph {
+  font-size: var(--token-size-body-lg); /* 18px */
+  font-weight: var(--token-weight-regular); /* 400 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+  max-width: 566px;
+}
+
+/**
+ * Case Study Intro — full-bleed visual below text
+ * No side padding; sits outside .section-inner.
+ */
+.case-study-intro .intro-visual {
+  width: 100%;
+  margin-top: var(--token-space-64);
+}
+
+/**
+ * Case Study Intro — vertical paddings for content section
+ * 24px top and bottom via spacing token.
+ */
+.case-study-intro .section-inner {
+  padding-top: var(--token-space-24);
+  padding-bottom: var(--token-space-24);
+}
+
+/**
+ * Case Study Intro — prefers-reduced-motion
+ * No auto-animations; future-proofs against added transitions.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-intro,
+  .case-study-intro * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Case Study Text + Image — typography and layout
+ *
+ * Desktop / tablet (≥768px):
+ * - Title left (max-width 684px), paragraph right (max-width 566px).
+ * - Horizontal gap: --token-space-80.
+ *
+ * Mobile (<768px):
+ * - Stack vertically, title first then paragraph.
+ * - Vertical gap between title and paragraph: --token-space-64.
+ */
+.case-study-text-image .section-title,
+.case-study-text-image-grid .section-title {
+  font-size: var(--token-size-h2); /* 64px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-110); /* 110% */
+  letter-spacing: -3px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+.case-study-text-image .section-paragraph,
+.case-study-text-image-grid .section-paragraph {
+  font-size: var(--token-size-body-lg); /* 18px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+}
+
+.case-study-text-image .text-image-row {
+  width: 100%;
+}
+
+/**
+ * Case Study Text + Image Grid — layout
+ *
+ * Desktop / tablet (≥768px):
+ * - Reuses text row layout: title left, paragraph right.
+ * - Images grid: 2 columns with 24px gap and 24px horizontal padding.
+ *
+ * Mobile (<768px):
+ * - Text row stacks vertically (title then paragraph).
+ * - Images grid becomes a single column (images stacked with 24px vertical gap).
+ */
+.case-study-text-image-grid .images-grid {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .case-study-text-image-grid .text-image-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .case-study-text-image-grid .paragraph-wrap {
+    margin-left: 0 !important;
+    text-align: left !important;
+  }
+
+  .case-study-text-image-grid .images-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/**
+ * Case Study Text + Image — prefers-reduced-motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-text-image,
+  .case-study-text-image * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .case-study-text-image-grid,
+  .case-study-text-image-grid * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
