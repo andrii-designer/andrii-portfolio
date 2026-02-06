@@ -2,6 +2,7 @@ import {
   CaseStudyHero,
   CaseStudyIntro,
   CaseStudyTextImage,
+  CaseStudyTextImageGrid,
 } from "@/features/case-study/components";
 import Footer from "@/components/Footer";
 
@@ -37,6 +38,7 @@ const caseStudies: Record<
     bodyTitle?: string;
     bodyParagraph?: string;
     bodyImage?: string;
+    gridImages?: string[];
   }
 > = {
   raccord: {
@@ -53,6 +55,10 @@ const caseStudies: Record<
     bodyParagraph:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
     bodyImage: "/assets/case-studies/placeholder-body.jpg",
+    gridImages: [
+      "/assets/case-studies/placeholder-grid-1.svg",
+      "/assets/case-studies/placeholder-grid-2.svg",
+    ],
   },
 };
 
@@ -70,6 +76,10 @@ const fallback = {
   bodyParagraph:
     "Use this section to go deeper into the problem, solution, or product experience. Once real content is ready, replace the placeholder copy with a focused narrative that explains how the design drives results.",
   bodyImage: "/assets/case-studies/placeholder-body.jpg",
+  gridImages: [
+    "/assets/case-studies/placeholder-grid-1.svg",
+    "/assets/case-studies/placeholder-grid-2.svg",
+  ],
 };
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -98,6 +108,13 @@ export default async function CaseStudyPage({ params }: Props) {
         title={data.bodyTitle ?? fallback.bodyTitle}
         paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
         image={data.bodyImage ?? fallback.bodyImage}
+      />
+
+      {/* Text + 2-image grid variant — follows after text+image section */}
+      <CaseStudyTextImageGrid
+        title={data.bodyTitle ?? fallback.bodyTitle}
+        paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+        images={data.gridImages ?? fallback.gridImages}
       />
 
       {/* Footer Section — last section on page */}

@@ -47,15 +47,7 @@ export default function CaseStudyTextImage({
         className="section-inner"
         style={{ paddingTop: "var(--token-space-128)" }}
       >
-        <div
-          className="text-image-row"
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            gap: "var(--token-space-80)",
-          }}
-        >
+        <div className="text-image-row" style={{ width: "100%" }}>
           <div
             className="title-wrap"
             style={{
@@ -73,7 +65,8 @@ export default function CaseStudyTextImage({
               maxWidth: "566px",
               width: "100%",
               marginLeft: "auto",
-              textAlign: "right",
+              textAlign: "left",
+              marginTop: "var(--token-space-80)",
             }}
           >
             <p className="section-paragraph">{bodyText}</p>

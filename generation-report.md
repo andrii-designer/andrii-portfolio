@@ -1734,3 +1734,56 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 - Section uses `<h2>` for the title and `<section aria-label="Case study text and image">` for landmark semantics.
 - Full-bleed image `alt` is descriptive when `image` is provided and uses a generic placeholder alt otherwise.
 - Text color (`--token-color-accent` = `#060606`) on background (`--token-color-base` = `#e3e3e5`) maintains the previously verified contrast ratio of 10.8:1, so **no contrast warnings** were logged.
+
+---
+
+## Case Study Text + 2-Image Grid Section (feature/case-study) — 2026-02-06
+
+### Summary
+
+- Added `CaseStudyTextImageGrid` reusable section component for case studies, rendering a left-aligned H2 title, right-aligned paragraph, and a 2-image grid.
+- Integrated the component into `/case-studies/[slug]` directly below `CaseStudyTextImage` and above `Footer`, wired to placeholder grid image paths for both known and fallback slugs.
+- Grid layout mirrors the existing text + image section spacing while replacing the single full-bleed image with two side-by-side images.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyTextImageGrid.tsx` | Text + 2-image grid section with props: `title`, `paragraph?`, `images?: string[]` |
+| `public/assets/case-studies/placeholder-grid-1.svg` | Lightweight SVG placeholder for grid image 1 (684×455) |
+| `public/assets/case-studies/placeholder-grid-2.svg` | Lightweight SVG placeholder for grid image 2 (684×455) |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyTextImageGrid` and its props type from the case-study barrel |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported and rendered `CaseStudyTextImageGrid` after `CaseStudyTextImage`, extended case-study data with `gridImages` for known and fallback slugs |
+| `src/app/globals.css` | Shared typography rules between `.case-study-text-image` and `.case-study-text-image-grid`, added responsive grid behavior and prefers-reduced-motion styles for the new section |
+
+### Tokens Added
+
+**None** — all required spacing and typography tokens already existed in `src/styles/variables.css` and were previously mapped in `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-128` | 128px | Section top padding (`section-inner` inline style) |
+| `--token-space-80` | 80px | Gap between title and paragraph, gap between paragraph and images grid |
+| `--token-space-24` | 24px | Grid column gap and grid left/right inner padding |
+| `--token-size-h2` | 64px | H2 title typography (shared with text + image section) |
+| `--token-size-body-lg` | 18px | Paragraph typography (shared with text + image section) |
+
+### Placeholders
+
+- Grid placeholders were missing in the repo, so two SVG placeholders were created:
+  - `public/assets/case-studies/placeholder-grid-1.svg`
+  - `public/assets/case-studies/placeholder-grid-2.svg`
+- `CaseStudyTextImageGrid` uses these SVGs as default fallbacks when `images` is not provided or contains fewer than 2 entries.
+
+### Visual Acceptance Checklist
+
+- [x] **Title and paragraph behavior duplicated** — `CaseStudyTextImageGrid` reuses the same `.section-title` and `.section-paragraph` typography rules as `CaseStudyTextImage`, with the same max-widths (684px title, 566px paragraph) and alignment (title left, paragraph right).
+- [x] **80px gap between paragraph and images** — inline style `marginTop: "var(--token-space-80)"` is applied to `.images-grid`, matching the spec.
+- [x] **Grid with 2 columns, 24px gap, and 24px left/right paddings** — `.images-grid` uses `display: grid`, `gridTemplateColumns: "1fr 1fr"`, `gap: "var(--token-space-24)"`, and `paddingLeft/Right: "var(--token-space-24)"`.
+- [x] **Mobile stacking rules preserved** — media query at `max-width: 768px` sets `.case-study-text-image-grid .text-image-row` to `flex-direction: column` and `.images-grid` to `grid-template-columns: 1fr !important`, so title, paragraph, and images stack vertically with 24px gaps while maintaining 24px side paddings via `.section-inner`.
+- [x] **Integration order correct** — On `/case-studies/[slug]`, the section order is: `CaseStudyHero` → `CaseStudyIntro` → `CaseStudyTextImage` → `CaseStudyTextImageGrid` → `Footer`.

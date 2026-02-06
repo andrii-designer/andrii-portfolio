@@ -51,7 +51,7 @@ export default function CaseStudyIntro({
 
         <div
           className="intro-text"
-          style={{ marginTop: "var(--token-space-128)" }}
+          style={{ marginTop: "var(--token-space-256)" }}
         >
           <p className="intro-paragraph">{introText}</p>
         </div>
