@@ -360,6 +360,7 @@ a {
 
 /**
  * Case Study Text + Image — typography and layout
+ * Scoped to section so these rules win over Tailwind/base.
  *
  * Desktop / tablet (≥768px):
  * - Title left (max-width 684px), paragraph right (max-width 566px).
@@ -369,21 +370,21 @@ a {
  * - Stack vertically, title first then paragraph.
  * - Vertical gap between title and paragraph: --token-space-64.
  */
-.case-study-text-image .section-title,
-.case-study-text-image-grid .section-title {
-  font-size: var(--token-size-h2); /* 64px */
-  font-weight: var(--token-weight-semibold); /* 600 */
-  line-height: var(--token-leading-110); /* 110% */
+section.case-study-text-image .section-title,
+section.case-study-text-image-grid .section-title {
+  font-size: var(--token-size-h2) !important; /* 64px — h2 token */
+  font-weight: var(--token-weight-semibold) !important; /* 600 */
+  line-height: var(--token-leading-110) !important; /* 110% */
   letter-spacing: -3px;
   font-family: var(--token-font-family-base);
   color: var(--token-color-accent);
 }
 
-.case-study-text-image .section-paragraph,
-.case-study-text-image-grid .section-paragraph {
-  font-size: var(--token-size-body-lg); /* 18px */
-  font-weight: var(--token-weight-semibold); /* 600 */
-  line-height: var(--token-leading-150); /* 150% */
+section.case-study-text-image .section-paragraph,
+section.case-study-text-image-grid .section-paragraph {
+  font-size: var(--token-size-body-lg) !important; /* 18px */
+  font-weight: var(--token-weight-semibold) !important; /* 600 */
+  line-height: var(--token-leading-150) !important; /* 150% */
   color: var(--token-color-accent);
 }
 
