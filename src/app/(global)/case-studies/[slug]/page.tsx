@@ -1,4 +1,8 @@
-import { CaseStudyHero, CaseStudyIntro } from "@/features/case-study/components";
+import {
+  CaseStudyHero,
+  CaseStudyIntro,
+  CaseStudyTextImage,
+} from "@/features/case-study/components";
 import Footer from "@/components/Footer";
 
 /**
@@ -30,6 +34,9 @@ const caseStudies: Record<
     introTitle: string;
     introText: string;
     introImage: string;
+    bodyTitle?: string;
+    bodyParagraph?: string;
+    bodyImage?: string;
   }
 > = {
   raccord: {
@@ -42,6 +49,10 @@ const caseStudies: Record<
     introText:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
     introImage: "/assets/case-studies/placeholder-intro.jpg",
+    bodyTitle: "Unify all your real estate data for streamlined.",
+    bodyParagraph:
+      "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
+    bodyImage: "/assets/case-studies/placeholder-body.jpg",
   },
 };
 
@@ -55,6 +66,10 @@ const fallback = {
   introText:
     "This is a placeholder case study intro section. Replace with project-specific copy explaining the problem, goals, and high-level solution once content is available.",
   introImage: "/assets/case-studies/placeholder-intro.jpg",
+  bodyTitle: "Case study deep dive",
+  bodyParagraph:
+    "Use this section to go deeper into the problem, solution, or product experience. Once real content is ready, replace the placeholder copy with a focused narrative that explains how the design drives results.",
+  bodyImage: "/assets/case-studies/placeholder-body.jpg",
 };
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -76,6 +91,13 @@ export default async function CaseStudyPage({ params }: Props) {
         title={data.introTitle}
         text={data.introText}
         image={data.introImage}
+      />
+
+      {/* Text + Image body section — reusable component */}
+      <CaseStudyTextImage
+        title={data.bodyTitle ?? fallback.bodyTitle}
+        paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+        image={data.bodyImage ?? fallback.bodyImage}
       />
 
       {/* Footer Section — last section on page */}

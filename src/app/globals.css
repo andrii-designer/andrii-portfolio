@@ -282,11 +282,12 @@ a {
 /**
  * Case Study Intro — title typography and layout
  *
- * Token source-of-truth: --token-size-display-1 (150px) at desktop.
- * Scales down at each breakpoint for mobile legibility, matching hero.
+ * Token source-of-truth: --token-size-h1 (84px) at desktop, matching
+ * the Skills section title on the About page.
+ * Scales down at each breakpoint for mobile legibility.
  */
 .case-study-intro .intro-heading {
-  font-size: var(--token-size-display-1); /* 150px */
+  font-size: var(--token-size-h1); /* 84px */
   font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-100); /* 100% */
   letter-spacing: -6px;
@@ -296,21 +297,21 @@ a {
 
 @media (max-width: 1024px) {
   .case-study-intro .intro-heading {
-    font-size: var(--token-size-h1); /* 84px */
+    font-size: var(--token-size-h2); /* 64px */
     letter-spacing: -4px;
   }
 }
 
 @media (max-width: 768px) {
   .case-study-intro .intro-heading {
-    font-size: var(--token-size-h2); /* 64px */
+    font-size: var(--token-size-h3); /* 48px */
     letter-spacing: -3px;
   }
 }
 
 @media (max-width: 480px) {
   .case-study-intro .intro-heading {
-    font-size: var(--token-size-h3); /* 48px */
+    font-size: var(--token-size-h4); /* 36px */
     letter-spacing: -2px;
   }
 }
@@ -323,6 +324,7 @@ a {
   font-weight: var(--token-weight-regular); /* 400 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
+  max-width: 566px;
 }
 
 /**
@@ -332,6 +334,15 @@ a {
 .case-study-intro .intro-visual {
   width: 100%;
   margin-top: var(--token-space-64);
+}
+
+/**
+ * Case Study Intro — vertical paddings for content section
+ * 24px top and bottom via spacing token.
+ */
+.case-study-intro .section-inner {
+  padding-top: var(--token-space-24);
+  padding-bottom: var(--token-space-24);
 }
 
 /**
@@ -346,3 +357,59 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/**
+ * Case Study Text + Image — typography and layout
+ *
+ * Desktop / tablet (≥768px):
+ * - Title left (max-width 684px), paragraph right (max-width 566px).
+ * - Horizontal gap: --token-space-80.
+ *
+ * Mobile (<768px):
+ * - Stack vertically, title first then paragraph.
+ * - Vertical gap between title and paragraph: --token-space-64.
+ */
+.case-study-text-image .section-title {
+  font-size: var(--token-size-h2); /* 64px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-110); /* 110% */
+  letter-spacing: -3px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+.case-study-text-image .section-paragraph {
+  font-size: var(--token-size-body-lg); /* 18px */
+  font-weight: var(--token-weight-regular); /* 400 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+}
+
+.case-study-text-image .text-image-row {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .case-study-text-image .text-image-row {
+    flex-direction: column;
+    row-gap: var(--token-space-64);
+  }
+
+  .case-study-text-image .paragraph-wrap {
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+/**
+ * Case Study Text + Image — prefers-reduced-motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-text-image,
+  .case-study-text-image * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

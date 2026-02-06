@@ -1680,3 +1680,57 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 | Section uses `<h2>` for heading under hero `<h1>` | ✅ Pass |
 | Placeholder intro image path: `public/assets/case-studies/placeholder-intro.jpg` | ✅ Pass |
 | `prefers-reduced-motion` respected (no auto-animations in intro) | ✅ Pass |
+
+---
+
+## Case Study Text + Image Section (feature/case-study) — 2026-02-06
+
+### Summary
+
+- Added `CaseStudyTextImage` reusable section component for case studies, rendering a left-aligned H2 title, right-aligned paragraph, and full-bleed image.
+- Integrated the component into `/case-studies/[slug]` directly below `CaseStudyIntro`, wired to placeholder data for both known and fallback slugs.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyTextImage.tsx` | Reusable text + full-width image section with props: `title`, `paragraph?`, `image?` |
+| `public/assets/case-studies/placeholder-body.jpg` | Placeholder body image copied from design reference for full-bleed visual |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyTextImage` and its props type from the case-study barrel |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported and rendered `CaseStudyTextImage` after `CaseStudyIntro`, extended case-study data shape with `bodyTitle`, `bodyParagraph`, `bodyImage` |
+| `src/app/globals.css` | Added `.case-study-text-image` typography, responsive row stacking, and reduced-motion rules |
+
+### Tokens Added
+
+**None** — all required tokens already existed in `src/styles/variables.css` and `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-128` | 128px | Section top padding |
+| `--token-space-80` | 80px | Horizontal gap title ↔ paragraph, gap text ↔ image |
+| `--token-space-64` | 64px | Vertical gap between title and paragraph on mobile |
+| `--token-size-h2` | 64px | H2 title typography |
+| `--token-size-body-lg` | 18px | Body paragraph text |
+| `--token-leading-110` | 110% | H2 line-height |
+| `--token-leading-150` | 150% | Paragraph line-height |
+| `--token-weight-semibold` / `--token-weight-regular` | 600 / 400 | Title and paragraph weights |
+
+### Visual Acceptance Checklist
+
+- [x] **Top padding 128px** — section content uses `style={{ paddingTop: "var(--token-space-128)" }}` on `.section-inner`.
+- [x] **Title max-width 684px, left-aligned** — `.title-wrap` has `maxWidth: "684px"`, `textAlign: "left"`.
+- [x] **Paragraph max-width 566px, right-aligned** — `.paragraph-wrap` has `maxWidth: "566px"`, `marginLeft: "auto"`, `textAlign: "right"` on desktop.
+- [x] **80px gap between title & paragraph** — `gap: "var(--token-space-80)"` on `.text-image-row` for horizontal spacing.
+- [x] **Full-bleed image with 80px gap below paragraph** — `.text-image-visual` uses `marginTop: "var(--token-space-80)"` and sits outside `.section-inner` with width 100%.
+- [x] **Mobile stacking with 64px vertical gap** — media query sets `.text-image-row` to `flex-direction: column` with `row-gap: var(--token-space-64)` and left-aligns paragraph text.
+
+### Accessibility & Contrast Notes
+
+- Section uses `<h2>` for the title and `<section aria-label="Case study text and image">` for landmark semantics.
+- Full-bleed image `alt` is descriptive when `image` is provided and uses a generic placeholder alt otherwise.
+- Text color (`--token-color-accent` = `#060606`) on background (`--token-color-base` = `#e3e3e5`) maintains the previously verified contrast ratio of 10.8:1, so **no contrast warnings** were logged.
