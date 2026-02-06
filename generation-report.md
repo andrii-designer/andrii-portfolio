@@ -1882,33 +1882,29 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 
 ---
 
-## Header — IntersectionObserver-based dark-section toggle (2026-02-06)
+## Header — Blend Mode & Theme Switching Reverted (2026-02-06)
 
 ### Summary
 
-- **Blend-mode experiment reverted**: Previous mix-blend-mode and useHeaderSolidObserver implementation was fully removed; base header restored.
-- **New approach**: Deterministic header color toggle using `useHeaderDarkObserver`. When the header overlaps any section marked as dark (`.dark-section` or `data-header-theme="dark"`), the class `header--dark` is applied and header links/logo use light color `#E3E3E5`. Default (over light backgrounds) remains `#060606`.
-- **No image sampling**: Hook uses only IntersectionObserver (selector + rootMargin). No per-pixel or canvas operations.
+- **All header experiments removed**: Blend-mode, IntersectionObserver-based dark-section toggle, theme-switch hooks, scroll listeners, and any dynamic header color logic have been fully reverted.
+- **Header restored to original static implementation**: Fixed header with static styling only. Links and logo use the default token color `#060606`. No observers, no dynamic class toggling, no debug globals, no console output related to header.
 
-### Files created
+### Files removed
 
-| File | Description |
-|------|-------------|
-| `src/hooks/useHeaderDarkObserver.ts` | Hook: `useHeaderDarkObserver(headerRef, options?)`. Observes `.dark-section` and `[data-header-theme="dark"]`; rootMargin from measured header height (fallback 80px) so intersection = “section in header zone”. Debounce 20ms. Returns `isDark`. Fallback: if IntersectionObserver unsupported, uses scroll listener + first dark-section bounding rect. |
+| File | Reason |
+|------|--------|
+| `src/hooks/useHeaderDarkObserver.ts` | Removed; all header observer/theme logic deleted. |
 
 ### Files modified
 
 | File | Changes |
 |------|---------|
-| `src/components/Header/Header.tsx` | Added `headerRef`, `useHeaderDarkObserver(headerRef)`, classes `site-header` and `header--dark` when `isDark`; inner wrapper has `header-inner`; nav divider has class `divider` for CSS. Logo/nav/buttons unchanged. |
-| `src/app/globals.css` | Added `.site-header .header-inner` default `#060606` and 160ms color transition; `.site-header .header-inner a, button, svg, .divider` inherit/fill/stroke/border; `.site-header.header--dark .header-inner` `#E3E3E5`; `.site-header .no-toggle` stays `#060606` with isolation. |
+| `src/components/Header/Header.tsx` | Removed useHeaderDarkObserver, headerRef, isDark; removed ref, site-header, header--dark, header-inner from markup. Restored static section-wrap/section-inner. Nav dot uses var(--token-color-accent). Removed divider class. |
+| `src/app/globals.css` | Removed all header experiment CSS (.site-header, .header--dark, .header-inner, .divider, .no-toggle, !important overrides). Header color from tokens only. |
 
-### How to mark dark sections
+### Confirmation
 
-- Add **`class="dark-section"`** or **`data-header-theme="dark"`** to the section element that should trigger light header when the header overlaps it.
-- Example: `<section class="dark-section">...</section>` or `<section data-header-theme="dark">...</section>`.
+- No observers or dynamic color logic remain.
+- Header markup matches original layout (section-wrap, section-inner, logo, nav, avatar).
+- No blend mode, no debug globals, no header-related console.debug.
 
-### Fallback behavior
-
-- If `headerRef` measurement fails, rootMargin uses `-80px` (80px header zone).
-- If `IntersectionObserver` is not supported, the hook falls back to a scroll listener that checks the first matching dark section’s `getBoundingClientRect()` against the header height and sets `isDark` accordingly.
