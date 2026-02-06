@@ -169,3 +169,112 @@ a {
   outline: 2px solid var(--token-color-accent);
   outline-offset: 2px;
 }
+
+/**
+ * Case Study Hero — responsive title typography
+ *
+ * Token source-of-truth: --token-size-display-1 (150px) at desktop.
+ * Scales down at each breakpoint for mobile legibility.
+ *
+ * Letter-spacing tightens proportionally with font-size reduction.
+ */
+.case-study-hero .hero-title {
+  font-size: var(--token-size-display-1); /* 150px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-100); /* 100% */
+  letter-spacing: -6px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+@media (max-width: 1024px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h1); /* 84px */
+    letter-spacing: -4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h2); /* 64px */
+    letter-spacing: -3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h3); /* 48px */
+    letter-spacing: -2px;
+  }
+}
+
+/**
+ * Case Study Hero — meta row (Client / Services)
+ *
+ * Desktop: side-by-side with --token-space-64 gap
+ * Mobile (≤768px): stacked vertically with --token-space-16 gap
+ */
+.case-study-hero .hero-meta {
+  display: flex;
+  flex-direction: row;
+  gap: var(--token-space-64);
+}
+
+@media (max-width: 768px) {
+  .case-study-hero .hero-meta {
+    flex-direction: column;
+    gap: var(--token-space-16);
+  }
+}
+
+/**
+ * Case Study Hero — meta item (label + value pair)
+ * Block layout: uppercase label on top, value below
+ */
+.case-study-hero .hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-space-4);
+}
+
+.case-study-hero .hero-meta-label {
+  display: block;
+  font-size: var(--token-size-overline); /* 12px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-140); /* 140% */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--token-color-accent);
+}
+
+.case-study-hero .hero-meta-value {
+  font-size: var(--token-size-body-md); /* 16px */
+  font-weight: var(--token-weight-regular); /* 400 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+}
+
+/**
+ * Case Study Hero — full-bleed visual
+ * No side paddings — image spans full viewport width.
+ * Sits outside .section-inner to bypass 24px container padding.
+ */
+.case-study-hero .hero-visual {
+  width: 100%;
+  margin-top: var(--token-space-64);
+}
+
+/**
+ * Case Study Hero — prefers-reduced-motion
+ * No auto-animations on the hero visual.
+ * (Component renders a static image; this rule future-proofs
+ * against any transition additions.)
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-hero,
+  .case-study-hero * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
