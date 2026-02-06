@@ -10,6 +10,7 @@
     "extract-tokens": "node scripts/extract-tokens.js"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "autoprefixer": "^10.4.24",
     "framer-motion": "^12.30.0",
     "next": "16.1.6",

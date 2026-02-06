@@ -1,14 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useCallback, useEffect, useRef } from "react";
-
-const CALENDLY_URL =
-  "https://calendly.com/andriyvynar/30min?primary_color=000000";
-const CALENDLY_CSS_HREF =
-  "https://assets.calendly.com/assets/external/widget.css";
-const CALENDLY_SCRIPT_SRC =
-  "https://assets.calendly.com/assets/external/widget.js";
+import { getCalApi } from "@calcom/embed-react";
+import { useEffect } from "react";
 
 export type BookCallButtonVariant = "primary" | "secondary";
 
@@ -45,78 +39,11 @@ const ArrowIcon = () => {
   );
 };
 
-function ensureCalendlyLoaded(): Promise<void> {
-  if (typeof document === "undefined") return Promise.resolve();
-
-  const existingCss = document.querySelector(
-    `link[href="${CALENDLY_CSS_HREF}"]`
-  );
-  if (!existingCss) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = CALENDLY_CSS_HREF;
-    document.head.appendChild(link);
-  }
-
-  const existingScript = document.querySelector(
-    `script[src="${CALENDLY_SCRIPT_SRC}"]`
-  );
-  if (existingScript) {
-    if (typeof (window as unknown as { Calendly?: unknown }).Calendly !== "undefined") {
-      return Promise.resolve();
-    }
-    return new Promise<void>((resolve) => {
-      const onLoad = (): void => {
-        if (typeof (window as unknown as { Calendly?: unknown }).Calendly !== "undefined") {
-          resolve();
-        } else {
-          const check = (): void => {
-            if (typeof (window as unknown as { Calendly?: unknown }).Calendly !== "undefined") {
-              resolve();
-            } else {
-              requestAnimationFrame(check);
-            }
-          };
-          requestAnimationFrame(check);
-        }
-      };
-      existingScript.addEventListener("load", onLoad, { once: true });
-    });
-  }
-
-  return new Promise<void>((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = CALENDLY_SCRIPT_SRC;
-    script.async = true;
-    script.onload = (): void => {
-      const check = (): void => {
-        if (typeof (window as unknown as { Calendly?: unknown }).Calendly !== "undefined") {
-          resolve();
-        } else {
-          requestAnimationFrame(check);
-        }
-      };
-      requestAnimationFrame(check);
-    };
-    script.onerror = (): void => reject(new Error("Calendly script failed to load"));
-    document.body.appendChild(script);
-  });
-}
-
-function openCalendlyPopup(): void {
-  const Calendly = (window as unknown as { Calendly?: { initPopupWidget: (opts: { url: string }) => void } }).Calendly;
-  if (Calendly?.initPopupWidget) {
-    Calendly.initPopupWidget({ url: CALENDLY_URL });
-  } else {
-    window.open(CALENDLY_URL, "_blank", "noopener noreferrer");
-  }
-}
-
 /**
  * BookCallButton
  *
- * Opens Calendly popup on click. Injects Calendly CSS/JS once on mount.
- * Fallback: opens Calendly page in new tab if widget fails.
+ * Opens Cal.com embed popup on click. Uses @calcom/embed-react;
+ * Cal.com attaches to the button via data-cal-link attributes.
  *
  * Usage:
  *  - <BookCallButton />
@@ -130,28 +57,19 @@ export default function BookCallButton({
   href: _href,
   onClick: _onClick,
 }: BookCallButtonProps) {
-  const loadPromiseRef = useRef<Promise<void> | null>(null);
-
   useEffect(() => {
-    if (loadPromiseRef.current == null) {
-      loadPromiseRef.current = ensureCalendlyLoaded();
-    }
+    (async function () {
+      const cal = await getCalApi({ namespace: "15min" });
+      cal("ui", {
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#D2D2D6" },
+          dark: { "cal-brand": "#D2D2D6" },
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
   }, []);
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      if (typeof window === "undefined") return;
-      ensureCalendlyLoaded()
-        .then(() => {
-          openCalendlyPopup();
-        })
-        .catch(() => {
-          window.open(CALENDLY_URL, "_blank", "noopener noreferrer");
-        });
-    },
-    []
-  );
 
   const baseStyle: React.CSSProperties = {
     display: "inline-flex",
@@ -200,20 +118,20 @@ export default function BookCallButton({
   );
 
   const resolvedAriaLabel =
-    ariaLabel ?? "Book a call (opens Calendly)";
+    ariaLabel ?? "Book a call (opens Cal.com)";
 
   return (
     <a
-      href={CALENDLY_URL}
-      onClick={handleClick}
+      href="javascript:void(0)"
+      data-cal-namespace="15min"
+      data-cal-link="andrii-vynarchyk/15min"
+      data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
       aria-label={resolvedAriaLabel}
       className={
         `group transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 ` +
         `focus-visible:ring-accent focus-visible:ring-offset-2 ${className ?? ""}`
       }
       style={{ ...baseStyle, ...variantStyle }}
-      target="_blank"
-      rel="noopener noreferrer"
     >
       {content}
     </a>
