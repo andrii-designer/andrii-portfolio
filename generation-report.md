@@ -1848,3 +1848,34 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 - **Home/About**: Not modified. Only Case Study components were updated.
 - **Page** (`case-studies/[slug]/page.tsx`): Not modified. RecentWorks already has its own scroll-reveal; no wrapper added on the page.
 - **Fallback**: When `prefers-reduced-motion` is active, all motion props are empty objects so content is visible immediately (reused Home/About behavior).
+
+---
+
+## BookCallButton — Calendly popup (2026-02-06)
+
+### Summary
+
+- Wired the existing **Book a call** button to open the Calendly popup via dynamic script injection. No changes were made to any shared PrimaryButton (none exists); only `BookCallButton` was updated.
+
+### File changed
+
+| File | Description |
+|------|-------------|
+| `src/components/Button/BookCallButton.tsx` | Converted to client component; added idempotent Calendly CSS/JS injection on mount; click opens Calendly popup with fallback to new tab |
+
+### What was added
+
+- **Client component**: `"use client"` at top; component remains the single source for the Book a call CTA.
+- **Calendly injection (idempotent)**:
+  - CSS: injects `https://assets.calendly.com/assets/external/widget.css` if not already present (`document.querySelector('link[href="..."]')`).
+  - Script: injects `https://assets.calendly.com/assets/external/widget.js` (async) if not already present; waits for `window.Calendly` before calling `initPopupWidget`.
+- **Click handler**: Prevents default link behavior; ensures Calendly is loaded, then calls `Calendly.initPopupWidget({ url: 'https://calendly.com/andriyvynar/30min?primary_color=000000' })`. If the script fails or is unavailable, fallback opens the same Calendly URL in a new tab (`window.open(..., '_blank', 'noopener noreferrer')`).
+- **Accessibility**: Default `aria-label="Book a call (opens Calendly)"`; focus-visible styles preserved.
+
+### Fallback behavior
+
+- If the Calendly widget fails to initialise (e.g. script error or blocked), the button fallback opens the Calendly page in a new tab so users can still book a call.
+
+### Deployed path
+
+- All pages that use `BookCallButton`: Home (Hero CTA, Book a call section), Footer, Services section. The button appears wherever `BookCallButton` is rendered; no layout or route changes.
