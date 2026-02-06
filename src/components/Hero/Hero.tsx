@@ -61,26 +61,21 @@ const Hero = ({ title, cta, media }: HeroProps) => {
   return (
     <motion.section
       {...containerMotion}
-      className="flex w-full flex-col"
+      className="flex w-full flex-col gap-24 font-base md:gap-128"
       style={{
-        gap: "var(--token-space-128)", /* Gap title → bottom-row: 128px (exact from Figma) */
         fontFamily: "var(--token-font-family-base)", /* Manrope font */
       }}
       aria-label="Hero"
       data-node-id="2224:4198"
     >
       {/* Hero Title — Figma node-id: 2224:4199 */}
-      {/* Typography: 84px, semibold (600), line-height 1.1, letter-spacing -6px */}
+      {/* Mobile: display-2; lg: display-1. Semibold, line-height 1.1, letter-spacing -6px on desktop */}
       <motion.h1
         {...titleMotion}
-        className="max-w-[920px] text-accent
-          max-lg:max-w-[700px]
-          max-md:max-w-full"
+        className="max-w-full text-accent text-display-2 font-semibold leading-110
+          md:max-w-[700px] lg:max-w-[920px] lg:text-display-1"
         style={{
           fontFamily: "var(--token-font-family-base)",
-          fontSize: "var(--token-size-h1)", /* 84px */
-          fontWeight: "var(--token-weight-semibold)", /* 600 */
-          lineHeight: "var(--token-leading-110)", /* 1.1 / 110% */
           letterSpacing: "-6px", /* Exact letter-spacing from Figma */
         }}
         data-node-id="2224:4199"
@@ -89,13 +84,10 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       </motion.h1>
 
       {/* Bottom Row — Figma node-id: 2224:4200 */}
+      {/* Mobile: stacked (text → CTA → media). md+: two-column row (CTA + media) */}
       <motion.div
         {...bottomRowMotion}
-        className="flex w-full items-end justify-between
-          max-md:flex-col max-md:items-start"
-        style={{
-          gap: "var(--token-space-24)", /* 24px gap between CTA and media */
-        }}
+        className="flex w-full flex-col gap-24 md:flex-row md:items-end md:justify-between"
         data-node-id="2224:4200"
       >
         {/* CTA Button — Figma node-id: 2231:5208 */}
@@ -106,11 +98,11 @@ const Hero = ({ title, cta, media }: HeroProps) => {
         )}
 
         {/* Video Preview — Figma node-id: 2224:4206 */}
-        {/* Corner radius: 0px (per Figma spec — all media have 0 border-radius) */}
+        {/* Mobile: full-width below content. md+: fixed 330×220. Corner radius: 0px */}
         {media && (
           <figure
-            className="relative h-[220px] w-[330px] shrink-0 overflow-hidden rounded-none
-              max-md:w-full max-md:h-auto max-md:aspect-[330/220]"
+            className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220]
+              md:w-[330px] md:h-[220px] md:aspect-auto"
             style={{ borderRadius: 0 }}
             data-node-id="2224:4206"
           >
