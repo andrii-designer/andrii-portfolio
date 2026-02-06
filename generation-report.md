@@ -1526,3 +1526,356 @@ The Services section implements scroll-based activation using IntersectionObserv
 - All links/buttons: visible focus-visible states with ring
 - Social links: `target="_blank" rel="noopener noreferrer"` for security
 - Copy icon SVG: `aria-hidden="true" focusable="false"`
+
+---
+
+## Case Study Hero Section (feature/case-study) — 2026-02-05
+
+### Branch
+- `feature/case-study`
+
+### Summary
+- Created **CaseStudyHero** reusable component for individual case study pages.
+- Wired into `/case-studies/[slug]` route as the first section.
+- Component follows the project's `.section-wrap` + `.section-inner` layout pattern.
+- Full-bleed hero image sits outside `.section-inner` (zero side padding).
+- Title uses `--token-size-display-1` (150px) with responsive scaling.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyHero.tsx` | CaseStudyHero component with props: title, client, services, heroImage |
+| `src/features/case-study/components/index.ts` | Barrel export for CaseStudyHero |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Case study detail page — imports CaseStudyHero, placeholder content, Footer |
+| `public/assets/case-studies/placeholder-hero.png` | Placeholder hero image (reference design screenshot) |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/app/globals.css` | Added `.case-study-hero` CSS rules: responsive title typography, meta row layout, meta item styling, full-bleed visual, prefers-reduced-motion |
+
+### Tokens Added
+**None** — all required tokens already existed in `src/styles/variables.css`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-size-display-1` | 150px | Hero title font-size (desktop) |
+| `--token-space-24` | 24px | Side paddings via `.section-inner` |
+| `--token-space-128` | 128px | Gap between title and meta row |
+| `--token-space-64` | 64px | Meta row gap (desktop, between client and services) |
+| `--token-space-16` | 16px | Meta row gap (mobile, stacked) |
+| `--token-space-4` | 4px | Meta item gap (label → value) |
+| `--token-size-overline` | 12px | Meta label font-size (uppercase) |
+| `--token-size-body-md` | 16px | Meta value font-size |
+| `--token-weight-semibold` | 600 | Title and meta label weight |
+| `--token-weight-regular` | 400 | Meta value weight |
+| `--token-leading-100` | 100% | Title line-height |
+
+### Responsive Title Scaling
+
+| Breakpoint | Font-size Token | Letter-spacing |
+|------------|-----------------|----------------|
+| Desktop (>1024px) | `--token-size-display-1` (150px) | -6px |
+| Tablet (≤1024px) | `--token-size-h1` (84px) | -4px |
+| Mobile (≤768px) | `--token-size-h2` (64px) | -3px |
+| Small (≤480px) | `--token-size-h3` (48px) | -2px |
+
+### Full-Bleed Hero Image
+
+| Property | Value |
+|----------|-------|
+| **Placeholder path** | `public/assets/case-studies/placeholder-hero.png` |
+| **Runtime src** | `/assets/case-studies/placeholder-hero.png` |
+| **Dimensions** | 1600×900 (responsive via `sizes="100vw"`, `width: 100%`) |
+| **Side padding** | 0px (sits outside `.section-inner`) |
+| **Top margin** | `--token-space-64` (64px from meta row) |
+
+### Visual Acceptance Checklist
+
+| Item | Status |
+|------|--------|
+| Title uses `--token-size-display-1` (150px) | ✅ Pass |
+| Side paddings = 24px (via `.section-inner` + `--token-space-24`) | ✅ Pass |
+| Gap between title and meta = 128px (`--token-space-128`) | ✅ Pass |
+| Full-bleed image has zero side padding | ✅ Pass |
+| Meta row side-by-side on desktop (gap: 64px) | ✅ Pass |
+| Meta row stacked on mobile ≤768px (gap: 16px) | ✅ Pass |
+| Meta labels uppercase, overline (12px) | ✅ Pass |
+| Responsive title scaling at 1024/768/480px breakpoints | ✅ Pass |
+| `<h1>` used for case study title | ✅ Pass |
+| Hero image has descriptive alt text | ✅ Pass |
+| `prefers-reduced-motion` respected (no auto-animations) | ✅ Pass |
+| Component is reusable via props (title, client, services, heroImage) | ✅ Pass |
+| `section-wrap` + `section-inner` layout pattern used | ✅ Pass |
+| Uses existing design tokens (no new tokens added) | ✅ Pass |
+
+### Accessibility
+
+- `<section aria-label="Case study hero">` for landmark navigation
+- `<h1>` for the case study title (proper heading hierarchy)
+- Hero image: descriptive `alt` attribute using title fallback
+- Meta labels: `<strong>` for semantic emphasis
+- `prefers-reduced-motion: reduce` respected via CSS rule
+- No auto-playing animations on the hero visual
+
+### Routing Note
+
+This project uses **Next.js App Router** (not Pages Router). The case study page is at:
+- `src/app/(global)/case-studies/[slug]/page.tsx`
+- Inherits the `(global)` layout which includes the Header component
+- URL pattern: `/case-studies/raccord`, `/case-studies/[any-slug]`
+
+---
+
+## Case Study Intro Section (feature/case-study) — 2026-02-05
+
+### Summary
+
+- Added `CaseStudyIntro` component and wired it into `/case-studies/[slug]` directly below `CaseStudyHero`.
+- Intro section uses the same `.section-wrap` + `.section-inner` pattern with full-bleed visual below text.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyIntro.tsx` | Intro section component with title, text, and full-bleed image props |
+| `public/assets/case-studies/placeholder-intro.jpg` | Placeholder intro image derived from reference artwork |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyIntro` and its props type |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported `CaseStudyIntro` and rendered it under `CaseStudyHero`, extended case-study data map with intro copy and image |
+| `src/app/globals.css` | Added `.case-study-intro` typography, paragraph, full-bleed visual spacing, and reduced-motion rules |
+
+### Tokens Created
+
+**None** — all tokens already existed in `src/styles/variables.css` and `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-size-display-1` | 150px | Intro heading font size (desktop), responsive down to h3 (48px) |
+| `--token-size-h1` / `--token-size-h2` / `--token-size-h3` | 84px / 64px / 48px | Responsive scaling for intro heading |
+| `--token-size-body-lg` | 18px | Intro paragraph text |
+| `--token-space-24` | 24px | Horizontal padding via `.section-inner` |
+| `--token-space-128` | 128px | Gap between intro title and text |
+| `--token-space-64` | 64px | Gap between text block and full-bleed image |
+| `--token-leading-100` / `--token-leading-150` | 100% / 150% | Heading and paragraph line-heights |
+| `--token-weight-semibold` / `--token-weight-regular` | 600 / 400 | Heading and paragraph weights |
+
+### Visual Acceptance Checklist
+
+| Item | Status |
+|------|--------|
+| Title is full-width, bold, and uses `--token-size-display-1` on desktop | ✅ Pass |
+| Gap between title and text is 128px (`--token-space-128`) | ✅ Pass |
+| Gap between text block and full-bleed image is 64px (`--token-space-64`) | ✅ Pass |
+| Full-bleed image has zero side padding (outside `.section-inner`) | ✅ Pass |
+| Side paddings for text are 24px (`--token-space-24`) | ✅ Pass |
+| Intro paragraph uses `--token-size-body-lg` with 150% line-height | ✅ Pass |
+| Heading scales down at 1024/768/480px breakpoints (display-1 → h1 → h2 → h3) | ✅ Pass |
+| Section uses `<h2>` for heading under hero `<h1>` | ✅ Pass |
+| Placeholder intro image path: `public/assets/case-studies/placeholder-intro.jpg` | ✅ Pass |
+| `prefers-reduced-motion` respected (no auto-animations in intro) | ✅ Pass |
+
+---
+
+## Case Study Text + Image Section (feature/case-study) — 2026-02-06
+
+### Summary
+
+- Added `CaseStudyTextImage` reusable section component for case studies, rendering a left-aligned H2 title, right-aligned paragraph, and full-bleed image.
+- Integrated the component into `/case-studies/[slug]` directly below `CaseStudyIntro`, wired to placeholder data for both known and fallback slugs.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyTextImage.tsx` | Reusable text + full-width image section with props: `title`, `paragraph?`, `image?` |
+| `public/assets/case-studies/placeholder-body.jpg` | Placeholder body image copied from design reference for full-bleed visual |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyTextImage` and its props type from the case-study barrel |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported and rendered `CaseStudyTextImage` after `CaseStudyIntro`, extended case-study data shape with `bodyTitle`, `bodyParagraph`, `bodyImage` |
+| `src/app/globals.css` | Added `.case-study-text-image` typography, responsive row stacking, and reduced-motion rules |
+
+### Tokens Added
+
+**None** — all required tokens already existed in `src/styles/variables.css` and `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-128` | 128px | Section top padding |
+| `--token-space-80` | 80px | Horizontal gap title ↔ paragraph, gap text ↔ image |
+| `--token-space-64` | 64px | Vertical gap between title and paragraph on mobile |
+| `--token-size-h2` | 64px | H2 title typography |
+| `--token-size-body-lg` | 18px | Body paragraph text |
+| `--token-leading-110` | 110% | H2 line-height |
+| `--token-leading-150` | 150% | Paragraph line-height |
+| `--token-weight-semibold` / `--token-weight-regular` | 600 / 400 | Title and paragraph weights |
+
+### Visual Acceptance Checklist
+
+- [x] **Top padding 128px** — section content uses `style={{ paddingTop: "var(--token-space-128)" }}` on `.section-inner`.
+- [x] **Title max-width 684px, left-aligned** — `.title-wrap` has `maxWidth: "684px"`, `textAlign: "left"`.
+- [x] **Paragraph max-width 566px, right-aligned** — `.paragraph-wrap` has `maxWidth: "566px"`, `marginLeft: "auto"`, `textAlign: "right"` on desktop.
+- [x] **80px gap between title & paragraph** — `gap: "var(--token-space-80)"` on `.text-image-row` for horizontal spacing.
+- [x] **Full-bleed image with 80px gap below paragraph** — `.text-image-visual` uses `marginTop: "var(--token-space-80)"` and sits outside `.section-inner` with width 100%.
+- [x] **Mobile stacking with 64px vertical gap** — media query sets `.text-image-row` to `flex-direction: column` with `row-gap: var(--token-space-64)` and left-aligns paragraph text.
+
+### Accessibility & Contrast Notes
+
+- Section uses `<h2>` for the title and `<section aria-label="Case study text and image">` for landmark semantics.
+- Full-bleed image `alt` is descriptive when `image` is provided and uses a generic placeholder alt otherwise.
+- Text color (`--token-color-accent` = `#060606`) on background (`--token-color-base` = `#e3e3e5`) maintains the previously verified contrast ratio of 10.8:1, so **no contrast warnings** were logged.
+
+---
+
+## Case Study Text + 2-Image Grid Section (feature/case-study) — 2026-02-06
+
+### Summary
+
+- Added `CaseStudyTextImageGrid` reusable section component for case studies, rendering a left-aligned H2 title, right-aligned paragraph, and a 2-image grid.
+- Integrated the component into `/case-studies/[slug]` directly below `CaseStudyTextImage` and above `Footer`, wired to placeholder grid image paths for both known and fallback slugs.
+- Grid layout mirrors the existing text + image section spacing while replacing the single full-bleed image with two side-by-side images.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyTextImageGrid.tsx` | Text + 2-image grid section with props: `title`, `paragraph?`, `images?: string[]` |
+| `public/assets/case-studies/placeholder-grid-1.svg` | Lightweight SVG placeholder for grid image 1 (684×455) |
+| `public/assets/case-studies/placeholder-grid-2.svg` | Lightweight SVG placeholder for grid image 2 (684×455) |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyTextImageGrid` and its props type from the case-study barrel |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported and rendered `CaseStudyTextImageGrid` after `CaseStudyTextImage`, extended case-study data with `gridImages` for known and fallback slugs |
+| `src/app/globals.css` | Shared typography rules between `.case-study-text-image` and `.case-study-text-image-grid`, added responsive grid behavior and prefers-reduced-motion styles for the new section |
+
+### Tokens Added
+
+**None** — all required spacing and typography tokens already existed in `src/styles/variables.css` and were previously mapped in `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-space-128` | 128px | Section top padding (`section-inner` inline style) |
+| `--token-space-80` | 80px | Gap between title and paragraph, gap between paragraph and images grid |
+| `--token-space-24` | 24px | Grid column gap and grid left/right inner padding |
+| `--token-size-h2` | 64px | H2 title typography (shared with text + image section) |
+| `--token-size-body-lg` | 18px | Paragraph typography (shared with text + image section) |
+
+### Placeholders
+
+- Grid placeholders were missing in the repo, so two SVG placeholders were created:
+  - `public/assets/case-studies/placeholder-grid-1.svg`
+  - `public/assets/case-studies/placeholder-grid-2.svg`
+- `CaseStudyTextImageGrid` uses these SVGs as default fallbacks when `images` is not provided or contains fewer than 2 entries.
+
+### Visual Acceptance Checklist
+
+- [x] **Title and paragraph behavior duplicated** — `CaseStudyTextImageGrid` reuses the same `.section-title` and `.section-paragraph` typography rules as `CaseStudyTextImage`, with the same max-widths (684px title, 566px paragraph) and alignment (title left, paragraph right).
+- [x] **80px gap between paragraph and images** — inline style `marginTop: "var(--token-space-80)"` is applied to `.images-grid`, matching the spec.
+- [x] **Grid with 2 columns, 24px gap, and 24px left/right paddings** — `.images-grid` uses `display: grid`, `gridTemplateColumns: "1fr 1fr"`, `gap: "var(--token-space-24)"`, and `paddingLeft/Right: "var(--token-space-24)"`.
+- [x] **Mobile stacking rules preserved** — media query at `max-width: 768px` sets `.case-study-text-image-grid .text-image-row` to `flex-direction: column` and `.images-grid` to `grid-template-columns: 1fr !important`, so title, paragraph, and images stack vertically with 24px gaps while maintaining 24px side paddings via `.section-inner`.
+- [x] **Integration order correct** — On `/case-studies/[slug]`, the section order is: `CaseStudyHero` → `CaseStudyIntro` → `CaseStudyTextImage` → `CaseStudyTextImageGrid` → `Footer`.
+
+---
+
+## Case Study Page — RecentWorks as Final Section (feature/case-study)
+
+### Summary
+
+- Reused the existing **RecentWorks** component (same as on the About page) and rendered it as the last content section on the Case Study page, immediately before the Footer.
+- No changes were made to the RecentWorks implementation; it was only imported and placed in the page flow.
+
+### Import path
+
+- **RecentWorks**: `import RecentWorks from "@/components/RecentWorks";` (barrel from `@/components/RecentWorks`, which re-exports `src/components/RecentWorks/RecentWorks.tsx`).
+
+### Placement
+
+- **Page**: `src/app/(global)/case-studies/[slug]/page.tsx`
+- **Section order** on `/case-studies/[slug]`:  
+  `CaseStudyHero` → `CaseStudyIntro` → `CaseStudyTextImage` → `CaseStudyTextImageGrid` → **RecentWorks** → `Footer`
+- RecentWorks is the last content section before the Footer. No extra vertical margins or gaps were added between RecentWorks and Footer; spacing is whatever RecentWorks already defines.
+
+### Props
+
+- **None** — Same as the About page: `<RecentWorks />` is invoked with no props. The component uses its internal data source; behavior is identical to the About page.
+
+---
+
+## Case Study Page — Scroll-Reveal Animations (feature/case-study)
+
+### Summary
+
+- Applied the **same scroll-reveal animation system** used on Home and About to the entire Case Study page.
+- No shared animation module exists in the repo; Home/About components each use `framer-motion` (`motion`, `useReducedMotion`) inline with the same pattern. That pattern was **detected and reused** in all Case Study components.
+
+### Animation system detected (reused)
+
+- **Source**: Home page components (`Hero`, `Works`, `Title`) and About-related components (`RecentWorks`, `Services`, `Skills`, `Process`, `Testimonials`) all use:
+  - `import { motion, useReducedMotion } from "framer-motion";`
+  - No `MotionInView` or shared lib; each component defines its own `containerMotion`, `titleMotion`, etc. with the same values.
+- **Import path used**: Same as Home/About — `framer-motion` only (no new modules created).
+- **Variants/thresholds used (reused verbatim)**:
+  - **Section container**: `initial: { opacity: 0 }`, `whileInView: { opacity: 1 }`, `viewport: { once: true, margin: "-100px" }`, `transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }`.
+  - **Title/item blocks**: `initial: { opacity: 0, y: 24 }` (or `y: 16` for meta), `whileInView: { opacity: 1, y: 0 }`, `viewport: { once: true, margin: "-50px" }`, `transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }` (title) or `duration: 0.5` with optional `delay: 0.1` / `0.15`.
+  - **Images**: `initial: { opacity: 0 }`, `whileInView: { opacity: 1 }`, `viewport: { once: true, margin: "-50px" }`, `transition: { duration: 0.5, delay: 0.15 }`.
+- **Reduced motion**: When `useReducedMotion()` is true, all motion props are `{}` so children render instantly (no animation). Same behavior as Home/About.
+
+### Files updated
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/CaseStudyHero.tsx` | Added `"use client"`, `motion` + `useReducedMotion` from framer-motion; wrapped section, h1, meta row, and hero-visual in motion elements with container/title/meta/image variants. |
+| `src/features/case-study/components/CaseStudyIntro.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, heading, intro text block, and intro-visual with scroll-reveal. |
+| `src/features/case-study/components/CaseStudyTextImage.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, h2 title, paragraph block, and full-bleed image. |
+| `src/features/case-study/components/CaseStudyTextImageGrid.tsx` | Added `"use client"`, motion + useReducedMotion; wrapped section, h2 title, paragraph block, and images grid. |
+
+### Scope and safety
+
+- **Layout, spacing, tokens**: Unchanged. Only animation wrappers and variant props were added; DOM structure and CSS classes preserved.
+- **Home/About**: Not modified. Only Case Study components were updated.
+- **Page** (`case-studies/[slug]/page.tsx`): Not modified. RecentWorks already has its own scroll-reveal; no wrapper added on the page.
+- **Fallback**: When `prefers-reduced-motion` is active, all motion props are empty objects so content is visible immediately (reused Home/About behavior).
+
+---
+
+## BookCallButton — Calendly popup (2026-02-06)
+
+### Summary
+
+- Wired the existing **Book a call** button to open the Calendly popup via dynamic script injection. No changes were made to any shared PrimaryButton (none exists); only `BookCallButton` was updated.
+
+### File changed
+
+| File | Description |
+|------|-------------|
+| `src/components/Button/BookCallButton.tsx` | Converted to client component; added idempotent Calendly CSS/JS injection on mount; click opens Calendly popup with fallback to new tab |
+
+### What was added
+
+- **Client component**: `"use client"` at top; component remains the single source for the Book a call CTA.
+- **Calendly injection (idempotent)**:
+  - CSS: injects `https://assets.calendly.com/assets/external/widget.css` if not already present (`document.querySelector('link[href="..."]')`).
+  - Script: injects `https://assets.calendly.com/assets/external/widget.js` (async) if not already present; waits for `window.Calendly` before calling `initPopupWidget`.
+- **Click handler**: Prevents default link behavior; ensures Calendly is loaded, then calls `Calendly.initPopupWidget({ url: 'https://calendly.com/andriyvynar/30min?primary_color=000000' })`. If the script fails or is unavailable, fallback opens the same Calendly URL in a new tab (`window.open(..., '_blank', 'noopener noreferrer')`).
+- **Accessibility**: Default `aria-label="Book a call (opens Calendly)"`; focus-visible styles preserved.
+
+### Fallback behavior
+
+- If the Calendly widget fails to initialise (e.g. script error or blocked), the button fallback opens the Calendly page in a new tab so users can still book a call.
+
+### Deployed path
+
+- All pages that use `BookCallButton`: Home (Hero CTA, Book a call section), Footer, Services section. The button appears wherever `BookCallButton` is rendered; no layout or route changes.

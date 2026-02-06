@@ -34,7 +34,7 @@ const worksProjects = [
     client: "RotationsPlus",
     imageSrc: "/assets/images/works/placeholder.svg",
     imageAlt: "Clinical Rotation platform project preview",
-    href: "/projects/rotations-plus",
+    href: "/case-studies/raccord",
   },
   {
     title: "Find Your Perfect Clinical Rotation",
