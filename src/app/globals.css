@@ -62,45 +62,6 @@ a {
 }
 
 /**
- * Header — fixed bar with instant mix-blend-mode inversion
- * .header-inner uses difference blend so header appears light over dark and dark over light.
- * Add data-header-solid on a section to force solid #060606 (no blending) when overlapping.
- */
-header.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 60;
-  isolation: isolate;
-}
-
-header .header-inner {
-  color: #ffffff;
-  mix-blend-mode: difference;
-  transition: color 0.12s linear, opacity 0.12s linear;
-}
-
-header .header-inner a,
-header .header-inner button,
-header .header-inner svg {
-  color: inherit;
-  fill: currentColor;
-}
-
-header.header--solid .header-inner {
-  mix-blend-mode: normal;
-  color: #060606;
-}
-
-@supports not (mix-blend-mode: difference) {
-  header .header-inner {
-    mix-blend-mode: normal;
-    color: #060606;
-  }
-}
-
-/**
  * Section layout pattern — used for all top-level page sections
  * Sections are full-bleed (100% viewport width)
  * Inner content preserves 24px horizontal padding via spacing token
