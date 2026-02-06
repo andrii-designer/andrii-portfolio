@@ -17,8 +17,9 @@ import { usePathname } from "next/navigation";
  * - Nav items top-aligned with logo
  *
  * Responsive:
- * - Mobile: compact header with hamburger toggle; nav in overlay panel
- * - md and above: current desktop navigation layout unchanged
+ * - <768px: hamburger + panel when open; avatar at top of panel only
+ * - 768–1023px: full nav inline (no hamburger); avatar hidden
+ * - ≥1024px (lg): full nav + avatar in header row
  *
  * Nav item padding:
  * - Base: 12px left/right (--token-space-12)
@@ -164,12 +165,12 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
           />
         </Link>
 
-        {/* Right: Hamburger (mobile) + Nav + Avatar (desktop or mobile panel) */}
+        {/* Right: Hamburger (<md) + Nav + Avatar (md: nav inline; lg: avatar in row; <768 avatar in panel only) */}
         <div
           className={`relative flex items-center md:w-auto ${isMenuOpen ? "w-full" : ""}`}
           style={{ gap: "var(--token-space-24)" }}
         >
-          {/* Hamburger — mobile only; keyboard focusable */}
+          {/* Hamburger — <768px only; hidden at md and above */}
           <button
             ref={menuButtonRef}
             type="button"
@@ -186,21 +187,49 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             <HamburgerIcon />
           </button>
 
-          {/* Nav + Avatar: desktop always visible; mobile in panel when open */}
+          {/* Nav + Avatar: md+ always visible (row); <768 panel when open */}
           <div
             id="header-nav-menu"
             ref={menuPanelRef}
-            className={`flex items-center ${isMenuOpen ? "flex flex-col" : "hidden"} md:flex md:flex-row absolute md:relative top-full left-0 right-0 md:top-auto md:left-auto md:right-auto mt-0 md:mt-0`}
-            style={{
-              gap: "var(--token-space-24)",
-              paddingTop: isMenuOpen ? "var(--token-space-24)" : 0,
-              paddingBottom: isMenuOpen ? "var(--token-space-24)" : 0,
-              paddingLeft: "var(--token-space-24)",
-              paddingRight: "var(--token-space-24)",
-              background: "var(--token-color-base)",
-            }}
+            className={`header-nav-menu flex items-center ${isMenuOpen ? "flex flex-col is-open" : "hidden"} md:flex md:flex-row absolute md:relative top-full left-0 right-0 md:top-auto md:left-auto md:right-auto mt-0`}
+            style={{ gap: "var(--token-space-24)" }}
           >
-            <nav aria-label="Primary">
+            {/* Avatar in mobile panel only (<768): top of panel */}
+            <div
+              className="header-avatar flex order-1 md:hidden"
+              style={{
+                height: "24px",
+                alignItems: "center",
+                gap: "var(--token-space-16)",
+              }}
+            >
+              <Image
+                src="/hero-assets/avatar.png"
+                alt="Avatar of Andrii Vynarchyk"
+                width={24}
+                height={24}
+                priority
+                style={{
+                  borderRadius: "9999px",
+                  width: "24px",
+                  height: "24px",
+                  objectFit: "cover",
+                }}
+              />
+              <span
+                className="text-accent uppercase"
+                style={{
+                  fontFamily: "var(--token-font-family-base)",
+                  fontSize: "var(--token-size-label-md)",
+                  fontWeight: "var(--token-weight-semibold)",
+                  lineHeight: "var(--token-leading-115)",
+                }}
+              >
+                Hi, I&apos;m Andrii Vynarchyk
+              </span>
+            </div>
+
+            <nav aria-label="Primary" className="order-2 md:order-1">
               <ul className="flex flex-col md:flex-row items-start md:items-center" style={{ margin: 0, padding: 0, listStyle: "none", gap: "var(--token-space-8)" }}>
                 {links.map((item, index) => (
                   <Fragment key={item.label}>
@@ -301,8 +330,9 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
               </ul>
             </nav>
 
+            {/* Avatar in header row only (≥1024px) */}
             <div
-              className="header-avatar flex"
+              className="header-avatar hidden lg:flex order-2"
               style={{
                 height: "24px",
                 alignItems: "center",
