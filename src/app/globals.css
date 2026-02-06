@@ -278,3 +278,71 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/**
+ * Case Study Intro — title typography and layout
+ *
+ * Token source-of-truth: --token-size-display-1 (150px) at desktop.
+ * Scales down at each breakpoint for mobile legibility, matching hero.
+ */
+.case-study-intro .intro-heading {
+  font-size: var(--token-size-display-1); /* 150px */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-100); /* 100% */
+  letter-spacing: -6px;
+  font-family: var(--token-font-family-base);
+  color: var(--token-color-accent);
+}
+
+@media (max-width: 1024px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h1); /* 84px */
+    letter-spacing: -4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h2); /* 64px */
+    letter-spacing: -3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-intro .intro-heading {
+    font-size: var(--token-size-h3); /* 48px */
+    letter-spacing: -2px;
+  }
+}
+
+/**
+ * Case Study Intro — paragraph text
+ */
+.case-study-intro .intro-paragraph {
+  font-size: var(--token-size-body-lg); /* 18px */
+  font-weight: var(--token-weight-regular); /* 400 */
+  line-height: var(--token-leading-150); /* 150% */
+  color: var(--token-color-accent);
+}
+
+/**
+ * Case Study Intro — full-bleed visual below text
+ * No side padding; sits outside .section-inner.
+ */
+.case-study-intro .intro-visual {
+  width: 100%;
+  margin-top: var(--token-space-64);
+}
+
+/**
+ * Case Study Intro — prefers-reduced-motion
+ * No auto-animations; future-proofs against added transitions.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .case-study-intro,
+  .case-study-intro * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

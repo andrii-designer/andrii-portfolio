@@ -1626,3 +1626,57 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 - `src/app/(global)/case-studies/[slug]/page.tsx`
 - Inherits the `(global)` layout which includes the Header component
 - URL pattern: `/case-studies/raccord`, `/case-studies/[any-slug]`
+
+---
+
+## Case Study Intro Section (feature/case-study) — 2026-02-05
+
+### Summary
+
+- Added `CaseStudyIntro` component and wired it into `/case-studies/[slug]` directly below `CaseStudyHero`.
+- Intro section uses the same `.section-wrap` + `.section-inner` pattern with full-bleed visual below text.
+
+### Files Created
+
+| File | Description |
+|------|-------------|
+| `src/features/case-study/components/CaseStudyIntro.tsx` | Intro section component with title, text, and full-bleed image props |
+| `public/assets/case-studies/placeholder-intro.jpg` | Placeholder intro image derived from reference artwork |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `src/features/case-study/components/index.ts` | Exported `CaseStudyIntro` and its props type |
+| `src/app/(global)/case-studies/[slug]/page.tsx` | Imported `CaseStudyIntro` and rendered it under `CaseStudyHero`, extended case-study data map with intro copy and image |
+| `src/app/globals.css` | Added `.case-study-intro` typography, paragraph, full-bleed visual spacing, and reduced-motion rules |
+
+### Tokens Created
+
+**None** — all tokens already existed in `src/styles/variables.css` and `tailwind.config.cjs`:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--token-size-display-1` | 150px | Intro heading font size (desktop), responsive down to h3 (48px) |
+| `--token-size-h1` / `--token-size-h2` / `--token-size-h3` | 84px / 64px / 48px | Responsive scaling for intro heading |
+| `--token-size-body-lg` | 18px | Intro paragraph text |
+| `--token-space-24` | 24px | Horizontal padding via `.section-inner` |
+| `--token-space-128` | 128px | Gap between intro title and text |
+| `--token-space-64` | 64px | Gap between text block and full-bleed image |
+| `--token-leading-100` / `--token-leading-150` | 100% / 150% | Heading and paragraph line-heights |
+| `--token-weight-semibold` / `--token-weight-regular` | 600 / 400 | Heading and paragraph weights |
+
+### Visual Acceptance Checklist
+
+| Item | Status |
+|------|--------|
+| Title is full-width, bold, and uses `--token-size-display-1` on desktop | ✅ Pass |
+| Gap between title and text is 128px (`--token-space-128`) | ✅ Pass |
+| Gap between text block and full-bleed image is 64px (`--token-space-64`) | ✅ Pass |
+| Full-bleed image has zero side padding (outside `.section-inner`) | ✅ Pass |
+| Side paddings for text are 24px (`--token-space-24`) | ✅ Pass |
+| Intro paragraph uses `--token-size-body-lg` with 150% line-height | ✅ Pass |
+| Heading scales down at 1024/768/480px breakpoints (display-1 → h1 → h2 → h3) | ✅ Pass |
+| Section uses `<h2>` for heading under hero `<h1>` | ✅ Pass |
+| Placeholder intro image path: `public/assets/case-studies/placeholder-intro.jpg` | ✅ Pass |
+| `prefers-reduced-motion` respected (no auto-animations in intro) | ✅ Pass |

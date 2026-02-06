@@ -1,4 +1,4 @@
-import { CaseStudyHero } from "@/features/case-study/components";
+import { CaseStudyHero, CaseStudyIntro } from "@/features/case-study/components";
 import Footer from "@/components/Footer";
 
 /**
@@ -22,13 +22,26 @@ type Props = { params: Promise<{ slug: string }> };
  */
 const caseStudies: Record<
   string,
-  { title: string; client: string; services: string[]; heroImage: string }
+  {
+    title: string;
+    client: string;
+    services: string[];
+    heroImage: string;
+    introTitle: string;
+    introText: string;
+    introImage: string;
+  }
 > = {
   raccord: {
     title: "Raccord",
     client: "Raccord",
     services: ["Product design", "3D motion"],
     heroImage: "/assets/case-studies/placeholder-hero.png",
+    introTitle:
+      "Unify all your real estate data for streamlined, real-time investment",
+    introText:
+      "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
+    introImage: "/assets/case-studies/placeholder-intro.jpg",
   },
 };
 
@@ -38,6 +51,10 @@ const fallback = {
   client: "Client",
   services: ["Design"],
   heroImage: "/assets/case-studies/placeholder-hero.png",
+  introTitle: "Case study intro",
+  introText:
+    "This is a placeholder case study intro section. Replace with project-specific copy explaining the problem, goals, and high-level solution once content is available.",
+  introImage: "/assets/case-studies/placeholder-intro.jpg",
 };
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -54,28 +71,12 @@ export default async function CaseStudyPage({ params }: Props) {
         heroImage={data.heroImage}
       />
 
-      {/* Placeholder for upcoming case study sections */}
-      <section
-        className="section-wrap"
-        style={{
-          paddingTop: "var(--token-space-96)",
-          paddingBottom: "var(--token-space-96)",
-        }}
-      >
-        <div className="section-inner">
-          <p
-            style={{
-              fontSize: "var(--token-size-body-lg)",
-              fontWeight: "var(--token-weight-regular)",
-              lineHeight: "var(--token-leading-150)",
-              color: "var(--token-color-accent)",
-            }}
-          >
-            Additional case study sections for &ldquo;{data.title}&rdquo; will
-            be implemented in upcoming branches.
-          </p>
-        </div>
-      </section>
+      {/* Intro Section — directly below hero */}
+      <CaseStudyIntro
+        title={data.introTitle}
+        text={data.introText}
+        image={data.introImage}
+      />
 
       {/* Footer Section — last section on page */}
       <Footer />
