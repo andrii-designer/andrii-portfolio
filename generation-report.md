@@ -1787,3 +1787,27 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 - [x] **Grid with 2 columns, 24px gap, and 24px left/right paddings** — `.images-grid` uses `display: grid`, `gridTemplateColumns: "1fr 1fr"`, `gap: "var(--token-space-24)"`, and `paddingLeft/Right: "var(--token-space-24)"`.
 - [x] **Mobile stacking rules preserved** — media query at `max-width: 768px` sets `.case-study-text-image-grid .text-image-row` to `flex-direction: column` and `.images-grid` to `grid-template-columns: 1fr !important`, so title, paragraph, and images stack vertically with 24px gaps while maintaining 24px side paddings via `.section-inner`.
 - [x] **Integration order correct** — On `/case-studies/[slug]`, the section order is: `CaseStudyHero` → `CaseStudyIntro` → `CaseStudyTextImage` → `CaseStudyTextImageGrid` → `Footer`.
+
+---
+
+## Case Study Page — RecentWorks as Final Section (feature/case-study)
+
+### Summary
+
+- Reused the existing **RecentWorks** component (same as on the About page) and rendered it as the last content section on the Case Study page, immediately before the Footer.
+- No changes were made to the RecentWorks implementation; it was only imported and placed in the page flow.
+
+### Import path
+
+- **RecentWorks**: `import RecentWorks from "@/components/RecentWorks";` (barrel from `@/components/RecentWorks`, which re-exports `src/components/RecentWorks/RecentWorks.tsx`).
+
+### Placement
+
+- **Page**: `src/app/(global)/case-studies/[slug]/page.tsx`
+- **Section order** on `/case-studies/[slug]`:  
+  `CaseStudyHero` → `CaseStudyIntro` → `CaseStudyTextImage` → `CaseStudyTextImageGrid` → **RecentWorks** → `Footer`
+- RecentWorks is the last content section before the Footer. No extra vertical margins or gaps were added between RecentWorks and Footer; spacing is whatever RecentWorks already defines.
+
+### Props
+
+- **None** — Same as the About page: `<RecentWorks />` is invoked with no props. The component uses its internal data source; behavior is identical to the About page.

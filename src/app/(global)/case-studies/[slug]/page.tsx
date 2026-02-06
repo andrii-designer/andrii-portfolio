@@ -4,6 +4,7 @@ import {
   CaseStudyTextImage,
   CaseStudyTextImageGrid,
 } from "@/features/case-study/components";
+import RecentWorks from "@/components/RecentWorks";
 import Footer from "@/components/Footer";
 
 /**
@@ -116,6 +117,9 @@ export default async function CaseStudyPage({ params }: Props) {
         paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
         images={data.gridImages ?? fallback.gridImages}
       />
+
+      {/* Recent Works — last content section above Footer */}
+      <RecentWorks />
 
       {/* Footer Section — last section on page */}
       <Footer />
