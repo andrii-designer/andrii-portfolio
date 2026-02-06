@@ -261,7 +261,7 @@ a {
  */
 .case-study-hero .hero-visual {
   width: 100%;
-  margin-top: var(--token-space-64);
+  margin-top: 0;
 }
 
 /**
