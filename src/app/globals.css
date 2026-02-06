@@ -62,6 +62,36 @@ a {
 }
 
 /**
+ * Header theme — auto-toggle when scrolling over dark sections
+ * Scoped to header only; does not change global tokens.
+ * Manual override: add data-header-theme="dark" or "light" on a top-level section.
+ */
+:root {
+  --header-color-default: #060606;
+  --header-color-inverted: #E3E3E5;
+}
+
+header {
+  color: var(--header-color-default);
+}
+
+header[data-header-theme="dark"],
+header.header--inverted {
+  color: var(--header-color-inverted);
+}
+
+header[data-header-theme="dark"] *,
+header.header--inverted * {
+  color: inherit;
+}
+
+header a,
+header svg {
+  color: inherit;
+  fill: currentColor;
+}
+
+/**
  * Section layout pattern — used for all top-level page sections
  * Sections are full-bleed (100% viewport width)
  * Inner content preserves 24px horizontal padding via spacing token

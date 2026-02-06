@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import useHeaderTheme from "@/hooks/useHeaderTheme";
 
 /**
  * Header — Figma node-id: 2228:4741
@@ -25,7 +26,7 @@ import { usePathname } from "next/navigation";
  * - Work → scrolls to #works section (on home page) or navigates to /#works
  * - Services → scrolls to #services section (on home page) or navigates to /#services
  * - About → navigates to /about page
- * - Book a call → scrolls to #book-a-call section (on home page) or navigates to /#book-a-call
+ * - Book a call → opens Cal.com booking popup (same as Book a call button)
  * 
  * Tokens used:
  * - Colors: --token-color-accent (#060606)
@@ -39,6 +40,8 @@ export type NavLink = {
   href: string;
   /** If true, this is an anchor link that should smooth scroll on the home page */
   isAnchor?: boolean;
+  /** If true, clicking opens the Cal.com booking popup instead of navigating */
+  openCalPopup?: boolean;
 };
 
 export type HeaderProps = {
@@ -50,13 +53,15 @@ const defaultNavLinks: NavLink[] = [
   { label: "Work", href: "/#works", isAnchor: true },
   { label: "Services", href: "/#services", isAnchor: true },
   { label: "About", href: "/about", isAnchor: false },
-  { label: "Book a call", href: "/#book-a-call", isAnchor: true },
+  { label: "Book a call", href: "/#book-a-call", isAnchor: true, openCalPopup: true },
 ];
 
 export default function Header({ links = defaultNavLinks, className }: HeaderProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const { theme } = useHeaderTheme(headerRef);
 
   const DOT_SIZE = "var(--token-space-12)"; // 12px
   const DOT_TOTAL_SPACE = "var(--token-space-8)"; // 8px gap after dot
@@ -67,7 +72,11 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
    * If not on home page, navigation to /#section will be handled by Next.js router.
    */
   const handleAnchorClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAnchor?: boolean) => {
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAnchor?: boolean, openCalPopup?: boolean) => {
+      if (openCalPopup) {
+        e.preventDefault();
+        return;
+      }
       if (!isAnchor) return; // Let normal links navigate
 
       const hash = href.split("#")[1];
@@ -89,7 +98,9 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
 
   return (
     <header
-      className={`section-wrap ${className || ""}`}
+      ref={headerRef}
+      className={`section-wrap ${theme === "dark" ? "header--inverted" : ""} ${className || ""}`}
+      data-header-theme={theme}
       style={{
         height: "70px",
         paddingTop: "var(--token-space-16)",
@@ -136,12 +147,17 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                     }}
                   >
                     <Link
-                      href={item.href}
-                      onClick={(e) => handleAnchorClick(e, item.href, item.isAnchor)}
+                      href={item.openCalPopup ? "javascript:void(0)" : item.href}
+                      onClick={(e) => handleAnchorClick(e, item.href, item.isAnchor, item.openCalPopup)}
                       onMouseEnter={() => setActiveNavIndex(index)}
                       onMouseLeave={() => setActiveNavIndex(null)}
                       onFocus={() => setActiveNavIndex(index)}
                       onBlur={() => setActiveNavIndex(null)}
+                      {...(item.openCalPopup && {
+                        "data-cal-namespace": "15min",
+                        "data-cal-link": "andrii-vynarchyk/15min",
+                        "data-cal-config": '{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}',
+                      })}
                       className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 inline-flex items-center"
                       style={{
                         fontFamily: "var(--token-font-family-base)",
@@ -174,7 +190,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                             width: "100%",
                             height: "100%",
                             borderRadius: 9999,
-                            background: "var(--token-color-accent)",
+                            background: "currentColor",
                             transform: activeNavIndex === index ? "scale(1)" : "scale(0)",
                             transition: "transform 0.16s ease",
                             willChange: "transform",

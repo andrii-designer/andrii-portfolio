@@ -1879,3 +1879,43 @@ This project uses **Next.js App Router** (not Pages Router). The case study page
 ### Deployed path
 
 - All pages that use `BookCallButton`: Home (Hero CTA, Book a call section), Footer, Services section. The button appears wherever `BookCallButton` is rendered; no layout or route changes.
+
+---
+
+## Header auto-theme over dark sections (2026-02-06)
+
+### Summary
+
+- Header automatically switches its foreground color to light (`#E3E3E5`) when scrolling over visually dark sections (dark background or dark-dominant images).
+- Detection order: **manual override** (`data-header-theme="dark"` or `"light"` on section) → **computed background color** (luminance &lt; 0.5 ⇒ dark) → **image sampling** (canvas 32×32 average luminance, cached by image src) → **default light**.
+- CSS scoped to header only: `--header-color-default`, `--header-color-inverted`; no global token changes.
+
+### Files added
+
+| File | Description |
+|------|-------------|
+| `src/hooks/useHeaderTheme.tsx` | Reusable hook: IntersectionObserver on `section, [data-header-theme-watch], .section-wrap` (excluding header), rootMargin `0px 0px -80% 0px`, debounce 80ms, returns `theme` and `setTheme` for manual override. SSR-safe (effect runs only client-side). |
+
+### Files modified
+
+| File | Changes |
+|------|---------|
+| `src/components/Header/Header.tsx` | Added `headerRef`, `useHeaderTheme(headerRef)`, `data-header-theme={theme}`, class `header--inverted` when dark; nav dot background set to `currentColor` so it inverts with header. |
+| `src/app/globals.css` | Added `:root` vars `--header-color-default`, `--header-color-inverted`; `header` base color; `header[data-header-theme="dark"]` / `header.header--inverted` use inverted color; `header a, header svg` inherit and `fill: currentColor`. |
+
+### Detection strategy
+
+1. **Attribute override**: If the active section has `data-header-theme="dark"` or `"light"`, that value is used.
+2. **Background color**: If `getComputedStyle.backgroundColor` is not transparent, parse RGB and compute relative luminance; &lt; 0.5 ⇒ dark.
+3. **Image sampling**: If the section contains a visible `<img>`, draw a 32×32 sample to a canvas and compute average pixel luminance; &lt; 0.5 ⇒ dark. Results cached per image `src` to avoid repeated sampling. CORS/canvas taint handled: on failure, fallback to background luminance or default light; hook does not throw.
+4. **Default**: Light.
+
+### Caching and performance
+
+- Image luminance results are cached in a module-level `Map<string, boolean>` keyed by image `src`, so each image is sampled at most once per session.
+- Theme updates are debounced (80ms) to avoid rapid toggles while scrolling.
+- Observer and scroll listener are cleaned up on unmount.
+
+### Optional designer usage
+
+- To force a section as dark or light regardless of background/image, add `data-header-theme="dark"` or `data-header-theme="light"` to the top-level `section` or wrapper (e.g. `.section-wrap`). Alternatively use `data-header-theme-watch` to include a custom element in the observed set.
