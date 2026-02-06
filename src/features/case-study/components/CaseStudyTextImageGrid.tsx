@@ -40,7 +40,7 @@ export default function CaseStudyTextImageGrid({
 
   return (
     <section
-      className="case-study-text-image-grid section-wrap"
+      className="case-study-text-image case-study-text-image-grid section-wrap"
       aria-label="Case study images grid"
     >
       <div
