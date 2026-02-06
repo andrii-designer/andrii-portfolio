@@ -31,6 +31,11 @@
   --token-size-label-sm: 14px;
   --token-size-overline: 12px;
 
+  /* Typography — responsive (mobile-first clamp) */
+  --display-1: clamp(3rem, 8vw, var(--token-size-display-1));
+  --display-2: clamp(2.25rem, 5.5vw, var(--token-size-display-2));
+  --body-lg: clamp(1rem, 2.5vw, var(--token-size-body-lg));
+
   /* Typography — line heights */
   --token-leading-100: 100%;
   --token-leading-110: 110%;
