@@ -71,12 +71,10 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       {/* Hero Title — Figma node-id: 2224:4199. Uses token so mobile/tablet/desktop scale with variables.css */}
       <motion.h1
         {...titleMotion}
-        className="max-w-full text-accent font-semibold leading-110
+        className="max-w-full text-accent font-semibold leading-110 text-h1
           md:max-w-[700px] lg:max-w-[920px]"
         style={{
           fontFamily: "var(--token-font-family-base)",
-          fontSize: "var(--token-size-h1)",
-          letterSpacing: "-6px", /* Exact letter-spacing from Figma */
         }}
         data-node-id="2224:4199"
       >

@@ -311,30 +311,9 @@ a {
   font-size: var(--token-size-h1); /* 84px */
   font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-100); /* 100% */
-  letter-spacing: -6px;
+  letter-spacing: var(--token-tracking-header-1);
   font-family: var(--token-font-family-base);
   color: var(--token-color-accent);
-}
-
-@media (max-width: 1024px) {
-  .case-study-intro .intro-heading {
-    font-size: var(--token-size-h2); /* 64px */
-    letter-spacing: -4px;
-  }
-}
-
-@media (max-width: 768px) {
-  .case-study-intro .intro-heading {
-    font-size: var(--token-size-h3); /* 48px */
-    letter-spacing: -3px;
-  }
-}
-
-@media (max-width: 480px) {
-  .case-study-intro .intro-heading {
-    font-size: var(--token-size-h4); /* 36px */
-    letter-spacing: -2px;
-  }
 }
 
 /**
@@ -397,7 +376,7 @@ section.case-study-text-image-grid .section-title {
   font-size: var(--token-size-h2) !important; /* 64px — h2 token */
   font-weight: var(--token-weight-semibold) !important; /* 600 */
   line-height: var(--token-leading-110) !important; /* 110% */
-  letter-spacing: -3px;
+  letter-spacing: var(--token-tracking-header-2);
   font-family: var(--token-font-family-base);
   color: var(--token-color-accent);
 }
@@ -464,4 +443,14 @@ section.case-study-text-image-grid .section-paragraph {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Typography tracking mapping — ensure token usage is enforced */
+.text-display-1 { letter-spacing: var(--token-tracking-display-1); }
+.text-display-2 { letter-spacing: var(--token-tracking-display-2); }
+.text-h1 { letter-spacing: var(--token-tracking-header-1); }
+.text-h2 { letter-spacing: var(--token-tracking-header-2); }
+.text-h3 { letter-spacing: var(--token-tracking-header-3); }
+.text-h4 { letter-spacing: var(--token-tracking-header-4); }
+.text-h5 { letter-spacing: var(--token-tracking-header-5); }
+.text-h6 { letter-spacing: var(--token-tracking-header-6); }
 
