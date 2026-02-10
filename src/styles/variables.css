@@ -120,3 +120,33 @@
     --token-size-overline: 0.75rem;    /* 12px */
   }
 }
+
+/* Tablet overrides (≤1023px) */
+@media (max-width: 1023px) {
+  :root {
+    --token-space-40: 32px;
+    --token-space-48: 40px;
+    --token-space-64: 48px;
+    --token-space-80: 64px;
+    --token-space-96: 80px;
+    --token-space-128: 96px;
+    --token-space-160: 128px;
+    --token-space-192: 160px;
+    --token-space-256: 192px;
+  }
+}
+
+/* Mobile overrides (≤767px) */
+@media (max-width: 767px) {
+  :root {
+    --token-space-40: 24px;
+    --token-space-48: 32px;
+    --token-space-64: 40px;
+    --token-space-80: 48px;
+    --token-space-96: 64px;
+    --token-space-128: 80px;
+    --token-space-160: 96px;
+    --token-space-192: 128px;
+    --token-space-256: 160px;
+  }
+}
