@@ -316,7 +316,7 @@ export default function Footer({ className = "" }: FooterProps) {
                 width={160}
                 height={160}
                 style={{
-                  height: "var(--token-space-160)",
+                  height: "var(--token-size-160)",
                   width: "auto",
                 }}
                 priority={false}

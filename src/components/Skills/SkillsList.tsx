@@ -70,8 +70,8 @@ const SkillsList = ({ skills }: SkillsListProps) => {
               className="skill-dot"
               aria-hidden="true"
               style={{
-                width: "var(--token-space-24)",
-                height: "var(--token-space-24)",
+              width: "var(--token-size-24)",
+              height: "var(--token-size-24)",
                 borderRadius: "9999px",
                 background: "var(--token-color-accent)",
                 flexShrink: 0,

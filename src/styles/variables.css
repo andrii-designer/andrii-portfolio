@@ -75,6 +75,14 @@
   --token-space-160: 160px;
   --token-space-192: 192px;
   --token-space-256: 256px;
+
+  /* Element sizes (for width/height, min/max dimensions, icon/image sizes) */
+  --token-size-12: 12px;
+  --token-size-24: 24px;
+  --token-size-48: 48px;
+  --token-size-64: 64px;
+  --token-size-160: 160px;
+  --token-size-192: 192px;
 }
 
 /* Tablet (768px–1023px) — rem */

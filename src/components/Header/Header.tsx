@@ -88,7 +88,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
 
-  const DOT_SIZE = "var(--token-space-12)"; // 12px
+  const DOT_SIZE = "var(--token-size-12)"; // 12px
   const DOT_TOTAL_SPACE = "var(--token-space-8)"; // 8px gap after dot
   const SHIFT_LEFT = "calc(-1 * (var(--token-space-12) + var(--token-space-8)))"; // Shift left by 20px (dot + gap)
 
@@ -140,7 +140,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
     <header
       className={`section-wrap ${className || ""}`}
       style={{
-        height: "var(--token-space-64)",
+        height: "var(--token-size-64)",
         paddingTop: "var(--token-space-16)",
         position: "fixed",
         top: 0,
@@ -179,8 +179,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="md:hidden flex items-center justify-center p-2 text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             style={{
-              minWidth: "var(--token-space-48)",
-              minHeight: "var(--token-space-48)",
+              minWidth: "var(--token-size-48)",
+              minHeight: "var(--token-size-48)",
             }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -198,7 +198,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             <div
               className="header-avatar flex order-1 md:hidden"
               style={{
-                height: "var(--token-space-24)",
+                height: "var(--token-size-24)",
                 alignItems: "center",
                 gap: "var(--token-space-16)",
               }}
@@ -211,8 +211,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 priority
                 style={{
                   borderRadius: "9999px",
-                  width: "var(--token-space-24)",
-                  height: "var(--token-space-24)",
+                  width: "var(--token-size-24)",
+                  height: "var(--token-size-24)",
                   objectFit: "cover",
                 }}
               />
@@ -334,7 +334,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             <div
               className="header-avatar hidden lg:flex order-2"
               style={{
-                height: "var(--token-space-24)",
+                height: "var(--token-size-24)",
                 alignItems: "center",
                 gap: "var(--token-space-16)",
               }}
@@ -347,8 +347,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 priority
                 style={{
                   borderRadius: "9999px",
-                  width: "var(--token-space-24)",
-                  height: "var(--token-space-24)",
+                  width: "var(--token-size-24)",
+                  height: "var(--token-size-24)",
                   objectFit: "cover",
                 }}
               />

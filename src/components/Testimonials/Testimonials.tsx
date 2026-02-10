@@ -215,7 +215,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           style={{
             position: "relative",
             width: "100%",
-            minHeight: "var(--token-space-192)",
+            minHeight: "var(--token-size-192)",
           }}
         >
           <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -273,8 +273,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             <div
               className="testimonials-avatar"
               style={{
-                width: "var(--token-space-64)",
-                height: "var(--token-space-64)",
+                width: "var(--token-size-64)",
+                height: "var(--token-size-64)",
                 overflow: "hidden",
                 flexShrink: 0,
               }}
@@ -405,8 +405,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Previous testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--prev"
               style={{
-                width: "var(--token-space-64)",
-                height: "var(--token-space-64)",
+                width: "var(--token-size-64)",
+                height: "var(--token-size-64)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -446,8 +446,8 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               aria-label="Next testimonial"
               className="testimonials-nav-btn testimonials-nav-btn--next"
               style={{
-                width: "var(--token-space-64)",
-                height: "var(--token-space-64)",
+                width: "var(--token-size-64)",
+                height: "var(--token-size-64)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
