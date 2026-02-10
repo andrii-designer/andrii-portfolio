@@ -51,6 +51,16 @@ module.exports = {
         semibold: "var(--token-weight-semibold)",
         bold: "var(--token-weight-bold)",
       },
+      letterSpacing: {
+        "display-1": "var(--token-tracking-display-1)",
+        "display-2": "var(--token-tracking-display-2)",
+        h1: "var(--token-tracking-header-1)",
+        h2: "var(--token-tracking-header-2)",
+        h3: "var(--token-tracking-header-3)",
+        h4: "var(--token-tracking-header-4)",
+        h5: "var(--token-tracking-header-5)",
+        h6: "var(--token-tracking-header-6)",
+      },
       spacing: {
         0: "var(--token-space-0)",
         4: "var(--token-space-4)",
