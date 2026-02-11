@@ -116,7 +116,7 @@ a {
   background: transparent;
 }
 
-/* MOBILE ONLY: container padding + burger panel behavior — apply only for viewport < 768px */
+/* MOBILE ONLY: container padding + burger panel — apply only for viewport < 768px */
 @media (max-width: 767px) {
   /* Main containers: 8px horizontal padding on mobile (tablet/desktop unchanged) */
   .section-inner {
@@ -124,7 +124,7 @@ a {
     padding-right: var(--token-space-8);
   }
 
-  /* About Me page: sections with inline 24px side padding get 8px on mobile (override inline styles) */
+  /* About Me page: sections with inline 24px side padding use 8px on mobile to match site */
   .about-page .about-description-wrapper,
   .about-page .skills-wrapper {
     padding-left: var(--token-space-8) !important;
@@ -159,7 +159,7 @@ a {
     display: flex;
   }
 
-  /* Panel inner: flex column, fills overlay; 8px padding; social block pushed to bottom-right via margin-top: auto */
+  /* Panel inner: 8px side padding; flex column so social can stick to bottom-right */
   .header-nav-menu-inner {
     width: 100%;
     max-width: var(--token-site-max-width, 1200px);
@@ -184,7 +184,7 @@ a {
     margin-top: var(--token-space-64);
   }
 
-  /* Nav items: no horizontal padding in burger menu; no pull/translate effect on hover */
+  /* Nav items: no horizontal padding in burger menu; no pull/translate on hover */
   .header-nav-menu .header-nav-link {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -192,7 +192,7 @@ a {
     transition: none !important;
   }
 
-  /* Hide dot in burger menu and remove its space so links start flush left */
+  /* Hide dot in burger menu and remove its space so nav links start flush left */
   .header-nav-menu .header-nav-link a > span:first-of-type {
     display: none !important;
   }

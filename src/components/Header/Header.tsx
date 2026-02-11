@@ -360,32 +360,32 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 </span>
               </div>
 
-              {/* Social links: same container as nav; on mobile sticks to bottom-right with auto gap */}
-              <div className="burger-social order-3 md:hidden">
-                <ul
-                  style={{
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  {socialLinks.map((link) => (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.label}
-                        className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {/* Social links: mobile burger menu only; hidden on tablet and desktop */}
+            <div className="burger-social order-3 md:hidden">
+              <ul
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {socialLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
             </div>
           </div>
         </div>
