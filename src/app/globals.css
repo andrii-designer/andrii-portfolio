@@ -153,7 +153,7 @@ a {
     margin-right: auto;
   }
 
-  /* Distance between avatar/top content and nav list */
+  /* Distance between top of panel content and nav list */
   .header-nav-menu-inner > nav {
     margin-top: var(--token-space-64);
   }
@@ -165,18 +165,19 @@ a {
   }
 
   /* Mobile nav items use H1 typography token */
-  .header-nav-menu .header-nav-link a {
+  .header-nav-menu.is-open .header-nav-link a {
     font-size: var(--token-size-h1) !important;
     font-weight: var(--token-weight-semibold);
     line-height: var(--token-leading-110);
     letter-spacing: var(--token-tracking-header-1);
   }
 
-  /* Social block at bottom-right of overlay */
-  .burger-social {
-    position: absolute;
+  /* Social block at bottom-right of viewport when overlay is open */
+  .header-nav-menu.is-open .burger-social {
+    position: fixed;
     right: var(--token-space-24);
     bottom: var(--token-space-24);
+    z-index: 95; /* below header (100) and hamburger (110), above overlay bg (90) */
   }
 
   .burger-social-link {

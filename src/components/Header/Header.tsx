@@ -207,41 +207,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             style={{ gap: "var(--token-space-24)" }}
           >
             <div className="header-nav-menu-inner">
-              {/* Avatar in mobile panel only (<768px): top of panel */}
-              <div
-                className="header-avatar flex order-1 md:hidden"
-                style={{
-                  height: "var(--token-size-24)",
-                  alignItems: "center",
-                  gap: "var(--token-space-16)",
-                }}
-              >
-                <Image
-                  src="/hero-assets/avatar.png"
-                  alt="Avatar of Andrii Vynarchyk"
-                  width={24}
-                  height={24}
-                  priority
-                  style={{
-                    borderRadius: "9999px",
-                    width: "var(--token-size-24)",
-                    height: "var(--token-size-24)",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  className="text-accent uppercase"
-                  style={{
-                    fontFamily: "var(--token-font-family-base)",
-                    fontSize: "var(--token-size-label-md)",
-                    fontWeight: "var(--token-weight-semibold)",
-                    lineHeight: "var(--token-leading-115)",
-                  }}
-                >
-                  Hi, I&apos;m Andrii Vynarchyk
-                </span>
-              </div>
-
               <nav aria-label="Primary" className="order-2 md:order-1">
                 <ul
                   className="flex flex-col md:flex-row items-start md:items-center"
