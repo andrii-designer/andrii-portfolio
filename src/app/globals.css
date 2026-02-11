@@ -146,8 +146,7 @@ a {
     width: 100vw;
     height: 100vh;
     display: none;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
     background: var(--token-color-base);
     z-index: 90;
     overflow-y: auto;
@@ -159,29 +158,46 @@ a {
     display: flex;
   }
 
-  /* Panel inner: 8px side padding; flex column so social can stick to bottom-right */
+  /* Panel inner: take full remaining height so layout can push social to bottom */
   .header-nav-menu-inner {
     width: 100%;
     max-width: var(--token-site-max-width, 1200px);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-left: var(--token-space-8);
-    padding-right: var(--token-space-8);
-    padding-top: var(--token-space-16); /* match header paddingTop */
-    padding-bottom: var(--token-space-8);
+    flex: 1;
+    min-height: 0;
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Logo first (order-1, same position as header). Nav below with gap. Social last: margin-top: auto. */
-  .header-nav-menu-inner > .header-mobile-logo {
-    margin-top: 0;
+  /* One vertical flex container: fills inner; logo at top, nav then auto-gap then social at bottom */
+  .burger-menu-layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    padding-left: var(--token-space-8);
+    padding-right: var(--token-space-8);
+    padding-top: var(--token-space-16); /* align with header so logo position matches */
+    box-sizing: border-box;
   }
 
-  .header-nav-menu-inner > nav {
+  /* Gap between logo and nav; margin-bottom: auto creates auto-gap above social */
+  .burger-menu-layout > nav {
     margin-top: var(--token-space-64);
+    margin-bottom: auto;
+  }
+
+  /* Social block: sticks to bottom with token spacing; margin-top: auto = auto-gap below nav */
+  .header-nav-menu .burger-social {
+    margin-top: auto;
+    padding-bottom: var(--token-space-24);
+  }
+
+  /* Nav list: no gap between items in burger menu */
+  .header-nav-menu .burger-menu-layout nav ul {
+    gap: 0;
   }
 
   /* Nav items: no horizontal padding in burger menu; no pull/translate on hover */
@@ -206,13 +222,7 @@ a {
     text-transform: none; /* no caps in mobile burger menu */
   }
 
-  /* Social block: in flow, sticks to bottom-right via auto margin; respects inner padding (8px from right) */
-  .header-nav-menu .burger-social {
-    margin-top: auto;
-    align-self: flex-end;
-    padding-right: 0; /* inner already has 8px; keep block within that so links sit 8px from viewport */
-    max-width: 100%; /* don't overflow; stays within padded area */
-  }
+  /* Social block: last child in .burger-menu-layout — flows to bottom via flex (no absolute positioning) */
 
   .burger-social-link {
     /* Inherit typography from .text-link-h5 (H5 token, semibold) */
@@ -250,6 +260,10 @@ a {
 
   .header-nav-menu-inner {
     display: contents; /* behave like original DOM structure on desktop */
+  }
+
+  .burger-menu-layout {
+    display: contents; /* unwrap so logo, nav, social, avatar flow in header row on desktop */
   }
 }
 

@@ -110,8 +110,6 @@ export default function Footer({ className = "" }: FooterProps) {
       <div
         className="section-inner footer-wrapper"
         style={{
-          paddingLeft: "var(--token-space-24)",
-          paddingRight: "var(--token-space-24)",
           paddingTop: "var(--token-space-128)",
           paddingBottom: "var(--token-space-24)",
           backgroundColor: "var(--token-color-primary)",

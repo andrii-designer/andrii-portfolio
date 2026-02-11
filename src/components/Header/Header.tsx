@@ -207,94 +207,33 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             style={{ gap: "var(--token-space-24)" }}
           >
             <div className="header-nav-menu-inner">
-              <nav aria-label="Primary" className="order-2 md:order-1">
-                <ul
-                  className="flex flex-col md:flex-row items-start md:items-center"
-                  style={{ margin: 0, padding: 0, listStyle: "none", gap: "var(--token-space-8)" }}
-                >
-                  {links.map((item, index) => (
-                    <Fragment key={item.label}>
-                      <li
-                        className="header-nav-link flex items-center"
-                        style={{
-                          paddingLeft: index === 0 ? 0 : "var(--token-space-8)",
-                          paddingRight: index === links.length - 1 ? 0 : "var(--token-space-8)",
-                          transform:
-                            activeNavIndex !== null && index < activeNavIndex
-                              ? `translateX(${SHIFT_LEFT})`
-                              : "translateX(0)",
-                          transition: "transform 0.16s ease",
-                          willChange: "transform",
-                        }}
-                      >
-                        <Link
-                          href={item.openCalPopup ? "javascript:void(0)" : item.href}
-                          onClick={(e) => {
-                            handleAnchorClick(e, item.href, item.isAnchor, item.openCalPopup);
-                            handleNavLinkClick();
-                          }}
-                          onMouseEnter={() => setActiveNavIndex(index)}
-                          onMouseLeave={() => setActiveNavIndex(null)}
-                          onFocus={() => setActiveNavIndex(index)}
-                          onBlur={() => setActiveNavIndex(null)}
-                          {...(item.openCalPopup && {
-                            "data-cal-namespace": "15min",
-                            "data-cal-link": "andrii-vynarchyk/15min",
-                            "data-cal-config": '{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}',
-                          })}
-                          className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 inline-flex items-center"
-                          style={{
-                            fontFamily: "var(--token-font-family-base)",
-                            fontSize: "var(--token-size-label-md)",
-                            fontWeight: "var(--token-weight-semibold)",
-                            lineHeight: "var(--token-leading-115)",
-                            transition: "opacity 0.16s ease",
-                          }}
-                          tabIndex={0}
-                        >
-                          {/* Dot — positioned with negative margin to stay within padding */}
-                          <span
-                            aria-hidden="true"
-                            style={{
-                              width: DOT_SIZE,
-                              height: DOT_SIZE,
-                              display: "inline-block",
-                              flexShrink: 0,
-                              marginLeft: activeNavIndex === index ? "calc(-1 * var(--token-space-12))" : 0,
-                              marginRight: activeNavIndex === index ? DOT_TOTAL_SPACE : 0,
-                              transition: "margin-left 0.16s ease, margin-right 0.16s ease",
-                              willChange: "margin-left, margin-right",
-                            }}
-                          >
-                            <span
-                              aria-hidden="true"
-                              style={{
-                                display: "block",
-                                width: "100%",
-                                height: "100%",
-                                borderRadius: 9999,
-                                background: "var(--token-color-accent)",
-                                transform: activeNavIndex === index ? "scale(1)" : "scale(0)",
-                                transition: "transform 0.16s ease",
-                                willChange: "transform",
-                              }}
-                            />
-                          </span>
-                          <span>{item.label}</span>
-                        </Link>
-                      </li>
+              {/* Mobile: logo first, then nav, then social — one vertical flex container */}
+              <div className="burger-menu-layout">
+                <div className="header-mobile-logo md:hidden">
+                  <Link href="/" aria-label="Home">
+                    <Image
+                      src="/hero-assets/logo.svg"
+                      alt="Andrii Vynarchyk logo"
+                      width={69}
+                      height={70}
+                      priority
+                      style={{ borderRadius: 0 }}
+                    />
+                  </Link>
+                </div>
 
-                      {index !== links.length - 1 && (
+                <nav aria-label="Primary" className="md:order-1">
+                  <ul
+                    className="flex flex-col md:flex-row items-start md:items-center"
+                    style={{ margin: 0, padding: 0, listStyle: "none", gap: 0 }}
+                  >
+                    {links.map((item, index) => (
+                      <Fragment key={item.label}>
                         <li
-                          className="header-nav-divider hidden md:flex items-center text-accent"
-                          aria-hidden="true"
+                          className="header-nav-link flex items-center"
                           style={{
-                            paddingLeft: 0,
-                            paddingRight: 0,
-                            fontFamily: "var(--token-font-family-base)",
-                            fontSize: "var(--token-size-label-md)",
-                            fontWeight: "var(--token-weight-semibold)",
-                            lineHeight: "var(--token-leading-115)",
+                            paddingLeft: index === 0 ? 0 : "var(--token-space-8)",
+                            paddingRight: index === links.length - 1 ? 0 : "var(--token-space-8)",
                             transform:
                               activeNavIndex !== null && index < activeNavIndex
                                 ? `translateX(${SHIFT_LEFT})`
@@ -303,26 +242,116 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                             willChange: "transform",
                           }}
                         >
-                          /
+                          <Link
+                            href={item.openCalPopup ? "javascript:void(0)" : item.href}
+                            onClick={(e) => {
+                              handleAnchorClick(e, item.href, item.isAnchor, item.openCalPopup);
+                              handleNavLinkClick();
+                            }}
+                            onMouseEnter={() => setActiveNavIndex(index)}
+                            onMouseLeave={() => setActiveNavIndex(null)}
+                            onFocus={() => setActiveNavIndex(index)}
+                            onBlur={() => setActiveNavIndex(null)}
+                            {...(item.openCalPopup && {
+                              "data-cal-namespace": "15min",
+                              "data-cal-link": "andrii-vynarchyk/15min",
+                              "data-cal-config": '{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}',
+                            })}
+                            className="text-accent uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 inline-flex items-center"
+                            style={{
+                              fontFamily: "var(--token-font-family-base)",
+                              fontSize: "var(--token-size-label-md)",
+                              fontWeight: "var(--token-weight-semibold)",
+                              lineHeight: "var(--token-leading-115)",
+                              transition: "opacity 0.16s ease",
+                            }}
+                            tabIndex={0}
+                          >
+                            {/* Dot — positioned with negative margin to stay within padding */}
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                width: DOT_SIZE,
+                                height: DOT_SIZE,
+                                display: "inline-block",
+                                flexShrink: 0,
+                                marginLeft: activeNavIndex === index ? "calc(-1 * var(--token-space-12))" : 0,
+                                marginRight: activeNavIndex === index ? DOT_TOTAL_SPACE : 0,
+                                transition: "margin-left 0.16s ease, margin-right 0.16s ease",
+                                willChange: "margin-left, margin-right",
+                              }}
+                            >
+                              <span
+                                aria-hidden="true"
+                                style={{
+                                  display: "block",
+                                  width: "100%",
+                                  height: "100%",
+                                  borderRadius: 9999,
+                                  background: "var(--token-color-accent)",
+                                  transform: activeNavIndex === index ? "scale(1)" : "scale(0)",
+                                  transition: "transform 0.16s ease",
+                                  willChange: "transform",
+                                }}
+                              />
+                            </span>
+                            <span>{item.label}</span>
+                          </Link>
                         </li>
-                      )}
-                    </Fragment>
-                  ))}
-                </ul>
-              </nav>
 
-              {/* Mobile logo inside overlay — first in order so it stays top-left (same position as header logo) */}
-              <div className="header-mobile-logo order-1 md:hidden">
-                <Link href="/" aria-label="Home">
-                  <Image
-                    src="/hero-assets/logo.svg"
-                    alt="Andrii Vynarchyk logo"
-                    width={69}
-                    height={70}
-                    priority
-                    style={{ borderRadius: 0 }}
-                  />
-                </Link>
+                        {index !== links.length - 1 && (
+                          <li
+                            className="header-nav-divider hidden md:flex items-center text-accent"
+                            aria-hidden="true"
+                            style={{
+                              paddingLeft: 0,
+                              paddingRight: 0,
+                              fontFamily: "var(--token-font-family-base)",
+                              fontSize: "var(--token-size-label-md)",
+                              fontWeight: "var(--token-weight-semibold)",
+                              lineHeight: "var(--token-leading-115)",
+                              transform:
+                                activeNavIndex !== null && index < activeNavIndex
+                                  ? `translateX(${SHIFT_LEFT})`
+                                  : "translateX(0)",
+                              transition: "transform 0.16s ease",
+                              willChange: "transform",
+                            }}
+                          >
+                            /
+                          </li>
+                        )}
+                      </Fragment>
+                    ))}
+                  </ul>
+                </nav>
+
+                {/* Social links: mobile burger menu only; last in flex column so they sit at bottom */}
+                <div className="burger-social md:hidden">
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      margin: 0,
+                      padding: 0,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    {socialLinks.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={link.label}
+                          className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               {/* Avatar in header row only (≥1024px) */}
@@ -359,33 +388,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                   Hi, I&apos;m Andrii Vynarchyk
                 </span>
               </div>
-
-            {/* Social links: mobile burger menu only; hidden on tablet and desktop */}
-            <div className="burger-social order-3 md:hidden">
-              <ul
-                style={{
-                  listStyle: "none",
-                  margin: 0,
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {socialLinks.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.label}
-                      className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
             </div>
           </div>
         </div>
