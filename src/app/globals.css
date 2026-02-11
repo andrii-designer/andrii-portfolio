@@ -121,11 +121,11 @@ a {
   /* Panel overlays whole viewport including header (no gap) */
   .header-nav-menu {
     position: fixed;
-    top: 0;
+    top: var(--token-size-64); /* keep logo/header visible above overlay */
     left: 0;
     right: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - var(--token-size-64));
     display: none;
     justify-content: center;
     align-items: flex-start;
@@ -170,6 +170,7 @@ a {
     font-weight: var(--token-weight-semibold);
     line-height: var(--token-leading-110);
     letter-spacing: var(--token-tracking-header-1);
+    text-transform: none; /* no caps in mobile burger menu */
   }
 
   /* Social block at bottom-right of viewport when overlay is open */
@@ -183,7 +184,7 @@ a {
   .burger-social-link {
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-label-md);
-    font-weight: var(--token-weight-medium);
+    font-weight: var(--token-weight-semibold); /* semibold for social links */
     line-height: var(--token-leading-115);
     color: var(--token-color-accent);
     text-decoration: none;
