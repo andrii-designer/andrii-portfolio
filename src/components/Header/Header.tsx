@@ -361,8 +361,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
               </div>
             </div>
 
-            {/* Social links at bottom-right of mobile overlay (same as Footer) */}
-            <div className="burger-social">
+            {/* Social links: mobile burger menu only; hidden on tablet and desktop */}
+            <div className="burger-social md:hidden">
               <ul
                 style={{
                   listStyle: "none",

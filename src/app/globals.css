@@ -116,8 +116,21 @@ a {
   background: transparent;
 }
 
-/* MOBILE ONLY: burger panel behavior — apply only for viewport < 768px */
+/* MOBILE ONLY: container padding + burger panel — apply only for viewport < 768px */
 @media (max-width: 767px) {
+  /* Main containers: 8px horizontal padding on mobile (tablet/desktop unchanged) */
+  .section-inner {
+    padding-left: var(--token-space-8);
+    padding-right: var(--token-space-8);
+  }
+
+  /* About Me page: sections with inline 24px side padding use 8px on mobile to match site */
+  .about-page .about-description-wrapper,
+  .about-page .skills-wrapper {
+    padding-left: var(--token-space-8) !important;
+    padding-right: var(--token-space-8) !important;
+  }
+
   /* Panel overlays whole viewport including header (no gap) */
   .header-nav-menu {
     position: fixed;
@@ -140,12 +153,12 @@ a {
     display: flex;
   }
 
-  /* Panel inner: same top/left as header so overlay logo aligns with header logo */
+  /* Panel inner: 8px side padding (match header .section-inner on mobile); same top as header so overlay logo aligns */
   .header-nav-menu-inner {
     width: 100%;
     max-width: var(--token-site-max-width, 1200px);
-    padding-left: var(--token-space-24); /* match header .section-inner */
-    padding-right: var(--token-space-24);
+    padding-left: var(--token-space-8);
+    padding-right: var(--token-space-8);
     padding-top: var(--token-space-16); /* match header paddingTop */
     box-sizing: border-box;
     margin-left: auto;
@@ -157,10 +170,17 @@ a {
     margin-top: var(--token-space-64);
   }
 
-  /* Nav items: no horizontal padding in burger menu */
+  /* Nav items: no horizontal padding in burger menu; no pull/translate on hover */
   .header-nav-menu .header-nav-link {
     padding-left: 0 !important;
     padding-right: 0 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Hide dot in burger menu and remove its space so nav links start flush left */
+  .header-nav-menu .header-nav-link a > span:first-of-type {
+    display: none !important;
   }
 
   /* Mobile nav items use H1 typography token */

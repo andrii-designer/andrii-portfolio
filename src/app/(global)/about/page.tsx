@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="about-page">
       <AboutDescription />
 
       {/* Skills Section */}
@@ -16,6 +16,6 @@ export default function AboutPage() {
 
       {/* Footer */}
       <Footer />
-    </>
+    </div>
   );
 }
