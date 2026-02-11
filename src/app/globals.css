@@ -153,6 +153,46 @@ a {
     margin-right: auto;
   }
 
+  /* Distance between avatar/top content and nav list */
+  .header-nav-menu-inner > nav {
+    margin-top: var(--token-space-64);
+  }
+
+  /* Nav items: no horizontal padding in burger menu */
+  .header-nav-menu .header-nav-link {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Mobile nav items use H1 typography token */
+  .header-nav-menu .header-nav-link a {
+    font-size: var(--token-size-h1) !important;
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-110);
+    letter-spacing: var(--token-tracking-header-1);
+  }
+
+  /* Social block at bottom-right of overlay */
+  .burger-social {
+    position: absolute;
+    right: var(--token-space-24);
+    bottom: var(--token-space-24);
+  }
+
+  .burger-social-link {
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-label-md);
+    font-weight: var(--token-weight-medium);
+    line-height: var(--token-leading-115);
+    color: var(--token-color-accent);
+    text-decoration: none;
+  }
+
+  .burger-social-link:hover,
+  .burger-social-link:focus-visible {
+    opacity: 0.8;
+  }
+
   /* Ensure hamburger slot stays fixed size and visible on the right */
   .header-hamburger-wrap {
     width: var(--token-size-48);

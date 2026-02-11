@@ -60,25 +60,13 @@ const defaultNavLinks: NavLink[] = [
   { label: "Book a call", href: "/#book-a-call", isAnchor: true, openCalPopup: true },
 ];
 
-function HamburgerIcon({ "aria-hidden": ariaHidden }: { "aria-hidden"?: boolean }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden={ariaHidden ?? true}
-    >
-      <line x1="4" y1="6" x2="20" y2="6" />
-      <line x1="4" y1="12" x2="20" y2="12" />
-      <line x1="4" y1="18" x2="20" y2="18" />
-    </svg>
-  );
-}
+/** Social links for mobile menu (same as Footer) */
+const socialLinks = [
+  { label: "LinkedIn", href: "https://linkedin.com/in/andriivynarchyk" },
+  { label: "Instagram", href: "https://instagram.com/andriivynarchyk" },
+  { label: "Behance", href: "https://behance.net/andriivynarchyk" },
+  { label: "Dribbble", href: "https://dribbble.com/andriivynarchyk" },
+];
 
 export default function Header({ links = defaultNavLinks, className }: HeaderProps) {
   const pathname = usePathname();
@@ -201,7 +189,13 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
               }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <HamburgerIcon />
+              <Image
+                src={isMenuOpen ? "/hero-assets/burger-icon=close.svg" : "/hero-assets/burger-icon=open.svg"}
+                alt=""
+                width={24}
+                height={24}
+                style={{ width: "var(--token-size-24)", height: "var(--token-size-24)" }}
+              />
             </button>
           </div>
 
@@ -386,6 +380,34 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                   Hi, I&apos;m Andrii Vynarchyk
                 </span>
               </div>
+            </div>
+
+            {/* Social links at bottom-right of mobile overlay (same as Footer) */}
+            <div className="burger-social">
+              <ul
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "var(--token-space-16)",
+                }}
+              >
+                {socialLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
