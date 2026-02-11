@@ -16,8 +16,6 @@ export default function BookCall({ id }: BookCallProps) {
       <div
         className="section-inner bookcall-wrapper"
         style={{
-          paddingLeft: "var(--token-space-24)",
-          paddingRight: "var(--token-space-24)",
           paddingTop: "var(--token-space-24)",
           paddingBottom: "var(--token-space-192)",
         }}

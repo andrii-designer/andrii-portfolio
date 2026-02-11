@@ -163,13 +163,7 @@ export default function HomePage() {
         }}
         data-node-id="testimonials-section"
       >
-        <div
-          className="section-inner"
-          style={{
-            paddingLeft: "var(--token-space-24)",
-            paddingRight: "var(--token-space-24)",
-          }}
-        >
+        <div className="section-inner">
           <Testimonials />
         </div>
       </section>
