@@ -207,6 +207,20 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             style={{ gap: "var(--token-space-24)" }}
           >
             <div className="header-nav-menu-inner">
+              {/* Mobile logo inside overlay */}
+              <div className="header-mobile-logo md:hidden">
+                <Link href="/" aria-label="Home">
+                  <Image
+                    src="/hero-assets/logo.svg"
+                    alt="Andrii Vynarchyk logo"
+                    width={69}
+                    height={70}
+                    priority
+                    style={{ borderRadius: 0 }}
+                  />
+                </Link>
+              </div>
+
               <nav aria-label="Primary" className="order-2 md:order-1">
                 <ul
                   className="flex flex-col md:flex-row items-start md:items-center"
@@ -356,7 +370,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                   padding: 0,
                   display: "flex",
                   flexDirection: "column",
-                  gap: "var(--token-space-16)",
                 }}
               >
                 {socialLinks.map((link) => (
@@ -366,7 +379,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.label}
-                      className="burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                     >
                       {link.label}
                     </a>

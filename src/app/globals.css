@@ -121,11 +121,11 @@ a {
   /* Panel overlays whole viewport including header (no gap) */
   .header-nav-menu {
     position: fixed;
-    top: var(--token-size-64); /* keep logo/header visible above overlay */
+    top: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    height: calc(100vh - var(--token-size-64));
+    height: 100vh;
     display: none;
     justify-content: center;
     align-items: flex-start;
@@ -140,20 +140,19 @@ a {
     display: flex;
   }
 
-  /* Keep the panel content centered and constrained — but push content down so it sits under the header visually */
+  /* Panel inner: same top/left as header so overlay logo aligns with header logo */
   .header-nav-menu-inner {
     width: 100%;
     max-width: var(--token-site-max-width, 1200px);
-    padding-left: var(--token-space-24);
+    padding-left: var(--token-space-24); /* match header .section-inner */
     padding-right: var(--token-space-24);
-    /* push inner content below the header height so it doesn't sit under the header UI */
-    padding-top: var(--token-size-64);
+    padding-top: var(--token-space-16); /* match header paddingTop */
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* Distance between top of panel content and nav list */
+  /* Distance between logo and nav list */
   .header-nav-menu-inner > nav {
     margin-top: var(--token-space-64);
   }
@@ -175,19 +174,14 @@ a {
 
   /* Social block at bottom-right of viewport when overlay is open */
   .header-nav-menu.is-open .burger-social {
-    position: fixed;
-    right: var(--token-space-24);
+    position: absolute;
+    right: var(--token-space-16);
     bottom: var(--token-space-24);
     z-index: 95; /* below header (100) and hamburger (110), above overlay bg (90) */
   }
 
   .burger-social-link {
-    font-family: var(--token-font-family-base);
-    font-size: var(--token-size-label-md);
-    font-weight: var(--token-weight-semibold); /* semibold for social links */
-    line-height: var(--token-leading-115);
-    color: var(--token-color-accent);
-    text-decoration: none;
+    /* Inherit typography from .text-link-h5 (H5 token, semibold) */
   }
 
   .burger-social-link:hover,
