@@ -207,20 +207,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
             style={{ gap: "var(--token-space-24)" }}
           >
             <div className="header-nav-menu-inner">
-              {/* Mobile logo inside overlay */}
-              <div className="header-mobile-logo md:hidden">
-                <Link href="/" aria-label="Home">
-                  <Image
-                    src="/hero-assets/logo.svg"
-                    alt="Andrii Vynarchyk logo"
-                    width={69}
-                    height={70}
-                    priority
-                    style={{ borderRadius: 0 }}
-                  />
-                </Link>
-              </div>
-
               <nav aria-label="Primary" className="order-2 md:order-1">
                 <ul
                   className="flex flex-col md:flex-row items-start md:items-center"
@@ -325,6 +311,20 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 </ul>
               </nav>
 
+              {/* Mobile logo inside overlay — first in order so it stays top-left (same position as header logo) */}
+              <div className="header-mobile-logo order-1 md:hidden">
+                <Link href="/" aria-label="Home">
+                  <Image
+                    src="/hero-assets/logo.svg"
+                    alt="Andrii Vynarchyk logo"
+                    width={69}
+                    height={70}
+                    priority
+                    style={{ borderRadius: 0 }}
+                  />
+                </Link>
+              </div>
+
               {/* Avatar in header row only (≥1024px) */}
               <div
                 className="header-avatar hidden lg:flex order-2"
@@ -359,33 +359,33 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                   Hi, I&apos;m Andrii Vynarchyk
                 </span>
               </div>
-            </div>
 
-            {/* Social links at bottom-right of mobile overlay (same as Footer) */}
-            <div className="burger-social">
-              <ul
-                style={{
-                  listStyle: "none",
-                  margin: 0,
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {socialLinks.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.label}
-                      className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {/* Social links: same container as nav; on mobile sticks to bottom-right with auto gap */}
+              <div className="burger-social order-3 md:hidden">
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: 0,
+                    padding: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {socialLinks.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label}
+                        className="text-link-h5 burger-social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
