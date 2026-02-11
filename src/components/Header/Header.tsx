@@ -140,7 +140,7 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
     <header
       className={`section-wrap ${className || ""}`}
       style={{
-        height: "var(--token-size-64)",
+        minHeight: "var(--token-size-64)", // Base token height; header can grow if logo/content is taller
         paddingTop: "var(--token-space-16)",
         position: "fixed",
         top: 0,
@@ -151,7 +151,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
     >
       <div
         className="section-inner flex justify-between items-start"
-        style={{ height: "100%" }}
       >
         {/* Left: Logo — aligned to top */}
         <Link href="/" aria-label="Home" tabIndex={0}>

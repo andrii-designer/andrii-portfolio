@@ -32,8 +32,12 @@ export default function GlobalLayout({
       
       {/* Main content area — pages use .section-wrap + .section-inner pattern */}
       {/* Footer is rendered within individual pages as the last section */}
-      {/* paddingTop clears fixed header (uses --token-space-64 to match header height) */}
-      <main style={{ paddingTop: "var(--token-space-64)" }}>
+      {/* paddingTop clears fixed header: header min-height (size-64) + its top padding (space-24 for safe clearance) */}
+      <main
+        style={{
+          paddingTop: "calc(var(--token-size-64) + var(--token-space-24))",
+        }}
+      >
         {children}
       </main>
     </div>

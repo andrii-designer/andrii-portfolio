@@ -61,7 +61,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
   return (
     <motion.section
       {...containerMotion}
-      className="flex w-full flex-col gap-24 font-base md:gap-128"
+      className="flex w-full flex-col gap-128 font-base"
       style={{
         fontFamily: "var(--token-font-family-base)", /* Manrope font */
       }}
@@ -85,21 +85,13 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       {/* Mobile: stacked (text → CTA → media). md+: two-column row (CTA + media) */}
       <motion.div
         {...bottomRowMotion}
-        className="flex w-full flex-col gap-24 md:flex-row md:items-end md:justify-between"
+        className="flex w-full flex-col gap-128 md:gap-24 md:flex-row md:items-end md:justify-between"
         data-node-id="2224:4200"
       >
-        {/* CTA Button — Figma node-id: 2231:5208 */}
-        {cta && (
-          <div data-node-id="2231:5208">
-            <BookCallButton href={cta.href} label={cta.text} />
-          </div>
-        )}
-
-        {/* Video Preview — Figma node-id: 2224:4206 */}
-        {/* Mobile: full-width below content. md+: fixed 330×220. Corner radius: 0px */}
+        {/* Video Preview — Figma node-id: 2224:4206. DOM order: video then CTA (mobile: title → video → button). md+: order-2 so it appears on the right. */}
         {media && (
           <figure
-            className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220]
+            className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220] md:order-2
               md:w-[330px] md:h-[220px] md:aspect-auto"
             style={{ borderRadius: 0 }}
             data-node-id="2224:4206"
@@ -126,6 +118,13 @@ const Hero = ({ title, cta, media }: HeroProps) => {
               />
             )}
           </figure>
+        )}
+
+        {/* CTA Button — Figma node-id: 2231:5208. md+: order-1 so it appears on the left. */}
+        {cta && (
+          <div className="md:order-1" data-node-id="2231:5208">
+            <BookCallButton href={cta.href} label={cta.text} />
+          </div>
         )}
       </motion.div>
     </motion.section>
