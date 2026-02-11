@@ -132,6 +132,7 @@ a {
     background: var(--token-color-base);
     z-index: 90;
     overflow-y: auto;
+    pointer-events: auto;
   }
 
   /* When open, show the panel */
@@ -160,6 +161,8 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 110;
   }
 }
 
@@ -176,12 +179,7 @@ a {
   }
 
   .header-nav-menu-inner {
-    width: 100%;
-    max-width: none;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
+    display: contents; /* behave like original DOM structure on desktop */
   }
 }
 
