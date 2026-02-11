@@ -136,6 +136,23 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
     setIsMenuOpen(false);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+    if (isMobile && isMenuOpen) {
+      document.body.classList.add("menu-open");
+    } else {
+      document.body.classList.remove("menu-open");
+    }
+
+    return () => {
+      document.body.classList.remove("menu-open");
+    };
+  }, [isMenuOpen]);
+
   return (
     <header
       className={`section-wrap ${className || ""}`}

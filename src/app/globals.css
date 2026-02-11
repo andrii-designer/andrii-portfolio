@@ -18,6 +18,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Prevent background scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+  touch-action: none;
+  height: 100%;
+  width: 100%;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -108,14 +116,16 @@ a {
   background: transparent;
 }
 
+/* MOBILE ONLY: burger panel behavior — apply only for viewport < 768px */
 @media (max-width: 767px) {
+  /* Panel overlays whole viewport including header (no gap) */
   .header-nav-menu {
     position: fixed;
-    top: var(--token-size-64);
+    top: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    height: calc(100vh - var(--token-size-64));
+    height: 100vh;
     display: none;
     justify-content: center;
     align-items: flex-start;
@@ -124,8 +134,32 @@ a {
     overflow-y: auto;
   }
 
+  /* When open, show the panel */
   .header-nav-menu.is-open {
     display: flex;
+  }
+
+  /* Keep the panel content centered and constrained — but push content down so it sits under the header visually */
+  .header-nav-menu-inner {
+    width: 100%;
+    max-width: var(--token-site-max-width, 1200px);
+    padding-left: var(--token-space-24);
+    padding-right: var(--token-space-24);
+    /* push inner content below the header height so it doesn't sit under the header UI */
+    padding-top: var(--token-size-64);
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Ensure hamburger slot stays fixed size and visible on the right */
+  .header-hamburger-wrap {
+    width: var(--token-size-48);
+    min-width: var(--token-size-48);
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -140,33 +174,15 @@ a {
     background: transparent;
     overflow: visible;
   }
-}
 
-.header-nav-menu-inner {
-  width: 100%;
-  max-width: var(--token-site-max-width, 1200px);
-  padding-left: var(--token-space-24);
-  padding-right: var(--token-space-24);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 768px) {
   .header-nav-menu-inner {
+    width: 100%;
     max-width: none;
     padding-left: 0;
     padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
-}
-
-/* Hamburger wrapper to reserve space and prevent layout shift */
-.header-hamburger-wrap {
-  width: var(--token-size-48);
-  min-width: var(--token-size-48);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
 }
 
 /**
