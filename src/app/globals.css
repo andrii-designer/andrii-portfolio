@@ -93,9 +93,74 @@ a {
   max-width: 1440px;
 }
 
-/* Services: hide mobile-only layout on desktop/tablet (shown only in @media (max-width: 767px)) */
+/* Services: hide single-image layout on desktop (shown on mobile and tablet via media queries) */
 .services-layout-mobile {
   display: none;
+}
+
+/**
+ * TABLET ONLY (768px–1023px): same structural logic as mobile — single image, headings-only list, CTA right-aligned.
+ * Uses existing tablet tokens (--token-space-64, --token-space-24, etc. resolve to tablet values in variables.css).
+ * No hover; container keeps default .section-inner padding (24px), not mobile 8px.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-layout-mobile {
+    display: block;
+    width: 100%;
+  }
+
+  .services-layout-desktop {
+    display: none;
+  }
+
+  .services-hero-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 533 / 353;
+    overflow: hidden;
+  }
+
+  .services-list-mobile {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: var(--token-space-64); /* image → list gap (tablet token) */
+    display: block;
+  }
+
+  .services-item-mobile {
+    width: 100%;
+  }
+
+  .services-item-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--token-color-accent);
+    margin: 0;
+  }
+
+  .services-item-title-mobile {
+    display: block;
+    margin-top: var(--token-space-24);
+    margin-bottom: var(--token-space-24);
+    min-height: var(--token-size-48);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h3);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-110);
+    letter-spacing: var(--token-tracking-header-3);
+  }
+
+  .services-list-mobile .services-item-mobile:last-child .services-item-title-mobile {
+    margin-bottom: 0;
+  }
+
+  .services-cta-mobile {
+    margin-top: var(--token-space-64); /* last item → CTA (tablet token) */
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
 }
 
 /**
