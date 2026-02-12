@@ -59,7 +59,7 @@ const WorkCard = ({
           src={imageSrc}
           alt={imageAlt}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 684px"
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
           className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           style={{ borderRadius: 0 }}
           loading="lazy"
@@ -107,10 +107,14 @@ const WorkCard = ({
     </article>
   );
 
-  // Wrap with Link if href is provided
+  // Wrap with Link if href is provided (min-height for tap target, keyboard focusable)
   if (href && href !== "#") {
     return (
-      <Link href={href} className="block no-underline">
+      <Link
+        href={href}
+        className="block no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+        style={{ minHeight: "var(--token-size-48)" }}
+      >
         {CardContent}
       </Link>
     );
