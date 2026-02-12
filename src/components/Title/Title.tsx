@@ -33,6 +33,8 @@ export type TitleProps = {
   label?: string;
   /** Main heading (e.g., "Works", "Services") */
   heading?: string;
+  /** Optional id for the heading element (e.g. for aria-labelledby) */
+  headingId?: string;
   /** Optional className for additional styling */
   className?: string;
 };
@@ -41,6 +43,7 @@ const Title = ({
   index,
   label,
   heading,
+  headingId,
   className = "",
 }: TitleProps) => {
   const prefersReducedMotion = useReducedMotion();
@@ -111,6 +114,7 @@ const Title = ({
       {/* Section Heading — using display-1 (150px) */}
       {heading && (
         <h2
+          id={headingId}
           className="heading text-accent"
           style={{
             fontFamily: "var(--token-font-family-base)",

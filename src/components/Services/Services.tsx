@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -118,93 +118,82 @@ const Services = ({
         paddingTop: "var(--token-space-24)", /* 24px top padding */
         paddingBottom: "var(--token-space-192)", /* 192px bottom padding */
       }}
-      aria-label="Services"
+      aria-labelledby="services-title"
       data-node-id="services-section"
     >
-      {/* Title Component — reusable */}
+      {/* Title — shared; id for aria-labelledby on section */}
       <Title
         index={`( ${index} )`}
         label={label}
         heading={title}
+        headingId="services-title"
       />
 
-      {/* Services Container — holds list and actions */}
+      {/* Desktop/tablet: hover-based list + CTA (hidden on mobile via CSS) */}
       <div
-        className="services-container flex flex-col w-full"
+        className="services-container services-layout-desktop flex flex-col w-full"
         style={{
           marginTop: "var(--token-space-256)", /* 256px gap between title and container */
         }}
       >
-        {/* Mobile layout: hero image + headings-only list + CTA */}
-        <div className="services-layout-mobile w-full">
-          {heroImageSrc && (
-            <div className="services-hero-visual">
-              <Image
-                src={heroImageSrc}
-                alt={heroImageAlt}
-                fill
-                sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 50vw"
-                className="object-cover"
-                style={{ borderRadius: 0 }}
-                priority={false}
-              />
-            </div>
-          )}
-
-          <ul className="services-list-mobile" role="list">
-            {services.map((service, serviceIndex) => (
-              <li
-                key={serviceIndex}
-                className="services-item-mobile"
-                data-service-index={serviceIndex}
-              >
-                {serviceIndex > 0 && (
-                  <div
-                    className="services-item-divider"
-                    aria-hidden="true"
-                  />
-                )}
-                <h3 className="services-item-title-mobile">
-                  {service.title}
-                </h3>
-              </li>
-            ))}
-          </ul>
-
-          <div className="services-cta-mobile">
-            <BookCallButton href="/contact" />
-          </div>
+        <div className="services-list flex flex-col w-full">
+          {services.map((service, serviceIndex) => (
+            <ServiceItem
+              key={serviceIndex}
+              index={serviceIndex}
+              title={service.title}
+              description={service.description}
+              imageSrc={service.imageSrc}
+              imageAlt={service.imageAlt}
+              active={activeIndex === serviceIndex}
+              isLast={serviceIndex === services.length - 1}
+              onHover={() => handleHover(serviceIndex)}
+            />
+          ))}
         </div>
+        <motion.div
+          {...buttonMotion}
+          className="services-actions flex justify-end w-full"
+          style={{
+            marginTop: "var(--token-space-48)", /* 48px gap between list and button */
+          }}
+        >
+          <BookCallButton href="/contact" />
+        </motion.div>
+      </div>
 
-        {/* Desktop / tablet layout — unchanged, hidden on mobile via CSS */}
-        <div className="services-layout-desktop flex flex-col w-full">
-          {/* Services List */}
-          <div className="services-list flex flex-col w-full">
-            {services.map((service, serviceIndex) => (
-              <ServiceItem
-                key={serviceIndex}
-                index={serviceIndex}
-                title={service.title}
-                description={service.description}
-                imageSrc={service.imageSrc}
-                imageAlt={service.imageAlt}
-                active={activeIndex === serviceIndex}
-                isLast={serviceIndex === services.length - 1}
-                onHover={() => handleHover(serviceIndex)}
-              />
-            ))}
+      {/* Mobile only: single hero image + headings-only list + CTA (hidden on desktop/tablet via CSS) */}
+      <div
+        className="services-layout-mobile w-full"
+        style={{
+          marginTop: "var(--token-space-256)", /* same title-to-content gap as desktop */
+        }}
+      >
+        {heroImageSrc && (
+          <div className="services-hero-visual">
+            <Image
+              src={heroImageSrc}
+              alt={heroImageAlt}
+              fill
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 50vw"
+              className="object-cover"
+              style={{ borderRadius: 0 }}
+              loading="lazy"
+            />
           </div>
-
-          {/* Services Actions — Book a call button */}
-          <motion.div
-            {...buttonMotion}
-            className="services-actions flex justify-end w-full"
-            style={{
-              marginTop: "var(--token-space-48)", /* 48px gap between list and button */
-            }}
-          >
-            <BookCallButton href="/contact" />
-          </motion.div>
+        )}
+        <ul className="services-list-mobile" role="list">
+          {services.map((service, serviceIndex) => (
+            <li key={serviceIndex} className="services-item-mobile">
+              {serviceIndex > 0 && (
+                <div className="services-item-divider" aria-hidden="true" />
+              )}
+              <h3 className="services-item-title-mobile">{service.title}</h3>
+            </li>
+          ))}
+        </ul>
+        <div className="services-cta-mobile">
+          <BookCallButton href="/contact" />
         </div>
       </div>
     </motion.section>
