@@ -14,7 +14,7 @@ import WorkCard, { WorkCardProps } from "./WorkCard";
  * - Label: "( 001 )  MY WORKS" - 16px, semibold, uppercase, 6px vertical padding
  * - Heading: "Works" - 150px display-1, semibold
  * - Gap title container → grid: 256px
- * - Grid: 2 columns desktop, 1 mobile
+ * - Grid: 2 columns from lg (≥1024px), 1 column on mobile and tablet (≤1023px)
  * - Grid column gap: 24px
  * - Grid row gap: 64px
  *
@@ -77,10 +77,10 @@ const Works = ({ title = "Works", index = "001", projects }: WorksProps) => {
         heading={title}
       />
 
-      {/* Projects Grid — 2 columns on desktop, 1 on mobile */}
+      {/* Projects Grid — 2 columns from lg (≥1024px), 1 column on mobile and tablet (≤1023px) */}
       {/* Gap between title and grid: 256px */}
       <div
-        className="grid w-full grid-cols-1 md:grid-cols-2"
+        className="grid w-full grid-cols-1 lg:grid-cols-2"
         style={{
           marginTop: "var(--token-space-256)", /* 256px gap between title and grid */
           columnGap: "var(--token-space-24)", /* 24px horizontal gap */
