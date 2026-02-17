@@ -379,6 +379,33 @@ a {
     position: relative;
     z-index: 110;
   }
+
+  /**
+   * Process — mobile-only layout
+   * - Items use standard block flow.
+   * - Numbers sit above titles with token-based vertical gap.
+   * - Titles use mobile H3 token; numbers use display-2 token as primary, H3 as fallback.
+   */
+  .process-item {
+    display: block;
+  }
+
+  .process-number {
+    display: block;
+    font-size: var(--token-size-display-2, var(--token-size-h3));
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-110);
+    letter-spacing: var(--token-tracking-display-2, var(--token-tracking-header-3));
+    margin-bottom: var(--token-space-48);
+  }
+
+  .process-title {
+    font-size: var(--token-size-h3);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-110);
+    letter-spacing: var(--token-tracking-header-3);
+    margin: 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -741,4 +768,37 @@ section.case-study-text-image-grid .section-paragraph {
 .text-h4 { letter-spacing: var(--token-tracking-header-4); }
 .text-h5 { letter-spacing: var(--token-tracking-header-5); }
 .text-h6 { letter-spacing: var(--token-tracking-header-6); }
+
+/**
+ * Process section — typography tokens
+ * Default (desktop / tablet) uses h4 token for numbers and titles, body-lg for descriptions.
+ * Mobile overrides are defined in the mobile-only media query below.
+ */
+.process-number {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-h4);
+  font-weight: var(--token-weight-semibold);
+  line-height: var(--token-leading-110);
+  letter-spacing: var(--token-tracking-header-4);
+  color: var(--token-color-accent);
+}
+
+.process-title {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-h4);
+  font-weight: var(--token-weight-semibold);
+  line-height: var(--token-leading-110);
+  letter-spacing: var(--token-tracking-header-4);
+  color: var(--token-color-accent);
+  margin: 0;
+}
+
+.process-description {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-body-lg);
+  font-weight: var(--token-weight-semibold);
+  line-height: var(--token-leading-150);
+  color: var(--token-color-accent);
+  margin: 0;
+}
 

@@ -172,21 +172,12 @@ const Process = ({
               alignItems: "flex-start",
             }}
           >
-            {/* Number — left side on desktop */}
-            <div
-              className="process-number"
-              style={{
-                fontFamily: "var(--token-font-family-base)",
-                fontSize: "var(--token-size-h4)" /* 36px */,
-                fontWeight: "var(--token-weight-semibold)" /* 600 */,
-                lineHeight: "var(--token-leading-110)" /* 110% */,
-                color: "var(--token-color-accent)",
-              }}
-            >
+            {/* Number — decorative step index (positioned via CSS per breakpoint) */}
+            <span className="process-number" aria-hidden="true">
               {item.number}
-            </div>
+            </span>
 
-            {/* Content — right side on desktop */}
+            {/* Content — right side on desktop, stacked on mobile */}
             <div
               className="process-content flex flex-col"
               style={{
@@ -196,32 +187,12 @@ const Process = ({
               }}
             >
               {/* Title */}
-              <h4
-                className="process-title"
-                style={{
-                  fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-h4)" /* 36px */,
-                  fontWeight: "var(--token-weight-semibold)" /* 600 */,
-                  lineHeight: "var(--token-leading-110)" /* 110% */,
-                  color: "var(--token-color-accent)",
-                  margin: 0,
-                }}
-              >
+              <h4 className="process-title">
                 {item.title}
               </h4>
 
               {/* Description — paragraph large semibold (18px) */}
-              <p
-                className="process-desc"
-                style={{
-                  fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-body-lg)" /* 18px */,
-                  fontWeight: "var(--token-weight-semibold)" /* 600 - semibold */,
-                  lineHeight: "var(--token-leading-150)" /* 150% */,
-                  color: "var(--token-color-accent)",
-                  margin: 0,
-                }}
-              >
+              <p className="process-desc process-description">
                 {item.description}
               </p>
             </div>
