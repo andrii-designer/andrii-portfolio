@@ -392,18 +392,22 @@ a {
 
   .process-number {
     display: block;
+    font-family: var(--token-font-family-base);
     font-size: var(--token-size-display-2, var(--token-size-h3));
     font-weight: var(--token-weight-semibold);
     line-height: var(--token-leading-110);
     letter-spacing: var(--token-tracking-display-2, var(--token-tracking-header-3));
+    color: var(--token-color-accent);
     margin-bottom: var(--token-space-48);
   }
 
   .process-title {
+    font-family: var(--token-font-family-base);
     font-size: var(--token-size-h3);
     font-weight: var(--token-weight-semibold);
     line-height: var(--token-leading-110);
     letter-spacing: var(--token-tracking-header-3);
+    color: var(--token-color-accent);
     margin: 0;
   }
 }
