@@ -510,20 +510,20 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   gap: "var(--token-space-0)",
                 }}
               >
-                <span
-                  className="testimonials-indicator"
-                  style={{
-                    fontFamily: "var(--token-font-family-base)",
-                    fontSize: "var(--token-size-label-md)" /* 16px */,
-                    fontWeight: "var(--token-weight-medium)" /* 500 */,
-                    lineHeight: "var(--token-leading-115)" /* 115% */,
-                    letterSpacing: "0px",
-                    color: "var(--token-color-accent)",
-                    marginRight: "var(--token-space-64)" /* 64px gap to arrows */,
-                  }}
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
+            <span
+              className="testimonials-indicator"
+              style={{
+                fontFamily: "var(--token-font-family-base)",
+                fontSize: "var(--token-size-label-md)" /* 16px */,
+                fontWeight: "var(--token-weight-medium)" /* 500 */,
+                lineHeight: "var(--token-leading-115)" /* 115% */,
+                letterSpacing: "0px",
+                color: "var(--token-color-accent)",
+                marginRight: "var(--token-space-64)" /* 64px gap to arrows */,
+              }}
+              aria-live="polite"
+              aria-atomic="true"
+            >
                   {currentIndex + 1}/{totalSlides}
                 </span>
                 <button
@@ -608,9 +608,13 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
         )}
       </div>
 
-      {/* Focus styles for navigation buttons */}
+      {/* Focus styles for navigation buttons; mobile-only layout for testimonial-item */}
       <style jsx>{`
         .testimonials-nav-btn:focus-visible {
+          outline: 2px solid var(--token-color-accent);
+          outline-offset: 2px;
+        }
+        .testimonial-control:focus-visible {
           outline: 2px solid var(--token-color-accent);
           outline-offset: 2px;
         }
@@ -618,6 +622,83 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           .testimonials-controls {
             flex-direction: column !important;
             align-items: flex-start !important;
+          }
+        }
+        /* Mobile-only (max-width: 767px): avatar above meta, 24px gap, controls 64px below, buttons 64x64 */
+        @media (max-width: 767px) {
+          .testimonial-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+          }
+          .testimonial-avatar-block {
+            width: var(--token-size-64);
+            height: var(--token-size-64);
+            border-radius: 9999px;
+            overflow: hidden;
+            flex-shrink: 0;
+          }
+          .testimonial-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0;
+          }
+          .testimonial-meta {
+            margin-top: var(--token-space-24);
+          }
+          .testimonial-name {
+            font-family: var(--token-font-family-base);
+            font-size: var(--token-size-h6);
+            font-weight: var(--token-weight-semibold);
+            line-height: var(--token-leading-140);
+            color: var(--token-color-accent);
+          }
+          .testimonial-role-or-desc {
+            font-family: var(--token-font-family-base);
+            font-size: var(--token-size-label-md);
+            font-weight: var(--token-weight-medium);
+            line-height: var(--token-leading-115);
+            letter-spacing: 0;
+            color: var(--token-color-accent);
+          }
+          .testimonial-controls {
+            margin-top: var(--token-space-64);
+            display: flex;
+            align-items: center;
+            gap: var(--token-space-16);
+            width: 100%;
+            justify-content: center;
+          }
+          .testimonial-control {
+            width: var(--token-size-64);
+            height: var(--token-size-64);
+            min-width: var(--token-size-64);
+            min-height: var(--token-size-64);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            padding: 0;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+          }
+          .testimonial-control:not(:disabled) {
+            background: var(--token-color-accent);
+            cursor: pointer;
+          }
+          .testimonial-control:disabled {
+            cursor: not-allowed;
+          }
+          .testimonial-pagination {
+            font-family: var(--token-font-family-base);
+            font-size: var(--token-size-label-md);
+            font-weight: var(--token-weight-medium);
+            line-height: var(--token-leading-115);
+            color: var(--token-color-accent);
           }
         }
       `}</style>
