@@ -385,9 +385,26 @@ a {
    * - Items use standard block flow.
    * - Numbers sit above titles with token-based vertical gap.
    * - Titles use mobile H3 token; numbers use display-2 token as primary, H3 as fallback.
+   * - Distance between dividers and content (paragraphs): 48px = var(--token-space-80) on mobile.
    */
   .process-item {
     display: block;
+  }
+
+  .process-item:not(:first-child) {
+    padding-top: var(--token-space-80) !important;
+  }
+
+  .process-item:not(:last-child) {
+    padding-bottom: var(--token-space-80) !important;
+  }
+
+  .process-item:first-child {
+    padding-top: var(--token-space-24) !important;
+  }
+
+  .process-item:last-child {
+    padding-bottom: 0 !important;
   }
 
   .process-number {
