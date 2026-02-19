@@ -293,29 +293,6 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   role="group"
                   aria-label="Feedback controls"
                 >
-                  <button
-                    type="button"
-                    onClick={() => paginate(-1)}
-                    disabled={isFirstSlide}
-                    aria-disabled={isFirstSlide}
-                    aria-label="Previous"
-                    className="testimonial-control prev"
-                  >
-                    <Image
-                      src={
-                        isFirstSlide
-                          ? "/assets/images/testimonials/disabled arrow.svg"
-                          : "/assets/images/testimonials/active arrow.svg"
-                      }
-                      alt=""
-                      width={25}
-                      height={16}
-                      aria-hidden="true"
-                      style={{
-                        transform: isFirstSlide ? "none" : "rotate(180deg)",
-                      }}
-                    />
-                  </button>
                   <div
                     className="testimonial-pagination"
                     aria-live="polite"
@@ -323,29 +300,54 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   >
                     {currentIndex + 1}/{totalSlides}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => paginate(1)}
-                    disabled={isLastSlide}
-                    aria-disabled={isLastSlide}
-                    aria-label="Next"
-                    className="testimonial-control next"
-                  >
-                    <Image
-                      src={
-                        isLastSlide
-                          ? "/assets/images/testimonials/disabled arrow.svg"
-                          : "/assets/images/testimonials/active arrow.svg"
-                      }
-                      alt=""
-                      width={25}
-                      height={16}
-                      aria-hidden="true"
-                      style={{
-                        transform: isLastSlide ? "rotate(180deg)" : "none",
-                      }}
-                    />
-                  </button>
+                  <div className="testimonial-controls-arrows">
+                    <button
+                      type="button"
+                      onClick={() => paginate(-1)}
+                      disabled={isFirstSlide}
+                      aria-disabled={isFirstSlide}
+                      aria-label="Previous"
+                      className="testimonial-control prev"
+                    >
+                      <Image
+                        src={
+                          isFirstSlide
+                            ? "/assets/images/testimonials/disabled arrow.svg"
+                            : "/assets/images/testimonials/active arrow.svg"
+                        }
+                        alt=""
+                        width={25}
+                        height={16}
+                        aria-hidden="true"
+                        style={{
+                          transform: isFirstSlide ? "none" : "rotate(180deg)",
+                        }}
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => paginate(1)}
+                      disabled={isLastSlide}
+                      aria-disabled={isLastSlide}
+                      aria-label="Next"
+                      className="testimonial-control next"
+                    >
+                      <Image
+                        src={
+                          isLastSlide
+                            ? "/assets/images/testimonials/disabled arrow.svg"
+                            : "/assets/images/testimonials/active arrow.svg"
+                        }
+                        alt=""
+                        width={25}
+                        height={16}
+                        aria-hidden="true"
+                        style={{
+                          transform: isLastSlide ? "rotate(180deg)" : "none",
+                        }}
+                      />
+                    </button>
+                  </div>
                 </div>
               </motion.article>
             </AnimatePresence>
@@ -436,7 +438,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "var(--token-space-4)",
+                    gap: "var(--token-space-12)",
                   }}
                 >
                   <span
@@ -465,7 +467,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                       style={{
                         fontFamily: "var(--token-font-family-base)",
                         fontSize: "var(--token-size-label-md)" /* 16px */,
-                        fontWeight: "var(--token-weight-medium)" /* 500 */,
+                        fontWeight: "var(--token-weight-semibold)" /* 600 */,
                         lineHeight: "var(--token-leading-115)" /* 115% */,
                         letterSpacing: "0px",
                         color: "var(--token-color-accent)",
@@ -480,7 +482,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                           style={{
                             fontFamily: "var(--token-font-family-base)",
                             fontSize: "var(--token-size-label-md)" /* 16px */,
-                            fontWeight: "var(--token-weight-medium)" /* 500 */,
+                            fontWeight: "var(--token-weight-semibold)" /* 600 */,
                             letterSpacing: "0px",
                             color: "var(--token-color-accent)",
                           }}
@@ -492,6 +494,9 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                           target="_blank"
                           rel="noopener noreferrer"
                           className="label-link-md"
+                          style={{
+                            fontWeight: "var(--token-weight-semibold)",
+                          }}
                         >
                           LinkedIn
                         </a>
@@ -515,7 +520,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               style={{
                 fontFamily: "var(--token-font-family-base)",
                 fontSize: "var(--token-size-label-md)" /* 16px */,
-                fontWeight: "var(--token-weight-medium)" /* 500 */,
+                fontWeight: "var(--token-weight-semibold)" /* 600 */,
                 lineHeight: "var(--token-leading-115)" /* 115% */,
                 letterSpacing: "0px",
                 color: "var(--token-color-accent)",
@@ -624,7 +629,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             align-items: flex-start !important;
           }
         }
-        /* Mobile-only (max-width: 767px): avatar above meta, 24px gap, controls 64px below, buttons 64x64 */
+        /* Mobile-only (max-width: 767px): square avatar, tokens for spacing, 1/3 left / arrows right */
         @media (max-width: 767px) {
           .testimonial-item {
             display: flex;
@@ -635,9 +640,9 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           .testimonial-avatar-block {
             width: var(--token-size-64);
             height: var(--token-size-64);
-            border-radius: 9999px;
             overflow: hidden;
             flex-shrink: 0;
+            margin-top: var(--token-space-96);
           }
           .testimonial-avatar {
             width: 100%;
@@ -648,6 +653,9 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           }
           .testimonial-meta {
             margin-top: var(--token-space-24);
+            display: flex;
+            flex-direction: column;
+            gap: var(--token-space-12);
           }
           .testimonial-name {
             font-family: var(--token-font-family-base);
@@ -659,18 +667,26 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           .testimonial-role-or-desc {
             font-family: var(--token-font-family-base);
             font-size: var(--token-size-label-md);
-            font-weight: var(--token-weight-medium);
+            font-weight: var(--token-weight-semibold);
             line-height: var(--token-leading-115);
             letter-spacing: 0;
             color: var(--token-color-accent);
           }
+          .testimonial-role-or-desc a {
+            font-weight: var(--token-weight-semibold);
+          }
           .testimonial-controls {
-            margin-top: var(--token-space-64);
+            margin-top: var(--token-space-96);
             display: flex;
             align-items: center;
             gap: var(--token-space-16);
             width: 100%;
-            justify-content: center;
+            justify-content: space-between;
+          }
+          .testimonial-controls-arrows {
+            display: flex;
+            align-items: center;
+            gap: var(--token-space-16);
           }
           .testimonial-control {
             width: var(--token-size-64);
@@ -696,7 +712,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           .testimonial-pagination {
             font-family: var(--token-font-family-base);
             font-size: var(--token-size-label-md);
-            font-weight: var(--token-weight-medium);
+            font-weight: var(--token-weight-semibold);
             line-height: var(--token-leading-115);
             color: var(--token-color-accent);
           }
