@@ -85,8 +85,7 @@ export default function BookCall({ id }: BookCallProps) {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              justifyContent: "space-between",
-              minHeight: "420px",
+              gap: "var(--token-space-64)",
               flexShrink: 0,
             }}
           >
