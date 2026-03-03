@@ -16,6 +16,7 @@ export default function BookCall({ id }: BookCallProps) {
       id={id}
       className="section-wrap book-call-section"
       aria-labelledby="book-call-title"
+      style={{ backgroundColor: "var(--token-color-base)" }}
     >
       <div
         className="section-inner bookcall-wrapper"
