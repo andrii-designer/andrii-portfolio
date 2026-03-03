@@ -866,9 +866,9 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — gap below Title heading */
+  /* Paragraph — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
   .book-call-subhead {
-    margin-top: var(--token-space-48);
+    margin-top: var(--token-space-80);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -878,9 +878,9 @@ section.case-study-text-image-grid .section-paragraph {
     margin-bottom: 0;
   }
 
-  /* Illustration — full width, centered, gap below paragraph */
+  /* Illustration — 80px gap below paragraph on mobile (--token-space-128 → 80px at ≤767px) */
   .book-call-illustration {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     width: 100%;
     display: block;
     text-align: center;
@@ -894,9 +894,9 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* CTA — centered, gap below illustration */
+  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px) */
   .book-call-cta {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     display: flex;
     justify-content: center;
     width: 100%;
