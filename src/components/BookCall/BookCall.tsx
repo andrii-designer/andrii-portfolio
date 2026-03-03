@@ -1,9 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
 
 const ILLUSTRATION_SRC = "/assets/images/book%20a%20call/illustration.svg";
+const MOBILE_ILLUSTRATION_SRC =
+  "/assets/images/book%20a%20call/mobile-book-a-call.png";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
 export type BookCallProps = {
@@ -12,7 +15,11 @@ export type BookCallProps = {
 
 export default function BookCall({ id }: BookCallProps) {
   return (
-    <section id={id} className="section-wrap">
+    <section
+      id={id}
+      className="section-wrap book-call-section"
+      aria-labelledby="book-call-title"
+    >
       <div
         className="section-inner bookcall-wrapper"
         style={{
@@ -20,8 +27,14 @@ export default function BookCall({ id }: BookCallProps) {
           paddingBottom: "var(--token-space-192)",
         }}
       >
-        <Title index="( 005 )" label="book a call" heading="Book a call" />
+        <Title
+          index="( 005 )"
+          label="book a call"
+          heading="Book a call"
+          headingId="book-call-title"
+        />
 
+        {/* Desktop & tablet layout — hidden on mobile via CSS */}
         <div
           className="bookcall-content"
           style={{
@@ -98,24 +111,25 @@ export default function BookCall({ id }: BookCallProps) {
           </div>
         </div>
 
-        <style jsx>{`
-          @media (max-width: 768px) {
-            .bookcall-content {
-              flex-direction: column !important;
-              gap: var(--token-space-48) !important;
-            }
-            .bookcall-illustration {
-              height: min(420px, 60vh) !important;
-              width: 100% !important;
-            }
-            .bookcall-text {
-              width: 100% !important;
-              max-width: 100% !important;
-              min-height: auto !important;
-              gap: var(--token-space-24);
-            }
-          }
-        `}</style>
+        {/* Mobile-only layout — shown only at max-width: 767px via CSS */}
+        <div className="bookcall-mobile-layout" aria-hidden="false">
+          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
+
+          <div className="book-call-illustration">
+            <Image
+              src={MOBILE_ILLUSTRATION_SRC}
+              alt="Book a call illustration"
+              width={750}
+              height={750}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </div>
+
+          <div className="book-call-cta">
+            <BookCallButton />
+          </div>
+        </div>
       </div>
     </section>
   );

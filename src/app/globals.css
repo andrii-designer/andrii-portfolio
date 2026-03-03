@@ -840,3 +840,66 @@ section.case-study-text-image-grid .section-paragraph {
   }
 }
 
+/**
+ * Book a Call — desktop/tablet: hide mobile-only layout block.
+ * Shown only inside the @media (max-width: 767px) block below.
+ */
+.bookcall-mobile-layout {
+  display: none;
+}
+
+/**
+ * Book a Call — mobile-only layout (max-width: 767px)
+ *
+ * Order: Title (from <Title>) → Paragraph → Illustration → CTA
+ * Tokens: --token-space-48 (paragraph gap), --token-space-80 (illustration & CTA gaps)
+ * Typography: --token-size-h4 (paragraph matches desktop h4 weight/size intent at mobile scale)
+ * No desktop or tablet styles are changed here.
+ */
+@media (max-width: 767px) {
+  /* Hide desktop/tablet layout, reveal mobile layout */
+  .bookcall-content {
+    display: none !important;
+  }
+
+  .bookcall-mobile-layout {
+    display: block;
+  }
+
+  /* Paragraph — gap below Title heading */
+  .book-call-subhead {
+    margin-top: var(--token-space-48);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4); /* mobile: 28px — matches existing desktop h4 intent */
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+  }
+
+  /* Illustration — full width, centered, gap below paragraph */
+  .book-call-illustration {
+    margin-top: var(--token-space-80);
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .book-call-illustration img,
+  .book-call-illustration span {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* CTA — centered, gap below illustration */
+  .book-call-cta {
+    margin-top: var(--token-space-80);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
