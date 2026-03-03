@@ -851,6 +851,66 @@ section.case-study-text-image-grid .section-paragraph {
 }
 
 /**
+ * Book a Call — tablet layout (768px–1023px)
+ *
+ * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
+ * Spacing uses tablet-resolved token values:
+ *   --token-space-48 → 40px  (header → paragraph)
+ *   --token-space-80 → 64px  (paragraph → illustration, illustration → CTA)
+ * Typography tokens auto-resolve to tablet scale via variables.css overrides.
+ * Desktop layout unchanged.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Hide desktop two-column layout, reveal mobile-structure layout */
+  .bookcall-content {
+    display: none !important;
+  }
+
+  .bookcall-mobile-layout {
+    display: block;
+  }
+
+  /* Paragraph — 40px gap below Title at tablet (--token-space-48 → 40px) */
+  .book-call-subhead {
+    margin-top: var(--token-space-48);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+  }
+
+  /* Illustration — 64px gap below paragraph at tablet (--token-space-80 → 64px) */
+  .book-call-illustration {
+    margin-top: var(--token-space-80);
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .book-call-illustration img,
+  .book-call-illustration span {
+    width: 100% !important;
+    max-width: 550px;
+    height: auto !important;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* CTA — 64px gap below illustration at tablet (--token-space-80 → 64px), right-aligned */
+  .book-call-cta {
+    margin-top: var(--token-space-80);
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+/**
  * Book a Call — mobile-only layout (max-width: 767px)
  *
  * Order: Title (from <Title>) → Paragraph → Illustration → CTA
@@ -891,16 +951,19 @@ section.case-study-text-image-grid .section-paragraph {
   .book-call-illustration img,
   .book-call-illustration span {
     width: 100% !important;
+    max-width: 550px;
     height: auto !important;
     object-fit: cover;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), left-aligned */
+  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), right-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     width: 100%;
   }
 }
