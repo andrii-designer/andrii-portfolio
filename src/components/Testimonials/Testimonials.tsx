@@ -644,6 +644,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             overflow: hidden;
             flex-shrink: 0;
             margin-top: var(--token-space-96);
+            border-radius: 0;
           }
           .testimonial-avatar {
             width: 100%;
@@ -651,7 +652,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             object-fit: cover;
             display: block;
             margin: 0;
-            border-radius: 0;
+            border-radius: 0 !important;
           }
           .testimonial-meta {
             margin-top: var(--token-space-24);
