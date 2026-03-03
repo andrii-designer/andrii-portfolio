@@ -851,6 +851,32 @@ section.case-study-text-image-grid .section-paragraph {
 }
 
 /**
+ * Book a Call — desktop-only illustration scaling (≥1024px)
+ *
+ * The illustration has a fixed height (420px) + width:auto inline. At narrower
+ * desktop viewports (≈1024px) the image's intrinsic width can exceed the space
+ * remaining after the fixed 566px text column, causing the two columns to
+ * collide. Fix: make the illustration column flex-grow/shrink freely, flip the
+ * image to width-driven proportional scaling (width:100%; height:auto), and
+ * guarantee a minimum column gap via CSS gap.
+ */
+@media (min-width: 1024px) {
+  .bookcall-illustration-col {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .bookcall-illustration {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .bookcall-content {
+    gap: var(--token-space-48) !important;
+  }
+}
+
+/**
  * Book a Call — tablet layout (768px–1023px)
  *
  * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
