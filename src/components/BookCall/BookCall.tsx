@@ -1,12 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
 
 const ILLUSTRATION_SRC = "/assets/images/book%20a%20call/illustration.svg";
-const MOBILE_ILLUSTRATION_SRC =
-  "/assets/images/book%20a%20call/mobile-book-a-call.png";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
 export type BookCallProps = {
@@ -113,15 +110,11 @@ export default function BookCall({ id }: BookCallProps) {
 
         {/* Mobile-only layout — shown only at max-width: 767px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
-          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
-
           <div className="book-call-illustration">
-            <Image
-              src={MOBILE_ILLUSTRATION_SRC}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={ILLUSTRATION_SRC}
               alt="Book a call illustration"
-              width={750}
-              height={750}
-              sizes="100vw"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>

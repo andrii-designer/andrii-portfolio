@@ -866,19 +866,7 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — gap below Title heading */
-  .book-call-subhead {
-    margin-top: var(--token-space-48);
-    font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4); /* mobile: 28px — matches existing desktop h4 intent */
-    font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
-    color: var(--token-color-accent);
-    margin-bottom: 0;
-  }
-
-  /* Illustration — full width, centered, gap below paragraph */
+  /* Illustration — full width, centered; gap below Title heading */
   .book-call-illustration {
     margin-top: var(--token-space-80);
     width: 100%;
