@@ -288,69 +288,70 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                     )}
                   </div>
                 </div>
-                <div
-                  className="testimonial-controls"
-                  role="group"
-                  aria-label="Feedback controls"
-                >
-                  <div
-                    className="testimonial-pagination"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
-                    {currentIndex + 1}/{totalSlides}
-                  </div>
-                  <div className="testimonial-controls-arrows">
-                    <button
-                      type="button"
-                      onClick={() => paginate(-1)}
-                      disabled={isFirstSlide}
-                      aria-disabled={isFirstSlide}
-                      aria-label="Previous"
-                      className="testimonial-control prev"
-                    >
-                      <Image
-                        src={
-                          isFirstSlide
-                            ? "/assets/images/testimonials/disabled arrow.svg"
-                            : "/assets/images/testimonials/active arrow.svg"
-                        }
-                        alt=""
-                        width={25}
-                        height={16}
-                        aria-hidden="true"
-                        style={{
-                          transform: isFirstSlide ? "none" : "rotate(180deg)",
-                        }}
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => paginate(1)}
-                      disabled={isLastSlide}
-                      aria-disabled={isLastSlide}
-                      aria-label="Next"
-                      className="testimonial-control next"
-                    >
-                      <Image
-                        src={
-                          isLastSlide
-                            ? "/assets/images/testimonials/disabled arrow.svg"
-                            : "/assets/images/testimonials/active arrow.svg"
-                        }
-                        alt=""
-                        width={25}
-                        height={16}
-                        aria-hidden="true"
-                        style={{
-                          transform: isLastSlide ? "rotate(180deg)" : "none",
-                        }}
-                      />
-                    </button>
-                  </div>
-                </div>
               </motion.article>
             </AnimatePresence>
+            {/* Controls sit outside AnimatePresence so they never slide with the content */}
+            <div
+              className="testimonial-controls"
+              role="group"
+              aria-label="Feedback controls"
+            >
+              <div
+                className="testimonial-pagination"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {currentIndex + 1}/{totalSlides}
+              </div>
+              <div className="testimonial-controls-arrows">
+                <button
+                  type="button"
+                  onClick={() => paginate(-1)}
+                  disabled={isFirstSlide}
+                  aria-disabled={isFirstSlide}
+                  aria-label="Previous"
+                  className="testimonial-control prev"
+                >
+                  <Image
+                    src={
+                      isFirstSlide
+                        ? "/assets/images/testimonials/disabled arrow.svg"
+                        : "/assets/images/testimonials/active arrow.svg"
+                    }
+                    alt=""
+                    width={25}
+                    height={16}
+                    aria-hidden="true"
+                    style={{
+                      transform: isFirstSlide ? "none" : "rotate(180deg)",
+                    }}
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => paginate(1)}
+                  disabled={isLastSlide}
+                  aria-disabled={isLastSlide}
+                  aria-label="Next"
+                  className="testimonial-control next"
+                >
+                  <Image
+                    src={
+                      isLastSlide
+                        ? "/assets/images/testimonials/disabled arrow.svg"
+                        : "/assets/images/testimonials/active arrow.svg"
+                    }
+                    alt=""
+                    width={25}
+                    height={16}
+                    aria-hidden="true"
+                    style={{
+                      transform: isLastSlide ? "rotate(180deg)" : "none",
+                    }}
+                  />
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
           /* Desktop/tablet: slides + control row (avatar left, nav right) */
@@ -545,7 +546,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                     alignItems: "center",
                     justifyContent: "center",
                     backgroundColor: isFirstSlide
-                      ? "transparent"
+                      ? "#AFAFB2"
                       : "var(--token-color-accent)",
                     border: "none",
                     cursor: isFirstSlide ? "not-allowed" : "pointer",
@@ -583,7 +584,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                     alignItems: "center",
                     justifyContent: "center",
                     backgroundColor: isLastSlide
-                      ? "transparent"
+                      ? "#AFAFB2"
                       : "var(--token-color-accent)",
                     border: "none",
                     cursor: isLastSlide ? "not-allowed" : "pointer",
@@ -650,6 +651,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             object-fit: cover;
             display: block;
             margin: 0;
+            border-radius: 0;
           }
           .testimonial-meta {
             margin-top: var(--token-space-24);
@@ -686,7 +688,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           .testimonial-controls-arrows {
             display: flex;
             align-items: center;
-            gap: var(--token-space-16);
+            gap: 0;
           }
           .testimonial-control {
             width: var(--token-size-64);
@@ -707,6 +709,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
             cursor: pointer;
           }
           .testimonial-control:disabled {
+            background: #AFAFB2;
             cursor: not-allowed;
           }
           .testimonial-pagination {

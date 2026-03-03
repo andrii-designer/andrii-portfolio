@@ -765,7 +765,7 @@ section.case-study-text-image-grid .section-paragraph {
   .testimonial-avatar {
     width: var(--token-size-64);
     height: var(--token-size-64);
-    border-radius: 50%;
+    border-radius: 0;
     object-fit: cover;
     display: block;
     margin: 0;
@@ -820,7 +820,7 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .testimonial-control[aria-disabled="true"] {
-    background: transparent;
+    background: #AFAFB2;
     cursor: not-allowed;
   }
 
@@ -851,6 +851,92 @@ section.case-study-text-image-grid .section-paragraph {
 }
 
 /**
+ * Book a Call — desktop-only illustration scaling (≥1024px)
+ *
+ * The illustration has a fixed height (420px) + width:auto inline. At narrower
+ * desktop viewports (≈1024px) the image's intrinsic width can exceed the space
+ * remaining after the fixed 566px text column, causing the two columns to
+ * collide. Fix: make the illustration column flex-grow/shrink freely, flip the
+ * image to width-driven proportional scaling (width:100%; height:auto), and
+ * guarantee a minimum column gap via CSS gap.
+ */
+@media (min-width: 1024px) {
+  .bookcall-illustration-col {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .bookcall-illustration {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .bookcall-content {
+    gap: var(--token-space-48) !important;
+  }
+}
+
+/**
+ * Book a Call — tablet layout (768px–1023px)
+ *
+ * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
+ * Uses the same token names as the mobile block so they auto-resolve to the
+ * correct larger px values at the tablet breakpoint:
+ *   --token-space-80  → mobile 48px  / tablet 64px  (Title → Paragraph)
+ *   --token-space-128 → mobile 80px  / tablet 96px  (Paragraph → Illustration, Illustration → CTA)
+ * Desktop layout unchanged.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Hide desktop two-column layout, reveal mobile-structure layout */
+  .bookcall-content {
+    display: none !important;
+  }
+
+  .bookcall-mobile-layout {
+    display: block;
+  }
+
+  /* Illustration — 64px gap below Title at tablet (--token-space-80 → 64px) */
+  .book-call-illustration {
+    margin-top: var(--token-space-80);
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .book-call-illustration img,
+  .book-call-illustration span {
+    width: 100% !important;
+    max-width: 550px;
+    height: auto !important;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Paragraph — 96px gap below illustration at tablet (--token-space-128 → 96px) */
+  .book-call-subhead {
+    margin-top: var(--token-space-128);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+  }
+
+  /* CTA — 96px gap below paragraph at tablet (--token-space-128 → 96px), right-aligned */
+  .book-call-cta {
+    margin-top: var(--token-space-128);
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+/**
  * Book a Call — mobile-only layout (max-width: 767px)
  *
  * Order: Title (from <Title>) → Paragraph → Illustration → CTA
@@ -868,9 +954,17 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
-  .book-call-subhead {
+  /* Illustration — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
+  .book-call-illustration {
     margin-top: var(--token-space-80);
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  /* Paragraph — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px) */
+  .book-call-subhead {
+    margin-top: var(--token-space-128);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -880,27 +974,22 @@ section.case-study-text-image-grid .section-paragraph {
     margin-bottom: 0;
   }
 
-  /* Illustration — 80px gap below paragraph on mobile (--token-space-128 → 80px at ≤767px) */
-  .book-call-illustration {
-    margin-top: var(--token-space-128);
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
   .book-call-illustration img,
   .book-call-illustration span {
     width: 100% !important;
+    max-width: 550px;
     height: auto !important;
     object-fit: cover;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), left-aligned */
+  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), right-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     width: 100%;
   }
 }
@@ -938,6 +1027,22 @@ section.case-study-text-image-grid .section-paragraph {
     line-height: var(--token-leading-110) !important;
     font-weight: var(--token-weight-semibold) !important;
     letter-spacing: var(--token-tracking-header-3) !important;
+  }
+}
+
+/**
+ * Footer — tablet-only layout (768px–1023px)
+ *
+ * Collapses the two-column nav (internal links + social links) into a single
+ * vertical column so both lists appear as one seamless stacked sequence.
+ * The gap between the two lists matches the inter-item gap (--token-space-16)
+ * so there is no visual break between the last page link and the first social link.
+ * No change to mobile (≤767px) or desktop (≥1024px) behavior.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  footer .footer-nav {
+    flex-direction: column !important;
+    gap: var(--token-space-16) !important;
   }
 }
 

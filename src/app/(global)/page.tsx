@@ -159,7 +159,7 @@ export default function HomePage() {
       <section
         className="section-wrap"
         style={{
-          backgroundColor: "var(--token-color-base)", // Testimonials section uses base background
+          backgroundColor: "var(--token-color-primary)",
         }}
         data-node-id="testimonials-section"
       >

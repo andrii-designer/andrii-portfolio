@@ -16,6 +16,7 @@ export default function BookCall({ id }: BookCallProps) {
       id={id}
       className="section-wrap book-call-section"
       aria-labelledby="book-call-title"
+      style={{ backgroundColor: "var(--token-color-base)" }}
     >
       <div
         className="section-inner bookcall-wrapper"
@@ -64,7 +65,7 @@ export default function BookCall({ id }: BookCallProps) {
               style={{
                 height: "420px",
                 width: "auto",
-                maxWidth: "100%",
+                maxWidth: "550px",
                 objectFit: "contain",
                 objectPosition: "left top",
                 borderRadius: 0,
@@ -84,8 +85,7 @@ export default function BookCall({ id }: BookCallProps) {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              justifyContent: "space-between",
-              minHeight: "420px",
+              gap: "var(--token-space-64)",
               flexShrink: 0,
             }}
           >
@@ -110,16 +110,21 @@ export default function BookCall({ id }: BookCallProps) {
 
         {/* Mobile-only layout — shown only at max-width: 767px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
-          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
-
           <div className="book-call-illustration">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={ILLUSTRATION_SRC}
               alt="Book a call illustration"
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{
+                width: "100%",
+                maxWidth: "550px",
+                height: "auto",
+                display: "block",
+              }}
             />
           </div>
+
+          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-cta">
             <BookCallButton />
