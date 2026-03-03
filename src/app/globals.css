@@ -765,7 +765,7 @@ section.case-study-text-image-grid .section-paragraph {
   .testimonial-avatar {
     width: var(--token-size-64);
     height: var(--token-size-64);
-    border-radius: 50%;
+    border-radius: 0;
     object-fit: cover;
     display: block;
     margin: 0;
@@ -820,7 +820,7 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .testimonial-control[aria-disabled="true"] {
-    background: transparent;
+    background: #AFAFB2;
     cursor: not-allowed;
   }
 
