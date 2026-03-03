@@ -169,11 +169,7 @@ export default function Footer({ className = "" }: FooterProps) {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  aria-label={
-                    copyStatus === "copied"
-                      ? "Email copied to clipboard"
-                      : "Copy email to clipboard"
-                  }
+                  aria-label="Copy email"
                   className="footer-copy-btn focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   style={{
                     background: "transparent",
@@ -250,6 +246,7 @@ export default function Footer({ className = "" }: FooterProps) {
 
               {/* Social links column */}
               <ul
+                className="footer-social-col"
                 style={{
                   listStyle: "none",
                   margin: 0,
