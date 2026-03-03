@@ -894,11 +894,11 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px) */
+  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), left-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
 }
