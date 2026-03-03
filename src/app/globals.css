@@ -942,6 +942,21 @@ section.case-study-text-image-grid .section-paragraph {
 }
 
 /**
+ * Footer — tablet-only layout (768px–1023px)
+ *
+ * Stack internal page links and social links as a single vertical column.
+ * footer-nav is overridden from row → column with no gap between the two <ul>s
+ * so they read as one unified list. Mobile and desktop layouts are untouched.
+ * Uses !important to beat the inline flex styles set in Footer.tsx.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  footer .footer-nav {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+}
+
+/**
  * Footer — mobile-only layout (max-width: 767px)
  *
  * Vertical order: email → copy → CTA (48px gap) → page links (96px gap) → logo centered (96px gap) → copyright (64px gap)
