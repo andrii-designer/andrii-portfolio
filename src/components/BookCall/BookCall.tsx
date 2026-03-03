@@ -110,8 +110,6 @@ export default function BookCall({ id }: BookCallProps) {
 
         {/* Mobile-only layout — shown only at max-width: 767px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
-          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
-
           <div className="book-call-illustration">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -125,6 +123,8 @@ export default function BookCall({ id }: BookCallProps) {
               }}
             />
           </div>
+
+          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-cta">
             <BookCallButton />

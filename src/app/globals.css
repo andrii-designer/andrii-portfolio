@@ -896,21 +896,9 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — 64px gap below Title at tablet (--token-space-80 → 64px) */
-  .book-call-subhead {
-    margin-top: var(--token-space-80);
-    font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4);
-    font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
-    color: var(--token-color-accent);
-    margin-bottom: 0;
-  }
-
-  /* Illustration — 96px gap below paragraph at tablet (--token-space-128 → 96px) */
+  /* Illustration — 64px gap below Title at tablet (--token-space-80 → 64px) */
   .book-call-illustration {
-    margin-top: var(--token-space-128);
+    margin-top: var(--token-space-80);
     width: 100%;
     display: block;
     text-align: center;
@@ -927,7 +915,19 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* CTA — 96px gap below illustration at tablet (--token-space-128 → 96px), right-aligned */
+  /* Paragraph — 96px gap below illustration at tablet (--token-space-128 → 96px) */
+  .book-call-subhead {
+    margin-top: var(--token-space-128);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+  }
+
+  /* CTA — 96px gap below paragraph at tablet (--token-space-128 → 96px), right-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
@@ -954,9 +954,17 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
-  .book-call-subhead {
+  /* Illustration — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
+  .book-call-illustration {
     margin-top: var(--token-space-80);
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  /* Paragraph — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px) */
+  .book-call-subhead {
+    margin-top: var(--token-space-128);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -964,14 +972,6 @@ section.case-study-text-image-grid .section-paragraph {
     letter-spacing: var(--token-tracking-header-4);
     color: var(--token-color-accent);
     margin-bottom: 0;
-  }
-
-  /* Illustration — 80px gap below paragraph on mobile (--token-space-128 → 80px at ≤767px) */
-  .book-call-illustration {
-    margin-top: var(--token-space-128);
-    width: 100%;
-    display: block;
-    text-align: center;
   }
 
   .book-call-illustration img,
