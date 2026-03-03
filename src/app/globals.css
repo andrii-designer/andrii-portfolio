@@ -906,6 +906,42 @@ section.case-study-text-image-grid .section-paragraph {
 }
 
 /**
+ * Process — mobile-only layout (max-width: 767px)
+ *
+ * Number stacks above title in a column; gap = --token-space-48.
+ * Titles use mobile H3 token. Desktop/tablet layout unchanged.
+ * Numbers are aria-hidden in markup (decorative).
+ */
+@media (max-width: 767px) {
+  .process-item {
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+
+  .process-item .process-number {
+    display: block;
+    font-size: var(--token-size-h3) !important;
+    line-height: var(--token-leading-110) !important;
+    font-weight: var(--token-weight-semibold) !important;
+    letter-spacing: var(--token-tracking-header-3);
+    margin-bottom: var(--token-space-48);
+  }
+
+  .process-item .process-content {
+    max-width: 100% !important;
+    width: 100%;
+  }
+
+  .process-item .process-title {
+    font-size: var(--token-size-h3) !important;
+    line-height: var(--token-leading-110) !important;
+    font-weight: var(--token-weight-semibold) !important;
+    letter-spacing: var(--token-tracking-header-3) !important;
+  }
+}
+
+/**
  * Footer — mobile-only layout (max-width: 767px)
  *
  * Vertical order: email → copy → CTA (48px gap) → page links (96px gap) → logo centered (96px gap) → copyright (64px gap)
