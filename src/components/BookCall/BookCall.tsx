@@ -64,7 +64,7 @@ export default function BookCall({ id }: BookCallProps) {
               style={{
                 height: "420px",
                 width: "auto",
-                maxWidth: "100%",
+                maxWidth: "550px",
                 objectFit: "contain",
                 objectPosition: "left top",
                 borderRadius: 0,
@@ -117,7 +117,12 @@ export default function BookCall({ id }: BookCallProps) {
             <img
               src={ILLUSTRATION_SRC}
               alt="Book a call illustration"
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{
+                width: "100%",
+                maxWidth: "550px",
+                height: "auto",
+                display: "block",
+              }}
             />
           </div>
 

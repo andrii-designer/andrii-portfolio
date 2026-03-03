@@ -893,16 +893,19 @@ section.case-study-text-image-grid .section-paragraph {
   .book-call-illustration img,
   .book-call-illustration span {
     width: 100% !important;
+    max-width: 550px;
     height: auto !important;
     object-fit: cover;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* CTA — 64px gap below illustration at tablet (--token-space-80 → 64px), left-aligned */
+  /* CTA — 64px gap below illustration at tablet (--token-space-80 → 64px), right-aligned */
   .book-call-cta {
     margin-top: var(--token-space-80);
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     width: 100%;
   }
 }
@@ -948,16 +951,19 @@ section.case-study-text-image-grid .section-paragraph {
   .book-call-illustration img,
   .book-call-illustration span {
     width: 100% !important;
+    max-width: 550px;
     height: auto !important;
     object-fit: cover;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), left-aligned */
+  /* CTA — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), right-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     width: 100%;
   }
 }
