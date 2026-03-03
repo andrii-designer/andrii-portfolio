@@ -880,10 +880,10 @@ section.case-study-text-image-grid .section-paragraph {
  * Book a Call — tablet layout (768px–1023px)
  *
  * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
- * Spacing uses tablet-resolved token values:
- *   --token-space-48 → 40px  (header → paragraph)
- *   --token-space-80 → 64px  (paragraph → illustration, illustration → CTA)
- * Typography tokens auto-resolve to tablet scale via variables.css overrides.
+ * Uses the same token names as the mobile block so they auto-resolve to the
+ * correct larger px values at the tablet breakpoint:
+ *   --token-space-80  → mobile 48px  / tablet 64px  (Title → Paragraph)
+ *   --token-space-128 → mobile 80px  / tablet 96px  (Paragraph → Illustration, Illustration → CTA)
  * Desktop layout unchanged.
  */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -896,9 +896,9 @@ section.case-study-text-image-grid .section-paragraph {
     display: block;
   }
 
-  /* Paragraph — 40px gap below Title at tablet (--token-space-48 → 40px) */
+  /* Paragraph — 64px gap below Title at tablet (--token-space-80 → 64px) */
   .book-call-subhead {
-    margin-top: var(--token-space-48);
+    margin-top: var(--token-space-80);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -908,9 +908,9 @@ section.case-study-text-image-grid .section-paragraph {
     margin-bottom: 0;
   }
 
-  /* Illustration — 64px gap below paragraph at tablet (--token-space-80 → 64px) */
+  /* Illustration — 96px gap below paragraph at tablet (--token-space-128 → 96px) */
   .book-call-illustration {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     width: 100%;
     display: block;
     text-align: center;
@@ -927,9 +927,9 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* CTA — 64px gap below illustration at tablet (--token-space-80 → 64px), right-aligned */
+  /* CTA — 96px gap below illustration at tablet (--token-space-128 → 96px), right-aligned */
   .book-call-cta {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     display: flex;
     justify-content: flex-end;
     width: 100%;
