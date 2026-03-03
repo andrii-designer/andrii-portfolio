@@ -172,9 +172,10 @@ const Process = ({
               alignItems: "flex-start",
             }}
           >
-            {/* Number — left side on desktop */}
-            <div
+            {/* Number — left side on desktop, above title on mobile */}
+            <span
               className="process-number"
+              aria-hidden="true"
               style={{
                 fontFamily: "var(--token-font-family-base)",
                 fontSize: "var(--token-size-h4)" /* 36px */,
@@ -184,7 +185,7 @@ const Process = ({
               }}
             >
               {item.number}
-            </div>
+            </span>
 
             {/* Content — right side on desktop */}
             <div
