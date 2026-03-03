@@ -266,10 +266,12 @@ a {
     padding-right: var(--token-space-8) !important;
   }
 
-  /* Footer: 8px side padding on mobile to align with global container grid (override inline 24px) */
+  /* Footer: 8px side padding + mobile vertical rhythm (override inline values) */
   footer .footer-wrapper {
     padding-left: var(--token-space-8) !important;
     padding-right: var(--token-space-8) !important;
+    padding-top: var(--token-space-96) !important;
+    padding-bottom: var(--token-space-40) !important;
   }
 
   /* Panel overlays whole viewport including header (no gap) */
@@ -900,6 +902,118 @@ section.case-study-text-image-grid .section-paragraph {
     display: flex;
     justify-content: flex-start;
     width: 100%;
+  }
+}
+
+/**
+ * Footer — mobile-only layout (max-width: 767px)
+ *
+ * Vertical order: email → copy → CTA (48px gap) → page links (96px gap) → logo centered (96px gap) → copyright (64px gap)
+ * All content centered horizontally. Social links hidden; desktop/tablet unchanged.
+ * Tokens: --token-space-* for all gaps, --token-size-24 for copy icon.
+ */
+@media (max-width: 767px) {
+  /* Main content area: stacked column, centered, gaps via per-child margins */
+  footer .footer-content {
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: center !important;
+  }
+
+  /* Top row: stacked column, centered */
+  footer .footer-top {
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  /* Contact block: centered column */
+  footer .footer-contact {
+    gap: 0 !important;
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Email row: centered, full width */
+  footer .footer-email-row {
+    width: 100%;
+    justify-content: center !important;
+  }
+
+  /* Copy icon: var(--token-size-24) × var(--token-size-24) on mobile */
+  footer .footer-copy-btn svg {
+    width: var(--token-size-24) !important;
+    height: var(--token-size-24) !important;
+  }
+
+  /* CTA button (BookCallButton <a>): 48px gap below email row, centered via margin auto */
+  footer .footer-contact > a {
+    margin-top: var(--token-space-48) !important;
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Nav: 96px gap below CTA; centered single column */
+  footer .footer-nav {
+    flex-direction: column !important;
+    gap: 0 !important;
+    margin-top: var(--token-space-96) !important;
+    width: 100%;
+    align-items: center !important;
+  }
+
+  /* Internal links list: centered items */
+  footer .footer-nav > ul:first-child {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Internal link items: centered text, full-width tap target */
+  footer .footer-nav > ul:first-child li {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  /* Link anchors: inline-block so underline only spans text width, not full row */
+  footer .footer-nav > ul:first-child li a {
+    display: inline-block !important;
+    width: auto !important;
+    text-align: center !important;
+  }
+
+  /* Social links column: hidden on mobile only */
+  footer .footer-social-col {
+    display: none !important;
+  }
+
+  /* Bottom row: stacked column, centered; 96px gap from links to logo */
+  footer .footer-bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    margin-top: var(--token-space-96) !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  /* Logo: reorder before copyright, centered */
+  footer .footer-logo {
+    order: 1;
+    align-self: center !important;
+  }
+
+  /* Copyright: after logo, 64px gap, full-width so text-align centers the text */
+  footer .footer-copyright {
+    order: 2;
+    margin-top: var(--token-space-64) !important;
+    text-align: center !important;
+    width: 100% !important;
   }
 }
 
