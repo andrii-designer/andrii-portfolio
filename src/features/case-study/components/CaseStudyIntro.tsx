@@ -99,6 +99,7 @@ export default function CaseStudyIntro({
         className="intro-visual"
         role="img"
         aria-hidden={image ? "false" : "true"}
+        style={{ marginTop: 0 }}
         {...imageMotion}
       >
         <Image

@@ -107,7 +107,7 @@ export default function CaseStudyTextImageGrid({
               width: "100%",
               marginLeft: "auto",
               textAlign: "left",
-              marginTop: "var(--token-space-80)",
+              marginTop: "var(--token-space-256)",
             }}
             {...paragraphMotion}
           >

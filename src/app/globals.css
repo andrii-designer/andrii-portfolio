@@ -625,7 +625,7 @@ a {
 .case-study-hero .hero-meta-value {
   font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-md); /* 16px */
-  font-weight: var(--token-weight-regular); /* 400 */
+  font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
 }
@@ -638,6 +638,18 @@ a {
 .case-study-hero .hero-visual {
   width: 100%;
   margin-top: 0;
+}
+
+/**
+ * Case Study — images as black & white placeholders
+ * All images inside case study sections are rendered in grayscale.
+ * This affects hero, intro, body, and grid visuals on /case-studies pages only.
+ */
+.case-study-hero img,
+.case-study-intro img,
+.case-study-text-image img,
+.case-study-text-image-grid img {
+  filter: grayscale(100%);
 }
 
 /**
@@ -677,7 +689,7 @@ a {
 .case-study-intro .intro-paragraph {
   font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-lg); /* 18px */
-  font-weight: var(--token-weight-regular); /* 400 */
+  font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
   max-width: 566px;
@@ -689,7 +701,7 @@ a {
  */
 .case-study-intro .intro-visual {
   width: 100%;
-  margin-top: var(--token-space-64);
+  margin-top: 0 !important;
 }
 
 /**
@@ -834,17 +846,29 @@ section.case-study-text-image-grid .section-paragraph {
     gap: var(--token-space-48); /* overrides existing 768px rule's gap: var(--token-space-16) */
   }
 
-  /* 3b) Each detail item: label and value side-by-side, 8px gap */
+  /* 3b) Each detail item: label above value (desktop pattern), 8px vertical gap */
   .case-study-hero .hero-meta-item {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--token-space-8);
   }
 
   /* 4) Gap from project details to hero image = 36px via token arithmetic */
   .case-study-hero .hero-visual {
     margin-top: calc(var(--token-space-32) + var(--token-space-4)); /* 32 + 4 = 36px */
+  }
+
+  /* 5) Paragraphs across all case study sections: left-aligned on mobile */
+  .case-study-intro .intro-paragraph,
+  .case-study-text-image .section-paragraph,
+  .case-study-text-image-grid .section-paragraph {
+    text-align: left;
+  }
+
+  /* 6) Remove auto left margin on paragraph wrapper so it starts flush left */
+  .case-study-text-image .paragraph-wrap {
+    margin-left: 0 !important;
   }
 }
 
