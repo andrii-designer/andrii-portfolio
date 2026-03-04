@@ -297,6 +297,40 @@ a {
     word-break: break-word;
   }
 
+  /*
+   * About page — Skills section, mobile only
+   *
+   * Problems being fixed:
+   *   - .skills-photo is second in DOM (right column) but must appear ABOVE the list on mobile
+   *   - .skills-photo has inline width: min(566px, 40%) → too small on narrow viewports
+   *   - .skills-list-container has inline minWidth: 300px → can overflow narrow viewports
+   *
+   * Fix: column layout + order swap via CSS order property (no DOM change).
+   * All overrides scoped to .about-page so desktop/tablet are untouched.
+   */
+  .about-page .skills-content {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* Photo first: override DOM order so it renders above the list */
+  .about-page .skills-photo {
+    order: -1;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  /* List below photo: reset order, prevent overflow from hardcoded minWidth: 300px */
+  .about-page .skills-list-container {
+    order: 0;
+    min-width: 0 !important;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: var(--token-space-48);
+    overflow-wrap: break-word;
+  }
+
   /* Footer: 8px side padding + mobile vertical rhythm (override inline values) */
   footer .footer-wrapper {
     padding-left: var(--token-space-8) !important;

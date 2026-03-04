@@ -114,7 +114,7 @@ const Skills = ({
               src={photoSrc}
               alt={photoAlt}
               fill
-              sizes="(max-width: 600px) 100vw, (max-width: 1440px) 40vw, 566px"
+              sizes="(max-width: 767px) 100vw, (max-width: 1440px) 40vw, 566px"
               className="object-cover"
               style={{ borderRadius: 0 }}
               loading="lazy"
