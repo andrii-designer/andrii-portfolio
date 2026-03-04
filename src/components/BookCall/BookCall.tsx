@@ -16,7 +16,7 @@ export default function BookCall({ id }: BookCallProps) {
       id={id}
       className="section-wrap book-call-section"
       aria-labelledby="book-call-title"
-      style={{ backgroundColor: "var(--token-color-base)" }}
+      style={{ backgroundColor: "var(--token-color-primary)" }}
     >
       <div
         className="section-inner bookcall-wrapper"
@@ -32,7 +32,7 @@ export default function BookCall({ id }: BookCallProps) {
           headingId="book-call-title"
         />
 
-        {/* Desktop & tablet layout — hidden on mobile via CSS */}
+        {/* Desktop layout — hidden on mobile/tablet via CSS */}
         <div
           className="bookcall-content"
           style={{
@@ -108,8 +108,11 @@ export default function BookCall({ id }: BookCallProps) {
           </div>
         </div>
 
-        {/* Mobile-only layout — shown only at max-width: 767px via CSS */}
+        {/* Mobile & tablet layout — shown at max-width: 1023px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
+          {/* Paragraph above illustration on mobile/tablet */}
+          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
+
           <div className="book-call-illustration">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -123,8 +126,6 @@ export default function BookCall({ id }: BookCallProps) {
               }}
             />
           </div>
-
-          <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-cta">
             <BookCallButton />

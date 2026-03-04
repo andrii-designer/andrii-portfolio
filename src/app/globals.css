@@ -883,8 +883,8 @@ section.case-study-text-image-grid .section-paragraph {
  * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
  * Uses the same token names as the mobile block so they auto-resolve to the
  * correct larger px values at the tablet breakpoint:
- *   --token-space-80  → mobile 48px  / tablet 64px  (Title → Paragraph)
- *   --token-space-128 → mobile 80px  / tablet 96px  (Paragraph → Illustration, Illustration → CTA)
+ *   --token-space-80  → mobile 48px  / tablet 64px  (Paragraph → Illustration)
+ *   --token-space-128 → mobile 80px  / tablet 96px  (Illustration → CTA)
  * Desktop layout unchanged.
  */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -894,15 +894,31 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .bookcall-mobile-layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Illustration — 64px gap below Title at tablet (--token-space-80 → 64px) */
+  /* Paragraph — below Title, left-aligned on tablet */
+  .book-call-subhead {
+    margin-top: var(--token-space-48);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Illustration — 64px gap below paragraph at tablet, centered horizontally */
   .book-call-illustration {
     margin-top: var(--token-space-80);
     width: 100%;
     display: block;
     text-align: center;
+    align-self: center;
   }
 
   .book-call-illustration img,
@@ -916,24 +932,11 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* Paragraph — 96px gap below illustration at tablet (--token-space-128 → 96px), center-aligned */
-  .book-call-subhead {
-    margin-top: var(--token-space-128);
-    font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4);
-    font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
-    color: var(--token-color-accent);
-    margin-bottom: 0;
-    text-align: center;
-  }
-
-  /* CTA — 96px gap below paragraph at tablet, center-aligned */
+  /* CTA — 96px gap below illustration at tablet, left-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
 }
@@ -942,7 +945,7 @@ section.case-study-text-image-grid .section-paragraph {
  * Book a Call — mobile-only layout (max-width: 767px)
  *
  * Order: Title (from <Title>) → Paragraph → Illustration → CTA
- * Tokens: --token-space-48 (paragraph gap), --token-space-80 (illustration & CTA gaps)
+ * Tokens: --token-space-48 (Title → Paragraph), --token-space-80 (Paragraph → Illustration & Illustration → CTA)
  * Typography: --token-size-h4 (paragraph matches desktop h4 weight/size intent at mobile scale)
  * No desktop or tablet styles are changed here.
  */
@@ -953,20 +956,14 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .bookcall-mobile-layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Illustration — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
-  .book-call-illustration {
-    margin-top: var(--token-space-80);
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  /* Paragraph — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), center-aligned */
+  /* Paragraph — 48px gap below Title on mobile, left-aligned */
   .book-call-subhead {
-    margin-top: var(--token-space-128);
+    margin-top: var(--token-space-48);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -974,7 +971,16 @@ section.case-study-text-image-grid .section-paragraph {
     letter-spacing: var(--token-tracking-header-4);
     color: var(--token-color-accent);
     margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Illustration — 80px gap below paragraph on mobile, centered horizontally */
+  .book-call-illustration {
+    margin-top: var(--token-space-128);
+    width: 100%;
+    display: block;
     text-align: center;
+    align-self: center;
   }
 
   .book-call-illustration img,
@@ -988,11 +994,11 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* CTA — 80px gap below paragraph on mobile, center-aligned */
+  /* CTA — 80px gap below illustration on mobile, left-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
 }
@@ -1001,7 +1007,7 @@ section.case-study-text-image-grid .section-paragraph {
  * Process — mobile-only layout (max-width: 767px)
  *
  * Number stacks above title in a column; gap = --token-space-48.
- * Titles use mobile H3 token. Desktop/tablet layout unchanged.
+ * Numbers and titles use mobile H4 token. Desktop/tablet layout unchanged.
  * Numbers are aria-hidden in markup (decorative).
  */
 @media (max-width: 767px) {
@@ -1013,10 +1019,10 @@ section.case-study-text-image-grid .section-paragraph {
 
   .process-item .process-number {
     display: block;
-    font-size: var(--token-size-h3) !important;
+    font-size: var(--token-size-h4) !important;
     line-height: var(--token-leading-110) !important;
     font-weight: var(--token-weight-semibold) !important;
-    letter-spacing: var(--token-tracking-header-3);
+    letter-spacing: var(--token-tracking-header-4);
     margin-bottom: var(--token-space-48);
   }
 
@@ -1026,10 +1032,10 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .process-item .process-title {
-    font-size: var(--token-size-h3) !important;
+    font-size: var(--token-size-h4) !important;
     line-height: var(--token-leading-110) !important;
     font-weight: var(--token-weight-semibold) !important;
-    letter-spacing: var(--token-tracking-header-3) !important;
+    letter-spacing: var(--token-tracking-header-4) !important;
   }
 }
 

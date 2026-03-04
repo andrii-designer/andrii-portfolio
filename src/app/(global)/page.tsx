@@ -145,7 +145,7 @@ export default function HomePage() {
       <section
         className="section-wrap"
         style={{
-          backgroundColor: "var(--token-color-primary)", // Process section uses primary background
+          backgroundColor: "var(--token-color-base)", // Process section uses base background
         }}
         data-node-id="process-section"
       >
@@ -159,7 +159,7 @@ export default function HomePage() {
       <section
         className="section-wrap"
         style={{
-          backgroundColor: "var(--token-color-primary)",
+          backgroundColor: "var(--token-color-base)",
         }}
         data-node-id="testimonials-section"
       >
