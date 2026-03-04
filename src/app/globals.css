@@ -799,6 +799,55 @@ section.case-study-text-image-grid .section-paragraph {
   }
 }
 
+/**
+ * Case Study Hero — mobile-only layout (max-width: 767px)
+ *
+ * Selector mapping (actual markup → task names):
+ *   .hero-meta      = "project-details" container
+ *   .hero-meta-item = "detail" (label + value pair)
+ *   .hero-visual    = image block (sibling of .section-inner, not of .hero-meta;
+ *                     margin-top applied directly since the + combinator can't reach it)
+ *
+ * Cascade note: this block is placed AFTER the existing max-width: 480px / 768px rules
+ * so it wins at 767px without requiring extra specificity.
+ * The !important on margin-top overrides the inline style={{ marginTop }} on the element.
+ *
+ * Token mobile-resolved values (for reference, not hardcoded):
+ *   --token-space-96  → 64px   --token-space-48  → 32px
+ *   --token-space-8   →  8px   --token-space-32  → 32px   --token-space-4 → 4px
+ */
+@media (max-width: 767px) {
+  /* 1) Hero title: H1 token on mobile (overrides 480px h3 rule) */
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h1);
+    line-height: var(--token-leading-110);
+    font-weight: var(--token-weight-semibold);
+    letter-spacing: var(--token-tracking-header-1);
+  }
+
+  /* 2) Gap between hero title and project details = var(--token-space-96)
+     3a) Project details: vertical stack with 48px gap between items */
+  .case-study-hero .hero-meta {
+    margin-top: var(--token-space-96) !important; /* overrides inline style: var(--token-space-128) */
+    display: flex;
+    flex-direction: column;
+    gap: var(--token-space-48); /* overrides existing 768px rule's gap: var(--token-space-16) */
+  }
+
+  /* 3b) Each detail item: label and value side-by-side, 8px gap */
+  .case-study-hero .hero-meta-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--token-space-8);
+  }
+
+  /* 4) Gap from project details to hero image = 36px via token arithmetic */
+  .case-study-hero .hero-visual {
+    margin-top: calc(var(--token-space-32) + var(--token-space-4)); /* 32 + 4 = 36px */
+  }
+}
+
 /* Typography tracking mapping — ensure token usage is enforced */
 .text-display-1 { letter-spacing: var(--token-tracking-display-1); }
 .text-display-2 { letter-spacing: var(--token-tracking-display-2); }
