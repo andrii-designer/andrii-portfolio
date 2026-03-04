@@ -437,12 +437,10 @@ a {
 
   /* Ensure hamburger slot stays fixed size and visible on the right */
   .header-hamburger-wrap {
-    width: var(--token-size-48);
-    min-width: var(--token-size-48);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     position: relative;
     z-index: 110;
   }

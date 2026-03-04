@@ -172,33 +172,8 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
           />
         </Link>
 
-        {/* Right: Hamburger (<md) + Nav + Avatar (md: nav inline; lg: avatar in row; <768 avatar in panel only) */}
+        {/* Right: Nav + Avatar + Hamburger (hamburger visually aligned to right edge on mobile) */}
         <div className="relative flex items-center md:w-auto" style={{ gap: "var(--token-space-24)" }}>
-          {/* Hamburger — <768px only; hidden at md and above */}
-          <div className="header-hamburger-wrap md:hidden" aria-hidden="true">
-            <button
-              ref={menuButtonRef}
-              type="button"
-              aria-expanded={isMenuOpen}
-              aria-controls="header-nav-menu"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              className="flex items-center justify-center p-2 text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-              style={{
-                minWidth: "var(--token-size-48)",
-                minHeight: "var(--token-size-48)",
-              }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Image
-                src={isMenuOpen ? "/hero-assets/burger-icon=close.svg" : "/hero-assets/burger-icon=open.svg"}
-                alt=""
-                width={24}
-                height={24}
-                style={{ width: "var(--token-size-24)", height: "var(--token-size-24)" }}
-              />
-            </button>
-          </div>
-
           {/* Nav + Avatar: md+ always visible (row); <768 panel when open */}
           <div
             id="header-nav-menu"
@@ -389,6 +364,28 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
                 </span>
               </div>
             </div>
+          </div>
+
+          {/* Hamburger — <768px only; hidden at md and above.
+              Placed after nav in DOM so its wrapper sits at the far right of the header row. */}
+          <div className="header-hamburger-wrap md:hidden" aria-hidden="true">
+            <button
+              ref={menuButtonRef}
+              type="button"
+              aria-expanded={isMenuOpen}
+              aria-controls="header-nav-menu"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="flex items-center justify-end text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Image
+                src={isMenuOpen ? "/hero-assets/burger-icon=close.svg" : "/hero-assets/burger-icon=open.svg"}
+                alt=""
+                width={24}
+                height={24}
+                style={{ width: "var(--token-size-24)", height: "var(--token-size-24)" }}
+              />
+            </button>
           </div>
         </div>
       </div>
