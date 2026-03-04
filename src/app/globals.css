@@ -266,6 +266,37 @@ a {
     padding-right: var(--token-space-8) !important;
   }
 
+  /*
+   * About page — first section photo + paragraph, mobile only
+   *
+   * Problems being fixed:
+   *   - .about-photo has inline width: min(684px, 40%) → ~150px on a 375px viewport (too small)
+   *   - .about-text  has inline width: 566px → overflows the viewport
+   *   - Tailwind min-[601px]:flex-row switches to a side-by-side row inside mobile range
+   *
+   * All overrides are scoped to .about-page so desktop/tablet are untouched.
+   */
+  .about-page .about-content {
+    flex-direction: column !important;
+  }
+
+  /* Full-width, proportionally-scaled photo */
+  .about-page .about-photo {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Paragraph container: no fixed width, prevent overflow */
+  .about-page .about-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   /* Footer: 8px side padding + mobile vertical rhythm (override inline values) */
   footer .footer-wrapper {
     padding-left: var(--token-space-8) !important;
@@ -912,9 +943,9 @@ section.case-study-text-image-grid .section-paragraph {
     text-align: left;
   }
 
-  /* Illustration — 64px gap below paragraph at tablet, centered horizontally */
+  /* Illustration — 128px gap below paragraph at tablet, centered horizontally */
   .book-call-illustration {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     width: 100%;
     display: block;
     text-align: center;
