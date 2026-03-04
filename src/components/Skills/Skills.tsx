@@ -77,13 +77,13 @@ const Skills = ({
         {/* Title Component — uses H1 token, no label */}
         <SkillsTitle heading={title} />
 
-        {/* Content — horizontal flex, bottom-aligned */}
+        {/* Content — horizontal flex, top-aligned */}
         <div
           className="skills-content"
           style={{
             marginTop: "var(--token-space-256)",
             display: "flex",
-            alignItems: "flex-end",
+            alignItems: "flex-start",
             gap: "var(--token-space-24)",
             flexWrap: "wrap",
           }}
