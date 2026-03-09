@@ -266,6 +266,71 @@ a {
     padding-right: var(--token-space-8) !important;
   }
 
+  /*
+   * About page — first section photo + paragraph, mobile only
+   *
+   * Problems being fixed:
+   *   - .about-photo has inline width: min(684px, 40%) → ~150px on a 375px viewport (too small)
+   *   - .about-text  has inline width: 566px → overflows the viewport
+   *   - Tailwind min-[601px]:flex-row switches to a side-by-side row inside mobile range
+   *
+   * All overrides are scoped to .about-page so desktop/tablet are untouched.
+   */
+  .about-page .about-content {
+    flex-direction: column !important;
+  }
+
+  /* Full-width, proportionally-scaled photo */
+  .about-page .about-photo {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Paragraph container: no fixed width, prevent overflow */
+  .about-page .about-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /*
+   * About page — Skills section, mobile only
+   *
+   * Problems being fixed:
+   *   - .skills-photo is second in DOM (right column) but must appear ABOVE the list on mobile
+   *   - .skills-photo has inline width: min(566px, 40%) → too small on narrow viewports
+   *   - .skills-list-container has inline minWidth: 300px → can overflow narrow viewports
+   *
+   * Fix: column layout + order swap via CSS order property (no DOM change).
+   * All overrides scoped to .about-page so desktop/tablet are untouched.
+   */
+  .about-page .skills-content {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* Photo first: override DOM order so it renders above the list */
+  .about-page .skills-photo {
+    order: -1;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  /* List below photo: reset order, prevent overflow from hardcoded minWidth: 300px */
+  .about-page .skills-list-container {
+    order: 0;
+    min-width: 0 !important;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: var(--token-space-48);
+    overflow-wrap: break-word;
+  }
+
   /* Footer: 8px side padding + mobile vertical rhythm (override inline values) */
   footer .footer-wrapper {
     padding-left: var(--token-space-8) !important;
@@ -372,12 +437,10 @@ a {
 
   /* Ensure hamburger slot stays fixed size and visible on the right */
   .header-hamburger-wrap {
-    width: var(--token-size-48);
-    min-width: var(--token-size-48);
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     position: relative;
     z-index: 110;
   }
@@ -560,7 +623,7 @@ a {
 .case-study-hero .hero-meta-value {
   font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-md); /* 16px */
-  font-weight: var(--token-weight-regular); /* 400 */
+  font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
 }
@@ -573,6 +636,18 @@ a {
 .case-study-hero .hero-visual {
   width: 100%;
   margin-top: 0;
+}
+
+/**
+ * Case Study — images as black & white placeholders
+ * All images inside case study sections are rendered in grayscale.
+ * This affects hero, intro, body, and grid visuals on /case-studies pages only.
+ */
+.case-study-hero img,
+.case-study-intro img,
+.case-study-text-image img,
+.case-study-text-image-grid img {
+  filter: grayscale(100%);
 }
 
 /**
@@ -612,7 +687,7 @@ a {
 .case-study-intro .intro-paragraph {
   font-family: var(--token-font-family-base);
   font-size: var(--token-size-body-lg); /* 18px */
-  font-weight: var(--token-weight-regular); /* 400 */
+  font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
   max-width: 566px;
@@ -624,7 +699,7 @@ a {
  */
 .case-study-intro .intro-visual {
   width: 100%;
-  margin-top: var(--token-space-64);
+  margin-top: 0 !important;
 }
 
 /**
@@ -731,6 +806,67 @@ section.case-study-text-image-grid .section-paragraph {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/**
+ * Case Study Hero — mobile-only layout (max-width: 767px)
+ *
+ * Selector mapping (actual markup → task names):
+ *   .hero-meta      = "project-details" container
+ *   .hero-meta-item = "detail" (label + value pair)
+ *   .hero-visual    = image block (sibling of .section-inner, not of .hero-meta;
+ *                     margin-top applied directly since the + combinator can't reach it)
+ *
+ * Cascade note: this block is placed AFTER the existing max-width: 480px / 768px rules
+ * so it wins at 767px without requiring extra specificity.
+ * The !important on margin-top overrides the inline style={{ marginTop }} on the element.
+ *
+ * Token mobile-resolved values (for reference, not hardcoded):
+ *   --token-space-96  → 64px   --token-space-48  → 32px
+ *   --token-space-8   →  8px   --token-space-32  → 32px   --token-space-4 → 4px
+ */
+@media (max-width: 767px) {
+  /* 1) Hero title: H1 token on mobile (overrides 480px h3 rule) */
+  .case-study-hero .hero-title {
+    font-size: var(--token-size-h1);
+    line-height: var(--token-leading-110);
+    font-weight: var(--token-weight-semibold);
+    letter-spacing: var(--token-tracking-header-1);
+  }
+
+  /* 2) Gap between hero title and project details = var(--token-space-96)
+     3a) Project details: vertical stack with 48px gap between items */
+  .case-study-hero .hero-meta {
+    margin-top: var(--token-space-96) !important; /* overrides inline style: var(--token-space-128) */
+    display: flex;
+    flex-direction: column;
+    gap: var(--token-space-48); /* overrides existing 768px rule's gap: var(--token-space-16) */
+  }
+
+  /* 3b) Each detail item: label above value (desktop pattern), 8px vertical gap */
+  .case-study-hero .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--token-space-8);
+  }
+
+  /* 4) Gap from project details to hero image = 36px via token arithmetic */
+  .case-study-hero .hero-visual {
+    margin-top: calc(var(--token-space-32) + var(--token-space-4)); /* 32 + 4 = 36px */
+  }
+
+  /* 5) Paragraphs across all case study sections: left-aligned on mobile */
+  .case-study-intro .intro-paragraph,
+  .case-study-text-image .section-paragraph,
+  .case-study-text-image-grid .section-paragraph {
+    text-align: left;
+  }
+
+  /* 6) Remove auto left margin on paragraph wrapper so it starts flush left */
+  .case-study-text-image .paragraph-wrap {
+    margin-left: 0 !important;
   }
 }
 
@@ -883,8 +1019,8 @@ section.case-study-text-image-grid .section-paragraph {
  * Reuses mobile DOM structure (Title → Paragraph → Illustration → CTA).
  * Uses the same token names as the mobile block so they auto-resolve to the
  * correct larger px values at the tablet breakpoint:
- *   --token-space-80  → mobile 48px  / tablet 64px  (Title → Paragraph)
- *   --token-space-128 → mobile 80px  / tablet 96px  (Paragraph → Illustration, Illustration → CTA)
+ *   --token-space-80  → mobile 48px  / tablet 64px  (Paragraph → Illustration)
+ *   --token-space-128 → mobile 80px  / tablet 96px  (Illustration → CTA)
  * Desktop layout unchanged.
  */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -894,15 +1030,31 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .bookcall-mobile-layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Illustration — 64px gap below Title at tablet (--token-space-80 → 64px) */
+  /* Paragraph — below Title, left-aligned on tablet */
+  .book-call-subhead {
+    margin-top: var(--token-space-48);
+    font-family: var(--token-font-family-base);
+    font-size: var(--token-size-h4);
+    font-weight: var(--token-weight-semibold);
+    line-height: var(--token-leading-120);
+    letter-spacing: var(--token-tracking-header-4);
+    color: var(--token-color-accent);
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Illustration — 128px gap below paragraph at tablet, centered horizontally */
   .book-call-illustration {
-    margin-top: var(--token-space-80);
+    margin-top: var(--token-space-128);
     width: 100%;
     display: block;
     text-align: center;
+    align-self: center;
   }
 
   .book-call-illustration img,
@@ -916,24 +1068,11 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* Paragraph — 96px gap below illustration at tablet (--token-space-128 → 96px), center-aligned */
-  .book-call-subhead {
-    margin-top: var(--token-space-128);
-    font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4);
-    font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
-    color: var(--token-color-accent);
-    margin-bottom: 0;
-    text-align: center;
-  }
-
-  /* CTA — 96px gap below paragraph at tablet, center-aligned */
+  /* CTA — 96px gap below illustration at tablet, left-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
 }
@@ -942,7 +1081,7 @@ section.case-study-text-image-grid .section-paragraph {
  * Book a Call — mobile-only layout (max-width: 767px)
  *
  * Order: Title (from <Title>) → Paragraph → Illustration → CTA
- * Tokens: --token-space-48 (paragraph gap), --token-space-80 (illustration & CTA gaps)
+ * Tokens: --token-space-48 (Title → Paragraph), --token-space-80 (Paragraph → Illustration & Illustration → CTA)
  * Typography: --token-size-h4 (paragraph matches desktop h4 weight/size intent at mobile scale)
  * No desktop or tablet styles are changed here.
  */
@@ -953,20 +1092,14 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .bookcall-mobile-layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Illustration — 48px gap below Title on mobile (--token-space-80 → 48px at ≤767px) */
-  .book-call-illustration {
-    margin-top: var(--token-space-80);
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  /* Paragraph — 80px gap below illustration on mobile (--token-space-128 → 80px at ≤767px), center-aligned */
+  /* Paragraph — 48px gap below Title on mobile, left-aligned */
   .book-call-subhead {
-    margin-top: var(--token-space-128);
+    margin-top: var(--token-space-48);
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h4);
     font-weight: var(--token-weight-semibold);
@@ -974,7 +1107,16 @@ section.case-study-text-image-grid .section-paragraph {
     letter-spacing: var(--token-tracking-header-4);
     color: var(--token-color-accent);
     margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Illustration — 80px gap below paragraph on mobile, centered horizontally */
+  .book-call-illustration {
+    margin-top: var(--token-space-128);
+    width: 100%;
+    display: block;
     text-align: center;
+    align-self: center;
   }
 
   .book-call-illustration img,
@@ -988,11 +1130,11 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* CTA — 80px gap below paragraph on mobile, center-aligned */
+  /* CTA — 80px gap below illustration on mobile, left-aligned */
   .book-call-cta {
     margin-top: var(--token-space-128);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
 }
@@ -1001,7 +1143,7 @@ section.case-study-text-image-grid .section-paragraph {
  * Process — mobile-only layout (max-width: 767px)
  *
  * Number stacks above title in a column; gap = --token-space-48.
- * Titles use mobile H3 token. Desktop/tablet layout unchanged.
+ * Numbers and titles use mobile H4 token. Desktop/tablet layout unchanged.
  * Numbers are aria-hidden in markup (decorative).
  */
 @media (max-width: 767px) {
@@ -1013,10 +1155,10 @@ section.case-study-text-image-grid .section-paragraph {
 
   .process-item .process-number {
     display: block;
-    font-size: var(--token-size-h3) !important;
+    font-size: var(--token-size-h4) !important;
     line-height: var(--token-leading-110) !important;
     font-weight: var(--token-weight-semibold) !important;
-    letter-spacing: var(--token-tracking-header-3);
+    letter-spacing: var(--token-tracking-header-4);
     margin-bottom: var(--token-space-48);
   }
 
@@ -1026,10 +1168,10 @@ section.case-study-text-image-grid .section-paragraph {
   }
 
   .process-item .process-title {
-    font-size: var(--token-size-h3) !important;
+    font-size: var(--token-size-h4) !important;
     line-height: var(--token-leading-110) !important;
     font-weight: var(--token-weight-semibold) !important;
-    letter-spacing: var(--token-tracking-header-3) !important;
+    letter-spacing: var(--token-tracking-header-4) !important;
   }
 }
 

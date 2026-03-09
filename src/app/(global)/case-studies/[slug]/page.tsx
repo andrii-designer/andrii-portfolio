@@ -46,19 +46,19 @@ const caseStudies: Record<
     title: "Raccord",
     client: "Raccord",
     services: ["Product design", "3D motion"],
-    heroImage: "/assets/case-studies/placeholder-hero.png",
+    heroImage: "/assets/images/about/placeholder-square.svg",
     introTitle:
       "Unify all your real estate data for streamlined, real-time investment",
     introText:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
-    introImage: "/assets/case-studies/placeholder-intro.jpg",
+    introImage: "/assets/images/about/placeholder-square.svg",
     bodyTitle: "Unify all your real estate data for streamlined.",
     bodyParagraph:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
-    bodyImage: "/assets/case-studies/placeholder-body.jpg",
+    bodyImage: "/assets/images/about/placeholder-square.svg",
     gridImages: [
-      "/assets/case-studies/placeholder-grid-1.svg",
-      "/assets/case-studies/placeholder-grid-2.svg",
+      "/assets/images/about/placeholder-square.svg",
+      "/assets/images/about/placeholder-square.svg",
     ],
   },
 };
@@ -68,18 +68,18 @@ const fallback = {
   title: "Case Study",
   client: "Client",
   services: ["Design"],
-  heroImage: "/assets/case-studies/placeholder-hero.png",
+  heroImage: "/assets/images/about/placeholder-square.svg",
   introTitle: "Case study intro",
   introText:
     "This is a placeholder case study intro section. Replace with project-specific copy explaining the problem, goals, and high-level solution once content is available.",
-  introImage: "/assets/case-studies/placeholder-intro.jpg",
+  introImage: "/assets/images/about/placeholder-square.svg",
   bodyTitle: "Case study deep dive",
   bodyParagraph:
     "Use this section to go deeper into the problem, solution, or product experience. Once real content is ready, replace the placeholder copy with a focused narrative that explains how the design drives results.",
-  bodyImage: "/assets/case-studies/placeholder-body.jpg",
+  bodyImage: "/assets/images/about/placeholder-square.svg",
   gridImages: [
-    "/assets/case-studies/placeholder-grid-1.svg",
-    "/assets/case-studies/placeholder-grid-2.svg",
+    "/assets/images/about/placeholder-square.svg",
+    "/assets/images/about/placeholder-square.svg",
   ],
 };
 

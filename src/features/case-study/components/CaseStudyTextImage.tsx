@@ -79,7 +79,7 @@ export default function CaseStudyTextImage({
     >
       <div
         className="section-inner"
-        style={{ paddingTop: "var(--token-space-128)" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="text-image-row" style={{ width: "100%" }}>
           <div
@@ -102,7 +102,7 @@ export default function CaseStudyTextImage({
               width: "100%",
               marginLeft: "auto",
               textAlign: "left",
-              marginTop: "var(--token-space-80)",
+              marginTop: "var(--token-space-256)",
             }}
             {...paragraphMotion}
           >
@@ -113,7 +113,7 @@ export default function CaseStudyTextImage({
 
       <motion.div
         className="text-image-visual full-bleed"
-        style={{ marginTop: "var(--token-space-80)" }}
+        style={{ marginTop: "0px" }}
         {...imageMotion}
       >
         <Image

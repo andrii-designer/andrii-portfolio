@@ -41,7 +41,7 @@ export default function AboutDescription() {
               src="/assets/images/about/placeholder-square.svg"
               alt="Portrait placeholder"
               fill
-              sizes="(max-width: 600px) 100vw, (max-width: 1440px) 40vw, 684px"
+              sizes="(max-width: 767px) 100vw, (max-width: 1440px) 40vw, 684px"
               className="object-cover"
               style={{ borderRadius: 0 }}
               loading="lazy"
