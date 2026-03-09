@@ -28,27 +28,6 @@ export default function AboutDescription() {
           }}
         >
           <div
-            className="about-photo relative overflow-hidden rounded-none"
-            style={{
-              aspectRatio: "1 / 1",
-              width: "min(684px, 40%)",
-              maxWidth: "684px",
-              borderRadius: 0,
-              flex: "0 0 auto",
-            }}
-          >
-            <Image
-              src="/assets/images/about/placeholder-square.svg"
-              alt="Portrait placeholder"
-              fill
-              sizes="(max-width: 767px) 100vw, (max-width: 1440px) 40vw, 684px"
-              className="object-cover"
-              style={{ borderRadius: 0 }}
-              loading="lazy"
-            />
-          </div>
-
-          <div
             className="about-text"
             style={{
               flex: "1 1 auto",
@@ -75,6 +54,28 @@ export default function AboutDescription() {
               stylish, and just work for the user, while absolutely crushing it
               for the business goals.
             </p>
+          </div>
+
+          <div
+            className="about-photo relative overflow-hidden rounded-none"
+            style={{
+              aspectRatio: "3 / 4",
+              width: "min(600px, 40%)",
+              maxWidth: "600px",
+              borderRadius: 0,
+              flex: "0 0 auto",
+            }}
+          >
+            <Image
+              src="/assets/images/about/my-photo.png"
+              alt="Andrii's portrait"
+              fill
+              quality={100}
+              sizes="(max-width: 767px) 100vw, (max-width: 1440px) 40vw, 684px"
+              className="object-cover"
+              style={{ borderRadius: 0 }}
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

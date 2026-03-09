@@ -308,6 +308,11 @@ a {
    * Fix: column layout + order swap via CSS order property (no DOM change).
    * All overrides scoped to .about-page so desktop/tablet are untouched.
    */
+  .about-page .skills-list {
+    /* Let items use full section width on mobile (overrides default 48px right padding via CSS variable) */
+    --skill-item-padding-right: 0;
+  }
+
   .about-page .skills-content {
     flex-direction: column !important;
     align-items: stretch !important;

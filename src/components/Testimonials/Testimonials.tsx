@@ -67,19 +67,19 @@ const defaultTestimonials: TestimonialData[] = [
   },
   {
     id: "2",
-    text: "Working with Andrii was a fantastic experience. His attention to detail and creative approach brought our vision to life. The final product exceeded our expectations.",
-    clientName: "Sarah Chen",
-    clientRole: "Product Manager at TechCorp",
+    text: "Andrii executed his work excellently. He was reliable, communicated effectively, and adhered to the schedule. His skills and quality of work met my expectations, and I'm likely to recommend him.",
+    clientName: "Igor Polyakov",
+    clientRole: "Product designer",
     avatarSrc: "/assets/images/testimonials/avatar-2.png",
-    linkedInUrl: "https://linkedin.com",
+    linkedInUrl: "https://www.linkedin.com/in/polyakov/",
   },
   {
     id: "3",
-    text: "Andrii's design expertise transformed our platform. He understood our needs perfectly and delivered a solution that was both beautiful and functional. Highly recommended.",
-    clientName: "Michael Torres",
-    clientRole: "CEO at StartupXYZ",
+    text: "We Hired Andrii for a job to create a UI/UX design of an iOS mobile app. He delivered what was expected. Even more, we required additional screens and he didn't hesitate to design them. During this job, he was very cooperative and flexible, with changes if required. We would definitely hire him again for UX/UI design.",
+    clientName: "Mina Khidhir",
+    clientRole: "Business Analyst",
     avatarSrc: "/assets/images/testimonials/avatar-3.png",
-    linkedInUrl: "https://linkedin.com",
+    linkedInUrl: "https://www.linkedin.com/in/mina-khidhir-34473a96/",
   },
 ];
 
