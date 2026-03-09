@@ -992,18 +992,31 @@ section.case-study-text-image-grid .section-paragraph {
  * guarantee a minimum column gap via CSS gap.
  */
 @media (min-width: 1024px) {
+  .bookcall-wrapper {
+    padding-top: var(--token-space-192) !important;
+    padding-bottom: var(--token-space-192) !important;
+  }
+
   .bookcall-illustration-col {
-    flex: 1 1 0 !important;
+    flex: 1 1 auto !important;
     min-width: 0 !important;
   }
 
   .bookcall-illustration {
     width: 100% !important;
     height: auto !important;
+    min-width: 0 !important;
+    max-width: 550px !important;
+  }
+
+  .bookcall-text {
+    flex: 0 0 auto !important;
+    min-width: 670px !important;
+    width: auto !important;
   }
 
   .bookcall-content {
-    gap: var(--token-space-48) !important;
+    gap: var(--token-space-128) !important;
   }
 }
 

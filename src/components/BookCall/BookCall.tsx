@@ -25,23 +25,16 @@ export default function BookCall({ id }: BookCallProps) {
           paddingBottom: "var(--token-space-192)",
         }}
       >
-        <Title
-          index="( 005 )"
-          label="book a call"
-          heading="Book a call"
-          headingId="book-call-title"
-        />
-
         {/* Desktop layout — hidden on mobile/tablet via CSS */}
         <div
           className="bookcall-content"
           style={{
-            marginTop: "var(--token-space-256)",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "flex-start",
             width: "100%",
+            gap: "128px",
           }}
         >
           {/* Illustration column */}
@@ -80,15 +73,19 @@ export default function BookCall({ id }: BookCallProps) {
           <div
             className="bookcall-text"
             style={{
-              width: "566px",
-              maxWidth: "566px",
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
-              gap: "var(--token-space-64)",
-              flexShrink: 0,
+              gap: "var(--token-space-80)",
             }}
           >
+            <Title
+              index="( 005 )"
+              label="book a call"
+              heading="Book a call"
+              headingId="book-call-title"
+            />
+
             <h4
               style={{
                 fontFamily: "var(--token-font-family-base)",
@@ -110,7 +107,13 @@ export default function BookCall({ id }: BookCallProps) {
 
         {/* Mobile & tablet layout — shown at max-width: 1023px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
-          {/* Paragraph above illustration on mobile/tablet */}
+          {/* Title above paragraph on mobile/tablet */}
+          <Title
+            index="( 005 )"
+            label="book a call"
+            heading="Book a call"
+          />
+          {/* Paragraph below Title on mobile/tablet */}
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
