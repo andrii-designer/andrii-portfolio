@@ -121,6 +121,7 @@ export default function CaseStudyTextImage({
           alt={alt}
           width={1600}
           height={900}
+          quality={100}
           sizes="100vw"
           style={{ width: "100%", height: "auto", display: "block" }}
           priority={false}

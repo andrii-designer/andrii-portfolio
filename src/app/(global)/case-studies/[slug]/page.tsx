@@ -46,19 +46,37 @@ const caseStudies: Record<
     title: "Raccord",
     client: "Raccord",
     services: ["Product design", "3D motion"],
-    heroImage: "/assets/images/about/placeholder-square.svg",
+    heroImage: "/assets/case-studies/Raccord.png",
     introTitle:
       "Unify all your real estate data for streamlined, real-time investment",
     introText:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
-    introImage: "/assets/images/about/placeholder-square.svg",
+    introImage: "/assets/case-studies/Raccord.png",
     bodyTitle: "Unify all your real estate data for streamlined.",
     bodyParagraph:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
-    bodyImage: "/assets/images/about/placeholder-square.svg",
+    bodyImage: "/assets/case-studies/Raccord.png",
     gridImages: [
-      "/assets/images/about/placeholder-square.svg",
-      "/assets/images/about/placeholder-square.svg",
+      "/assets/case-studies/Raccord.png",
+      "/assets/case-studies/Raccord.png",
+    ],
+  },
+  "x-pand": {
+    title: "X-pand",
+    client: "X-pand",
+    services: ["Product design"],
+    heroImage: "/assets/case-studies/X-Pand.png",
+    introTitle: "Designing the X-pand product experience",
+    introText:
+      "A concept project exploring how X-pand can present complex product data in a simple, actionable way. The case focuses on a clear hierarchy, responsive layouts, and a flexible system that can grow with the product.",
+    introImage: "/assets/case-studies/X-Pand.png",
+    bodyTitle: "Scaling a product story with design systems.",
+    bodyParagraph:
+      "X-pand explores how consistent design systems can help teams move faster while keeping the experience cohesive. This case study shows how layout, typography, and interaction models scale across surfaces.",
+    bodyImage: "/assets/case-studies/X-Pand.png",
+    gridImages: [
+      "/assets/case-studies/X-Pand.png",
+      "/assets/case-studies/X-Pand.png",
     ],
   },
 };
@@ -68,18 +86,18 @@ const fallback = {
   title: "Case Study",
   client: "Client",
   services: ["Design"],
-  heroImage: "/assets/images/about/placeholder-square.svg",
+  heroImage: "/assets/case-studies/placeholder-grid-1.svg",
   introTitle: "Case study intro",
   introText:
     "This is a placeholder case study intro section. Replace with project-specific copy explaining the problem, goals, and high-level solution once content is available.",
-  introImage: "/assets/images/about/placeholder-square.svg",
+  introImage: "/assets/case-studies/placeholder-grid-2.svg",
   bodyTitle: "Case study deep dive",
   bodyParagraph:
     "Use this section to go deeper into the problem, solution, or product experience. Once real content is ready, replace the placeholder copy with a focused narrative that explains how the design drives results.",
-  bodyImage: "/assets/images/about/placeholder-square.svg",
+  bodyImage: "/assets/case-studies/placeholder-grid-1.svg",
   gridImages: [
-    "/assets/images/about/placeholder-square.svg",
-    "/assets/images/about/placeholder-square.svg",
+    "/assets/case-studies/placeholder-grid-1.svg",
+    "/assets/case-studies/placeholder-grid-2.svg",
   ],
 };
 

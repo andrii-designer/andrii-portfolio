@@ -126,6 +126,7 @@ export default function CaseStudyHero({
           alt={`${title} hero image`}
           width={1600}
           height={900}
+          quality={100}
           priority
           sizes="100vw"
           style={{ width: "100%", height: "auto", display: "block" }}

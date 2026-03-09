@@ -638,17 +638,6 @@ a {
   margin-top: 0;
 }
 
-/**
- * Case Study — images as black & white placeholders
- * All images inside case study sections are rendered in grayscale.
- * This affects hero, intro, body, and grid visuals on /case-studies pages only.
- */
-.case-study-hero img,
-.case-study-intro img,
-.case-study-text-image img,
-.case-study-text-image-grid img {
-  filter: grayscale(100%);
-}
 
 /**
  * Case Study Hero — prefers-reduced-motion
