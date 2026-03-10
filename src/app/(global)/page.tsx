@@ -37,6 +37,7 @@ export default function HomePage() {
         style={{
           paddingTop: "var(--token-space-48)", /* Gap between header and content: 48px */
           paddingBottom: "var(--token-space-24)", /* Hero bottom padding: 24px */
+          backgroundColor: "var(--token-color-primary)", /* Hero background: primary color */
         }}
         data-node-id="2228:4742"
       >
