@@ -4,6 +4,14 @@ import type React from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 
+/**
+ * Module-level guard — Cal.com embed only needs to be initialised once per
+ * page load. Without this, every BookCallButton instance (Hero, Services ×2,
+ * BookCall ×2, Footer) fires its own getCalApi() network request, wasting
+ * bandwidth and adding unnecessary work to the main thread.
+ */
+let _calInitialised = false;
+
 export type BookCallButtonVariant = "primary" | "secondary";
 
 export type BookCallButtonProps = {
@@ -58,6 +66,8 @@ export default function BookCallButton({
   onClick: _onClick,
 }: BookCallButtonProps) {
   useEffect(() => {
+    if (_calInitialised) return;
+    _calInitialised = true;
     (async function () {
       const cal = await getCalApi({ namespace: "15min" });
       cal("ui", {
