@@ -677,10 +677,10 @@ a {
  * Scales down at each breakpoint for mobile legibility.
  */
 .case-study-intro .intro-heading {
-  font-size: var(--token-size-h1); /* 84px */
-  font-weight: var(--token-weight-semibold); /* 600 */
-  line-height: var(--token-leading-100); /* 100% */
-  letter-spacing: var(--token-tracking-header-1);
+  font-size: var(--token-size-h2);
+  font-weight: var(--token-weight-semibold);
+  line-height: var(--token-leading-110);
+  letter-spacing: var(--token-tracking-header-2);
   font-family: var(--token-font-family-base);
   color: var(--token-color-accent);
 }
@@ -699,11 +699,10 @@ a {
 
 /**
  * Case Study Intro — full-bleed visual below text
- * No side padding; sits outside .section-inner.
+ * Now sits inside .section-inner so it inherits horizontal paddings.
  */
 .case-study-intro .intro-visual {
   width: 100%;
-  margin-top: 0 !important;
 }
 
 /**
@@ -713,6 +712,10 @@ a {
 .case-study-intro .section-inner {
   padding-top: var(--token-space-24);
   padding-bottom: var(--token-space-24);
+}
+
+.case-study-intro {
+  padding-bottom: var(--token-space-128);
 }
 
 /**
@@ -763,6 +766,21 @@ section.case-study-text-image-grid .section-paragraph {
   width: 100%;
 }
 
+/* Case Study Text + Image — visual horizontal padding */
+.case-study-text-image .text-image-visual {
+  padding-inline: var(--token-space-24);
+  padding-left: var(--token-space-24);
+  padding-right: var(--token-space-24);
+}
+
+@media (max-width: 767px) {
+  .case-study-text-image .text-image-visual {
+    padding-inline: var(--token-space-12);
+    padding-left: var(--token-space-12);
+    padding-right: var(--token-space-12);
+  }
+}
+
 /**
  * Case Study Text + Image Grid — layout
  *
@@ -776,6 +794,31 @@ section.case-study-text-image-grid .section-paragraph {
  */
 .case-study-text-image-grid .images-grid {
   width: 100%;
+}
+
+/* Case Study Full Image — full-width image with top/bottom and responsive side paddings */
+/* Desktop (≥1024px): 24px side padding */
+.case-study-full-image__inner {
+  padding-top: var(--token-space-128);
+  padding-bottom: var(--token-space-128);
+  padding-left: var(--token-space-24);
+  padding-right: var(--token-space-24);
+}
+
+/* Tablet (768px–1023px): 16px side padding */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .case-study-full-image__inner {
+    padding-left: var(--token-space-16);
+    padding-right: var(--token-space-16);
+  }
+}
+
+/* Mobile (<768px): 12px side padding */
+@media (max-width: 767px) {
+  .case-study-full-image__inner {
+    padding-left: var(--token-space-12);
+    padding-right: var(--token-space-12);
+  }
 }
 
 @media (max-width: 768px) {

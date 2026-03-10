@@ -3,6 +3,7 @@ import {
   CaseStudyIntro,
   CaseStudyTextImage,
   CaseStudyTextImageGrid,
+  CaseStudyFullImage,
 } from "@/features/case-study/components";
 import RecentWorks from "@/components/RecentWorks";
 import Footer from "@/components/Footer";
@@ -33,13 +34,17 @@ const caseStudies: Record<
     client: string;
     services: string[];
     heroImage: string;
+    heroVideo?: string;
     introTitle: string;
     introText: string;
     introImage: string;
+    introVideo?: string;
     bodyTitle?: string;
     bodyParagraph?: string;
     bodyImage?: string;
     gridImages?: string[];
+    gridHasText?: boolean;
+    gridVideos?: string[];
   }
 > = {
   raccord: {
@@ -47,18 +52,25 @@ const caseStudies: Record<
     client: "Raccord",
     services: ["Product design", "3D motion"],
     heroImage: "/assets/case-studies/Raccord.png",
+    heroVideo: "/assets/case-studies/raccord-section1.mp4",
     introTitle:
       "Unify all your real estate data for streamlined, real-time investment",
     introText:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
     introImage: "/assets/case-studies/Raccord.png",
-    bodyTitle: "Unify all your real estate data for streamlined.",
+    introVideo: "/assets/case-studies/raccord-section2.mp4",
+    bodyTitle: "Project tasks",
     bodyParagraph:
-      "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
-    bodyImage: "/assets/case-studies/Raccord.png",
+      "1. Increase dashboard engagement and personalisation\n2. Enhance data clarity\n3. Reduce time to insight\n\nThe part of the user flow I worked on:",
+    bodyImage: "/assets/case-studies/raccord-section3.png",
     gridImages: [
       "/assets/case-studies/Raccord.png",
       "/assets/case-studies/Raccord.png",
+    ],
+    gridHasText: false,
+    gridVideos: [
+      "/assets/case-studies/raccord-section4-1.mp4",
+      "/assets/case-studies/raccord-section4-2.mp4",
     ],
   },
   "x-pand": {
@@ -113,6 +125,7 @@ export default async function CaseStudyPage({ params }: Props) {
         client={data.client}
         services={data.services}
         heroImage={data.heroImage}
+        heroVideo={data.heroVideo}
       />
 
       {/* Intro Section — directly below hero */}
@@ -120,6 +133,7 @@ export default async function CaseStudyPage({ params }: Props) {
         title={data.introTitle}
         text={data.introText}
         image={data.introImage}
+        introVideo={data.introVideo}
       />
 
       {/* Text + Image body section — reusable component */}
@@ -131,10 +145,71 @@ export default async function CaseStudyPage({ params }: Props) {
 
       {/* Text + 2-image grid variant — follows after text+image section */}
       <CaseStudyTextImageGrid
-        title={data.bodyTitle ?? fallback.bodyTitle}
-        paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+        title={data.gridHasText === false ? undefined : data.bodyTitle ?? fallback.bodyTitle}
+        paragraph={
+          data.gridHasText === false ? undefined : data.bodyParagraph ?? fallback.bodyParagraph
+        }
         images={data.gridImages ?? fallback.gridImages}
+        gridVideos={data.gridVideos}
       />
+
+      {/* Problem/Solution section below grid — Raccord only */}
+      {data.title === "Raccord" && (
+        <CaseStudyTextImage
+          title="Problem"
+          paragraph="First‑time users land on a blank dashboard with no guidance."
+          video="/assets/case-studies/raccord-section5.mp4"
+          bottomTitle="Solution"
+          bottomParagraph="Implemented a 4‑step onboarding wizard that lets users pick KPIs and import their first asset inline, so they arrive at a fully populated, personalized view on day one."
+          duplicateTextBelow
+        />
+      )}
+
+      {/* Full-width image section — Raccord only */}
+      {data.title === "Raccord" && (
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section6.png"
+          bottomImage="/assets/case-studies/raccord-section7.png"
+        />
+      )}
+
+      {/* Second Problem/Solution section — Raccord only, placed after 2-image section */}
+      {data.title === "Raccord" && (
+        <CaseStudyTextImage
+          title="Problem"
+          paragraph="Customization controls are hidden and hard to discover."
+          image="/assets/case-studies/raccord-section8.png"
+          bottomTitle="Solution"
+          bottomParagraph="Introduce a dedicated “Edit Mode” that reveals drag‑and‑drop handles and an “+ Add Widget” tile, making layout changes and new widget additions immediately obvious and accessible."
+          duplicateTextBelow
+        />
+      )}
+
+      {/* Single-image full-width section — Raccord only, placed after second Problem/Solution */}
+      {data.title === "Raccord" && (
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section9.png"
+        />
+      )}
+
+      {/* Third Problem/Solution section — Raccord only, placed after final full-width image */}
+      {data.title === "Raccord" && (
+        <CaseStudyTextImage
+          title="Problem"
+          paragraph="Chart settings are buried in menus with no live feedback."
+          image="/assets/case-studies/raccord-section10.png"
+          bottomTitle="Solution"
+          bottomParagraph="When in the Edit mode there is a slide‑in configuration panel that shows a live preview of each tweak, so users can adjust chart types, axes, and filters in context and with confidence."
+          duplicateTextBelow
+        />
+      )}
+
+      {/* Final single-image full-width section — Raccord only */}
+      {data.title === "Raccord" && (
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section11.png"
+        />
+      )}
 
       {/* Recent Works — last content section above Footer */}
       <RecentWorks />

@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 export type CaseStudyIntroProps = {
   title: string;
   text?: string;
   image?: string;
+  introVideo?: string;
 };
 
 /**
@@ -17,6 +18,7 @@ export default function CaseStudyIntro({
   title,
   text,
   image,
+  introVideo,
 }: CaseStudyIntroProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -93,26 +95,41 @@ export default function CaseStudyIntro({
         >
           <p className="intro-paragraph">{introText}</p>
         </motion.div>
-      </div>
 
-      <motion.div
-        className="intro-visual"
-        role="img"
-        aria-hidden={image ? "false" : "true"}
-        style={{ marginTop: 0 }}
-        {...imageMotion}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          width={1600}
-          height={900}
-          quality={100}
-          sizes="100vw"
-          style={{ width: "100%", height: "auto", display: "block" }}
-          priority
-        />
-      </motion.div>
+        <motion.div
+          className="intro-visual"
+          role="img"
+          aria-hidden={introVideo ? "false" : image ? "false" : "true"}
+          style={{ marginTop: "var(--token-space-48)" }}
+          {...imageMotion}
+        >
+          {introVideo ? (
+            <video
+              src={introVideo}
+              poster={image}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <Image
+              src={src}
+              alt={alt}
+              width={1600}
+              height={900}
+              quality={100}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto", display: "block" }}
+              priority
+            />
+          )}
+        </motion.div>
+      </div>
     </motion.section>
   );
 }
