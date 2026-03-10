@@ -35,7 +35,11 @@ export default function HomePage() {
       <section
         className="section-wrap"
         style={{
-          paddingTop: "var(--token-space-48)", /* Gap between header and content: 48px */
+          // Extend the hero background up behind the fixed header by pulling
+          // the section up, then add the same amount back into paddingTop so
+          // the visible gap between header and hero text stays identical.
+          marginTop: "calc(-1 * (var(--token-size-64) + var(--token-space-24)))",
+          paddingTop: "calc(var(--token-space-48) + var(--token-size-64) + var(--token-space-24))",
           paddingBottom: "var(--token-space-24)", /* Hero bottom padding: 24px */
           backgroundColor: "var(--token-color-primary)", /* Hero background: primary color */
         }}

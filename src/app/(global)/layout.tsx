@@ -36,19 +36,6 @@ export default function GlobalLayout({
       <main
         style={{
           paddingTop: "calc(var(--token-size-64) + var(--token-space-24))",
-          // Fill the header clearance gap with primary color, then fall back
-          // to base for the rest of the page. This avoids giving the header
-          // its own background while ensuring the strip behind it matches
-          // the hero background on the home page.
-          background: `
-            linear-gradient(
-              to bottom,
-              var(--token-color-primary) 0,
-              var(--token-color-primary) calc(var(--token-size-64) + var(--token-space-24)),
-              var(--token-color-base) calc(var(--token-size-64) + var(--token-space-24)),
-              var(--token-color-base) 100%
-            )
-          `,
         }}
       >
         {children}
