@@ -170,6 +170,7 @@ const ServiceItem = ({
               <Image
                 src={imageSrc}
                 alt={imageAlt}
+                quality={100}
                 fill
                 sizes="(max-width: 768px) 100vw, 533px"
                 className="object-cover"

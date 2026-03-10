@@ -22,35 +22,64 @@ export default function BookCall({ id }: BookCallProps) {
         className="section-inner bookcall-wrapper"
         style={{
           paddingTop: "var(--token-space-24)",
-          paddingBottom: "var(--token-space-192)",
+          paddingBottom: "var(--token-space-24)",
         }}
       >
-        <Title
-          index="( 005 )"
-          label="book a call"
-          heading="Book a call"
-          headingId="book-call-title"
-        />
-
         {/* Desktop layout — hidden on mobile/tablet via CSS */}
         <div
           className="bookcall-content"
           style={{
-            marginTop: "var(--token-space-256)",
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "stretch",
             width: "100%",
+            gap: "var(--token-space-128)",
           }}
         >
-          {/* Illustration column */}
+          {/* Text + CTA column (top) */}
+          <div
+            className="bookcall-text"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: "var(--token-space-80)",
+            }}
+          >
+            <Title
+              index="( 005 )"
+              label="book a call"
+              heading="Book a call"
+              headingId="book-call-title"
+            />
+
+            <h4
+              style={{
+                fontFamily: "var(--token-font-family-base)",
+                fontSize: "var(--token-size-h4)",
+                fontWeight: "var(--token-weight-semibold)",
+                lineHeight: "var(--token-leading-120)",
+                color: "var(--token-color-accent)",
+                margin: 0,
+              }}
+            >
+              {FALLBACK_MESSAGE}
+            </h4>
+
+            <div>
+              <BookCallButton href="/contact" />
+            </div>
+          </div>
+
+          {/* Illustration column (bottom, right-aligned) */}
           <div
             className="bookcall-illustration-col"
             style={{
               display: "flex",
               alignItems: "flex-start",
               justifyContent: "flex-start",
+              alignSelf: "flex-end",
               margin: 0,
               padding: 0,
               flexShrink: 1,
@@ -75,42 +104,17 @@ export default function BookCall({ id }: BookCallProps) {
               }}
             />
           </div>
-
-          {/* Text + CTA column */}
-          <div
-            className="bookcall-text"
-            style={{
-              width: "566px",
-              maxWidth: "566px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: "var(--token-space-64)",
-              flexShrink: 0,
-            }}
-          >
-            <h4
-              style={{
-                fontFamily: "var(--token-font-family-base)",
-                fontSize: "var(--token-size-h4)",
-                fontWeight: "var(--token-weight-semibold)",
-                lineHeight: "var(--token-leading-120)",
-                color: "var(--token-color-accent)",
-                margin: 0,
-              }}
-            >
-              {FALLBACK_MESSAGE}
-            </h4>
-
-            <div>
-              <BookCallButton href="/contact" />
-            </div>
-          </div>
         </div>
 
         {/* Mobile & tablet layout — shown at max-width: 1023px via CSS */}
         <div className="bookcall-mobile-layout" aria-hidden="false">
-          {/* Paragraph above illustration on mobile/tablet */}
+          {/* Title above paragraph on mobile/tablet */}
+          <Title
+            index="( 005 )"
+            label="book a call"
+            heading="Book a call"
+          />
+          {/* Paragraph below Title on mobile/tablet */}
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">

@@ -60,6 +60,7 @@ const WorkCard = ({
           alt={imageAlt}
           fill
           sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+          quality={100}
           className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           style={{ borderRadius: 0 }}
           loading="lazy"

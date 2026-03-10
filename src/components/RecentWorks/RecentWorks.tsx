@@ -2,7 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Title from "@/components/Title";
-import WorkCard, { WorkCardProps } from "@/components/Works/WorkCard";
+import WorkCard from "@/components/Works/WorkCard";
+import { featuredProjects } from "@/data/featuredProjects";
 
 /**
  * RecentWorks — About page "Recent Works" section (1 row, 2 projects)
@@ -14,23 +15,6 @@ import WorkCard, { WorkCardProps } from "@/components/Works/WorkCard";
  * - Title → grid gap: 256px
  * - Section uses .section-wrap + .section-inner with 24px side paddings
  */
-
-const recentWorksProjects: WorkCardProps[] = [
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Portfolio Overview dashboard project preview",
-    href: "/projects/rotations-plus",
-  },
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Portfolio Overview dashboard project preview (variant)",
-    href: "/projects/rotations-plus-2",
-  },
-];
 
 export default function RecentWorks() {
   const prefersReducedMotion = useReducedMotion();
@@ -85,7 +69,7 @@ export default function RecentWorks() {
               rowGap: "var(--token-space-64)", /* 64px vertical gap */
             }}
           >
-            {recentWorksProjects.slice(0, 2).map((project, cardIndex) => (
+            {featuredProjects.map((project, cardIndex) => (
               <motion.div key={project.href ?? cardIndex} {...cardMotion(cardIndex)}>
                 <WorkCard {...project} />
               </motion.div>

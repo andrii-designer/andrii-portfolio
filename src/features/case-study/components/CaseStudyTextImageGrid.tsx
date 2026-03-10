@@ -130,6 +130,7 @@ export default function CaseStudyTextImageGrid({
             alt="Project image 1"
             width={684}
             height={455}
+            quality={100}
             style={{
               width: "100%",
               height: "auto",
@@ -142,6 +143,7 @@ export default function CaseStudyTextImageGrid({
             alt="Project image 2"
             width={684}
             height={455}
+            quality={100}
             style={{
               width: "100%",
               height: "auto",

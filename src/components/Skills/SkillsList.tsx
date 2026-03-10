@@ -47,6 +47,7 @@ const SkillsList = ({ skills }: SkillsListProps) => {
         display: "flex",
         flexDirection: "column",
         gap: "var(--token-space-0)",
+        width: "100%",
       }}
     >
       {skills.map((skill, index) => {
@@ -63,6 +64,8 @@ const SkillsList = ({ skills }: SkillsListProps) => {
               paddingTop: "var(--token-space-24)",
               paddingBottom: "var(--token-space-24)",
               borderBottom: isLast ? "none" : "1px solid var(--token-color-accent)",
+              width: "100%",
+              paddingRight: "0px",
             }}
           >
             {/* Dot indicator — 24px (same as Services) */}

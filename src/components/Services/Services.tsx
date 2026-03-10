@@ -49,28 +49,28 @@ const defaultServices: ServiceData[] = [
     title: "Web & Mobile Apps",
     description:
       "We'll discuss your goals, define the scope, and outline a clear plan so you know exactly what to expect.",
-    imageSrc: "/assets/images/services/placeholder.svg",
+    imageSrc: "/assets/Web & Mobile Apps.png",
     imageAlt: "Web and mobile app design preview",
   },
   {
-    title: "3D & Motion design",
+    title: "Motion design",
     description:
       "Creating immersive 3D visuals and smooth motion graphics that bring your brand to life.",
-    imageSrc: "/assets/images/services/placeholder.svg",
-    imageAlt: "3D and motion design preview",
+    imageSrc: "/assets/Motion design.png",
+    imageAlt: "Motion design service preview",
   },
   {
     title: "Branding",
     description:
       "Building cohesive brand identities that resonate with your audience and stand out in the market.",
-    imageSrc: "/assets/images/services/placeholder.svg",
+    imageSrc: "/assets/Branding.png",
     imageAlt: "Branding design preview",
   },
   {
     title: "3D, 2D",
     description:
       "Crafting detailed 2D and 3D illustrations that communicate your ideas with visual impact.",
-    imageSrc: "/assets/images/services/placeholder.svg",
+    imageSrc: "/assets/2D.png",
     imageAlt: "3D and 2D illustration preview",
   },
 ];
@@ -174,6 +174,7 @@ const Services = ({
             <Image
               src={heroImageSrc}
               alt={heroImageAlt}
+              quality={100}
               fill
               sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 50vw"
               className="object-cover"

@@ -6,6 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import { featuredProjects } from "@/data/featuredProjects";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -26,38 +27,6 @@ import Image from "next/image";
  * - Background: --token-color-primary (#d2d2d6)
  * - Spacing: --token-space-24, --token-space-48, --token-space-64, --token-space-192, --token-space-256
  */
-
-/** Sample project data — placeholder images for Works section (matches Figma screenshot) */
-const worksProjects = [
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Clinical Rotation platform project preview",
-    href: "/case-studies/raccord",
-  },
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Clinical Rotation platform project preview",
-    href: "/projects/rotations-plus-2",
-  },
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Clinical Rotation platform project preview",
-    href: "/projects/rotations-plus-3",
-  },
-  {
-    title: "Find Your Perfect Clinical Rotation",
-    client: "RotationsPlus",
-    imageSrc: "/assets/images/works/placeholder.svg",
-    imageAlt: "Clinical Rotation platform project preview",
-    href: "/projects/rotations-plus-4",
-  },
-];
 
 export default function HomePage() {
   return (
@@ -94,7 +63,7 @@ export default function HomePage() {
           <Works
             title="Works"
             index="001"
-            projects={worksProjects}
+            projects={featuredProjects}
           />
         </div>
       </section>
@@ -129,14 +98,21 @@ export default function HomePage() {
             aspectRatio: "16 / 9",
           }}
         >
-          {/* Placeholder image — replace with video when ready */}
-          <Image
-            src="/assets/images/works/placeholder.svg"
-            alt="Video preview"
-            fill
+          <video
             className="object-cover"
-            priority
-          />
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <source src="/assets/services.mp4" type="video/mp4" />
+          </video>
         </div>
       </section>
 
