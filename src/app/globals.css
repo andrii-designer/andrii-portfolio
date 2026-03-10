@@ -952,19 +952,17 @@ section.case-study-text-image .problem-solution-paragraph {
 .text-h6 { letter-spacing: var(--token-tracking-header-6); }
 
 /**
- * Testimonials — responsive show/hide for CSS-driven layout switching.
- * Both the mobile and desktop layouts are always present in the DOM so the
- * server-rendered HTML matches the client HTML regardless of viewport, preventing
- * React hydration mismatches that previously caused the blank-page bug.
+ * Testimonials — heading text switches between "Testimonials" (desktop) and
+ * "Feedback" (mobile) via CSS show/hide. Both <Title> elements are always in
+ * the DOM so SSR and client produce identical HTML, eliminating the hydration
+ * mismatch that caused the blank-page bug. Only the two lightweight <h2>
+ * elements are duplicated — the slide layout is rendered only once.
  */
 .testimonials-heading-mobile { display: none; }
-.testimonials-slides-mobile-wrap { display: none; }
 
 @media (max-width: 767px) {
   .testimonials-heading-desktop { display: none; }
   .testimonials-heading-mobile { display: block; }
-  .testimonials-slides-desktop-wrap { display: none; }
-  .testimonials-slides-mobile-wrap { display: block; }
 }
 
 /**

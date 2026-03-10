@@ -209,140 +209,10 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {/* Mobile layout (max-width: 767px): single article per slide — quote, text, avatar, meta, controls.
-            Rendered in DOM always; CSS hides on desktop. Shares the same currentIndex state. */}
-        <div className="testimonials-slides-mobile-wrap">
-          <div
-            className="testimonials-slides"
-            style={{
-              position: "relative",
-              width: "100%",
-              minHeight: "var(--token-size-192)",
-            }}
-          >
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.article
-                key={`mobile-${currentIndex}`}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={
-                  prefersReducedMotion
-                    ? { duration: 0 }
-                    : {
-                        x: { type: "spring", stiffness: 300, damping: 30 },
-                        opacity: { duration: 0.2 },
-                      }
-                }
-                className="testimonial-item"
-                aria-label={`Slide ${currentIndex + 1} of ${totalSlides}`}
-              >
-                <TestimonialCard
-                  testimonial={currentTestimonial}
-                  isActive={true}
-                  slideIndex={currentIndex + 1}
-                  totalSlides={totalSlides}
-                />
-                <div className="testimonial-avatar-block">
-                  <Image
-                    src={currentTestimonial.avatarSrc}
-                    alt={`${currentTestimonial.clientName} avatar`}
-                    width={64}
-                    height={64}
-                    className="testimonial-avatar"
-                  />
-                </div>
-                <div className="testimonial-meta">
-                  <div className="testimonial-name">{currentTestimonial.clientName}</div>
-                  <div className="testimonial-role-or-desc">
-                    {currentTestimonial.clientRole}
-                    {currentTestimonial.linkedInUrl && (
-                      <>
-                        {" • "}
-                        <a
-                          href={currentTestimonial.linkedInUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="label-link-md"
-                        >
-                          LinkedIn
-                        </a>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </motion.article>
-            </AnimatePresence>
-            {/* Controls sit outside AnimatePresence so they never slide with the content */}
-            <div
-              className="testimonial-controls"
-              role="group"
-              aria-label="Feedback controls"
-            >
-              <div
-                className="testimonial-pagination"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                {currentIndex + 1}/{totalSlides}
-              </div>
-              <div className="testimonial-controls-arrows">
-                <button
-                  type="button"
-                  onClick={() => paginate(-1)}
-                  disabled={isFirstSlide}
-                  aria-disabled={isFirstSlide}
-                  aria-label="Previous"
-                  className="testimonial-control prev"
-                >
-                  <Image
-                    src={
-                      isFirstSlide
-                        ? "/assets/images/testimonials/disabled arrow.svg"
-                        : "/assets/images/testimonials/active arrow.svg"
-                    }
-                    alt=""
-                    width={25}
-                    height={16}
-                    aria-hidden="true"
-                    style={{
-                      transform: isFirstSlide ? "none" : "rotate(180deg)",
-                    }}
-                  />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => paginate(1)}
-                  disabled={isLastSlide}
-                  aria-disabled={isLastSlide}
-                  aria-label="Next"
-                  className="testimonial-control next"
-                >
-                  <Image
-                    src={
-                      isLastSlide
-                        ? "/assets/images/testimonials/disabled arrow.svg"
-                        : "/assets/images/testimonials/active arrow.svg"
-                    }
-                    alt=""
-                    width={25}
-                    height={16}
-                    aria-hidden="true"
-                    style={{
-                      transform: isLastSlide ? "rotate(180deg)" : "none",
-                    }}
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop/tablet layout: slides + control row (avatar left, nav right).
-            Rendered in DOM always; CSS hides on mobile. Shares the same currentIndex state. */}
-        <div className="testimonials-slides-desktop-wrap">
+        {/* Single layout for all breakpoints.
+            The controls row stacks vertically on mobile via the media-query rule
+            in the <style jsx> block below (.testimonials-controls on ≤768px). */}
+        <div>
           <div
             className="testimonials-slides"
             style={{
@@ -353,7 +223,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           >
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
-                key={`desktop-${currentIndex}`}
+                key={currentIndex}
                 custom={direction}
                 variants={slideVariants}
                 initial="enter"
