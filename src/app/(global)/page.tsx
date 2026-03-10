@@ -104,6 +104,7 @@ export default function HomePage() {
             loop
             muted
             playsInline
+            preload="none"
             style={{
               position: "absolute",
               inset: 0,

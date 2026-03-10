@@ -131,7 +131,7 @@ export default function CaseStudyIntro({
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 style={{ width: "100%", height: "auto", display: "block" }}
               >
                 Your browser does not support the video tag.
