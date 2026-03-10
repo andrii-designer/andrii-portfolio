@@ -74,7 +74,7 @@ export default function CaseStudyProblemSolution({
       aria-label="Case study problem and solution"
       style={
         !noSectionBottomPadding
-          ? { paddingBottom: "0px" }
+          ? { paddingBottom: "var(--token-space-128)" }
           : undefined
       }
     >

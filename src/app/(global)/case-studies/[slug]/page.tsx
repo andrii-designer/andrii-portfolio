@@ -209,7 +209,6 @@ export default async function CaseStudyPage({ params }: Props) {
           solutionText="Introduce a dedicated “Edit Mode” that reveals drag‑and‑drop handles and an “+ Add Widget” tile, making layout changes and new widget additions immediately obvious and accessible."
           image="/assets/case-studies/raccord-section8.png"
           secondImage="/assets/case-studies/raccord-section9.png"
-          noSectionBottomPadding
         />
       )}
 
@@ -226,7 +225,7 @@ export default async function CaseStudyPage({ params }: Props) {
       {data.title === "Raccord" && (
         <CaseStudyFullImage
           topImage="/assets/case-studies/raccord-section11.png"
-          innerStyle={{ paddingTop: "var(--token-space-48)", paddingBottom: "var(--token-space-48)" }}
+          innerStyle={{ paddingTop: "0px", paddingBottom: "var(--token-space-128)" }}
         />
       )}
 
