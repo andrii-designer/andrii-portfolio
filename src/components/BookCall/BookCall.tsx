@@ -22,7 +22,7 @@ export default function BookCall({ id }: BookCallProps) {
         className="section-inner bookcall-wrapper"
         style={{
           paddingTop: "var(--token-space-24)",
-          paddingBottom: "var(--token-space-192)",
+          paddingBottom: "var(--token-space-24)",
         }}
       >
         {/* Desktop layout — hidden on mobile/tablet via CSS */}
@@ -30,46 +30,14 @@ export default function BookCall({ id }: BookCallProps) {
           className="bookcall-content"
           style={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "stretch",
             width: "100%",
-            gap: "128px",
+            gap: "var(--token-space-128)",
           }}
         >
-          {/* Illustration column */}
-          <div
-            className="bookcall-illustration-col"
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              margin: 0,
-              padding: 0,
-              flexShrink: 1,
-              minWidth: 0,
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="bookcall-illustration"
-              src={ILLUSTRATION_SRC}
-              alt="Book a call illustration"
-              style={{
-                height: "420px",
-                width: "auto",
-                maxWidth: "550px",
-                objectFit: "contain",
-                objectPosition: "left top",
-                borderRadius: 0,
-                display: "block",
-                margin: 0,
-                padding: 0,
-              }}
-            />
-          </div>
-
-          {/* Text + CTA column */}
+          {/* Text + CTA column (top) */}
           <div
             className="bookcall-text"
             style={{
@@ -102,6 +70,39 @@ export default function BookCall({ id }: BookCallProps) {
             <div>
               <BookCallButton href="/contact" />
             </div>
+          </div>
+
+          {/* Illustration column (bottom, right-aligned) */}
+          <div
+            className="bookcall-illustration-col"
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              alignSelf: "flex-end",
+              margin: 0,
+              padding: 0,
+              flexShrink: 1,
+              minWidth: 0,
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="bookcall-illustration"
+              src={ILLUSTRATION_SRC}
+              alt="Book a call illustration"
+              style={{
+                height: "420px",
+                width: "auto",
+                maxWidth: "550px",
+                objectFit: "contain",
+                objectPosition: "left top",
+                borderRadius: 0,
+                display: "block",
+                margin: 0,
+                padding: 0,
+              }}
+            />
           </div>
         </div>
 

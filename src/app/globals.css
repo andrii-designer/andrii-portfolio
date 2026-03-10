@@ -79,6 +79,16 @@ a {
   display: block;
 }
 
+/* Book a Call: ensure no extra vertical padding/margins on the outer section wrapper.
+ * All vertical spacing is controlled by the inner .bookcall-wrapper (24px top/bottom).
+ */
+.book-call-section {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .section-inner {
   width: 100%;
   max-width: none;
@@ -993,20 +1003,21 @@ section.case-study-text-image-grid .section-paragraph {
  */
 @media (min-width: 1024px) {
   .bookcall-wrapper {
-    padding-top: var(--token-space-192) !important;
-    padding-bottom: var(--token-space-192) !important;
+    padding-top: var(--token-space-24) !important;
+    padding-bottom: var(--token-space-24) !important;
   }
 
   .bookcall-illustration-col {
     flex: 1 1 auto !important;
     min-width: 0 !important;
+    align-self: flex-end !important;
   }
 
   .bookcall-illustration {
     width: 100% !important;
     height: auto !important;
-    min-width: 0 !important;
-    max-width: 550px !important;
+    min-width: 896px !important;
+    max-width: 100% !important;
   }
 
   .bookcall-text {
@@ -1055,13 +1066,14 @@ section.case-study-text-image-grid .section-paragraph {
     text-align: left;
   }
 
-  /* Illustration — 128px gap below paragraph at tablet, centered horizontally */
+  /* Illustration — appears below CTA at tablet, aligned to the right */
   .book-call-illustration {
+    order: 4;
     margin-top: var(--token-space-128);
     width: 100%;
     display: block;
-    text-align: center;
-    align-self: center;
+    text-align: right;
+    align-self: stretch;
   }
 
   .book-call-illustration img,
@@ -1072,12 +1084,13 @@ section.case-study-text-image-grid .section-paragraph {
     object-fit: cover;
     display: block;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 0;
   }
 
-  /* CTA — 96px gap below illustration at tablet, left-aligned */
+  /* CTA — directly under paragraph at tablet, left-aligned */
   .book-call-cta {
-    margin-top: var(--token-space-128);
+    order: 3;
+    margin-top: var(--token-space-80);
     display: flex;
     justify-content: flex-start;
     width: 100%;
@@ -1117,8 +1130,9 @@ section.case-study-text-image-grid .section-paragraph {
     text-align: left;
   }
 
-  /* Illustration — 80px gap below paragraph on mobile, centered horizontally */
+  /* Illustration — below CTA on mobile, centered horizontally */
   .book-call-illustration {
+    order: 4;
     margin-top: var(--token-space-128);
     width: 100%;
     display: block;
@@ -1137,9 +1151,10 @@ section.case-study-text-image-grid .section-paragraph {
     margin-right: auto;
   }
 
-  /* CTA — 80px gap below illustration on mobile, left-aligned */
+  /* CTA — directly under paragraph on mobile, left-aligned */
   .book-call-cta {
-    margin-top: var(--token-space-128);
+    order: 3;
+    margin-top: var(--token-space-80);
     display: flex;
     justify-content: flex-start;
     width: 100%;
