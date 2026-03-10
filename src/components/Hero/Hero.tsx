@@ -104,7 +104,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 sizes="(max-width: 768px) 100vw, 330px"
                 className="rounded-none object-cover"
                 style={{ borderRadius: 0 }}
-                loading="lazy"
+                priority
               />
             ) : (
               <video

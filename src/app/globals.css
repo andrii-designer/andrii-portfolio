@@ -952,6 +952,20 @@ section.case-study-text-image .problem-solution-paragraph {
 .text-h6 { letter-spacing: var(--token-tracking-header-6); }
 
 /**
+ * Testimonials — heading text switches between "Testimonials" (desktop) and
+ * "Feedback" (mobile) via CSS show/hide. Both <Title> elements are always in
+ * the DOM so SSR and client produce identical HTML, eliminating the hydration
+ * mismatch that caused the blank-page bug. Only the two lightweight <h2>
+ * elements are duplicated — the slide layout is rendered only once.
+ */
+.testimonials-heading-mobile { display: none; }
+
+@media (max-width: 767px) {
+  .testimonials-heading-desktop { display: none; }
+  .testimonials-heading-mobile { display: block; }
+}
+
+/**
  * Testimonials — mobile-only layout (max-width: 767px)
  * Section title "Feedback", avatar above meta, 24px gap avatar→meta, 64px gap meta→controls, 64×64 buttons.
  * Tokens only; desktop/tablet unchanged.
