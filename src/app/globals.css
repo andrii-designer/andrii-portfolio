@@ -707,11 +707,11 @@ a {
 
 /**
  * Case Study Intro — vertical paddings for content section
- * 24px top and bottom via spacing token.
+ * 24px top, 128px bottom on the section itself (no double-stacking).
  */
 .case-study-intro .section-inner {
   padding-top: var(--token-space-24);
-  padding-bottom: var(--token-space-24);
+  padding-bottom: var(--token-space-0);
 }
 
 .case-study-intro {
