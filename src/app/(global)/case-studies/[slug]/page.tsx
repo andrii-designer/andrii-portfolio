@@ -4,6 +4,7 @@ import {
   CaseStudyTextImage,
   CaseStudyTextImageGrid,
   CaseStudyFullImage,
+  CaseStudyProblemSolution,
 } from "@/features/case-study/components";
 import RecentWorks from "@/components/RecentWorks";
 import Footer from "@/components/Footer";
@@ -78,14 +79,19 @@ const caseStudies: Record<
     client: "X-pand",
     services: ["Product design"],
     heroImage: "/assets/case-studies/X-Pand.png",
-    introTitle: "Designing the X-pand product experience",
+    heroVideo:
+      "https://player.vimeo.com/video/1117263493?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1",
+    introTitle:
+      "X-pand - a smart bracelet with a dynamic screen that expands to different sizes.",
     introText:
-      "A concept project exploring how X-pand can present complex product data in a simple, actionable way. The case focuses on a clear hierarchy, responsive layouts, and a flexible system that can grow with the product.",
+      "X-Pand adapts to your life - from hands-free audio and compact wearability to full-sized productivity and cinematic entertainment. For this product I created 3D motion video and a promo website.",
     introImage: "/assets/case-studies/X-Pand.png",
+    introVideo:
+      "https://player.vimeo.com/video/1021938591?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&background=1",
     bodyTitle: "Scaling a product story with design systems.",
     bodyParagraph:
       "X-pand explores how consistent design systems can help teams move faster while keeping the experience cohesive. This case study shows how layout, typography, and interaction models scale across surfaces.",
-    bodyImage: "/assets/case-studies/X-Pand.png",
+    bodyImage: "/assets/case-studies/x-pand-section3.png",
     gridImages: [
       "/assets/case-studies/X-Pand.png",
       "/assets/case-studies/X-Pand.png",
@@ -138,30 +144,52 @@ export default async function CaseStudyPage({ params }: Props) {
 
       {/* Text + Image body section — reusable component */}
       <CaseStudyTextImage
-        title={data.bodyTitle ?? fallback.bodyTitle}
+        title={slug === "x-pand" ? "Logo" : data.bodyTitle ?? fallback.bodyTitle}
         paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
         image={data.bodyImage ?? fallback.bodyImage}
+        noSectionBottomPadding={data.title === "Raccord"}
       />
 
-      {/* Text + 2-image grid variant — follows after text+image section */}
-      <CaseStudyTextImageGrid
-        title={data.gridHasText === false ? undefined : data.bodyTitle ?? fallback.bodyTitle}
-        paragraph={
-          data.gridHasText === false ? undefined : data.bodyParagraph ?? fallback.bodyParagraph
-        }
-        images={data.gridImages ?? fallback.gridImages}
-        gridVideos={data.gridVideos}
-      />
+      {/* Title + Paragraph + 2 vertically stacked full-width images — X-pand only */}
+      {slug === "x-pand" && (
+        <CaseStudyTextImage
+          title={slug === "x-pand" ? "Website" : data.bodyTitle ?? fallback.bodyTitle}
+          paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+          image="/assets/case-studies/x-pand-section4.png"
+          secondImage="/assets/case-studies/x-pand-section4-2.png"
+        />
+      )}
+
+      {/* Second Title + Paragraph + 2 vertically stacked full-width images — X-pand only */}
+      {slug === "x-pand" && (
+        <CaseStudyTextImage
+          title={slug === "x-pand" ? "Branding" : data.bodyTitle ?? fallback.bodyTitle}
+          paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+          image="/assets/case-studies/x-pand-section5.png"
+          secondImage="/assets/case-studies/x-pand-section5-2.png"
+        />
+      )}
+
+      {/* Text + 2-image grid variant — follows after text+image section.
+          Hidden on X-pand per design direction. */}
+      {slug !== "x-pand" && (
+        <CaseStudyTextImageGrid
+          title={data.gridHasText === false ? undefined : data.bodyTitle ?? fallback.bodyTitle}
+          paragraph={
+            data.gridHasText === false ? undefined : data.bodyParagraph ?? fallback.bodyParagraph
+          }
+          images={data.gridImages ?? fallback.gridImages}
+          gridVideos={data.gridVideos}
+        />
+      )}
 
       {/* Problem/Solution section below grid — Raccord only */}
       {data.title === "Raccord" && (
-        <CaseStudyTextImage
-          title="Problem"
-          paragraph="First‑time users land on a blank dashboard with no guidance."
+        <CaseStudyProblemSolution
+          problemText="First‑time users land on a blank dashboard with no guidance."
+          solutionText="Implemented a 4‑step onboarding wizard that lets users pick KPIs and import their first asset inline, so they arrive at a fully populated, personalized view on day one."
           video="/assets/case-studies/raccord-section5.mp4"
-          bottomTitle="Solution"
-          bottomParagraph="Implemented a 4‑step onboarding wizard that lets users pick KPIs and import their first asset inline, so they arrive at a fully populated, personalized view on day one."
-          duplicateTextBelow
+          noSectionBottomPadding
         />
       )}
 
@@ -170,37 +198,27 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseStudyFullImage
           topImage="/assets/case-studies/raccord-section6.png"
           bottomImage="/assets/case-studies/raccord-section7.png"
+          innerStyle={{ paddingTop: "var(--token-space-48)" }}
         />
       )}
 
       {/* Second Problem/Solution section — Raccord only, placed after 2-image section */}
       {data.title === "Raccord" && (
-        <CaseStudyTextImage
-          title="Problem"
-          paragraph="Customization controls are hidden and hard to discover."
+        <CaseStudyProblemSolution
+          problemText="Customization controls are hidden and hard to discover."
+          solutionText="Introduce a dedicated “Edit Mode” that reveals drag‑and‑drop handles and an “+ Add Widget” tile, making layout changes and new widget additions immediately obvious and accessible."
           image="/assets/case-studies/raccord-section8.png"
-          bottomTitle="Solution"
-          bottomParagraph="Introduce a dedicated “Edit Mode” that reveals drag‑and‑drop handles and an “+ Add Widget” tile, making layout changes and new widget additions immediately obvious and accessible."
-          duplicateTextBelow
-        />
-      )}
-
-      {/* Single-image full-width section — Raccord only, placed after second Problem/Solution */}
-      {data.title === "Raccord" && (
-        <CaseStudyFullImage
-          topImage="/assets/case-studies/raccord-section9.png"
+          secondImage="/assets/case-studies/raccord-section9.png"
+          noSectionBottomPadding
         />
       )}
 
       {/* Third Problem/Solution section — Raccord only, placed after final full-width image */}
       {data.title === "Raccord" && (
-        <CaseStudyTextImage
-          title="Problem"
-          paragraph="Chart settings are buried in menus with no live feedback."
+        <CaseStudyProblemSolution
+          problemText="Chart settings are buried in menus with no live feedback."
+          solutionText="When in the Edit mode there is a slide‑in configuration panel that shows a live preview of each tweak, so users can adjust chart types, axes, and filters in context and with confidence."
           image="/assets/case-studies/raccord-section10.png"
-          bottomTitle="Solution"
-          bottomParagraph="When in the Edit mode there is a slide‑in configuration panel that shows a live preview of each tweak, so users can adjust chart types, axes, and filters in context and with confidence."
-          duplicateTextBelow
         />
       )}
 
@@ -208,6 +226,16 @@ export default async function CaseStudyPage({ params }: Props) {
       {data.title === "Raccord" && (
         <CaseStudyFullImage
           topImage="/assets/case-studies/raccord-section11.png"
+          innerStyle={{ paddingTop: "var(--token-space-48)", paddingBottom: "var(--token-space-48)" }}
+        />
+      )}
+
+      {/* Final video section — X-pand only: Title + text + Vimeo video */}
+      {slug === "x-pand" && (
+        <CaseStudyTextImage
+          title="Product video"
+          paragraph="A short 3D motion sequence that shows how X-pand shifts from a compact bracelet to a full, expanded screen in use."
+          video="https://player.vimeo.com/video/1117256647?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
         />
       )}
 

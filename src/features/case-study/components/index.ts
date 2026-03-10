@@ -7,6 +7,9 @@ export type { CaseStudyIntroProps } from "./CaseStudyIntro";
 export { default as CaseStudyTextImage } from "./CaseStudyTextImage";
 export type { CaseStudyTextImageProps } from "./CaseStudyTextImage";
 
+export { default as CaseStudyProblemSolution } from "./CaseStudyProblemSolution";
+export type { CaseStudyProblemSolutionProps } from "./CaseStudyProblemSolution";
+
 export { default as CaseStudyTextImageGrid } from "./CaseStudyTextImageGrid";
 export type { CaseStudyTextImageGridProps } from "./CaseStudyTextImageGrid";
 

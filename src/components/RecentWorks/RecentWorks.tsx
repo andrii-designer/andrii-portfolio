@@ -45,7 +45,7 @@ export default function RecentWorks() {
   return (
     <motion.section
       {...containerMotion}
-      className="section-wrap"
+      className="section-wrap bg-primary"
       aria-label="Recent works"
     >
       <div

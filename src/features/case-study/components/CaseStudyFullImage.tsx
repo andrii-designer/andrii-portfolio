@@ -1,5 +1,6 @@
-"use client";
+ "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -7,12 +8,14 @@ export type CaseStudyFullImageProps = {
   topImage: string;
   bottomImage?: string;
   alt?: string;
+  innerStyle?: CSSProperties;
 };
 
 export default function CaseStudyFullImage({
   topImage,
   bottomImage,
   alt = "Case study visual",
+  innerStyle,
 }: CaseStudyFullImageProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -33,7 +36,7 @@ export default function CaseStudyFullImage({
       className="case-study-full-image section-wrap"
       aria-label={alt}
     >
-      <div className="case-study-full-image__inner">
+      <div className="case-study-full-image__inner" style={innerStyle}>
         <motion.div {...imageMotion}>
           <Image
             src={topImage}

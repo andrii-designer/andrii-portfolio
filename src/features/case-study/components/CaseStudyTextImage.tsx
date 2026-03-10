@@ -7,7 +7,12 @@ export type CaseStudyTextImageProps = {
   title: string;
   paragraph?: string;
   image?: string;
+  secondImage?: string;
   duplicateTextBelow?: boolean;
+  /** Optional: disables extra bottom padding on the section wrapper */
+  noSectionBottomPadding?: boolean;
+  /** Optional variant for special typography/layout cases */
+  variant?: "default" | "problemSolution";
   video?: string;
   bottomTitle?: string;
   bottomParagraph?: string;
@@ -21,7 +26,10 @@ export default function CaseStudyTextImage({
   title,
   paragraph,
   image,
+  secondImage,
   duplicateTextBelow,
+  noSectionBottomPadding,
+  variant = "default",
   video,
   bottomTitle,
   bottomParagraph,
@@ -79,11 +87,26 @@ export default function CaseStudyTextImage({
   const src = image || "/assets/case-studies/placeholder-body.jpg";
   const alt = image ? `${title} image` : "Case study visual placeholder";
 
+  const titleClassName =
+    variant === "problemSolution"
+      ? "section-title problem-solution-title"
+      : "section-title";
+
+  const paragraphClassName =
+    variant === "problemSolution"
+      ? "section-paragraph problem-solution-paragraph"
+      : "section-paragraph";
+
   return (
     <motion.section
       {...containerMotion}
       className="case-study-text-image section-wrap"
       aria-label="Case study text and image"
+      style={
+        !duplicateTextBelow && !noSectionBottomPadding
+          ? { paddingBottom: "var(--token-space-128)" }
+          : undefined
+      }
     >
       <div
         className="section-inner"
@@ -101,7 +124,7 @@ export default function CaseStudyTextImage({
               textAlign: "left",
             }}
           >
-            <motion.h2 className="section-title" {...titleMotion}>
+            <motion.h2 className={titleClassName} {...titleMotion}>
               {title}
             </motion.h2>
           </div>
@@ -117,7 +140,7 @@ export default function CaseStudyTextImage({
             }}
             {...paragraphMotion}
           >
-            <p className="section-paragraph">{bodyText}</p>
+            <p className={paragraphClassName}>{bodyText}</p>
           </motion.div>
         </div>
       </div>
@@ -130,17 +153,38 @@ export default function CaseStudyTextImage({
         {...imageMotion}
       >
         {video ? (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          >
-            Your browser does not support the video tag.
-          </video>
+          video.includes("player.vimeo.com") ? (
+            <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
+              <iframe
+                src={video}
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title={`${title} video`}
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            </div>
+          ) : (
+            <video
+              src={video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            >
+              Your browser does not support the video tag.
+            </video>
+          )
         ) : (
           <Image
             src={src}
@@ -154,6 +198,25 @@ export default function CaseStudyTextImage({
           />
         )}
       </motion.div>
+
+      {secondImage && (
+        <motion.div
+          className="text-image-visual full-bleed"
+          style={{ marginTop: "var(--token-space-24)" }}
+          {...imageMotion}
+        >
+          <Image
+            src={secondImage}
+            alt={`${title} second image`}
+            width={1600}
+            height={900}
+            quality={100}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto", display: "block" }}
+            priority={false}
+          />
+        </motion.div>
+      )}
 
       {duplicateTextBelow && (
         <div
@@ -172,7 +235,7 @@ export default function CaseStudyTextImage({
                 textAlign: "left",
               }}
             >
-              <motion.h2 className="section-title" {...titleMotion}>
+              <motion.h2 className={titleClassName} {...titleMotion}>
                 {bottomTitle ?? title}
               </motion.h2>
             </div>
@@ -188,7 +251,7 @@ export default function CaseStudyTextImage({
               }}
               {...paragraphMotion}
             >
-            <p className="section-paragraph">
+            <p className={paragraphClassName}>
               {bottomParagraph ?? bodyText}
             </p>
             </motion.div>

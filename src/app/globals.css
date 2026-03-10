@@ -762,6 +762,30 @@ section.case-study-text-image-grid .section-paragraph {
   color: var(--token-color-accent);
 }
 
+/* Problem + Solution — mobile: stack columns vertically */
+@media (max-width: 767px) {
+  .problem-solution-row {
+    flex-direction: column !important;
+  }
+}
+
+/* Problem + Solution variant — h4 title + paragraph medium.
+   Uses h2 element tag to raise specificity (0,2,2) above the base .section-title rule (0,2,1). */
+section.case-study-text-image h2.problem-solution-title {
+  font-size: var(--token-size-h4) !important;
+  font-weight: var(--token-weight-semibold) !important;
+  line-height: var(--token-leading-110) !important;
+  letter-spacing: var(--token-tracking-header-4) !important;
+}
+
+section.case-study-text-image .problem-solution-paragraph {
+  font-family: var(--token-font-family-base);
+  font-size: var(--token-size-body-md) !important;
+  font-weight: var(--token-weight-semibold) !important;
+  line-height: var(--token-leading-150) !important;
+  color: var(--token-color-accent);
+}
+
 .case-study-text-image .text-image-row {
   width: 100%;
 }

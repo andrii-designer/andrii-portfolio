@@ -104,18 +104,39 @@ export default function CaseStudyIntro({
           {...imageMotion}
         >
           {introVideo ? (
-            <video
-              src={introVideo}
-              poster={image}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              style={{ width: "100%", height: "auto", display: "block" }}
-            >
-              Your browser does not support the video tag.
-            </video>
+            introVideo.includes("player.vimeo.com") ? (
+              <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
+                <iframe
+                  src={introVideo}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title={`${title} intro video`}
+                  allowFullScreen
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    border: "none",
+                  }}
+                />
+              </div>
+            ) : (
+              <video
+                src={introVideo}
+                poster={image}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            )
           ) : (
             <Image
               src={src}

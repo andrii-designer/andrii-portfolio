@@ -26,7 +26,7 @@ export default function GlobalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-primary font-base text-accent">
+    <div className="min-h-screen bg-base font-base text-accent">
       {/* Header uses its own section-wrap + section-inner pattern internally */}
       <Header />
       

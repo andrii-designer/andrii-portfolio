@@ -125,17 +125,38 @@ export default function CaseStudyHero({
 
       <motion.div className="hero-visual" {...imageMotion}>
         {heroVideo ? (
-          <video
-            src={heroVideo}
-            poster={heroImage}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{ width: "100%", height: "auto", display: "block" }}
-          >
-            Your browser does not support the video tag.
-          </video>
+          heroVideo.includes("player.vimeo.com") ? (
+            <div className="hero-video-embed">
+              <iframe
+                src={heroVideo}
+                width={3200}
+                height={1800}
+                frameBorder="0"
+                allow="autoplay; picture-in-picture"
+                sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox"
+                allowFullScreen
+                style={{
+                  width: "100%",
+                  aspectRatio: "16 / 9",
+                  height: "auto",
+                  display: "block",
+                  border: "none",
+                }}
+              />
+            </div>
+          ) : (
+            <video
+              src={heroVideo}
+              poster={heroImage}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{ width: "100%", height: "auto", display: "block" }}
+            >
+              Your browser does not support the video tag.
+            </video>
+          )
         ) : (
           <Image
             src={heroImage || "/assets/case-studies/placeholder-hero.png"}
