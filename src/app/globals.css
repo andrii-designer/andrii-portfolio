@@ -952,6 +952,22 @@ section.case-study-text-image .problem-solution-paragraph {
 .text-h6 { letter-spacing: var(--token-tracking-header-6); }
 
 /**
+ * Testimonials — responsive show/hide for CSS-driven layout switching.
+ * Both the mobile and desktop layouts are always present in the DOM so the
+ * server-rendered HTML matches the client HTML regardless of viewport, preventing
+ * React hydration mismatches that previously caused the blank-page bug.
+ */
+.testimonials-heading-mobile { display: none; }
+.testimonials-slides-mobile-wrap { display: none; }
+
+@media (max-width: 767px) {
+  .testimonials-heading-desktop { display: none; }
+  .testimonials-heading-mobile { display: block; }
+  .testimonials-slides-desktop-wrap { display: none; }
+  .testimonials-slides-mobile-wrap { display: block; }
+}
+
+/**
  * Testimonials — mobile-only layout (max-width: 767px)
  * Section title "Feedback", avatar above meta, 24px gap avatar→meta, 64px gap meta→controls, 64×64 buttons.
  * Tokens only; desktop/tablet unchanged.
