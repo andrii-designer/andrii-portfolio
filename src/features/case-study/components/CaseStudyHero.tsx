@@ -15,6 +15,8 @@ export type CaseStudyHeroProps = {
   services?: string[];
   /** Path to hero image — full-bleed, no side padding */
   heroImage?: string;
+  /** Optional path to hero video — when provided, replaces static hero image */
+  heroVideo?: string;
 };
 
 /**
@@ -32,6 +34,7 @@ export default function CaseStudyHero({
   client,
   services,
   heroImage,
+  heroVideo,
 }: CaseStudyHeroProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -121,16 +124,30 @@ export default function CaseStudyHero({
       </div>
 
       <motion.div className="hero-visual" {...imageMotion}>
-        <Image
-          src={heroImage || "/assets/case-studies/placeholder-hero.png"}
-          alt={`${title} hero image`}
-          width={1600}
-          height={900}
-          quality={100}
-          priority
-          sizes="100vw"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
+        {heroVideo ? (
+          <video
+            src={heroVideo}
+            poster={heroImage}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: "100%", height: "auto", display: "block" }}
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={heroImage || "/assets/case-studies/placeholder-hero.png"}
+            alt={`${title} hero image`}
+            width={1600}
+            height={900}
+            quality={100}
+            priority
+            sizes="100vw"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        )}
       </motion.div>
     </motion.section>
   );

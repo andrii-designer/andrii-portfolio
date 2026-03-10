@@ -7,6 +7,10 @@ export type CaseStudyTextImageProps = {
   title: string;
   paragraph?: string;
   image?: string;
+  duplicateTextBelow?: boolean;
+  video?: string;
+  bottomTitle?: string;
+  bottomParagraph?: string;
 };
 
 /**
@@ -17,6 +21,10 @@ export default function CaseStudyTextImage({
   title,
   paragraph,
   image,
+  duplicateTextBelow,
+  video,
+  bottomTitle,
+  bottomParagraph,
 }: CaseStudyTextImageProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -79,7 +87,10 @@ export default function CaseStudyTextImage({
     >
       <div
         className="section-inner"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+        style={{
+          paddingTop: "var(--token-space-24)",
+          paddingBottom: "var(--token-space-48)",
+        }}
       >
         <div className="text-image-row" style={{ width: "100%" }}>
           <div
@@ -100,9 +111,9 @@ export default function CaseStudyTextImage({
             style={{
               maxWidth: "566px",
               width: "100%",
-              marginLeft: "auto",
+              marginLeft: 0,
               textAlign: "left",
-              marginTop: "var(--token-space-256)",
+              marginTop: "var(--token-space-48)",
             }}
             {...paragraphMotion}
           >
@@ -113,20 +124,77 @@ export default function CaseStudyTextImage({
 
       <motion.div
         className="text-image-visual full-bleed"
-        style={{ marginTop: "0px" }}
+        style={{
+          marginTop: "0px",
+        }}
         {...imageMotion}
       >
-        <Image
-          src={src}
-          alt={alt}
-          width={1600}
-          height={900}
-          quality={100}
-          sizes="100vw"
-          style={{ width: "100%", height: "auto", display: "block" }}
-          priority={false}
-        />
+        {video ? (
+          <video
+            src={video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={src}
+            alt={alt}
+            width={1600}
+            height={900}
+            quality={100}
+            sizes="100vw"
+            style={{ width: "100%", height: "auto", display: "block" }}
+            priority={false}
+          />
+        )}
       </motion.div>
+
+      {duplicateTextBelow && (
+        <div
+          className="section-inner"
+          style={{
+            paddingTop: "var(--token-space-48)",
+            paddingBottom: "var(--token-space-128)",
+          }}
+        >
+          <div className="text-image-row" style={{ width: "100%" }}>
+            <div
+              className="title-wrap"
+              style={{
+                maxWidth: "684px",
+                width: "100%",
+                textAlign: "left",
+              }}
+            >
+              <motion.h2 className="section-title" {...titleMotion}>
+                {bottomTitle ?? title}
+              </motion.h2>
+            </div>
+
+            <motion.div
+              className="paragraph-wrap"
+              style={{
+                maxWidth: "566px",
+                width: "100%",
+                marginLeft: 0,
+                textAlign: "left",
+                marginTop: "var(--token-space-48)",
+              }}
+              {...paragraphMotion}
+            >
+            <p className="section-paragraph">
+              {bottomParagraph ?? bodyText}
+            </p>
+            </motion.div>
+          </div>
+        </div>
+      )}
     </motion.section>
   );
 }

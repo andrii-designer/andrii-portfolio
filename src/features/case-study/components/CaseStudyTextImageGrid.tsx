@@ -4,9 +4,10 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 export type CaseStudyTextImageGridProps = {
-  title: string;
+  title?: string;
   paragraph?: string;
   images?: string[]; // expected length >= 2; use placeholders if missing
+  gridVideos?: string[];
 };
 
 /**
@@ -17,6 +18,7 @@ export default function CaseStudyTextImageGrid({
   title,
   paragraph,
   images,
+  gridVideos,
 }: CaseStudyTextImageGridProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -66,12 +68,15 @@ export default function CaseStudyTextImageGrid({
 
   const bodyText =
     paragraph ??
-    "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.";
+    undefined;
 
   const firstImage =
     images?.[0] || "/assets/case-studies/placeholder-grid-1.svg";
   const secondImage =
     images?.[1] || "/assets/case-studies/placeholder-grid-2.svg";
+
+  const videoSources = gridVideos?.slice(0, 2) ?? [];
+  const hasVideos = videoSources.length > 0;
 
   return (
     <motion.section
@@ -82,75 +87,111 @@ export default function CaseStudyTextImageGrid({
       <div
         className="section-inner"
         style={{
-          paddingTop: "var(--token-space-128)",
+          paddingTop: "var(--token-space-0)",
           paddingBottom: "var(--token-space-128)",
         }}
       >
-        <div className="text-image-row" style={{ width: "100%" }}>
-          <div
-            className="title-wrap"
-            style={{
-              maxWidth: "684px",
-              width: "100%",
-              textAlign: "left",
-            }}
-          >
-            <motion.h2 className="section-title" {...titleMotion}>
-              {title}
-            </motion.h2>
-          </div>
+        {(title || bodyText) && (
+          <div className="text-image-row" style={{ width: "100%" }}>
+            <div
+              className="title-wrap"
+              style={{
+                maxWidth: "684px",
+                width: "100%",
+                textAlign: "left",
+              }}
+            >
+              {title && (
+                <motion.h2 className="section-title" {...titleMotion}>
+                  {title}
+                </motion.h2>
+              )}
+            </div>
 
-          <motion.div
-            className="paragraph-wrap"
-            style={{
-              maxWidth: "566px",
-              width: "100%",
-              marginLeft: "auto",
-              textAlign: "left",
-              marginTop: "var(--token-space-256)",
-            }}
-            {...paragraphMotion}
-          >
-            <p className="section-paragraph">{bodyText}</p>
-          </motion.div>
-        </div>
+            {bodyText && (
+              <motion.div
+                className="paragraph-wrap"
+                style={{
+                  maxWidth: "566px",
+                  width: "100%",
+                  marginLeft: "auto",
+                  textAlign: "left",
+                  marginTop: "var(--token-space-256)",
+                }}
+                {...paragraphMotion}
+              >
+                <p className="section-paragraph">{bodyText}</p>
+              </motion.div>
+            )}
+          </div>
+        )}
 
         <motion.div
           className="images-grid"
-          style={{
-            marginTop: "var(--token-space-80)",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "var(--token-space-24)",
-          }}
+          style={
+            hasVideos
+              ? {
+                  marginTop: "var(--token-space-80)",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "var(--token-space-24)",
+                }
+              : {
+                  marginTop: "var(--token-space-80)",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "var(--token-space-24)",
+                }
+          }
           {...gridMotion}
         >
-          <Image
-            src={firstImage}
-            alt="Project image 1"
-            width={684}
-            height={455}
-            quality={100}
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              objectFit: "cover",
-            }}
-          />
-          <Image
-            src={secondImage}
-            alt="Project image 2"
-            width={684}
-            height={455}
-            quality={100}
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              objectFit: "cover",
-            }}
-          />
+          {hasVideos ? (
+            <>
+              {videoSources.map((src) => (
+                <video
+                  key={src}
+                  src={src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ))}
+            </>
+          ) : (
+            <>
+              <Image
+                src={firstImage}
+                alt="Project image 1"
+                width={684}
+                height={455}
+                quality={100}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "cover",
+                }}
+              />
+              <Image
+                src={secondImage}
+                alt="Project image 2"
+                width={684}
+                height={455}
+                quality={100}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "cover",
+                }}
+              />
+            </>
+          )}
         </motion.div>
       </div>
     </motion.section>

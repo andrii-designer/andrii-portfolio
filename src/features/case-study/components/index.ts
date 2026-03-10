@@ -9,3 +9,6 @@ export type { CaseStudyTextImageProps } from "./CaseStudyTextImage";
 
 export { default as CaseStudyTextImageGrid } from "./CaseStudyTextImageGrid";
 export type { CaseStudyTextImageGridProps } from "./CaseStudyTextImageGrid";
+
+export { default as CaseStudyFullImage } from "./CaseStudyFullImage";
+export type { CaseStudyFullImageProps } from "./CaseStudyFullImage";
