@@ -129,7 +129,7 @@ export default function CaseStudyTextImageGrid({
         <motion.div
           className="images-grid"
           style={{
-            marginTop: (title || bodyText) ? "var(--token-space-80)" : "var(--token-space-0)",
+            marginTop: "var(--token-space-80)",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "var(--token-space-24)",

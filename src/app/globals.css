@@ -711,7 +711,7 @@ a {
  */
 .case-study-intro .section-inner {
   padding-top: var(--token-space-24);
-  padding-bottom: var(--token-space-0);
+  padding-bottom: var(--token-space-24);
 }
 
 .case-study-intro {
