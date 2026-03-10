@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 /**
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.variable}>
-      <body className={manrope.className}>{children}</body>
+      <body className={manrope.className}>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
