@@ -147,7 +147,6 @@ export default function Header({ links = defaultNavLinks, className }: HeaderPro
       style={{
         minHeight: "var(--token-size-64)", // Base token height; header can grow if logo/content is taller
         paddingTop: "var(--token-space-16)",
-        backgroundColor: "var(--token-color-primary)", // Header background uses primary color
         position: "fixed",
         top: 0,
         left: 0,
