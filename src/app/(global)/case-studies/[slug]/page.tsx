@@ -153,7 +153,7 @@ export default async function CaseStudyPage({ params }: Props) {
         gridVideos={data.gridVideos}
       />
 
-      {/* Duplicated text+image section below grid — Raccord only */}
+      {/* Problem/Solution section below grid — Raccord only */}
       {data.title === "Raccord" && (
         <CaseStudyTextImage
           title="Problem"
@@ -167,7 +167,48 @@ export default async function CaseStudyPage({ params }: Props) {
 
       {/* Full-width image section — Raccord only */}
       {data.title === "Raccord" && (
-        <CaseStudyFullImage image="/assets/case-studies/raccord-section6.png" />
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section6.png"
+          bottomImage="/assets/case-studies/raccord-section7.png"
+        />
+      )}
+
+      {/* Second Problem/Solution section — Raccord only, placed after 2-image section */}
+      {data.title === "Raccord" && (
+        <CaseStudyTextImage
+          title="Problem"
+          paragraph="Customization controls are hidden and hard to discover."
+          image="/assets/case-studies/raccord-section8.png"
+          bottomTitle="Solution"
+          bottomParagraph="Introduce a dedicated “Edit Mode” that reveals drag‑and‑drop handles and an “+ Add Widget” tile, making layout changes and new widget additions immediately obvious and accessible."
+          duplicateTextBelow
+        />
+      )}
+
+      {/* Single-image full-width section — Raccord only, placed after second Problem/Solution */}
+      {data.title === "Raccord" && (
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section9.png"
+        />
+      )}
+
+      {/* Third Problem/Solution section — Raccord only, placed after final full-width image */}
+      {data.title === "Raccord" && (
+        <CaseStudyTextImage
+          title="Problem"
+          paragraph="Chart settings are buried in menus with no live feedback."
+          image="/assets/case-studies/raccord-section10.png"
+          bottomTitle="Solution"
+          bottomParagraph="When in the Edit mode there is a slide‑in configuration panel that shows a live preview of each tweak, so users can adjust chart types, axes, and filters in context and with confidence."
+          duplicateTextBelow
+        />
+      )}
+
+      {/* Final single-image full-width section — Raccord only */}
+      {data.title === "Raccord" && (
+        <CaseStudyFullImage
+          topImage="/assets/case-studies/raccord-section11.png"
+        />
       )}
 
       {/* Recent Works — last content section above Footer */}

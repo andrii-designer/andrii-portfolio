@@ -4,12 +4,14 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 export type CaseStudyFullImageProps = {
-  image: string;
+  topImage: string;
+  bottomImage?: string;
   alt?: string;
 };
 
 export default function CaseStudyFullImage({
-  image,
+  topImage,
+  bottomImage,
   alt = "Case study visual",
 }: CaseStudyFullImageProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -34,7 +36,7 @@ export default function CaseStudyFullImage({
       <div className="case-study-full-image__inner">
         <motion.div {...imageMotion}>
           <Image
-            src={image}
+            src={topImage}
             alt={alt}
             width={1600}
             height={900}
@@ -43,6 +45,23 @@ export default function CaseStudyFullImage({
             style={{ width: "100%", height: "auto", display: "block" }}
           />
         </motion.div>
+
+        {bottomImage && (
+          <motion.div
+            {...imageMotion}
+            style={{ marginTop: "var(--token-space-48)" }}
+          >
+            <Image
+              src={bottomImage}
+              alt={alt}
+              width={1600}
+              height={900}
+              quality={100}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </motion.div>
+        )}
       </div>
     </section>
   );
