@@ -42,10 +42,10 @@ const internalLinks = [
 ];
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/andriivynarchyk" },
-  { label: "Instagram", href: "https://instagram.com/andriivynarchyk" },
-  { label: "Behance", href: "https://behance.net/andriivynarchyk" },
-  { label: "Dribbble", href: "https://dribbble.com/andriivynarchyk" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/andrew-vynarchyk/" },
+  { label: "Instagram", href: "https://www.instagram.com/vynar.design/" },
+  { label: "Behance", href: "https://www.behance.net/andriyvynarchyk" },
+  { label: "Dribbble", href: "https://dribbble.com/vynarchyck" },
 ];
 
 /** Copy icon SVG component matching the project asset */
@@ -185,6 +185,20 @@ export default function Footer({ className = "" }: FooterProps) {
                 >
                   <CopyIcon />
                 </button>
+
+                {copyStatus === "copied" && (
+                  <span
+                    style={{
+                      fontFamily: "var(--token-font-family-base)",
+                      fontSize: "var(--token-size-label-sm)",
+                      fontWeight: "var(--token-weight-medium)",
+                      lineHeight: "var(--token-leading-140)",
+                      color: "var(--token-color-accent)",
+                    }}
+                  >
+                    Copied
+                  </span>
+                )}
               </div>
 
               {/* Accessible status announcement */}

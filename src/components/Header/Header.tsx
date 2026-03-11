@@ -62,10 +62,10 @@ const defaultNavLinks: NavLink[] = [
 
 /** Social links for mobile menu (same as Footer) */
 const socialLinks = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/andriivynarchyk" },
-  { label: "Instagram", href: "https://instagram.com/andriivynarchyk" },
-  { label: "Behance", href: "https://behance.net/andriivynarchyk" },
-  { label: "Dribbble", href: "https://dribbble.com/andriivynarchyk" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/andrew-vynarchyk/" },
+  { label: "Instagram", href: "https://www.instagram.com/vynar.design/" },
+  { label: "Behance", href: "https://www.behance.net/andriyvynarchyk" },
+  { label: "Dribbble", href: "https://dribbble.com/vynarchyck" },
 ];
 
 export default function Header({ links = defaultNavLinks, className }: HeaderProps) {
