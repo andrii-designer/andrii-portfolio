@@ -700,7 +700,7 @@ a {
  */
 .case-study-intro .intro-paragraph {
   font-family: var(--token-font-family-base);
-  font-size: var(--token-size-body-lg); /* 18px */
+  font-size: var(--token-size-body-lg); /* Paragraph Large — 24px desktop */
   font-weight: var(--token-weight-semibold); /* 600 */
   line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
@@ -766,7 +766,7 @@ section.case-study-text-image-grid .section-title {
 section.case-study-text-image .section-paragraph,
 section.case-study-text-image-grid .section-paragraph {
   font-family: var(--token-font-family-base);
-  font-size: var(--token-size-body-lg) !important; /* 18px */
+  font-size: var(--token-size-body-sm) !important; /* Paragraph Small — 18px desktop */
   font-weight: var(--token-weight-semibold) !important; /* 600 */
   line-height: var(--token-leading-150) !important; /* 150% */
   color: var(--token-color-accent);
