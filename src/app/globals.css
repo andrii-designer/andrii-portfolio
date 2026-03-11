@@ -1485,3 +1485,39 @@ section.case-study-text-image .problem-solution-paragraph {
   overflow: hidden;
 }
 
+/* ─── OptimizedImage / optimized-media wrapper ─────────────────────────────── */
+.optimized-media {
+  background: var(--token-color-primary, #D2D2D6);
+  position: relative;
+  overflow: hidden;
+}
+
+.optimized-media img,
+.optimized-media .next-image {
+  opacity: 0;
+  transition: opacity 280ms ease;
+  will-change: opacity;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.optimized-media.is-loaded img,
+.optimized-media.is-loaded .next-image {
+  opacity: 1;
+}
+
+/* If using fill mode, ensure wrapper provides a stacking context for next/image fill */
+.optimized-media.fill {
+  position: relative;
+}
+
+.optimized-media.fill > .next-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
