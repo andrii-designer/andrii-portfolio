@@ -817,9 +817,9 @@ section.case-study-text-image .problem-solution-paragraph {
 
 @media (max-width: 767px) {
   .case-study-text-image .text-image-visual {
-    padding-inline: var(--token-space-12);
-    padding-left: var(--token-space-12);
-    padding-right: var(--token-space-12);
+    padding-inline: var(--token-space-8);
+    padding-left: var(--token-space-8);
+    padding-right: var(--token-space-8);
   }
 }
 
@@ -858,8 +858,8 @@ section.case-study-text-image .problem-solution-paragraph {
 /* Mobile (<768px): 12px side padding */
 @media (max-width: 767px) {
   .case-study-full-image__inner {
-    padding-left: var(--token-space-12);
-    padding-right: var(--token-space-12);
+    padding-left: var(--token-space-8);
+    padding-right: var(--token-space-8);
   }
 }
 
