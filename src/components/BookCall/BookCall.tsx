@@ -2,8 +2,6 @@
 
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
-
-const ILLUSTRATION_SRC = "/assets/images/book%20a%20call/illustration.svg";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
 export type BookCallProps = {
@@ -72,7 +70,7 @@ export default function BookCall({ id }: BookCallProps) {
             </div>
           </div>
 
-          {/* Illustration column (bottom, right-aligned) */}
+          {/* Illustration column (bottom, right-aligned) — now uses showreel2026.mp4 video with same scaling as Hero media */}
           <div
             className="bookcall-illustration-col"
             style={{
@@ -84,24 +82,23 @@ export default function BookCall({ id }: BookCallProps) {
               padding: 0,
               flexShrink: 1,
               minWidth: 0,
+              maxWidth: "550px",
+              height: "420px",
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="bookcall-illustration"
-              src={ILLUSTRATION_SRC}
-              alt="Book a call illustration"
+            <video
+              src="/assets/showreel2026.mp4"
+              className="bookcall-illustration h-full w-full rounded-none object-cover"
               style={{
-                height: "420px",
-                width: "auto",
-                maxWidth: "550px",
-                objectFit: "contain",
-                objectPosition: "left top",
                 borderRadius: 0,
                 display: "block",
                 margin: 0,
                 padding: 0,
               }}
+              muted
+              autoPlay
+              loop
+              playsInline
             />
           </div>
         </div>
@@ -118,16 +115,19 @@ export default function BookCall({ id }: BookCallProps) {
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={ILLUSTRATION_SRC}
-              alt="Book a call illustration"
+            <video
+              src="/assets/showreel2026.mp4"
+              className="w-full rounded-none object-cover"
               style={{
-                width: "100%",
                 maxWidth: "550px",
                 height: "auto",
                 display: "block",
+                margin: 0,
               }}
+              muted
+              autoPlay
+              loop
+              playsInline
             />
           </div>
 
