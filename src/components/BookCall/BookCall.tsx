@@ -2,6 +2,7 @@
 
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
+import LazyVideo from "@/components/LazyVideo";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
 export type BookCallProps = {
@@ -84,21 +85,18 @@ export default function BookCall({ id }: BookCallProps) {
               minWidth: 0,
             }}
           >
-            <figure
-              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto"
+            <LazyVideo
+              sources={[{ src: "/assets/showreel2026.mp4", type: "video/mp4" }]}
+              muted
+              autoPlay
+              loop
+              playsInline
+              preload="metadata"
+              className="showreel-video h-full w-full rounded-none object-cover"
               style={{ borderRadius: 0 }}
-            >
-              <video
-                src="/assets/showreel2026.mp4"
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="none"
-              />
-            </figure>
+              wrapperClassName="w-full shrink-0 rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto"
+              wrapperStyle={{ borderRadius: 0 }}
+            />
           </div>
         </div>
 
@@ -114,21 +112,18 @@ export default function BookCall({ id }: BookCallProps) {
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
-            <figure
-              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220]"
+            <LazyVideo
+              sources={[{ src: "/assets/showreel2026.mp4", type: "video/mp4" }]}
+              muted
+              autoPlay
+              loop
+              playsInline
+              preload="metadata"
+              className="showreel-video h-full w-full rounded-none object-cover"
               style={{ borderRadius: 0 }}
-            >
-              <video
-                src="/assets/showreel2026.mp4"
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="none"
-              />
-            </figure>
+              wrapperClassName="w-full shrink-0 rounded-none aspect-[330/220]"
+              wrapperStyle={{ borderRadius: 0 }}
+            />
           </div>
 
           <div className="book-call-cta">
