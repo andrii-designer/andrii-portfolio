@@ -1452,3 +1452,26 @@ section.case-study-text-image .problem-solution-paragraph {
   }
 }
 
+/* ─── OptimizedImage placeholder + fade-in ────────────────────────────────── */
+.optimized-image {
+  background: var(--token-color-primary, #D2D2D6);
+  position: relative;
+  overflow: hidden;
+}
+
+.optimized-image .next-image {
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.optimized-image.is-loaded .next-image {
+  opacity: 1;
+}
+
+/* ─── LazyVideo placeholder ───────────────────────────────────────────────── */
+.lazy-video-wrapper {
+  background: var(--token-color-primary, #D2D2D6);
+  position: relative;
+  overflow: hidden;
+}
+
