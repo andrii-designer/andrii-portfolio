@@ -283,6 +283,7 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
                   alt={`${currentTestimonial.clientName}'s profile photo`}
                   width={64}
                   height={64}
+                  sizes="64px"
                   style={{
                     width: "100%",
                     height: "100%",

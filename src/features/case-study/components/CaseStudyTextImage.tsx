@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/OptimizedImage";
+import LazyVideo from "@/components/LazyVideo";
 
 export type CaseStudyTextImageProps = {
   title: string;
@@ -173,20 +174,19 @@ export default function CaseStudyTextImage({
               />
             </div>
           ) : (
-            <video
-              src={video}
+            <LazyVideo
+              sources={[{ src: video, type: "video/mp4" }]}
               autoPlay
               loop
               muted
               playsInline
               preload="metadata"
               style={{ width: "100%", height: "auto", display: "block" }}
-            >
-              Your browser does not support the video tag.
-            </video>
+              wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
+            />
           )
         ) : (
-          <Image
+          <OptimizedImage
             src={src}
             alt={alt}
             width={1600}
@@ -195,6 +195,7 @@ export default function CaseStudyTextImage({
             sizes="100vw"
             loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
+            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
           />
         )}
       </motion.div>
@@ -205,7 +206,7 @@ export default function CaseStudyTextImage({
           style={{ marginTop: "var(--token-space-24)" }}
           {...imageMotion}
         >
-          <Image
+          <OptimizedImage
             src={secondImage}
             alt={`${title} second image`}
             width={1600}
@@ -214,6 +215,7 @@ export default function CaseStudyTextImage({
             sizes="100vw"
             loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
+            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
           />
         </motion.div>
       )}

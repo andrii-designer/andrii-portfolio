@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/OptimizedImage";
+import LazyVideo from "@/components/LazyVideo";
 
 /**
  * Props for the CaseStudyHero component.
@@ -145,8 +146,8 @@ export default function CaseStudyHero({
               />
             </div>
           ) : (
-            <video
-              src={heroVideo}
+            <LazyVideo
+              sources={[{ src: heroVideo, type: "video/mp4" }]}
               poster={heroImage}
               autoPlay
               loop
@@ -154,12 +155,11 @@ export default function CaseStudyHero({
               playsInline
               preload="metadata"
               style={{ width: "100%", height: "auto", display: "block" }}
-            >
-              Your browser does not support the video tag.
-            </video>
+              wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
+            />
           )
         ) : (
-          <Image
+          <OptimizedImage
             src={heroImage || "/assets/case-studies/placeholder-hero.png"}
             alt={`${title} hero image`}
             width={1600}
@@ -168,6 +168,7 @@ export default function CaseStudyHero({
             priority
             sizes="100vw"
             style={{ width: "100%", height: "auto", display: "block" }}
+            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
           />
         )}
       </motion.div>

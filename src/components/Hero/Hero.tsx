@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { BookCallButton } from "@/components/Button";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/OptimizedImage";
+import LazyVideo from "@/components/LazyVideo";
 
 /**
  * Hero — Figma node-id: 2224:4198 (Content frame)
@@ -90,15 +91,15 @@ const Hero = ({ title, cta, media }: HeroProps) => {
         data-node-id="2224:4200"
       >
         {/* Video Preview — Figma node-id: 2224:4206. DOM order: video then CTA (mobile: title → video → button). md+: order-2 so it appears on the right. */}
-        {media && (
+          {media && (
           <figure
-            className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220] md:order-2
+            className="w-full shrink-0 rounded-none aspect-[330/220] md:order-2
               md:w-[330px] md:h-[220px] md:aspect-auto"
             style={{ borderRadius: 0 }}
             data-node-id="2224:4206"
           >
             {media.type === "image" ? (
-              <Image
+              <OptimizedImage
                 src={media.src}
                 alt="Portfolio preview"
                 fill
@@ -107,17 +108,19 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 style={{ borderRadius: 0 }}
                 priority
                 quality={85}
+                wrapperStyle={{ width: "100%", height: "100%" }}
               />
             ) : (
-              <video
-                src={media.src}
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
+              <LazyVideo
+                sources={[{ src: media.src, type: "video/mp4" }]}
                 muted
                 autoPlay
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
+                className="showreel-video h-full w-full rounded-none object-cover"
+                style={{ borderRadius: 0 }}
+                wrapperStyle={{ width: "100%", height: "100%" }}
               />
             )}
           </figure>
