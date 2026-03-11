@@ -87,6 +87,7 @@ export default function BookCall({ id }: BookCallProps) {
           >
             <LazyVideo
               sources={[{ src: "/assets/showreel2026.mp4", type: "video/mp4" }]}
+              poster="/assets/images/thumbs/showreel2026-thumb.webp"
               muted
               autoPlay
               loop
@@ -114,6 +115,7 @@ export default function BookCall({ id }: BookCallProps) {
           <div className="book-call-illustration">
             <LazyVideo
               sources={[{ src: "/assets/showreel2026.mp4", type: "video/mp4" }]}
+              poster="/assets/images/thumbs/showreel2026-thumb.webp"
               muted
               autoPlay
               loop

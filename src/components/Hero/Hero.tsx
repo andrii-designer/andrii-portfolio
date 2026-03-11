@@ -113,6 +113,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
             ) : (
               <LazyVideo
                 sources={[{ src: media.src, type: "video/mp4" }]}
+                poster="/assets/images/thumbs/showreel2026-thumb.webp"
                 muted
                 autoPlay
                 loop

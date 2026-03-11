@@ -92,7 +92,7 @@ export default function HomePage() {
       </section>
 
       {/* Video Section — Full width, no side padding */}
-      {/* Replaced local MP4 with lazy Vimeo embed (poster shown until user clicks). */}
+      {/* .video-section-inner owns the 16:9 aspect-ratio; LazyVimeo fills it. */}
       <section
         className="video-section-fullbleed"
         style={{
@@ -100,13 +100,15 @@ export default function HomePage() {
         }}
         data-node-id="video-section"
       >
-        <LazyVimeo
-          poster="/assets/images/thumbs/showreel2026-thumb.webp"
-          iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
-          aspectPadding="56.25%"
-          ariaLabel="Showreel 2026"
-          playOnVisible={false}
-        />
+        <div className="video-section-inner">
+          <LazyVimeo
+            fill
+            poster="/assets/images/thumbs/showreel2026-thumb.webp"
+            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+            ariaLabel="Showreel 2026"
+            playOnVisible={false}
+          />
+        </div>
       </section>
 
       {/* Process Section — below Video */}
