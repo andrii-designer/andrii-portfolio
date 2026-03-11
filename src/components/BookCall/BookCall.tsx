@@ -57,9 +57,9 @@ export default function BookCall({ id }: BookCallProps) {
             <h4
               style={{
                 fontFamily: "var(--token-font-family-base)",
-                fontSize: "var(--token-size-h4)",
+                fontSize: "var(--token-size-body-lg)", // Paragraph - Large token
                 fontWeight: "var(--token-weight-semibold)",
-                lineHeight: "var(--token-leading-120)",
+                lineHeight: "var(--token-leading-150)",
                 color: "var(--token-color-accent)",
                 margin: 0,
               }}
