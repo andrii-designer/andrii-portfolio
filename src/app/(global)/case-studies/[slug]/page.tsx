@@ -257,6 +257,7 @@ export default async function CaseStudyPage({ params }: Props) {
           title="Product video"
           paragraph="A short 3D motion sequence that shows how X-pand shifts from a compact bracelet to a full, expanded screen in use."
           video="https://player.vimeo.com/video/1117256647?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+          videoPoster="/assets/images/thumbs/x-pand3-thumb.webp"
         />
       )}
 

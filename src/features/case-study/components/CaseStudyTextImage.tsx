@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import OptimizedImage from "@/components/OptimizedImage";
 import LazyVideo from "@/components/LazyVideo";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 export type CaseStudyTextImageProps = {
   title: string;
@@ -15,6 +16,10 @@ export type CaseStudyTextImageProps = {
   /** Optional variant for special typography/layout cases */
   variant?: "default" | "problemSolution";
   video?: string;
+  /** Poster image shown in LazyVimeo before iframe is inserted (Vimeo video only) */
+  videoPoster?: string;
+  /** CSS padding-top % for Vimeo video aspect ratio (e.g. "56.25%") */
+  videoAspectPadding?: string;
   bottomTitle?: string;
   bottomParagraph?: string;
 };
@@ -32,6 +37,8 @@ export default function CaseStudyTextImage({
   noSectionBottomPadding,
   variant = "default",
   video,
+  videoPoster = "",
+  videoAspectPadding = "56.25%",
   bottomTitle,
   bottomParagraph,
 }: CaseStudyTextImageProps) {
@@ -155,24 +162,13 @@ export default function CaseStudyTextImage({
       >
         {video ? (
           video.includes("player.vimeo.com") ? (
-            <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
-              <iframe
-                src={video}
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                title={`${title} video`}
-                allowFullScreen
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: "none",
-                }}
-              />
-            </div>
+            <LazyVimeo
+              poster={videoPoster}
+              iframeSrc={video}
+              aspectPadding={videoAspectPadding}
+              ariaLabel={`${title} video`}
+              playOnVisible={true}
+            />
           ) : (
             <LazyVideo
               sources={[{ src: video, type: "video/mp4" }]}
