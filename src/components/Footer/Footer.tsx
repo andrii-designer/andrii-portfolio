@@ -35,8 +35,8 @@ export type FooterProps = {
 
 /** Navigation link columns data */
 const internalLinks = [
-  { label: "Work", href: "#works" },
-  { label: "Services", href: "#services" },
+  { label: "Work", href: "/#works" },
+  { label: "Services", href: "/#services" },
   { label: "About", href: "/about" },
 ];
 
