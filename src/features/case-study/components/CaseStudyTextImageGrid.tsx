@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { imageSizes } from "@/lib/imageSizes";
 
 export type CaseStudyTextImageGridProps = {
   title?: string;
@@ -146,7 +147,7 @@ export default function CaseStudyTextImageGrid({
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   style={{ width: "100%", height: "auto", display: "block" }}
                 >
                   Your browser does not support the video tag.
@@ -160,7 +161,9 @@ export default function CaseStudyTextImageGrid({
                 alt="Project image 1"
                 width={684}
                 height={455}
-                quality={100}
+                quality={85}
+                sizes={imageSizes.gridHalf}
+                loading="lazy"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -173,7 +176,9 @@ export default function CaseStudyTextImageGrid({
                 alt="Project image 2"
                 width={684}
                 height={455}
-                quality={100}
+                quality={85}
+                sizes={imageSizes.gridHalf}
+                loading="lazy"
                 style={{
                   width: "100%",
                   height: "auto",

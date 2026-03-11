@@ -96,6 +96,7 @@ export default function BookCall({ id }: BookCallProps) {
                 autoPlay
                 loop
                 playsInline
+                preload="none"
               />
             </figure>
           </div>
@@ -125,6 +126,7 @@ export default function BookCall({ id }: BookCallProps) {
                 autoPlay
                 loop
                 playsInline
+                preload="none"
               />
             </figure>
           </div>

@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "extract-tokens": "node scripts/extract-tokens.js"
+    "extract-tokens": "node scripts/extract-tokens.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "optimize:videos": "node scripts/optimize-videos.js",
+    "optimize": "npm run optimize:images && npm run optimize:videos",
+    "prepare-build": "node -e \"if(process.env.ASSETS_OPTIMIZE==='true'){require('child_process').execSync('npm run optimize',{stdio:'inherit'})}\""
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

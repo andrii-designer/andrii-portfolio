@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { imageSizes } from "@/lib/imageSizes";
 
 /**
  * ServiceItem — Individual service item for Services section
@@ -170,9 +171,9 @@ const ServiceItem = ({
               <Image
                 src={imageSrc}
                 alt={imageAlt}
-                quality={100}
+                quality={85}
                 fill
-                sizes="(max-width: 768px) 100vw, 533px"
+                sizes={imageSizes.serviceImage}
                 className="object-cover"
                 style={{ borderRadius: 0 }}
                 loading="lazy"
