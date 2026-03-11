@@ -1520,6 +1520,49 @@ section.case-study-text-image .problem-solution-paragraph {
   object-fit: cover;
 }
 
+/* ─── LazyVimeo ─────────────────────────────────────────────────────────────── */
+/* Token used: --token-color-primary (#d2d2d6). Fallback: #D2D2D6.             */
+.lazy-vimeo {
+  background: var(--token-color-primary, #D2D2D6);
+  position: relative;
+  overflow: hidden;
+}
+.lazy-vimeo .lazy-vimeo-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lazy-vimeo .play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.lazy-vimeo .play-overlay:focus-visible {
+  outline: 2px solid var(--token-color-accent, #060606);
+  outline-offset: -4px;
+}
+.lazy-vimeo iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.lazy-vimeo.is-loaded iframe {
+  opacity: 1;
+}
+
 .lazy-video {
   background: var(--token-color-primary, #D2D2D6);
   position: relative;
