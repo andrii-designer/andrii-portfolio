@@ -22,7 +22,7 @@ import Title from "@/components/Title";
  *
  * Typography:
  * - Numbers and titles: h4 token (36px, semibold)
- * - Descriptions: body-lg (18px) with semibold weight
+ * - Descriptions: Paragraph Small (18px on desktop) with semibold weight
  *
  * Content container:
  * - Max width: 566px for title + description container
@@ -211,12 +211,12 @@ const Process = ({
                 {item.title}
               </h4>
 
-              {/* Description — paragraph large semibold (18px) */}
+              {/* Description — Paragraph Small semibold (18px on desktop) */}
               <p
                 className="process-desc"
                 style={{
                   fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-body-lg)" /* 18px */,
+                  fontSize: "var(--token-size-body-sm)" /* Paragraph Small — 18px desktop */,
                   fontWeight: "var(--token-weight-semibold)" /* 600 - semibold */,
                   lineHeight: "var(--token-leading-150)" /* 150% */,
                   color: "var(--token-color-accent)",

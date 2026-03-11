@@ -136,16 +136,16 @@ const ServiceItem = ({
               {title}
             </h3>
 
-            {/* Service Description */}
+            {/* Service Description — Paragraph Small token */}
             {description && (
               <motion.p
                 {...contentMotion}
                 className="service-description text-accent"
                 style={{
                   fontFamily: "var(--token-font-family-base)",
-                  fontSize: "var(--token-size-body-lg)", /* 18px */
-                  fontWeight: "var(--token-weight-semibold)", /* 600 */
-                  lineHeight: "var(--token-leading-150)", /* 1.5 */
+                  fontSize: "var(--token-size-body-sm)", /* Paragraph Small — 18px desktop */
+                  fontWeight: "var(--token-weight-semibold)",
+                  lineHeight: "var(--token-leading-150)",
                   margin: 0,
                   maxWidth: "320px",
                 }}

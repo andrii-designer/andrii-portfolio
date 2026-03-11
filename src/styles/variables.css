@@ -18,7 +18,7 @@
   --token-font-family-base: var(--font-manrope), 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   /* Typography — font sizes: mobile first (rem), then tablet/desktop (rem, no vw) */
-  /* Mobile (< 768px) — display & headings in rem (16px base) */
+  /* Mobile (< 768px) — display & headings in rem (16px base); paragraph tokens scale up at tablet/desktop */
   --token-size-display-1: 4.5rem;      /* 72px mobile */
   --token-size-display-2: 3.75rem;     /* 60px mobile */
   --token-size-h1: 3rem;               /* 48px mobile */
@@ -27,10 +27,10 @@
   --token-size-h4: 1.75rem;             /* 28px mobile */
   --token-size-h5: 1.5rem;              /* 24px mobile */
   --token-size-h6: 1.25rem;             /* 20px mobile */
-  --token-size-body-lg: 1.125rem;       /* 18px */
-  --token-size-body-md: 1rem;           /* 16px */
-  --token-size-body-sm: 0.75rem;        /* 12px */
-  --token-size-body-xs: 0.875rem;       /* 14px */
+  --token-size-body-lg: 1.125rem;       /* Paragraph Large — mobile base */
+  --token-size-body-md: 1rem;           /* Paragraph Medium — mobile base */
+  --token-size-body-sm: 0.875rem;       /* Paragraph Small — mobile base */
+  --token-size-body-xs: 0.875rem;       /* Paragraph X-small — mobile base */
   --token-size-label-lg: 1.125rem;      /* 18px */
   --token-size-label-md: 1rem;          /* 16px */
   --token-size-label-sm: 0.875rem;      /* 14px */
@@ -111,9 +111,9 @@
     --token-size-h5: 1.5rem;           /* 24px */
     --token-size-h6: 1.25rem;          /* 20px */
     --token-size-body-lg: 1.5rem;      /* 24px — Paragraph Large (desktop) */
-    --token-size-body-md: 1rem;        /* 16px */
-    --token-size-body-sm: 0.75rem;     /* 12px */
-    --token-size-body-xs: 0.875rem;    /* 14px */
+    --token-size-body-md: 1.25rem;     /* 20px — Paragraph Medium (desktop) */
+    --token-size-body-sm: 1.125rem;    /* 18px — Paragraph Small (desktop) */
+    --token-size-body-xs: 1rem;        /* 16px — Paragraph X-small (desktop) */
     --token-size-label-lg: 1.125rem;   /* 18px */
     --token-size-label-md: 1rem;       /* 16px */
     --token-size-label-sm: 0.875rem;   /* 14px */
