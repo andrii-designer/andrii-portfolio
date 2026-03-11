@@ -70,7 +70,7 @@ export default function BookCall({ id }: BookCallProps) {
             </div>
           </div>
 
-          {/* Illustration column (bottom, right-aligned) — now uses showreel2026.mp4 video with same scaling as Hero media */}
+          {/* Illustration column (bottom, right-aligned) — uses same video sizing/scaling as Hero media */}
           <div
             className="bookcall-illustration-col"
             style={{
@@ -82,24 +82,22 @@ export default function BookCall({ id }: BookCallProps) {
               padding: 0,
               flexShrink: 1,
               minWidth: 0,
-              maxWidth: "550px",
-              height: "420px",
             }}
           >
-            <video
-              src="/assets/showreel2026.mp4"
-              className="bookcall-illustration h-full w-full rounded-none object-cover"
-              style={{
-                borderRadius: 0,
-                display: "block",
-                margin: 0,
-                padding: 0,
-              }}
-              muted
-              autoPlay
-              loop
-              playsInline
-            />
+            <figure
+              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto"
+              style={{ borderRadius: 0 }}
+            >
+              <video
+                src="/assets/showreel2026.mp4"
+                className="h-full w-full rounded-none object-cover"
+                style={{ borderRadius: 0 }}
+                muted
+                autoPlay
+                loop
+                playsInline
+              />
+            </figure>
           </div>
         </div>
 
@@ -115,20 +113,20 @@ export default function BookCall({ id }: BookCallProps) {
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
-            <video
-              src="/assets/showreel2026.mp4"
-              className="w-full rounded-none object-cover"
-              style={{
-                maxWidth: "550px",
-                height: "auto",
-                display: "block",
-                margin: 0,
-              }}
-              muted
-              autoPlay
-              loop
-              playsInline
-            />
+            <figure
+              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220]"
+              style={{ borderRadius: 0 }}
+            >
+              <video
+                src="/assets/showreel2026.mp4"
+                className="h-full w-full rounded-none object-cover"
+                style={{ borderRadius: 0 }}
+                muted
+                autoPlay
+                loop
+                playsInline
+              />
+            </figure>
           </div>
 
           <div className="book-call-cta">
