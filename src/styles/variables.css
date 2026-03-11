@@ -110,7 +110,7 @@
     --token-size-h4: 2.25rem;          /* 36px */
     --token-size-h5: 1.5rem;           /* 24px */
     --token-size-h6: 1.25rem;          /* 20px */
-    --token-size-body-lg: 1.125rem;    /* 18px */
+    --token-size-body-lg: 1.5rem;      /* 24px — Paragraph Large (desktop) */
     --token-size-body-md: 1rem;        /* 16px */
     --token-size-body-sm: 0.75rem;     /* 12px */
     --token-size-body-xs: 0.875rem;    /* 14px */
