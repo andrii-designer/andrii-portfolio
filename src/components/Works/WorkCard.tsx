@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/OptimizedImage";
 
 /**
  * WorkCard — Individual project card for Works section
@@ -49,24 +49,21 @@ const WorkCard = ({
       }}
     >
       {/* Project Image — aspect ratio 684:455, 0px border-radius */}
-      <figure
-        className="relative w-full overflow-hidden"
-        style={{
-          aspectRatio: "684 / 455", /* ~1.502:1 aspect ratio from Figma */
+      <OptimizedImage
+        src={imageSrc}
+        alt={imageAlt}
+        fill
+        sizes={imageSizes.workCard}
+        quality={85}
+        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+        style={{ borderRadius: 0 }}
+        loading="lazy"
+        wrapperClassName="w-full"
+        wrapperStyle={{
+          aspectRatio: "684 / 455",
           borderRadius: 0,
         }}
-      >
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          sizes={imageSizes.workCard}
-          quality={85}
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          style={{ borderRadius: 0 }}
-          loading="lazy"
-        />
-      </figure>
+      />
 
       {/* Text Content — title + client */}
       <div

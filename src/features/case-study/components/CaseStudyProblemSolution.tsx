@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/media/OptimizedImage";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 export type CaseStudyProblemSolutionProps = {
   problemTitle?: string;
@@ -12,6 +13,10 @@ export type CaseStudyProblemSolutionProps = {
   /** Optional second full-bleed image rendered below the first */
   secondImage?: string;
   video?: string;
+  /** Poster image shown in LazyVimeo before iframe is inserted (Vimeo video only) */
+  videoPoster?: string;
+  /** CSS padding-top % for Vimeo video aspect ratio (e.g. "53.23%") */
+  videoAspectPadding?: string;
   /** Optional: disables extra bottom padding on the section wrapper */
   noSectionBottomPadding?: boolean;
 };
@@ -32,6 +37,8 @@ export default function CaseStudyProblemSolution({
   image,
   secondImage,
   video,
+  videoPoster = "",
+  videoAspectPadding = "56.25%",
   noSectionBottomPadding,
 }: CaseStudyProblemSolutionProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -136,19 +143,29 @@ export default function CaseStudyProblemSolution({
           {...imageMotion}
         >
           {video ? (
-            <video
-              src={video}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              style={{ width: "100%", height: "auto", display: "block" }}
-            >
-              Your browser does not support the video tag.
-            </video>
+            video.includes("player.vimeo.com") ? (
+              <LazyVimeo
+                poster={videoPoster}
+                iframeSrc={video}
+                aspectPadding={videoAspectPadding}
+                ariaLabel="Case study video"
+                playOnVisible={true}
+              />
+            ) : (
+              <video
+                src={video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            )
           ) : (
-            <Image
+            <OptimizedImage
               src={image!}
               alt="Case study visual"
               width={1600}
@@ -175,7 +192,7 @@ export default function CaseStudyProblemSolution({
             },
           }}
         >
-          <Image
+          <OptimizedImage
             src={secondImage}
             alt="Case study visual"
             width={1600}

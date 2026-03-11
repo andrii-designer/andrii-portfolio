@@ -1,0 +1,40 @@
+Blank-page / slow-load reproduction notes — 2026-03-11
+========================================================
+
+ENVIRONMENT
+  Branch : feature/perf-assets
+  Build  : npm run build && npm run start (production)
+
+OBSERVED ISSUES (static analysis — no live browser session available in CI)
+  1. Hero video element uses preload="auto"
+     → On page load the browser immediately fetches the full showreel MP4,
+       competing with critical JS/CSS/font assets. On slow connections (3G)
+       this delays Time-to-Interactive by several seconds.
+
+  2. BookCall.tsx renders TWO autoPlay <video> elements simultaneously
+     (one for desktop layout, one for mobile). Both reference
+     /assets/showreel2026.mp4. Combined preload="none" + autoPlay causes a
+     race: the video may stall on first attempt, leaving a blank box.
+
+  3. Images rendered via next/image with fill + loading="lazy" have NO
+     background placeholder colour. While the image loads the container
+     is transparent, producing a white/empty flash, especially noticeable
+     on case study pages with large full-bleed images.
+
+  4. framer-motion whileInView animation starts at opacity:0 for ALL
+     sections including above-fold hero. If JS initialises slowly (slow
+     device / many requests) the hero content stays invisible until the
+     animation fires, producing a blank above-fold experience.
+
+ROOT CAUSE SUMMARY
+  • No if(!mounted) return null blanking — this pattern is absent.
+  • No ssr:false dynamic imports — absent.
+  • Primary blank-page risk: combination of (2) slow large-video fetch
+    blocking bandwidth + (4) framer-motion opacity:0 initial before JS runs.
+
+FIXES APPLIED (see diagnostics/report.json for full list)
+  • Hero video preload: "auto" → "metadata"
+  • LazyVideo component added — only sets video src when in viewport
+  • OptimizedImage wrapper added — shows primary color placeholder (#d2d2d6)
+    and fades in the image on load
+  • sizes props verified / added where missing

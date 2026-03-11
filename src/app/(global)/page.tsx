@@ -5,9 +5,9 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
-import { SyncShowreelVideos } from "@/components/SyncShowreelVideos";
 import Image from "next/image";
 import { featuredProjects } from "@/data/featuredProjects";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -32,7 +32,6 @@ import { featuredProjects } from "@/data/featuredProjects";
 export default function HomePage() {
   return (
     <>
-      <SyncShowreelVideos />
       {/* Hero Section — Figma node-id: 2224:4166 */}
       <section
         className="section-wrap"
@@ -51,7 +50,12 @@ export default function HomePage() {
           <Hero
             title="Digital designer helping founders and product owners"
             cta={{ text: "Book a call", href: "/contact" }}
-            media={{ type: "video", src: "/assets/showreel2026.mp4" }}
+            media={{
+              type: "vimeo",
+              iframeSrc:
+                "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
+              poster: "/assets/images/thumbs/showreel2026-thumb.webp",
+            }}
           />
         </div>
       </section>
@@ -91,7 +95,7 @@ export default function HomePage() {
       </section>
 
       {/* Video Section — Full width, no side padding */}
-      {/* Separate from Services to allow full-bleed video with 16:9 aspect ratio */}
+      {/* .video-section-inner owns the 16:9 aspect-ratio; LazyVimeo fills it. */}
       <section
         className="video-section-fullbleed"
         style={{
@@ -100,22 +104,13 @@ export default function HomePage() {
         data-node-id="video-section"
       >
         <div className="video-section-inner">
-          <video
-            className="showreel-video object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <source src="/assets/showreel2026.mp4" type="video/mp4" />
-          </video>
+          <LazyVimeo
+            fill
+            poster="/assets/images/thumbs/showreel2026-thumb.webp"
+            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+            ariaLabel="Showreel 2026"
+            playOnVisible={true}
+          />
         </div>
       </section>
 

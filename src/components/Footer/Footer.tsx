@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
+import OptimizedImage from "@/components/media/OptimizedImage";
 import Link from "next/link";
 import BookCallButton from "@/components/Button/BookCallButton";
 
@@ -305,7 +306,7 @@ export default function Footer({ className = "" }: FooterProps) {
               aria-label="Go to home page"
               className="footer-logo focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
-              <Image
+              <OptimizedImage
                 src="/hero-assets/logo.svg"
                 alt="Andrii Vynarchyk logo"
                 width={160}

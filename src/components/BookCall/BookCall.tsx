@@ -2,6 +2,7 @@
 
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
+import LazyVimeo from "@/components/media/LazyVimeo";
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
 
 export type BookCallProps = {
@@ -84,21 +85,15 @@ export default function BookCall({ id }: BookCallProps) {
               minWidth: 0,
             }}
           >
-            <figure
-              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto"
-              style={{ borderRadius: 0 }}
-            >
-              <video
-                src="/assets/showreel2026.mp4"
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="none"
+            <div className="w-full shrink-0 rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto">
+              <LazyVimeo
+                poster="/assets/images/thumbs/showreel2026-thumb.webp"
+                iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+                aspectPadding="66.67%"
+                ariaLabel="Showreel"
+                playOnVisible={true}
               />
-            </figure>
+            </div>
           </div>
         </div>
 
@@ -114,21 +109,13 @@ export default function BookCall({ id }: BookCallProps) {
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
-            <figure
-              className="relative w-full shrink-0 overflow-hidden rounded-none aspect-[330/220]"
-              style={{ borderRadius: 0 }}
-            >
-              <video
-                src="/assets/showreel2026.mp4"
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="none"
-              />
-            </figure>
+            <LazyVimeo
+              poster="/assets/images/thumbs/showreel2026-thumb.webp"
+              iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+              aspectPadding="66.67%"
+              ariaLabel="Showreel"
+              playOnVisible={true}
+            />
           </div>
 
           <div className="book-call-cta">

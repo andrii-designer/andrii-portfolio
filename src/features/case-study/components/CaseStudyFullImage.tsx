@@ -1,8 +1,8 @@
- "use client";
+"use client";
 
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/OptimizedImage";
 
 export type CaseStudyFullImageProps = {
   topImage: string;
@@ -38,7 +38,7 @@ export default function CaseStudyFullImage({
     >
       <div className="case-study-full-image__inner" style={innerStyle}>
         <motion.div {...imageMotion}>
-          <Image
+          <OptimizedImage
             src={topImage}
             alt={alt}
             width={1600}
@@ -47,6 +47,7 @@ export default function CaseStudyFullImage({
             sizes="100vw"
             loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
+            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
           />
         </motion.div>
 
@@ -55,7 +56,7 @@ export default function CaseStudyFullImage({
             {...imageMotion}
             style={{ marginTop: "var(--token-space-48)" }}
           >
-            <Image
+            <OptimizedImage
               src={bottomImage}
               alt={alt}
               width={1600}
@@ -64,6 +65,7 @@ export default function CaseStudyFullImage({
               sizes="100vw"
               loading="lazy"
               style={{ width: "100%", height: "auto", display: "block" }}
+              wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
             />
           </motion.div>
         )}

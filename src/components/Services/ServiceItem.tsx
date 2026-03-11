@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/OptimizedImage";
 
 /**
  * ServiceItem — Individual service item for Services section
@@ -158,17 +158,8 @@ const ServiceItem = ({
 
           {/* Image Container — aspect ratio 533:353 */}
           {imageSrc && (
-            <motion.figure
-              {...imageMotion}
-              className="service-image-container relative overflow-hidden flex-shrink-0"
-              style={{
-                width: "100%",
-                maxWidth: "533px",
-                aspectRatio: "533 / 353",
-                borderRadius: 0,
-              }}
-            >
-              <Image
+            <motion.div {...imageMotion} className="flex-shrink-0" style={{ width: "100%", maxWidth: "533px" }}>
+              <OptimizedImage
                 src={imageSrc}
                 alt={imageAlt}
                 quality={85}
@@ -177,8 +168,14 @@ const ServiceItem = ({
                 className="object-cover"
                 style={{ borderRadius: 0 }}
                 loading="lazy"
+                wrapperClassName="service-image-container"
+                wrapperStyle={{
+                  width: "100%",
+                  aspectRatio: "533 / 353",
+                  borderRadius: 0,
+                }}
               />
-            </motion.figure>
+            </motion.div>
           )}
         </div>
       ) : (

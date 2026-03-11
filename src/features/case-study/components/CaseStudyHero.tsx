@@ -1,7 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/OptimizedImage";
+import LazyVideo from "@/components/LazyVideo";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 /**
  * Props for the CaseStudyHero component.
@@ -17,6 +19,8 @@ export type CaseStudyHeroProps = {
   heroImage?: string;
   /** Optional path to hero video — when provided, replaces static hero image */
   heroVideo?: string;
+  /** Poster image shown in LazyVimeo before iframe is inserted (Vimeo embeds only) */
+  heroVideoPoster?: string;
 };
 
 /**
@@ -35,6 +39,7 @@ export default function CaseStudyHero({
   services,
   heroImage,
   heroVideo,
+  heroVideoPoster = "",
 }: CaseStudyHeroProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -126,27 +131,16 @@ export default function CaseStudyHero({
       <motion.div className="hero-visual" {...imageMotion}>
         {heroVideo ? (
           heroVideo.includes("player.vimeo.com") ? (
-            <div className="hero-video-embed">
-              <iframe
-                src={heroVideo}
-                width={3200}
-                height={1800}
-                frameBorder="0"
-                allow="autoplay; picture-in-picture"
-                sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox"
-                allowFullScreen
-                style={{
-                  width: "100%",
-                  aspectRatio: "16 / 9",
-                  height: "auto",
-                  display: "block",
-                  border: "none",
-                }}
-              />
-            </div>
+            <LazyVimeo
+              poster={heroVideoPoster}
+              iframeSrc={heroVideo}
+              aspectPadding="56.25%"
+              ariaLabel={`${title} hero video`}
+              playOnVisible={true}
+            />
           ) : (
-            <video
-              src={heroVideo}
+            <LazyVideo
+              sources={[{ src: heroVideo, type: "video/mp4" }]}
               poster={heroImage}
               autoPlay
               loop
@@ -154,12 +148,11 @@ export default function CaseStudyHero({
               playsInline
               preload="metadata"
               style={{ width: "100%", height: "auto", display: "block" }}
-            >
-              Your browser does not support the video tag.
-            </video>
+              wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
+            />
           )
         ) : (
-          <Image
+          <OptimizedImage
             src={heroImage || "/assets/case-studies/placeholder-hero.png"}
             alt={`${title} hero image`}
             width={1600}
@@ -168,6 +161,7 @@ export default function CaseStudyHero({
             priority
             sizes="100vw"
             style={{ width: "100%", height: "auto", display: "block" }}
+            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
           />
         )}
       </motion.div>

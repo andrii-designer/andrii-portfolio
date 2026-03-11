@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/media/OptimizedImage";
 import SkillsTitle from "./SkillsTitle";
 import SkillsList from "./SkillsList";
 
@@ -110,7 +110,7 @@ const Skills = ({
               flex: "0 0 auto",
             }}
           >
-            <Image
+            <OptimizedImage
               src={photoSrc}
               alt={photoAlt}
               fill

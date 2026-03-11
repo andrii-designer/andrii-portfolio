@@ -1,14 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/media/OptimizedImage";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 export type CaseStudyTextImageGridProps = {
   title?: string;
   paragraph?: string;
   images?: string[]; // expected length >= 2; use placeholders if missing
   gridVideos?: string[];
+  /** Poster images for each gridVideo — only used for Vimeo URLs */
+  gridVideoPosters?: string[];
+  /** Shared padding-top % for Vimeo grid videos (e.g. "177.78%" for 9:16) */
+  gridVideoAspectPadding?: string;
 };
 
 /**
@@ -20,6 +25,8 @@ export default function CaseStudyTextImageGrid({
   paragraph,
   images,
   gridVideos,
+  gridVideoPosters = [],
+  gridVideoAspectPadding = "56.25%",
 }: CaseStudyTextImageGridProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -139,24 +146,35 @@ export default function CaseStudyTextImageGrid({
         >
           {hasVideos ? (
             <>
-              {videoSources.map((src) => (
-                <video
-                  key={src}
-                  src={src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              ))}
+              {videoSources.map((src, i) =>
+                src.includes("player.vimeo.com") ? (
+                  <LazyVimeo
+                    key={src}
+                    poster={gridVideoPosters[i] ?? ""}
+                    iframeSrc={src}
+                    aspectPadding={gridVideoAspectPadding}
+                    ariaLabel={`Project video ${i + 1}`}
+                    playOnVisible={true}
+                  />
+                ) : (
+                  <video
+                    key={src}
+                    src={src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                )
+              )}
             </>
           ) : (
             <>
-              <Image
+              <OptimizedImage
                 src={firstImage}
                 alt="Project image 1"
                 width={684}
@@ -171,7 +189,7 @@ export default function CaseStudyTextImageGrid({
                   objectFit: "cover",
                 }}
               />
-              <Image
+              <OptimizedImage
                 src={secondImage}
                 alt="Project image 2"
                 width={684}

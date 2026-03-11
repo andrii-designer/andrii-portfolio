@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Title from "@/components/Title";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/OptimizedImage";
 
 export default function AboutDescription() {
   return (
@@ -57,27 +57,24 @@ export default function AboutDescription() {
             </p>
           </div>
 
-          <div
-            className="about-photo relative overflow-hidden rounded-none"
-            style={{
+          <OptimizedImage
+            src="/assets/images/about/my-photo.png"
+            alt="Andrii's portrait"
+            fill
+            quality={85}
+            sizes={imageSizes.aboutPhoto}
+            className="object-cover"
+            style={{ borderRadius: 0 }}
+            loading="lazy"
+            wrapperClassName="about-photo rounded-none"
+            wrapperStyle={{
               aspectRatio: "3 / 4",
               width: "min(600px, 40%)",
               maxWidth: "600px",
               borderRadius: 0,
               flex: "0 0 auto",
             }}
-          >
-            <Image
-              src="/assets/images/about/my-photo.png"
-              alt="Andrii's portrait"
-              fill
-              quality={85}
-              sizes={imageSizes.aboutPhoto}
-              className="object-cover"
-              style={{ borderRadius: 0 }}
-              loading="lazy"
-            />
-          </div>
+          />
         </div>
       </div>
     </section>
