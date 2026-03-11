@@ -1,0 +1,102 @@
+{
+  "generated": "2026-03-11",
+  "branch": "feature/perf-assets",
+
+  "step_A_codebase_scan": {
+    "if_not_mounted_return_null": {
+      "occurrences": 0,
+      "files": [],
+      "note": "No components gate render on a mounted flag — no hydration-blank risk from this pattern."
+    },
+
+    "dynamic_ssr_false": {
+      "occurrences": 0,
+      "files": [],
+      "note": "No next/dynamic with ssr:false found."
+    },
+
+    "raw_img_tags": {
+      "occurrences": 0,
+      "files": [],
+      "note": "All images already use next/image — good baseline."
+    },
+
+    "next_image_missing_sizes": {
+      "issues": [
+        {
+          "file": "src/components/Testimonials/Testimonials.tsx",
+          "line": "~282",
+          "issue": "Avatar <Image width={64} height={64}> has no sizes prop. Minor — fixed-size images don't strictly need sizes, but adding sizes='64px' avoids generating unneeded srcset candidates.",
+          "severity": "low"
+        },
+        {
+          "file": "src/components/Testimonials/Testimonials.tsx",
+          "lines": "~416, ~453",
+          "issue": "Arrow icon <Image width={25} height={16}> has no sizes prop. Tiny SVG icons — low impact.",
+          "severity": "low"
+        }
+      ]
+    },
+
+    "video_preload_issues": [
+      {
+        "file": "src/components/Hero/Hero.tsx",
+        "line": "~120",
+        "issue": "Hero video uses preload=\"auto\" — forces browser to fully buffer the showreel MP4 on page load, blocking bandwidth for critical assets.",
+        "severity": "HIGH",
+        "fix": "Change to preload=\"metadata\""
+      },
+      {
+        "file": "src/components/BookCall/BookCall.tsx",
+        "lines": "~91-100, ~121-130",
+        "issue": "Two identical autoPlay video elements rendered simultaneously (desktop + mobile layouts). Both reference showreel2026.mp4. Doubles the video network requests unless browser de-dupes. preload=\"none\" means autoPlay may stall on some browsers.",
+        "severity": "medium",
+        "fix": "Replace both with LazyVideo component using IntersectionObserver. Only render/load video when in viewport."
+      }
+    ],
+
+    "blank_page_hypotheses": [
+      {
+        "hypothesis": "framer-motion whileInView with initial:{opacity:0} — if the element is above the fold when JS initialises, the IntersectionObserver fires immediately and the animation runs fine. But if JS is slow, the element starts invisible and stays blank until JS executes.",
+        "affected": "CaseStudyHero, CaseStudyTextImage, CaseStudyFullImage, RecentWorks",
+        "mitigation": "Already using useReducedMotion guard. The fix is to ensure critical above-fold content uses initial animate (not whileInView) and only non-LCP sections use whileInView."
+      },
+      {
+        "hypothesis": "Large showreel2026.mp4 blocks main thread parsing on slower connections",
+        "mitigation": "LazyVideo component + preload=metadata or none until viewport"
+      }
+    ],
+
+    "primary_color_token": {
+      "token_variable": "--token-color-primary",
+      "value": "#d2d2d6",
+      "source": "src/styles/variables.css line 13",
+      "status": "found — using var(--token-color-primary, #D2D2D6) in placeholder CSS"
+    },
+
+    "next_config_image_settings": {
+      "formats": ["image/avif", "image/webp"],
+      "deviceSizes": [320, 480, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+      "imageSizes": [16, 32, 48, 64, 96, 128, 256, 384, 533, 684],
+      "assessment": "Good. deviceSizes covers all srcset breakpoints. imageSizes includes project-specific 533px and 684px values. No changes needed."
+    }
+  },
+
+  "step_B_implementations": {
+    "OptimizedImage": "src/components/OptimizedImage/OptimizedImage.tsx",
+    "LazyVideo": "src/components/LazyVideo/LazyVideo.tsx",
+    "imageHelpers": "src/lib/imageHelpers.ts",
+    "css": "Added .optimized-image + .lazy-video-wrapper classes to src/app/globals.css",
+    "components_updated": [
+      "src/components/Hero/Hero.tsx — video preload fix + OptimizedImage for image type",
+      "src/components/Works/WorkCard.tsx — OptimizedImage wrapper",
+      "src/features/case-study/components/CaseStudyHero.tsx — OptimizedImage + LazyVideo",
+      "src/components/About/AboutDescription.tsx — OptimizedImage wrapper",
+      "src/components/Services/ServiceItem.tsx — OptimizedImage wrapper",
+      "src/components/Testimonials/Testimonials.tsx — add sizes to avatar Image",
+      "src/components/BookCall/BookCall.tsx — LazyVideo for both showreel instances",
+      "src/features/case-study/components/CaseStudyFullImage.tsx — OptimizedImage",
+      "src/features/case-study/components/CaseStudyTextImage.tsx — OptimizedImage + LazyVideo"
+    ]
+  }
+}
