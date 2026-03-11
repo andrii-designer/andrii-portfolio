@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 import Image, { ImageProps } from "next/image";
 
 export type OptimizedImageProps = ImageProps & {
@@ -29,7 +29,10 @@ export default function OptimizedImage(props: OptimizedImageProps) {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const wrapperStyle = {
+  const wrapperStyle: CSSProperties = {
+    // For fill layouts, the wrapper should adopt the parent size so the
+    // primary-color placeholder is visible even before the image paints.
+    ...(fill ? { width: "100%", height: "100%" } : {}),
     ...(aspectRatio ? { aspectRatio } : {}),
     ...style,
   };
