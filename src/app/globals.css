@@ -89,6 +89,16 @@ a {
   margin-bottom: 0;
 }
 
+/* Book a Call paragraph — Paragraph Large token on all breakpoints */
+.book-call-subhead {
+  font-family: var(--token-font-family-base);
+  font-size: var(--body-lg);
+  font-weight: var(--token-weight-semibold);
+  line-height: var(--token-leading-150);
+  letter-spacing: 0;
+  color: var(--token-color-accent);
+}
+
 .section-inner {
   width: 100%;
   max-width: none;
@@ -1138,10 +1148,10 @@ section.case-study-text-image .problem-solution-paragraph {
   .book-call-subhead {
     margin-top: var(--token-space-48);
     font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4);
+    font-size: var(--token-size-body-lg); /* Paragraph - Large */
     font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
+    line-height: var(--token-leading-150);
+    letter-spacing: 0;
     color: var(--token-color-accent);
     margin-bottom: 0;
     text-align: left;
@@ -1202,10 +1212,10 @@ section.case-study-text-image .problem-solution-paragraph {
   .book-call-subhead {
     margin-top: var(--token-space-48);
     font-family: var(--token-font-family-base);
-    font-size: var(--token-size-h4);
+    font-size: var(--token-size-body-lg); /* Paragraph - Large */
     font-weight: var(--token-weight-semibold);
-    line-height: var(--token-leading-120);
-    letter-spacing: var(--token-tracking-header-4);
+    line-height: var(--token-leading-150);
+    letter-spacing: 0;
     color: var(--token-color-accent);
     margin-bottom: 0;
     text-align: left;
