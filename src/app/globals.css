@@ -1547,13 +1547,7 @@ footer .footer-logo .optimized-image .next-image {
   object-fit: contain;
 }
 
-@media (max-width: 767px) {
-  footer .footer-logo .optimized-media,
-  footer .footer-logo .optimized-image {
-    width: var(--token-size-128);
-    height: var(--token-size-128);
-  }
-}
+/* Mobile: same logo size as desktop for consistent appearance across Chrome/device viewports */
 
 /*
  * Footer copy tooltip
