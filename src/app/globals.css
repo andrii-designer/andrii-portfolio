@@ -784,20 +784,30 @@ section.case-study-text-image-grid .section-title {
   color: var(--token-color-accent);
 }
 
+/*
+ * Case Study body paragraphs — mobile-first sizing, never below 16px.
+ *
+ * Token resolution:
+ *   --token-size-body-md : 1rem   (16px) mobile + tablet  →  1.25rem (20px) desktop
+ *   --token-size-body-sm : 0.875rem (14px) mobile         →  1.125rem (18px) desktop
+ *
+ * We use body-md as the base so every breakpoint is ≥ 16px, then step up to
+ * body-sm (18px) at desktop where both tokens are larger than 16px.
+ */
 section.case-study-text-image .section-paragraph,
 section.case-study-text-image-grid .section-paragraph {
   font-family: var(--token-font-family-base);
-  font-size: var(--token-size-body-sm) !important; /* Paragraph Small — 18px desktop */
-  font-weight: var(--token-weight-semibold) !important; /* 600 */
-  line-height: var(--token-leading-150) !important; /* 150% */
+  font-size: var(--token-size-body-md); /* 16px mobile, 16px tablet */
+  font-weight: var(--token-weight-semibold); /* 600 */
+  line-height: var(--token-leading-150); /* 150% */
   color: var(--token-color-accent);
 }
 
-/* Case Study Text paragraphs — ensure min 16px on tablet/mobile (≤1023px) */
-@media (max-width: 1023px) {
-  .case-study-text-image .section-paragraph,
-  .case-study-text-image-grid .section-paragraph {
-    font-size: var(--token-size-body-md) !important;
+/* Desktop (≥ 1024px): step up to Paragraph Small (18px) */
+@media (min-width: 1024px) {
+  section.case-study-text-image .section-paragraph,
+  section.case-study-text-image-grid .section-paragraph {
+    font-size: var(--token-size-body-sm); /* 18px */
   }
 }
 
@@ -972,7 +982,7 @@ section.case-study-text-image .problem-solution-paragraph {
   .case-study-text-image .section-paragraph,
   .case-study-text-image-grid .section-paragraph {
     text-align: left;
-    font-size: var(--token-size-body-md) !important; /* minimum 16px on mobile */
+    /* font-size is already 16px via the mobile-first base rule — no override needed */
   }
 
   /* 6) Remove auto left margin on paragraph wrapper so it starts flush left */
