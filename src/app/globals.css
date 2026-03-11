@@ -772,6 +772,14 @@ section.case-study-text-image-grid .section-paragraph {
   color: var(--token-color-accent);
 }
 
+/* Case Study Text paragraphs — ensure min 16px on tablet/mobile (≤1023px) */
+@media (max-width: 1023px) {
+  .case-study-text-image .section-paragraph,
+  .case-study-text-image-grid .section-paragraph {
+    font-size: var(--token-size-body-md) !important;
+  }
+}
+
 /* Problem + Solution — mobile: stack columns vertically */
 @media (max-width: 767px) {
   .problem-solution-row {
