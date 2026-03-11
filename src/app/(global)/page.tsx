@@ -49,7 +49,7 @@ export default function HomePage() {
           <Hero
             title="Digital designer helping founders and product owners"
             cta={{ text: "Book a call", href: "/contact" }}
-            media={{ type: "image", src: "/hero-assets/video-preview.png" }}
+            media={{ type: "video", src: "/assets/showreel2026.mp4" }}
           />
         </div>
       </section>
@@ -117,7 +117,7 @@ export default function HomePage() {
               height: "100%",
             }}
           >
-            <source src="/assets/services.mp4" type="video/mp4" />
+            <source src="/assets/showreel2026.mp4" type="video/mp4" />
           </video>
         </div>
       </section>
