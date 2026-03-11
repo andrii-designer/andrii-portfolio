@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { imageSizes } from "@/lib/imageSizes";
+import OptimizedImage from "@/components/media/OptimizedImage";
 
 export type CaseStudyTextImageGridProps = {
   title?: string;
@@ -156,7 +156,7 @@ export default function CaseStudyTextImageGrid({
             </>
           ) : (
             <>
-              <Image
+              <OptimizedImage
                 src={firstImage}
                 alt="Project image 1"
                 width={684}
@@ -171,7 +171,7 @@ export default function CaseStudyTextImageGrid({
                   objectFit: "cover",
                 }}
               />
-              <Image
+              <OptimizedImage
                 src={secondImage}
                 alt="Project image 2"
                 width={684}

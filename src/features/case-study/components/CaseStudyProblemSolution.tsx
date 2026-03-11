@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import OptimizedImage from "@/components/media/OptimizedImage";
 
 export type CaseStudyProblemSolutionProps = {
   problemTitle?: string;
@@ -148,7 +148,7 @@ export default function CaseStudyProblemSolution({
               Your browser does not support the video tag.
             </video>
           ) : (
-            <Image
+            <OptimizedImage
               src={image!}
               alt="Case study visual"
               width={1600}
@@ -175,7 +175,7 @@ export default function CaseStudyProblemSolution({
             },
           }}
         >
-          <Image
+          <OptimizedImage
             src={secondImage}
             alt="Case study visual"
             width={1600}

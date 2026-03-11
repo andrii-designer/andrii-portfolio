@@ -48,6 +48,7 @@ export default function OptimizedImage(props: OptimizedImageProps) {
   const wrapperClassName = [
     "optimized-media",
     fill ? "fill" : "",
+    isLoaded ? "is-loaded" : "",
   ]
     .filter(Boolean)
     .join(" ");

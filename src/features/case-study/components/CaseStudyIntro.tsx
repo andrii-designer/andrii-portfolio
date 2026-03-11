@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import OptimizedImage from "@/components/media/OptimizedImage";
 
 export type CaseStudyIntroProps = {
   title: string;
@@ -138,7 +138,7 @@ export default function CaseStudyIntro({
               </video>
             )
           ) : (
-            <Image
+            <OptimizedImage
               src={src}
               alt={alt}
               width={1600}
