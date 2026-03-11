@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import Image from "next/image";
+import { useState, useCallback, useRef, useLayoutEffect } from "react";
+import { createPortal } from "react-dom";
 import OptimizedImage from "@/components/media/OptimizedImage";
 import Link from "next/link";
 import BookCallButton from "@/components/Button/BookCallButton";
@@ -72,9 +72,45 @@ const CopyIcon = () => (
   </svg>
 );
 
+const TOOLTIP_GAP = 8;
+
 export default function Footer({ className = "" }: FooterProps) {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
+  const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties | null>(null);
+  const emailRowRef = useRef<HTMLDivElement>(null);
+  const copyBtnRef = useRef<HTMLButtonElement>(null);
   const email = "andriyvynar@gmail.com";
+
+  // Position tooltip when shown: mobile = centered above email; desktop = right of copy icon
+  useLayoutEffect(() => {
+    if (copyStatus !== "copied") {
+      setTooltipStyle(null);
+      return;
+    }
+    if (typeof window === "undefined") return;
+    const isMobile = window.innerWidth <= 767;
+    if (isMobile && emailRowRef.current) {
+      const rect = emailRowRef.current.getBoundingClientRect();
+      setTooltipStyle({
+        position: "fixed",
+        left: rect.left + rect.width / 2,
+        top: rect.top - TOOLTIP_GAP,
+        transform: "translate(-50%, -100%)",
+        zIndex: 9999,
+      });
+    } else if (!isMobile && copyBtnRef.current) {
+      const rect = copyBtnRef.current.getBoundingClientRect();
+      setTooltipStyle({
+        position: "fixed",
+        left: rect.right + 16,
+        top: rect.top + rect.height / 2,
+        transform: "translateY(-50%)",
+        zIndex: 9999,
+      });
+    } else {
+      setTooltipStyle(null);
+    }
+  }, [copyStatus]);
 
   /**
    * Copy email to clipboard with progressive enhancement
@@ -99,8 +135,8 @@ export default function Footer({ className = "" }: FooterProps) {
         document.body.removeChild(textArea);
       }
       setCopyStatus("copied");
-      // Reset status after 2 seconds
-      setTimeout(() => setCopyStatus("idle"), 2000);
+      // Reset status after 0.8 seconds
+      setTimeout(() => setCopyStatus("idle"), 800);
     } catch (err) {
       console.error("Failed to copy email:", err);
     }
@@ -148,6 +184,7 @@ export default function Footer({ className = "" }: FooterProps) {
             >
               {/* Email row with copy icon */}
               <div
+                ref={emailRowRef}
                 className="footer-email-row"
                 style={{
                   display: "flex",
@@ -168,6 +205,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   {email}
                 </span>
                 <button
+                  ref={copyBtnRef}
                   type="button"
                   onClick={handleCopyEmail}
                   aria-label="Copy email"
@@ -186,20 +224,33 @@ export default function Footer({ className = "" }: FooterProps) {
                   <CopyIcon />
                 </button>
 
-                {copyStatus === "copied" && (
+                {/* Tooltip rendered via portal when positioned (avoids overflow clipping on mobile) */}
+              </div>
+              {tooltipStyle &&
+                typeof document !== "undefined" &&
+                createPortal(
                   <span
+                    className="footer-copy-tooltip"
                     style={{
+                      ...tooltipStyle,
                       fontFamily: "var(--token-font-family-base)",
-                      fontSize: "var(--token-size-label-sm)",
-                      fontWeight: "var(--token-weight-medium)",
+                      fontSize: "var(--token-size-body-xs)",
+                      fontWeight: "var(--token-weight-semibold)",
                       lineHeight: "var(--token-leading-140)",
-                      color: "var(--token-color-accent)",
+                      color: "var(--token-color-base)",
+                      backgroundColor: "var(--token-color-accent)",
+                      paddingLeft: "var(--token-space-16)",
+                      paddingRight: "var(--token-space-16)",
+                      paddingTop: "var(--token-space-8)",
+                      paddingBottom: "var(--token-space-8)",
+                      whiteSpace: "nowrap",
+                      pointerEvents: "none",
                     }}
                   >
-                    Copied
-                  </span>
+                    Email copied
+                  </span>,
+                  document.body
                 )}
-              </div>
 
               {/* Accessible status announcement */}
               <div

@@ -37,6 +37,11 @@ a {
   text-decoration: none;
 }
 
+/* Footer email row (used for copy tooltip positioning) */
+.footer-email-row {
+  position: relative;
+}
+
 /**
  * Text Link tokens — link with underline on hover/focus
  * Uses background-size trick for smooth underline without shifting layout.
@@ -1548,6 +1553,18 @@ footer .footer-logo .optimized-image .next-image {
     width: var(--token-size-128);
     height: var(--token-size-128);
   }
+}
+
+/*
+ * Footer copy tooltip
+ *
+ * Positioning is handled in JS (Footer.tsx) via portal for both mobile and desktop.
+ * Mobile: centered above the email row; visible in viewport.
+ * Desktop: to the right of the copy icon.
+ */
+.footer-copy-tooltip {
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* ─── LazyVimeo ─────────────────────────────────────────────────────────────── */
