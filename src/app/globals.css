@@ -943,6 +943,7 @@ section.case-study-text-image .problem-solution-paragraph {
   .case-study-text-image .section-paragraph,
   .case-study-text-image-grid .section-paragraph {
     text-align: left;
+    font-size: var(--token-size-body-md) !important; /* minimum 16px on mobile */
   }
 
   /* 6) Remove auto left margin on paragraph wrapper so it starts flush left */
