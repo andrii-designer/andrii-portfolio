@@ -387,6 +387,31 @@ a {
     padding-bottom: var(--token-space-40) !important;
   }
 
+  /*
+   * Footer logo — mobile
+   *
+   * In some mobile viewports the SVG logo can appear overly large and
+   * partially cropped because the wrapper doesn't have an explicit height.
+   * These rules give the wrapper a fixed height and ensure the inner image
+   * uses object-fit: contain so the full logo is always visible.
+   */
+  footer .footer-logo .optimized-image {
+    height: var(--token-size-160);
+    width: auto;
+  }
+
+  footer .footer-logo .optimized-image .next-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @media (max-width: 767px) {
+    footer .footer-logo .optimized-image {
+      height: var(--token-size-128);
+    }
+  }
+
   /* Panel overlays whole viewport including header (no gap) */
   .header-nav-menu {
     position: fixed;
