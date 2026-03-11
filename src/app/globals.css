@@ -1287,6 +1287,11 @@ section.case-study-text-image .problem-solution-paragraph {
     font-weight: var(--token-weight-semibold) !important;
     letter-spacing: var(--token-tracking-header-4) !important;
   }
+
+  /* Homepage: ensure Process descriptions never drop below 16px on mobile */
+  .process-desc {
+    font-size: var(--token-size-body-md) !important;
+  }
 }
 
 /**
@@ -1414,6 +1419,7 @@ section.case-study-text-image .problem-solution-paragraph {
     margin-top: var(--token-space-64) !important;
     text-align: center !important;
     width: 100% !important;
+    font-size: var(--token-size-body-md) !important; /* minimum 16px on mobile */
   }
 }
 
