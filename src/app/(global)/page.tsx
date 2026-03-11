@@ -93,18 +93,13 @@ export default function HomePage() {
       {/* Video Section — Full width, no side padding */}
       {/* Separate from Services to allow full-bleed video with 16:9 aspect ratio */}
       <section
-        className="w-full"
+        className="video-section-fullbleed"
         style={{
           backgroundColor: "var(--token-color-primary)",
         }}
         data-node-id="video-section"
       >
-        <div
-          className="relative w-full"
-          style={{
-            aspectRatio: "16 / 9",
-          }}
-        >
+        <div className="video-section-inner">
           <video
             className="showreel-video object-cover"
             autoPlay

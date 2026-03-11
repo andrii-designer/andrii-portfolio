@@ -152,6 +152,7 @@ export default function CaseStudyHero({
               loop
               muted
               playsInline
+              preload="metadata"
               style={{ width: "100%", height: "auto", display: "block" }}
             >
               Your browser does not support the video tag.
@@ -163,7 +164,7 @@ export default function CaseStudyHero({
             alt={`${title} hero image`}
             width={1600}
             height={900}
-            quality={100}
+            quality={85}
             priority
             sizes="100vw"
             style={{ width: "100%", height: "auto", display: "block" }}

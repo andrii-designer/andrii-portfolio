@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Title from "@/components/Title";
+import { imageSizes } from "@/lib/imageSizes";
 
 export default function AboutDescription() {
   return (
@@ -70,8 +71,8 @@ export default function AboutDescription() {
               src="/assets/images/about/my-photo.png"
               alt="Andrii's portrait"
               fill
-              quality={100}
-              sizes="(max-width: 767px) 100vw, (max-width: 1440px) 40vw, 684px"
+              quality={85}
+              sizes={imageSizes.aboutPhoto}
               className="object-cover"
               style={{ borderRadius: 0 }}
               loading="lazy"

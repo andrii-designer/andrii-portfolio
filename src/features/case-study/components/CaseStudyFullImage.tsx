@@ -43,8 +43,9 @@ export default function CaseStudyFullImage({
             alt={alt}
             width={1600}
             height={900}
-            quality={100}
+            quality={85}
             sizes="100vw"
+            loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
         </motion.div>
@@ -59,8 +60,9 @@ export default function CaseStudyFullImage({
               alt={alt}
               width={1600}
               height={900}
-              quality={100}
+              quality={85}
               sizes="100vw"
+              loading="lazy"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
           </motion.div>

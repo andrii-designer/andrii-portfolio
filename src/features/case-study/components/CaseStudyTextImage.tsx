@@ -179,7 +179,7 @@ export default function CaseStudyTextImage({
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               style={{ width: "100%", height: "auto", display: "block" }}
             >
               Your browser does not support the video tag.
@@ -191,10 +191,10 @@ export default function CaseStudyTextImage({
             alt={alt}
             width={1600}
             height={900}
-            quality={100}
+            quality={85}
             sizes="100vw"
+            loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
-            priority={false}
           />
         )}
       </motion.div>
@@ -210,10 +210,10 @@ export default function CaseStudyTextImage({
             alt={`${title} second image`}
             width={1600}
             height={900}
-            quality={100}
+            quality={85}
             sizes="100vw"
+            loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
-            priority={false}
           />
         </motion.div>
       )}

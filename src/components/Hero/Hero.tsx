@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { BookCallButton } from "@/components/Button";
+import { imageSizes } from "@/lib/imageSizes";
 
 /**
  * Hero — Figma node-id: 2224:4198 (Content frame)
@@ -101,10 +102,11 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 src={media.src}
                 alt="Portfolio preview"
                 fill
-                sizes="(max-width: 768px) 100vw, 330px"
+                sizes={imageSizes.heroMedia}
                 className="rounded-none object-cover"
                 style={{ borderRadius: 0 }}
                 priority
+                quality={85}
               />
             ) : (
               <video
@@ -115,6 +117,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 autoPlay
                 loop
                 playsInline
+                preload="auto"
               />
             )}
           </figure>

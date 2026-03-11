@@ -258,7 +258,6 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               alignItems: "center",
               width: "100%",
               flexWrap: "wrap",
-              gap: "var(--token-space-24)",
             }}
           >
             <div
@@ -389,82 +388,84 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
               >
                 {currentIndex + 1}/{totalSlides}
               </span>
-              <button
-                type="button"
-                onClick={() => paginate(-1)}
-                disabled={isFirstSlide}
-                aria-disabled={isFirstSlide}
-                aria-label="Previous testimonial"
-                className="testimonials-nav-btn testimonials-nav-btn--prev"
-                style={{
-                  width: "var(--token-size-64)",
-                  height: "var(--token-size-64)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: isFirstSlide
-                    ? "#AFAFB2"
-                    : "var(--token-color-accent)",
-                  border: "none",
-                  cursor: isFirstSlide ? "not-allowed" : "pointer",
-                  transition: "background-color 0.2s ease",
-                  outline: "none",
-                  padding: 0,
-                }}
-              >
-                <Image
-                  src={
-                    isFirstSlide
-                      ? "/assets/images/testimonials/disabled arrow.svg"
-                      : "/assets/images/testimonials/active arrow.svg"
-                  }
-                  alt=""
-                  width={25}
-                  height={16}
-                  aria-hidden="true"
+              <div className="testimonials-nav-arrows">
+                <button
+                  type="button"
+                  onClick={() => paginate(-1)}
+                  disabled={isFirstSlide}
+                  aria-disabled={isFirstSlide}
+                  aria-label="Previous testimonial"
+                  className="testimonials-nav-btn testimonials-nav-btn--prev"
                   style={{
-                    transform: isFirstSlide ? "none" : "rotate(180deg)",
+                    width: "var(--token-size-64)",
+                    height: "var(--token-size-64)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: isFirstSlide
+                      ? "#AFAFB2"
+                      : "var(--token-color-accent)",
+                    border: "none",
+                    cursor: isFirstSlide ? "not-allowed" : "pointer",
+                    transition: "background-color 0.2s ease",
+                    outline: "none",
+                    padding: 0,
                   }}
-                />
-              </button>
-              <button
-                type="button"
-                onClick={() => paginate(1)}
-                disabled={isLastSlide}
-                aria-disabled={isLastSlide}
-                aria-label="Next testimonial"
-                className="testimonials-nav-btn testimonials-nav-btn--next"
-                style={{
-                  width: "var(--token-size-64)",
-                  height: "var(--token-size-64)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: isLastSlide
-                    ? "#AFAFB2"
-                    : "var(--token-color-accent)",
-                  border: "none",
-                  cursor: isLastSlide ? "not-allowed" : "pointer",
-                  transition: "background-color 0.2s ease",
-                  outline: "none",
-                  padding: 0,
-                }}
-              >
-                <Image
-                  src={
-                    isLastSlide
-                      ? "/assets/images/testimonials/disabled arrow.svg"
-                      : "/assets/images/testimonials/active arrow.svg"
-                  }
-                  alt=""
-                  width={25}
-                  height={16}
-                  aria-hidden="true"
+                >
+                  <Image
+                    src={
+                      isFirstSlide
+                        ? "/assets/images/testimonials/disabled arrow.svg"
+                        : "/assets/images/testimonials/active arrow.svg"
+                    }
+                    alt=""
+                    width={25}
+                    height={16}
+                    aria-hidden="true"
+                    style={{
+                      transform: isFirstSlide ? "none" : "rotate(180deg)",
+                    }}
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => paginate(1)}
+                  disabled={isLastSlide}
+                  aria-disabled={isLastSlide}
+                  aria-label="Next testimonial"
+                  className="testimonials-nav-btn testimonials-nav-btn--next"
                   style={{
-                    transform: isLastSlide ? "rotate(180deg)" : "none",
+                    width: "var(--token-size-64)",
+                    height: "var(--token-size-64)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: isLastSlide
+                      ? "#AFAFB2"
+                      : "var(--token-color-accent)",
+                    border: "none",
+                    cursor: isLastSlide ? "not-allowed" : "pointer",
+                    transition: "background-color 0.2s ease",
+                    outline: "none",
+                    padding: 0,
                   }}
-                />
-              </button>
+                >
+                  <Image
+                    src={
+                      isLastSlide
+                        ? "/assets/images/testimonials/disabled arrow.svg"
+                        : "/assets/images/testimonials/active arrow.svg"
+                    }
+                    alt=""
+                    width={25}
+                    height={16}
+                    aria-hidden="true"
+                    style={{
+                      transform: isLastSlide ? "rotate(180deg)" : "none",
+                    }}
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -472,6 +473,16 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
 
       {/* Focus styles for navigation buttons; mobile-only layout for testimonial-item */}
       <style jsx>{`
+        /* Desktop default: 24px gap between avatar/info and controls row */
+        .testimonials-controls {
+          column-gap: var(--token-space-24);
+          row-gap: var(--token-space-24);
+        }
+        .testimonials-nav-arrows {
+          display: flex;
+          align-items: center;
+          gap: 0;
+        }
         .testimonials-nav-btn:focus-visible {
           outline: 2px solid var(--token-color-accent);
           outline-offset: 2px;
@@ -480,10 +491,22 @@ const Testimonials = ({ testimonials = defaultTestimonials }: TestimonialsProps)
           outline: 2px solid var(--token-color-accent);
           outline-offset: 2px;
         }
-        @media (max-width: 768px) {
+        /* Tablet + mobile: 64px vertical gap between avatar block and nav row; keep 24px horizontal gap.
+           Also stacks nav row under avatar/info and makes it full-width, with 1/3 on the left
+           and arrows on the right. */
+        @media (max-width: 1023px) {
           .testimonials-controls {
-            flex-direction: column !important;
-            align-items: flex-start !important;
+            column-gap: var(--token-space-24);
+            row-gap: var(--token-space-64);
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .testimonials-nav {
+            width: 100%;
+            justify-content: space-between;
+          }
+          .testimonials-nav .testimonials-indicator {
+            margin-right: 0 !important;
           }
         }
         /* Mobile-only (max-width: 767px): square avatar, tokens for spacing, 1/3 left / arrows right */
