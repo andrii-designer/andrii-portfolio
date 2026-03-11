@@ -59,7 +59,7 @@ const caseStudies: Record<
     services: ["Product design", "3D motion"],
     heroImage: "/assets/case-studies/Raccord.png",
     heroVideo:
-      "https://player.vimeo.com/video/1172613529?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+      "https://player.vimeo.com/video/1172613529?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
     heroVideoPoster: "/assets/images/thumbs/raccord-section1-thumb.webp",
     introTitle:
       "Unify all your real estate data for streamlined, real-time investment",
@@ -67,7 +67,7 @@ const caseStudies: Record<
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
     introImage: "/assets/case-studies/Raccord.png",
     introVideo:
-      "https://player.vimeo.com/video/1172613563?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+      "https://player.vimeo.com/video/1172613563?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
     introVideoPoster: "/assets/images/thumbs/raccord-section2-thumb.webp",
     bodyTitle: "Project tasks",
     bodyParagraph:
@@ -79,8 +79,8 @@ const caseStudies: Record<
     ],
     gridHasText: false,
     gridVideos: [
-      "https://player.vimeo.com/video/1172613191?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
-      "https://player.vimeo.com/video/1172613206?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+      "https://player.vimeo.com/video/1172613191?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
+      "https://player.vimeo.com/video/1172613206?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
     ],
     gridVideoPosters: [
       "/assets/images/thumbs/raccord-section4-1-thumb.webp",
@@ -94,7 +94,7 @@ const caseStudies: Record<
     services: ["Product design"],
     heroImage: "/assets/case-studies/X-Pand.png",
     heroVideo:
-      "https://player.vimeo.com/video/1117263493?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1",
+      "https://player.vimeo.com/video/1117263493?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0",
     heroVideoPoster: "/assets/images/thumbs/x-pand1-thumb.webp",
     introTitle:
       "X-pand - a smart bracelet with a dynamic screen that expands to different sizes.",
@@ -102,7 +102,7 @@ const caseStudies: Record<
       "X-Pand adapts to your life - from hands-free audio and compact wearability to full-sized productivity and cinematic entertainment. For this product I created 3D motion video and a promo website.",
     introImage: "/assets/case-studies/X-Pand.png",
     introVideo:
-      "https://player.vimeo.com/video/1021938591?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&background=1",
+      "https://player.vimeo.com/video/1021938591?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0",
     introVideoPoster: "/assets/images/thumbs/x-pand2-thumb.webp",
     bodyTitle: "Scaling a product story with design systems.",
     bodyParagraph:
@@ -208,7 +208,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseStudyProblemSolution
           problemText="First‑time users land on a blank dashboard with no guidance."
           solutionText="Implemented a 4‑step onboarding wizard that lets users pick KPIs and import their first asset inline, so they arrive at a fully populated, personalized view on day one."
-          video="https://player.vimeo.com/video/1172613608?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+          video="https://player.vimeo.com/video/1172613608?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
           videoPoster="/assets/images/thumbs/raccord-section5-thumb.webp"
           videoAspectPadding="53.23%"
           noSectionBottomPadding
@@ -256,7 +256,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseStudyTextImage
           title="Product video"
           paragraph="A short 3D motion sequence that shows how X-pand shifts from a compact bracelet to a full, expanded screen in use."
-          video="https://player.vimeo.com/video/1117256647?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1"
+          video="https://player.vimeo.com/video/1117256647?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0"
           videoPoster="/assets/images/thumbs/x-pand3-thumb.webp"
         />
       )}

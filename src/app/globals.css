@@ -1535,21 +1535,6 @@ section.case-study-text-image .problem-solution-paragraph {
   object-fit: cover;
   display: block;
 }
-.lazy-vimeo .play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-.lazy-vimeo .play-overlay:focus-visible {
-  outline: 2px solid var(--token-color-accent, #060606);
-  outline-offset: -4px;
-}
 .lazy-vimeo iframe {
   position: absolute;
   inset: 0;

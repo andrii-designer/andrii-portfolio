@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { BookCallButton } from "@/components/Button";
 import { imageSizes } from "@/lib/imageSizes";
 import OptimizedImage from "@/components/OptimizedImage";
-import LazyVideo from "@/components/LazyVideo";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 /**
  * Hero — Figma node-id: 2224:4198 (Content frame)
@@ -30,7 +30,9 @@ import LazyVideo from "@/components/LazyVideo";
 export type HeroProps = {
   title: string;
   cta?: { text: string; href: string };
-  media?: { type: "image" | "video"; src: string };
+  media?:
+    | { type: "image"; src: string }
+    | { type: "vimeo"; iframeSrc: string; poster: string };
 };
 
 const Hero = ({ title, cta, media }: HeroProps) => {
@@ -111,17 +113,12 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 wrapperStyle={{ width: "100%", height: "100%" }}
               />
             ) : (
-              <LazyVideo
-                sources={[{ src: media.src, type: "video/mp4" }]}
-                poster="/assets/images/thumbs/showreel2026-thumb.webp"
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="metadata"
-                className="showreel-video h-full w-full rounded-none object-cover"
-                style={{ borderRadius: 0 }}
-                wrapperStyle={{ width: "100%", height: "100%" }}
+              <LazyVimeo
+                poster={media.poster}
+                iframeSrc={media.iframeSrc}
+                aspectPadding="66.67%"
+                ariaLabel="Showreel"
+                playOnVisible={true}
               />
             )}
           </figure>

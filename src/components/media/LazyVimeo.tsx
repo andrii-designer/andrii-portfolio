@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type KeyboardEvent,
-} from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 export type LazyVimeoProps = {
   /** Vimeo numeric id — informational only */
@@ -41,8 +35,10 @@ export type LazyVimeoProps = {
 /**
  * LazyVimeo — deferred Vimeo embed.
  *
- * Shows a poster + play button; the <iframe> is NOT inserted into the DOM
- * until the user clicks (or, if playOnVisible=true, until visible).
+ * Shows a poster until the iframe is inserted. When playOnVisible=true, the
+ * iframe is inserted automatically when the wrapper enters the viewport (no
+ * play button or controls). When playOnVisible=false, the iframe is never
+ * inserted (poster only).
  *
  * Critical positioning is applied via inline styles so layout is correct
  * regardless of global CSS parse order (avoids FOUC-driven height jumps).
@@ -96,15 +92,6 @@ export default function LazyVimeo({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playOnVisible, rootMargin]);
 
-  const handleClick = () => insertIframe();
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      insertIframe();
-    }
-  };
-
   // Wrapper sizing: fill mode = stretch to parent; normal mode = padding-top ratio.
   const wrapperStyle: CSSProperties = fill
     ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
@@ -144,39 +131,6 @@ export default function LazyVimeo({
           aria-hidden="true"
           style={{ ...absoluteFill, objectFit: "cover", display: "block" }}
         />
-      )}
-
-      {!isInserted && (
-        <button
-          type="button"
-          className="play-overlay"
-          aria-label={ariaLabel ?? "Play video"}
-          onClick={handleClick}
-          onKeyDown={handleKeyDown}
-          style={{
-            ...absoluteFill,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "transparent",
-            border: "none",
-            padding: 0,
-            cursor: "pointer",
-          }}
-        >
-          <svg
-            width="64"
-            height="64"
-            viewBox="0 0 64 64"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle cx="32" cy="32" r="32" fill="rgba(0,0,0,0.45)" />
-            <polygon points="26,20 50,32 26,44" fill="white" />
-          </svg>
-        </button>
       )}
 
       {isInserted && (

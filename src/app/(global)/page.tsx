@@ -5,7 +5,6 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
-import { SyncShowreelVideos } from "@/components/SyncShowreelVideos";
 import Image from "next/image";
 import { featuredProjects } from "@/data/featuredProjects";
 import LazyVimeo from "@/components/media/LazyVimeo";
@@ -33,7 +32,6 @@ import LazyVimeo from "@/components/media/LazyVimeo";
 export default function HomePage() {
   return (
     <>
-      <SyncShowreelVideos />
       {/* Hero Section — Figma node-id: 2224:4166 */}
       <section
         className="section-wrap"
@@ -52,7 +50,12 @@ export default function HomePage() {
           <Hero
             title="Digital designer helping founders and product owners"
             cta={{ text: "Book a call", href: "/contact" }}
-            media={{ type: "video", src: "/assets/showreel2026.mp4" }}
+            media={{
+              type: "vimeo",
+              iframeSrc:
+                "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
+              poster: "/assets/images/thumbs/showreel2026-thumb.webp",
+            }}
           />
         </div>
       </section>
@@ -104,9 +107,9 @@ export default function HomePage() {
           <LazyVimeo
             fill
             poster="/assets/images/thumbs/showreel2026-thumb.webp"
-            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
             ariaLabel="Showreel 2026"
-            playOnVisible={false}
+            playOnVisible={true}
           />
         </div>
       </section>
