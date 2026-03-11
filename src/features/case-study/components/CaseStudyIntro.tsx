@@ -2,12 +2,15 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import OptimizedImage from "@/components/media/OptimizedImage";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 export type CaseStudyIntroProps = {
   title: string;
   text?: string;
   image?: string;
   introVideo?: string;
+  /** Poster image shown in LazyVimeo before iframe is inserted (Vimeo embeds only) */
+  introVideoPoster?: string;
 };
 
 /**
@@ -19,6 +22,7 @@ export default function CaseStudyIntro({
   text,
   image,
   introVideo,
+  introVideoPoster = "",
 }: CaseStudyIntroProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -105,24 +109,13 @@ export default function CaseStudyIntro({
         >
           {introVideo ? (
             introVideo.includes("player.vimeo.com") ? (
-              <div style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
-                <iframe
-                  src={introVideo}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  title={`${title} intro video`}
-                  allowFullScreen
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
-                  }}
-                />
-              </div>
+              <LazyVimeo
+                poster={introVideoPoster}
+                iframeSrc={introVideo}
+                aspectPadding="56.25%"
+                ariaLabel={`${title} intro video`}
+                playOnVisible={true}
+              />
             ) : (
               <video
                 src={introVideo}

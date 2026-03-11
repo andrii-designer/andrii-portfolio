@@ -6,6 +6,7 @@ import {
   CaseStudyFullImage,
   CaseStudyProblemSolution,
 } from "@/features/case-study/components";
+
 import RecentWorks from "@/components/RecentWorks";
 import Footer from "@/components/Footer";
 
@@ -36,16 +37,20 @@ const caseStudies: Record<
     services: string[];
     heroImage: string;
     heroVideo?: string;
+    heroVideoPoster?: string;
     introTitle: string;
     introText: string;
     introImage: string;
     introVideo?: string;
+    introVideoPoster?: string;
     bodyTitle?: string;
     bodyParagraph?: string;
     bodyImage?: string;
     gridImages?: string[];
     gridHasText?: boolean;
     gridVideos?: string[];
+    gridVideoPosters?: string[];
+    gridVideoAspectPadding?: string;
   }
 > = {
   raccord: {
@@ -53,13 +58,17 @@ const caseStudies: Record<
     client: "Raccord",
     services: ["Product design", "3D motion"],
     heroImage: "/assets/case-studies/Raccord.png",
-    heroVideo: "/assets/case-studies/raccord-section1.mp4",
+    heroVideo:
+      "https://player.vimeo.com/video/1172613529?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+    heroVideoPoster: "/assets/images/thumbs/raccord-section1-thumb.webp",
     introTitle:
       "Unify all your real estate data for streamlined, real-time investment",
     introText:
       "A concept project designed to show what a streamlined, modern investment experience could look like. The case focuses on clean, intuitive UI, with smart onboarding flows and flexible dashboard personalisation to match different user goals and preferences.",
     introImage: "/assets/case-studies/Raccord.png",
-    introVideo: "/assets/case-studies/raccord-section2.mp4",
+    introVideo:
+      "https://player.vimeo.com/video/1172613563?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+    introVideoPoster: "/assets/images/thumbs/raccord-section2-thumb.webp",
     bodyTitle: "Project tasks",
     bodyParagraph:
       "1. Increase dashboard engagement and personalisation\n2. Enhance data clarity\n3. Reduce time to insight\n\nThe part of the user flow I worked on:",
@@ -70,9 +79,14 @@ const caseStudies: Record<
     ],
     gridHasText: false,
     gridVideos: [
-      "/assets/case-studies/raccord-section4-1.mp4",
-      "/assets/case-studies/raccord-section4-2.mp4",
+      "https://player.vimeo.com/video/1172613191?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
+      "https://player.vimeo.com/video/1172613206?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1",
     ],
+    gridVideoPosters: [
+      "/assets/images/thumbs/raccord-section4-1-thumb.webp",
+      "/assets/images/thumbs/raccord-section4-2-thumb.webp",
+    ],
+    gridVideoAspectPadding: "177.78%",
   },
   "x-pand": {
     title: "X-pand",
@@ -81,6 +95,7 @@ const caseStudies: Record<
     heroImage: "/assets/case-studies/X-Pand.png",
     heroVideo:
       "https://player.vimeo.com/video/1117263493?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1",
+    heroVideoPoster: "/assets/images/thumbs/x-pand1-thumb.webp",
     introTitle:
       "X-pand - a smart bracelet with a dynamic screen that expands to different sizes.",
     introText:
@@ -88,6 +103,7 @@ const caseStudies: Record<
     introImage: "/assets/case-studies/X-Pand.png",
     introVideo:
       "https://player.vimeo.com/video/1021938591?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&background=1",
+    introVideoPoster: "/assets/images/thumbs/x-pand2-thumb.webp",
     bodyTitle: "Scaling a product story with design systems.",
     bodyParagraph:
       "X-pand explores how consistent design systems can help teams move faster while keeping the experience cohesive. This case study shows how layout, typography, and interaction models scale across surfaces.",
@@ -132,6 +148,7 @@ export default async function CaseStudyPage({ params }: Props) {
         services={data.services}
         heroImage={data.heroImage}
         heroVideo={data.heroVideo}
+        heroVideoPoster={data.heroVideoPoster}
       />
 
       {/* Intro Section — directly below hero */}
@@ -140,6 +157,7 @@ export default async function CaseStudyPage({ params }: Props) {
         text={data.introText}
         image={data.introImage}
         introVideo={data.introVideo}
+        introVideoPoster={data.introVideoPoster}
       />
 
       {/* Text + Image body section — reusable component */}
@@ -180,6 +198,8 @@ export default async function CaseStudyPage({ params }: Props) {
           }
           images={data.gridImages ?? fallback.gridImages}
           gridVideos={data.gridVideos}
+          gridVideoPosters={data.gridVideoPosters}
+          gridVideoAspectPadding={data.gridVideoAspectPadding}
         />
       )}
 
@@ -188,7 +208,9 @@ export default async function CaseStudyPage({ params }: Props) {
         <CaseStudyProblemSolution
           problemText="First‑time users land on a blank dashboard with no guidance."
           solutionText="Implemented a 4‑step onboarding wizard that lets users pick KPIs and import their first asset inline, so they arrive at a fully populated, personalized view on day one."
-          video="/assets/case-studies/raccord-section5.mp4"
+          video="https://player.vimeo.com/video/1172613608?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+          videoPoster="/assets/images/thumbs/raccord-section5-thumb.webp"
+          videoAspectPadding="53.23%"
           noSectionBottomPadding
         />
       )}
