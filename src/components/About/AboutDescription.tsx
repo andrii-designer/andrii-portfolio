@@ -16,7 +16,7 @@ export default function AboutDescription() {
           paddingBottom: "var(--token-space-192)",
         }}
       >
-        <Title index="( 006 )" label="about" heading="About me" />
+        <Title heading="About me" />
 
         {/* content container placed below with exact gap 256px */}
         <div
