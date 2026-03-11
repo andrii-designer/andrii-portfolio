@@ -5,6 +5,7 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
+import { SyncShowreelVideos } from "@/components/SyncShowreelVideos";
 import Image from "next/image";
 import { featuredProjects } from "@/data/featuredProjects";
 
@@ -31,6 +32,7 @@ import { featuredProjects } from "@/data/featuredProjects";
 export default function HomePage() {
   return (
     <>
+      <SyncShowreelVideos />
       {/* Hero Section — Figma node-id: 2224:4166 */}
       <section
         className="section-wrap"
@@ -104,7 +106,7 @@ export default function HomePage() {
           }}
         >
           <video
-            className="object-cover"
+            className="showreel-video object-cover"
             autoPlay
             loop
             muted

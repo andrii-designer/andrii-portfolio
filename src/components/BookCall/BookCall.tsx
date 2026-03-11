@@ -90,7 +90,7 @@ export default function BookCall({ id }: BookCallProps) {
             >
               <video
                 src="/assets/showreel2026.mp4"
-                className="h-full w-full rounded-none object-cover"
+                className="showreel-video h-full w-full rounded-none object-cover"
                 style={{ borderRadius: 0 }}
                 muted
                 autoPlay
@@ -119,7 +119,7 @@ export default function BookCall({ id }: BookCallProps) {
             >
               <video
                 src="/assets/showreel2026.mp4"
-                className="h-full w-full rounded-none object-cover"
+                className="showreel-video h-full w-full rounded-none object-cover"
                 style={{ borderRadius: 0 }}
                 muted
                 autoPlay

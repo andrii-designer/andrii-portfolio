@@ -109,7 +109,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
             ) : (
               <video
                 src={media.src}
-                className="h-full w-full rounded-none object-cover"
+                className="showreel-video h-full w-full rounded-none object-cover"
                 style={{ borderRadius: 0 }}
                 muted
                 autoPlay
