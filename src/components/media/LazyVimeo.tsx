@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { usePreloader } from "@/contexts/PreloaderContext";
 
 const VIMEO_PLAYER_SCRIPT = "https://player.vimeo.com/api/player.js";
 
@@ -58,10 +59,25 @@ export type LazyVimeoProps = {
    * viewport (useful for background/ambient videos). Default: false.
    */
   playOnVisible?: boolean;
+  /**
+   * When true, insert the iframe immediately on mount (no IntersectionObserver).
+   * Use for above-the-fold video that should load right away.
+   */
+  insertImmediately?: boolean;
+  /**
+   * When true, show the iframe as soon as it's inserted (opacity: 1).
+   * When false, keep iframe hidden until video plays (poster visible until then).
+   */
+  showImmediately?: boolean;
   /** IntersectionObserver rootMargin — default "200px" */
   rootMargin?: string;
   /** Iframe loading: "eager" for above-the-fold (Hero), "lazy" otherwise. Default: "lazy" */
   iframeLoading?: "lazy" | "eager";
+  /**
+   * When true, blocks the preloader until this video fires "playing".
+   * Use only for the primary Hero video so preloader hides exactly when it starts.
+   */
+  blockPreloader?: boolean;
 };
 
 /**
@@ -86,35 +102,55 @@ export default function LazyVimeo({
   className,
   ariaLabel,
   playOnVisible = false,
+  insertImmediately = false,
+  showImmediately = false,
   rootMargin = "200px",
   iframeLoading = "lazy",
+  blockPreloader = false,
 }: LazyVimeoProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isInserted, setIsInserted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const insertedRef = useRef(false);
+  const instanceId = useId();
+  const preloader = usePreloader();
+  const preloaderRef = useRef(preloader);
+  preloaderRef.current = preloader;
 
   const handleIframeLoad = useCallback(() => {
     const iframe = iframeRef.current;
+    const markDisplayReady = () => setIsLoaded(true);
+    const markPreloaderReady = () => preloaderRef.current?.markVideoLoaded(instanceId);
     if (!iframe || !playOnVisible) {
-      setIsLoaded(true);
+      markDisplayReady();
+      markPreloaderReady();
       return;
     }
-    const fallback = setTimeout(() => setIsLoaded(true), 5000);
+    if (showImmediately) {
+      markDisplayReady();
+      markPreloaderReady();
+      return;
+    }
+    const fallback = setTimeout(() => {
+      markDisplayReady();
+      if (blockPreloader) markPreloaderReady();
+    }, 5000);
     loadVimeoPlayer()
       .then((Player) => {
         const player = new Player(iframe);
         player.on("playing", () => {
           clearTimeout(fallback);
-          setIsLoaded(true);
+          markDisplayReady();
+          if (blockPreloader) markPreloaderReady();
         });
       })
       .catch(() => {
         clearTimeout(fallback);
-        setIsLoaded(true);
+        markDisplayReady();
+        if (blockPreloader) markPreloaderReady();
       });
-  }, [playOnVisible]);
+  }, [playOnVisible, showImmediately, instanceId, blockPreloader]);
 
   const insertIframe = () => {
     if (insertedRef.current) return;
@@ -122,11 +158,24 @@ export default function LazyVimeo({
     setIsInserted(true);
   };
 
-  // Auto-insert on viewport entry — all observer/window usage inside useEffect.
+  // Register with preloader only when blockPreloader is set (Hero video).
+  // Use ref to avoid effect re-running when context updates (prevents infinite loop).
+  useEffect(() => {
+    const p = preloaderRef.current;
+    if (!p || !blockPreloader) return;
+    return p.registerVideo(instanceId);
+  }, [blockPreloader, instanceId]);
+
+  // Auto-insert: immediately if insertImmediately, else on viewport entry.
   useEffect(() => {
     if (!playOnVisible) return;
     const el = wrapperRef.current;
     if (!el) return;
+
+    if (insertImmediately) {
+      insertIframe();
+      return;
+    }
 
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
       insertIframe();
@@ -146,7 +195,7 @@ export default function LazyVimeo({
     observer.observe(el);
     return () => observer.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playOnVisible, rootMargin]);
+  }, [playOnVisible, insertImmediately, rootMargin]);
 
   // Wrapper sizing: fill mode = stretch to parent; normal mode = padding-top ratio.
   const wrapperStyle: CSSProperties = fill
@@ -179,7 +228,7 @@ export default function LazyVimeo({
       className={wrapperClassName}
       style={{ overflow: "hidden", ...wrapperStyle }}
     >
-      {poster && !isLoaded && (
+      {poster && !(showImmediately && isInserted) && (
         <img
           className="lazy-vimeo-poster"
           src={poster}
@@ -187,7 +236,14 @@ export default function LazyVimeo({
           aria-hidden="true"
           fetchPriority={posterPriority ? "high" : undefined}
           loading={posterPriority ? "eager" : "lazy"}
-          style={{ ...absoluteFill, objectFit: "cover", display: "block" }}
+          style={{
+            ...absoluteFill,
+            objectFit: "cover",
+            display: "block",
+            opacity: isLoaded ? 0 : 1,
+            transition: "opacity 200ms ease-out",
+            pointerEvents: isLoaded ? "none" : "auto",
+          }}
         />
       )}
 
@@ -204,8 +260,8 @@ export default function LazyVimeo({
           style={{
             ...absoluteFill,
             border: 0,
-            opacity: isLoaded ? 1 : 0,
-            transition: "opacity 240ms ease",
+            opacity: isLoaded || showImmediately ? 1 : 0,
+            transition: "opacity 200ms ease-in",
           }}
         />
       )}

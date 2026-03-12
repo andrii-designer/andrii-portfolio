@@ -6,8 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
 import { featuredProjects } from "@/data/featuredProjects";
-import { HomePageClient } from "./HomePageClient";
-import { SharedShowreelSlot } from "@/contexts/SharedShowreelContext";
+import LazyVimeo from "@/components/media/LazyVimeo";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -29,9 +28,11 @@ import { SharedShowreelSlot } from "@/contexts/SharedShowreelContext";
  * - Spacing: --token-space-24, --token-space-48, --token-space-64, --token-space-192, --token-space-256
  */
 
+const SHOWREEL_URL =
+  "https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto";
+
 export default function HomePage() {
   return (
-    <HomePageClient>
     <>
       {/* Hero Section — Figma node-id: 2224:4166 */}
       <section
@@ -53,8 +54,7 @@ export default function HomePage() {
             cta={{ text: "Book a call", href: "/contact" }}
             media={{
               type: "vimeo",
-              iframeSrc:
-                "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p",
+              iframeSrc: SHOWREEL_URL,
               poster: "/assets/images/thumbs/showreel2026-thumb.webp",
             }}
           />
@@ -96,7 +96,7 @@ export default function HomePage() {
       </section>
 
       {/* Video Section — Full width, no side padding */}
-      {/* .video-section-inner owns the 16:9 aspect-ratio; SharedShowreelSlot fills it. */}
+      {/* .video-section-inner owns the 16:9 aspect-ratio; LazyVimeo fills it. */}
       <section
         className="video-section-fullbleed"
         style={{
@@ -105,7 +105,15 @@ export default function HomePage() {
         data-node-id="video-section"
       >
         <div className="video-section-inner">
-          <SharedShowreelSlot id="video" fill />
+          <LazyVimeo
+            fill
+            poster="/assets/images/thumbs/showreel2026-thumb.webp"
+            iframeSrc={SHOWREEL_URL}
+            ariaLabel="Showreel 2026"
+            playOnVisible
+            insertImmediately
+            iframeLoading="eager"
+          />
         </div>
       </section>
 
@@ -144,6 +152,5 @@ export default function HomePage() {
       {/* Top padding: 128px, side paddings: 24px, bottom padding: 24px */}
       <Footer />
     </>
-    </HomePageClient>
   );
 }

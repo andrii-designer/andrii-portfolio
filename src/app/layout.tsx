@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { PreloaderProvider } from "@/components/Preloader/Preloader";
 import "./globals.css";
 
 /**
@@ -28,16 +29,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
-        {/* Preload hero poster for instant display on home page (no empty flash) */}
+        {/* Preconnect + preload Vimeo for faster showreel load on homepage */}
+        <link rel="preconnect" href="https://player.vimeo.com" />
+        <link rel="preconnect" href="https://i.vimeocdn.com" crossOrigin="" />
         <link
           rel="preload"
-          as="image"
-          href="/assets/images/thumbs/showreel2026-thumb.webp"
+          href="https://player.vimeo.com/api/player.js"
+          as="script"
         />
+        <link rel="preload" href="/hero-assets/logo.svg" as="image" />
       </head>
       <body className={manrope.className}>
-        {children}
-        <SpeedInsights />
+        <PreloaderProvider>
+          {children}
+          <SpeedInsights />
+        </PreloaderProvider>
       </body>
     </html>
   );

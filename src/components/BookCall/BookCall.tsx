@@ -2,8 +2,11 @@
 
 import Title from "@/components/Title";
 import { BookCallButton } from "@/components/Button";
-import { SharedShowreelSlot } from "@/contexts/SharedShowreelContext";
+import LazyVimeo from "@/components/media/LazyVimeo";
+
 const FALLBACK_MESSAGE = "Get your project moving and start seeing results!";
+const SHOWREEL_URL =
+  "https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto";
 
 export type BookCallProps = {
   id?: string;
@@ -86,7 +89,15 @@ export default function BookCall({ id }: BookCallProps) {
             }}
           >
             <div className="w-full shrink-0 rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto">
-              <SharedShowreelSlot id="bookcall-desktop" />
+              <LazyVimeo
+                poster="/assets/images/thumbs/showreel2026-thumb.webp"
+                iframeSrc={SHOWREEL_URL}
+                aspectPadding="56.25%"
+                ariaLabel="Showreel"
+                playOnVisible
+                insertImmediately
+                iframeLoading="eager"
+              />
             </div>
           </div>
         </div>
@@ -103,7 +114,15 @@ export default function BookCall({ id }: BookCallProps) {
           <p className="book-call-subhead">{FALLBACK_MESSAGE}</p>
 
           <div className="book-call-illustration">
-            <SharedShowreelSlot id="bookcall-mobile" />
+            <LazyVimeo
+              poster="/assets/images/thumbs/showreel2026-thumb.webp"
+              iframeSrc={SHOWREEL_URL}
+              aspectPadding="56.25%"
+              ariaLabel="Showreel"
+              playOnVisible
+              insertImmediately
+              iframeLoading="eager"
+            />
           </div>
 
           <div className="book-call-cta">

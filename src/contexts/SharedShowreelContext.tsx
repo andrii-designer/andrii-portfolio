@@ -13,7 +13,7 @@ import { createPortal } from "react-dom";
 import LazyVimeo from "@/components/media/LazyVimeo";
 
 const SHOWREEL_IFRAME_SRC =
-  "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p";
+  "https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto";
 const SHOWREEL_POSTER = "/assets/images/thumbs/showreel2026-thumb.webp";
 
 export type ShowreelSlotId =
@@ -96,6 +96,14 @@ export function SharedShowreelProvider({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
+  // Default to hero on first paint so video loads immediately (above-the-fold).
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      setActiveSlotId((prev) => (prev === null ? "hero" : prev));
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   const value: SharedShowreelContextValue = {
     activeSlotId,
     registerSlot,
@@ -128,12 +136,13 @@ function SharedShowreelPortal({
     <LazyVimeo
       fill={isVideoSection}
       {...(!isVideoSection && { aspectPadding: "56.25%" })}
-      poster={SHOWREEL_POSTER}
-      posterPriority={activeSlotId === "hero"}
+      poster=""
       iframeSrc={SHOWREEL_IFRAME_SRC}
       ariaLabel="Showreel 2026"
       playOnVisible
-      iframeLoading={activeSlotId === "hero" ? "eager" : "lazy"}
+      insertImmediately
+      showImmediately
+      iframeLoading="eager"
     />,
     ref,
   );
@@ -188,21 +197,6 @@ export function SharedShowreelSlot({
         ...style,
       }}
     >
-      {!isActive && (
-        <img
-          src={SHOWREEL_POSTER}
-          alt=""
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      )}
     </div>
   );
 }
