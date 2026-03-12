@@ -5,9 +5,9 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import BookCall from "@/components/BookCall";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import { featuredProjects } from "@/data/featuredProjects";
-import LazyVimeo from "@/components/media/LazyVimeo";
+import { HomePageClient } from "./HomePageClient";
+import { SharedShowreelSlot } from "@/contexts/SharedShowreelContext";
 
 /**
  * Home page — Hero + Works sections from Figma
@@ -31,6 +31,7 @@ import LazyVimeo from "@/components/media/LazyVimeo";
 
 export default function HomePage() {
   return (
+    <HomePageClient>
     <>
       {/* Hero Section — Figma node-id: 2224:4166 */}
       <section
@@ -95,7 +96,7 @@ export default function HomePage() {
       </section>
 
       {/* Video Section — Full width, no side padding */}
-      {/* .video-section-inner owns the 16:9 aspect-ratio; LazyVimeo fills it. */}
+      {/* .video-section-inner owns the 16:9 aspect-ratio; SharedShowreelSlot fills it. */}
       <section
         className="video-section-fullbleed"
         style={{
@@ -104,13 +105,7 @@ export default function HomePage() {
         data-node-id="video-section"
       >
         <div className="video-section-inner">
-          <LazyVimeo
-            fill
-            poster="/assets/images/thumbs/showreel2026-thumb.webp"
-            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p"
-            ariaLabel="Showreel 2026"
-            playOnVisible={true}
-          />
+          <SharedShowreelSlot id="video" fill />
         </div>
       </section>
 
@@ -149,5 +144,6 @@ export default function HomePage() {
       {/* Top padding: 128px, side paddings: 24px, bottom padding: 24px */}
       <Footer />
     </>
+    </HomePageClient>
   );
 }

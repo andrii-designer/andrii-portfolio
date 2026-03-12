@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { BookCallButton } from "@/components/Button";
 import { imageSizes } from "@/lib/imageSizes";
 import OptimizedImage from "@/components/OptimizedImage";
-import LazyVimeo from "@/components/media/LazyVimeo";
+import { SharedShowreelSlot } from "@/contexts/SharedShowreelContext";
 
 /**
  * Hero — Figma node-id: 2224:4198 (Content frame)
@@ -112,14 +112,10 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 wrapperStyle={{ width: "100%", height: "100%" }}
               />
             ) : (
-              <LazyVimeo
-                poster={media.poster}
-                posterPriority
-                iframeSrc={media.iframeSrc}
-                aspectPadding="56.25%"
-                ariaLabel="Showreel"
-                playOnVisible={true}
-                iframeLoading="eager"
+              <SharedShowreelSlot
+                id="hero"
+                className="w-full h-full"
+                style={{ borderRadius: 0 }}
               />
             )}
           </figure>
