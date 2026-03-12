@@ -187,7 +187,7 @@ export default function LazyVimeo({
           aria-hidden="true"
           fetchPriority={posterPriority ? "high" : undefined}
           loading={posterPriority ? "eager" : "lazy"}
-          style={{ ...absoluteFill, objectFit: "contain", display: "block" }}
+          style={{ ...absoluteFill, objectFit: "cover", display: "block" }}
         />
       )}
 

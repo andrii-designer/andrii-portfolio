@@ -23,18 +23,19 @@ export default function OptimizedImage(props: OptimizedImageProps) {
     className,
     style,
     fill,
+    width,
+    height,
     onLoadingComplete,
     ...imageProps
   } = props;
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const useFill = fill || Boolean(aspectRatio);
 
   const wrapperStyle: CSSProperties = {
-    // For fill layouts, the wrapper should adopt the parent size so the
-    // primary-color placeholder is visible even before the image paints.
     ...(fill ? { width: "100%", height: "100%" } : {}),
-    ...(aspectRatio ? { aspectRatio } : {}),
-    ...style,
+    ...(aspectRatio ? { aspectRatio, width: "100%" } : {}),
+    ...(aspectRatio ? {} : style ?? {}),
   };
 
   const handleLoadingComplete: NonNullable<ImageProps["onLoadingComplete"]> = (
@@ -46,11 +47,10 @@ export default function OptimizedImage(props: OptimizedImageProps) {
     }
   };
 
-  const imageClassName = ["next-image", className].filter(Boolean).join(" ");
-
   const wrapperClassName = [
     "optimized-media",
     fill ? "fill" : "",
+    aspectRatio ? "fill-container" : "",
     isLoaded ? "is-loaded" : "",
   ]
     .filter(Boolean)
@@ -60,8 +60,11 @@ export default function OptimizedImage(props: OptimizedImageProps) {
     <div className={wrapperClassName} style={wrapperStyle}>
       <Image
         {...imageProps}
-        fill={fill}
-        className={imageClassName}
+        fill={useFill}
+        width={useFill ? undefined : width}
+        height={useFill ? undefined : height}
+        className={["next-image", className].filter(Boolean).join(" ")}
+        style={useFill ? { objectFit: "cover" } : style}
         onLoadingComplete={handleLoadingComplete}
       />
     </div>

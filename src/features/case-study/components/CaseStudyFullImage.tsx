@@ -47,7 +47,7 @@ export default function CaseStudyFullImage({
             sizes="100vw"
             loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
-            wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
+            wrapperStyle={{ width: "100%" }}
           />
         </motion.div>
 
@@ -65,7 +65,7 @@ export default function CaseStudyFullImage({
               sizes="100vw"
               loading="lazy"
               style={{ width: "100%", height: "auto", display: "block" }}
-              wrapperStyle={{ width: "100%", aspectRatio: "16 / 9" }}
+              wrapperStyle={{ width: "100%" }}
             />
           </motion.div>
         )}

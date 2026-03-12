@@ -1,6 +1,7 @@
 "use client";
 
 import OptimizedImage from "@/components/media/OptimizedImage";
+import LazyVimeo from "@/components/media/LazyVimeo";
 import SkillsTitle from "./SkillsTitle";
 import SkillsList from "./SkillsList";
 
@@ -99,25 +100,22 @@ const Skills = ({
             <SkillsList skills={skills} />
           </div>
 
-          {/* Photo — right side, square, max 566px */}
+          {/* Photo — right side, same layout as Hero media (330×220 figure with intrinsic aspect padding) */}
           <div
             className="skills-photo relative overflow-hidden rounded-none"
             style={{
-              aspectRatio: "1 / 1",
-              width: "min(566px, 40%)",
-              maxWidth: "566px",
+              width: "100%",
+              maxWidth: "330px",
               borderRadius: 0,
               flex: "0 0 auto",
             }}
           >
-            <OptimizedImage
-              src={photoSrc}
-              alt={photoAlt}
-              fill
-              sizes="(max-width: 600px) 100vw, (max-width: 1440px) 40vw, 566px"
-              className="object-cover"
-              style={{ borderRadius: 0 }}
-              loading="lazy"
+            <LazyVimeo
+              poster="/assets/images/thumbs/showreel2026-thumb.webp"
+              iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p"
+              ariaLabel="Showreel"
+              playOnVisible={true}
+              aspectPadding="56.25%"
             />
           </div>
         </div>

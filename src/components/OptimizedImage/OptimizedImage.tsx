@@ -31,12 +31,17 @@ export default function OptimizedImage({
   className,
   style,
   fill,
+  width,
+  height,
   ...props
 }: OptimizedImageProps) {
   const [loaded, setLoaded] = useState(false);
 
+  const hasAspectRatio = Boolean(wrapperStyle?.aspectRatio);
+  const useFill = fill || hasAspectRatio;
+
   const wrapperBase: CSSProperties = {
-    background: "var(--token-color-primary, #D2D2D6)",
+    background: hasAspectRatio ? "transparent" : "var(--token-color-primary, #D2D2D6)",
     position: "relative",
     overflow: "hidden",
     ...wrapperStyle,
@@ -44,14 +49,16 @@ export default function OptimizedImage({
 
   return (
     <div
-      className={`optimized-image${loaded ? " is-loaded" : ""}${wrapperClassName ? ` ${wrapperClassName}` : ""}`}
+      className={`optimized-image${loaded ? " is-loaded" : ""}${hasAspectRatio ? " fill-container" : ""}${wrapperClassName ? ` ${wrapperClassName}` : ""}`}
       style={wrapperBase}
     >
       <Image
         {...props}
-        fill={fill}
+        fill={useFill}
+        width={useFill ? undefined : width}
+        height={useFill ? undefined : height}
         className={`next-image${className ? ` ${className}` : ""}`}
-        style={{ ...style }}
+        style={useFill ? { objectFit: "cover" } : style}
         onLoad={() => setLoaded(true)}
       />
     </div>

@@ -116,7 +116,7 @@ const Hero = ({ title, cta, media }: HeroProps) => {
                 poster={media.poster}
                 posterPriority
                 iframeSrc={media.iframeSrc}
-                aspectPadding="66.67%"
+                aspectPadding="56.25%"
                 ariaLabel="Showreel"
                 playOnVisible={true}
                 iframeLoading="eager"
