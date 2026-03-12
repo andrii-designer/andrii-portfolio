@@ -1471,13 +1471,15 @@ section.case-study-text-image .problem-solution-paragraph {
   }
 }
 
-/* About page — Skills: list max-width + video sticks right on desktop only */
+/* About page — Skills: list max-width + video sticks flush right on desktop only */
 @media (min-width: 768px) {
   .about-page .skills-list-container {
     max-width: 684px;
   }
   .about-page .skills-photo {
     margin-left: auto;
+    /* Pull video flush to section right edge (cancel section-inner's 24px padding) */
+    margin-right: calc(-1 * var(--token-space-24));
   }
 }
 
