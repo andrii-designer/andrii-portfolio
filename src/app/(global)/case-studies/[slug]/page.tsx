@@ -106,7 +106,7 @@ const caseStudies: Record<
     introVideoPoster: "/assets/images/thumbs/x-pand2-thumb.webp",
     bodyTitle: "Scaling a product story with design systems.",
     bodyParagraph:
-      "X-pand explores how consistent design systems can help teams move faster while keeping the experience cohesive. This case study shows how layout, typography, and interaction models scale across surfaces.",
+      "The X-Pand logo combines the letter “X” with the silhouette of the bracelet, creating a mark that works both as a typographic symbol and a representation of the product itself. The name X-Pand intentionally echoes the word expand, reinforcing the main idea behind the device. It represents a wearable that grows from a compact wristband into a larger interactive display. The result is a clean and memorable identity that communicates both the product’s function and its sense of motion at a glance.",
     bodyImage: "/assets/case-studies/x-pand-section3.png",
     gridImages: [
       "/assets/case-studies/X-Pand.png",
@@ -172,7 +172,11 @@ export default async function CaseStudyPage({ params }: Props) {
       {slug === "x-pand" && (
         <CaseStudyTextImage
           title={slug === "x-pand" ? "Website" : data.bodyTitle ?? fallback.bodyTitle}
-          paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+          paragraph={
+            slug === "x-pand"
+              ? "I designed a motion led website for X-Pand that greets visitors with a cinematic hero showing the bracelet smoothly expanding. The site then gently guides people through the product’s core features and short real world use cases, each paired with 3D scenes. Subtle animations echo the device’s expanding behavior so the experience feels tangible, and the layout reveals information as you scroll so visitors can quickly understand what X-Pand does."
+              : data.bodyParagraph ?? fallback.bodyParagraph
+          }
           image="/assets/case-studies/x-pand-section4.png"
           secondImage="/assets/case-studies/x-pand-section4-2.png"
         />
@@ -181,8 +185,12 @@ export default async function CaseStudyPage({ params }: Props) {
       {/* Second Title + Paragraph + 2 vertically stacked full-width images — X-pand only */}
       {slug === "x-pand" && (
         <CaseStudyTextImage
-          title={slug === "x-pand" ? "Branding" : data.bodyTitle ?? fallback.bodyTitle}
-          paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
+          title={slug === "x-pand" ? "Brand identity" : data.bodyTitle ?? fallback.bodyTitle}
+          paragraph={
+            slug === "x-pand"
+              ? "I established a two-type system: Ncosmic for the hero and footer headers to give the brand a futuristic signature, and DM Sans for supporting headings and body copy to ensure clear, readable text at any size. The color palette was lifted from the promo video to keep the site visually continuous with the motion work."
+              : data.bodyParagraph ?? fallback.bodyParagraph
+          }
           image="/assets/case-studies/x-pand-section5.png"
           secondImage="/assets/case-studies/x-pand-section5-2.png"
         />
@@ -251,11 +259,11 @@ export default async function CaseStudyPage({ params }: Props) {
         />
       )}
 
-      {/* Final video section — X-pand only: Title + text + Vimeo video */}
+      {/* Final summary/video section — X-pand only: Results */}
       {slug === "x-pand" && (
         <CaseStudyTextImage
-          title="Product video"
-          paragraph="A short 3D motion sequence that shows how X-pand shifts from a compact bracelet to a full, expanded screen in use."
+          title="Results"
+          paragraph="I created a cinematic 3D promo, a focused brand identity, and a motion led website that make X-Pand’s expanding behavior instantly clear. To make the expansion believable at every size and keep the site fast, I defined a consistent motion language, pulled the color palette from the film for visual continuity, and built lightweight reusable components. The result is a cohesive, demo ready experience that shows the product and makes people want it."
           video="https://player.vimeo.com/video/1117256647?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0"
           videoPoster="/assets/images/thumbs/x-pand3-thumb.webp"
         />

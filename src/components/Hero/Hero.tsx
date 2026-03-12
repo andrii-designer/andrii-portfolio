@@ -86,14 +86,13 @@ const Hero = ({ title, cta, media }: HeroProps) => {
       </motion.h1>
 
       {/* Bottom Row — Figma node-id: 2224:4200 */}
-      {/* Mobile: stacked (text → CTA → media). md+: two-column row (CTA + media) */}
-      <motion.div
-        {...bottomRowMotion}
+      {/* Video visible immediately (no animation) to avoid empty space on load. CTA animates in. */}
+      <div
         className="flex w-full flex-col gap-128 md:gap-24 md:flex-row md:items-end md:justify-between"
         data-node-id="2224:4200"
       >
-        {/* Video Preview — Figma node-id: 2224:4206. DOM order: video then CTA (mobile: title → video → button). md+: order-2 so it appears on the right. */}
-          {media && (
+        {/* Video Preview — Figma node-id: 2224:4206. No motion: displays instantly with preloaded poster. */}
+        {media && (
           <figure
             className="w-full shrink-0 rounded-none aspect-[330/220] md:order-2
               md:w-[330px] md:h-[220px] md:aspect-auto"
@@ -115,10 +114,12 @@ const Hero = ({ title, cta, media }: HeroProps) => {
             ) : (
               <LazyVimeo
                 poster={media.poster}
+                posterPriority
                 iframeSrc={media.iframeSrc}
                 aspectPadding="66.67%"
                 ariaLabel="Showreel"
                 playOnVisible={true}
+                iframeLoading="eager"
               />
             )}
           </figure>
@@ -126,11 +127,15 @@ const Hero = ({ title, cta, media }: HeroProps) => {
 
         {/* CTA Button — Figma node-id: 2231:5208. md+: order-1 so it appears on the left. */}
         {cta && (
-          <div className="md:order-1" data-node-id="2231:5208">
+          <motion.div
+            {...bottomRowMotion}
+            className="md:order-1"
+            data-node-id="2231:5208"
+          >
             <BookCallButton href={cta.href} label={cta.text} />
-          </div>
+          </motion.div>
         )}
-      </motion.div>
+      </div>
     </motion.section>
   );
 };

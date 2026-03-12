@@ -27,6 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.variable}>
+      <head>
+        {/* Preload hero poster for instant display on home page (no empty flash) */}
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/images/thumbs/showreel2026-thumb.webp"
+        />
+      </head>
       <body className={manrope.className}>
         {children}
         <SpeedInsights />

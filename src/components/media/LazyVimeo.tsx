@@ -1,12 +1,42 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+
+const VIMEO_PLAYER_SCRIPT = "https://player.vimeo.com/api/player.js";
+
+type VimeoPlayer = new (el: HTMLIFrameElement) => { on: (event: string, cb: () => void) => void };
+
+function loadVimeoPlayer(): Promise<VimeoPlayer> {
+  return new Promise((resolve, reject) => {
+    const win = typeof window !== "undefined" ? window : null;
+    const Vimeo = win ? (win as unknown as { Vimeo?: { Player: VimeoPlayer } }).Vimeo : null;
+    if (Vimeo?.Player) {
+      resolve(Vimeo.Player);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = VIMEO_PLAYER_SCRIPT;
+    script.async = true;
+    script.onload = () => {
+      const P = (window as unknown as { Vimeo: { Player: VimeoPlayer } }).Vimeo?.Player;
+      if (P) resolve(P);
+      else reject(new Error("Vimeo Player not found"));
+    };
+    script.onerror = () => reject(new Error("Failed to load Vimeo Player"));
+    document.head.appendChild(script);
+  });
+}
 
 export type LazyVimeoProps = {
   /** Vimeo numeric id — informational only */
   id?: string;
   /** Public path to the poster image shown before the video loads */
   poster: string;
+  /**
+   * When true, use fetchpriority="high" and loading="eager" for instant poster display
+   * (above-the-fold). Use with preload link in document head for best results.
+   */
+  posterPriority?: boolean;
   /**
    * CSS padding-top percentage that sets the intrinsic aspect ratio, e.g. "56.25%".
    * Required when fill is false (the default). Ignored when fill is true.
@@ -30,6 +60,8 @@ export type LazyVimeoProps = {
   playOnVisible?: boolean;
   /** IntersectionObserver rootMargin — default "200px" */
   rootMargin?: string;
+  /** Iframe loading: "eager" for above-the-fold (Hero), "lazy" otherwise. Default: "lazy" */
+  iframeLoading?: "lazy" | "eager";
 };
 
 /**
@@ -47,6 +79,7 @@ export type LazyVimeoProps = {
  */
 export default function LazyVimeo({
   poster,
+  posterPriority = false,
   aspectPadding = "56.25%",
   fill = false,
   iframeSrc,
@@ -54,11 +87,34 @@ export default function LazyVimeo({
   ariaLabel,
   playOnVisible = false,
   rootMargin = "200px",
+  iframeLoading = "lazy",
 }: LazyVimeoProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isInserted, setIsInserted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const insertedRef = useRef(false);
+
+  const handleIframeLoad = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || !playOnVisible) {
+      setIsLoaded(true);
+      return;
+    }
+    const fallback = setTimeout(() => setIsLoaded(true), 5000);
+    loadVimeoPlayer()
+      .then((Player) => {
+        const player = new Player(iframe);
+        player.on("playing", () => {
+          clearTimeout(fallback);
+          setIsLoaded(true);
+        });
+      })
+      .catch(() => {
+        clearTimeout(fallback);
+        setIsLoaded(true);
+      });
+  }, [playOnVisible]);
 
   const insertIframe = () => {
     if (insertedRef.current) return;
@@ -129,19 +185,22 @@ export default function LazyVimeo({
           src={poster}
           alt=""
           aria-hidden="true"
-          style={{ ...absoluteFill, objectFit: "cover", display: "block" }}
+          fetchPriority={posterPriority ? "high" : undefined}
+          loading={posterPriority ? "eager" : "lazy"}
+          style={{ ...absoluteFill, objectFit: "contain", display: "block" }}
         />
       )}
 
       {isInserted && (
         <iframe
+          ref={iframeRef}
           src={iframeSrc}
           title={ariaLabel ?? "Vimeo video player"}
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
-          loading="lazy"
-          onLoad={() => setIsLoaded(true)}
+          loading={iframeLoading}
+          onLoad={handleIframeLoad}
           style={{
             ...absoluteFill,
             border: 0,

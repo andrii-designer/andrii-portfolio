@@ -53,7 +53,7 @@ export default function HomePage() {
             media={{
               type: "vimeo",
               iframeSrc:
-                "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
+                "https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p",
               poster: "/assets/images/thumbs/showreel2026-thumb.webp",
             }}
           />
@@ -107,7 +107,7 @@ export default function HomePage() {
           <LazyVimeo
             fill
             poster="/assets/images/thumbs/showreel2026-thumb.webp"
-            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+            iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p"
             ariaLabel="Showreel 2026"
             playOnVisible={true}
           />

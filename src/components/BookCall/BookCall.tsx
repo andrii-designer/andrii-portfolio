@@ -88,7 +88,7 @@ export default function BookCall({ id }: BookCallProps) {
             <div className="w-full shrink-0 rounded-none aspect-[330/220] md:w-[330px] md:h-[220px] md:aspect-auto">
               <LazyVimeo
                 poster="/assets/images/thumbs/showreel2026-thumb.webp"
-                iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+                iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p"
                 aspectPadding="66.67%"
                 ariaLabel="Showreel"
                 playOnVisible={true}
@@ -111,7 +111,7 @@ export default function BookCall({ id }: BookCallProps) {
           <div className="book-call-illustration">
             <LazyVimeo
               poster="/assets/images/thumbs/showreel2026-thumb.webp"
-              iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
+              iframeSrc="https://player.vimeo.com/video/1172612315?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=540p"
               aspectPadding="66.67%"
               ariaLabel="Showreel"
               playOnVisible={true}
