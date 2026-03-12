@@ -95,6 +95,7 @@ const Skills = ({
             style={{
               flex: "1 1 0",
               minWidth: "300px",
+              maxWidth: "684px",
             }}
           >
             <SkillsList skills={skills} />
