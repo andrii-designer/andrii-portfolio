@@ -37,6 +37,13 @@ a {
   text-decoration: none;
 }
 
+/* Scroll margin for anchor targets — prevents fixed header from covering content */
+#works,
+#services,
+#book-a-call {
+  scroll-margin-top: calc(var(--token-size-64) + var(--token-space-24));
+}
+
 /* Footer email row (used for copy tooltip positioning) */
 .footer-email-row {
   position: relative;

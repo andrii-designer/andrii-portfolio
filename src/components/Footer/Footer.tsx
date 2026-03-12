@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import OptimizedImage from "@/components/media/OptimizedImage";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import BookCallButton from "@/components/Button/BookCallButton";
 
 /**
@@ -75,6 +76,8 @@ const CopyIcon = () => (
 const TOOLTIP_GAP = 8;
 
 export default function Footer({ className = "" }: FooterProps) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
   const [tooltipStyle, setTooltipStyle] = useState<React.CSSProperties | null>(null);
   const emailRowRef = useRef<HTMLDivElement>(null);
@@ -118,6 +121,20 @@ export default function Footer({ className = "" }: FooterProps) {
    * - Falls back to execCommand for older browsers
    * - Provides accessible status feedback via aria-live
    */
+  const handleAnchorClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      const hash = href.split("#")[1];
+      if (!hash || !isHomePage) return;
+      e.preventDefault();
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", `#${hash}`);
+      }
+    },
+    [isHomePage]
+  );
+
   const handleCopyEmail = useCallback(async () => {
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -298,16 +315,29 @@ export default function Footer({ className = "" }: FooterProps) {
                   gap: "var(--token-space-16)",
                 }}
               >
-                {internalLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-link-h5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {internalLinks.map((link) => {
+                  const isAnchor = link.href.includes("#");
+                  return (
+                    <li key={link.href}>
+                      {isAnchor ? (
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleAnchorClick(e, link.href)}
+                          className="text-link-h5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-link-h5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
 
               {/* Social links column */}
