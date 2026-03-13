@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PreloaderProvider } from "@/components/Preloader/Preloader";
 import { FirstScrollProvider } from "@/contexts/FirstScrollContext";
@@ -52,6 +53,7 @@ export default function RootLayout({
           <FirstScrollProvider>
             <FirstInteractionProvider>
               {children}
+              <Analytics />
               <SpeedInsights />
             </FirstInteractionProvider>
           </FirstScrollProvider>
