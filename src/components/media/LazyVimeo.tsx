@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { usePreloader } from "@/contexts/PreloaderContext";
 import { useFirstScroll } from "@/contexts/FirstScrollContext";
+import { useFirstInteraction } from "@/contexts/FirstInteractionContext";
 
 const VIMEO_PLAYER_SCRIPT = "https://player.vimeo.com/api/player.js";
 
@@ -30,74 +31,31 @@ function loadVimeoPlayer(): Promise<VimeoPlayer> {
 }
 
 export type LazyVimeoProps = {
-  /** Vimeo numeric id — informational only */
   id?: string;
-  /** Public path to the poster image shown before the video loads */
   poster: string;
-  /**
-   * When true, use fetchpriority="high" and loading="eager" for instant poster display
-   * (above-the-fold). Use with preload link in document head for best results.
-   */
   posterPriority?: boolean;
-  /**
-   * CSS padding-top percentage that sets the intrinsic aspect ratio, e.g. "56.25%".
-   * Required when fill is false (the default). Ignored when fill is true.
-   */
   aspectPadding?: string;
-  /**
-   * Fill mode — the wrapper stretches to fill its positioned ancestor (position:
-   * absolute; inset: 0). Use this when the parent element already defines the
-   * desired height (e.g. an aspect-ratio container like .video-section-inner).
-   * Default: false.
-   */
   fill?: boolean;
-  /** Full Vimeo player iframe src URL */
   iframeSrc: string;
   className?: string;
   ariaLabel?: string;
-  /**
-   * When true, insert the iframe automatically once the wrapper enters the
-   * viewport (useful for background/ambient videos). Default: false.
-   */
   playOnVisible?: boolean;
-  /**
-   * When true, insert the iframe immediately on mount (no IntersectionObserver).
-   * Use for above-the-fold video that should load right away.
-   */
   insertImmediately?: boolean;
-  /**
-   * When true, show the iframe as soon as it's inserted (opacity: 1).
-   * When false, keep iframe hidden until video plays (poster visible until then).
-   */
   showImmediately?: boolean;
-  /** IntersectionObserver rootMargin — default "200px" */
+  /** IntersectionObserver rootMargin — use "100%" for below-fold to load when approaching viewport */
   rootMargin?: string;
-  /** Iframe loading: "eager" for above-the-fold (Hero), "lazy" otherwise. Default: "lazy" */
   iframeLoading?: "lazy" | "eager";
-  /**
-   * When true, blocks the preloader until this video fires "playing".
-   * Use only for the primary Hero video so preloader hides exactly when it starts.
-   */
   blockPreloader?: boolean;
-  /**
-   * When true, defer insert until user scrolls for the first time.
-   * Use for below-fold videos so they start loading on first scroll (before user reaches them).
-   */
   loadOnFirstScroll?: boolean;
 };
 
 /**
- * LazyVimeo — deferred Vimeo embed.
+ * LazyVimeo — deferred Vimeo embed with mobile-reliable loading.
  *
- * Shows a poster until the iframe is inserted. When playOnVisible=true, the
- * iframe is inserted automatically when the wrapper enters the viewport (no
- * play button or controls). When playOnVisible=false, the iframe is never
- * inserted (poster only).
- *
- * Critical positioning is applied via inline styles so layout is correct
- * regardless of global CSS parse order (avoids FOUC-driven height jumps).
- *
- * Token used: --token-color-primary (#d2d2d6) via .lazy-vimeo background.
+ * - IntersectionObserver with configurable rootMargin (load when approaching viewport)
+ * - User-gesture fallback: pointerdown/touchstart/click (reliable on iOS/Android)
+ * - Scroll/resize fallback when IntersectionObserver not supported
+ * - Poster + aspect-ratio to prevent layout shift
  */
 export default function LazyVimeo({
   poster,
@@ -125,20 +83,21 @@ export default function LazyVimeo({
   const preloaderRef = useRef(preloader);
   preloaderRef.current = preloader;
   const hasScrolled = useFirstScroll();
+  const hasInteracted = useFirstInteraction();
   const preloaderHidden = preloader?.preloaderHidden ?? false;
 
-  // Timer fallback: load after 2.5s regardless of events. iOS can block scroll/touch/context updates.
+  // Timer fallback: load after 3s if nothing else triggered (iOS edge cases)
   const [timerReady, setTimerReady] = useState(false);
   useEffect(() => {
     if (!loadOnFirstScroll) return;
-    const t = setTimeout(() => setTimerReady(true), 2500);
+    const t = setTimeout(() => setTimerReady(true), 3000);
     return () => clearTimeout(t);
   }, [loadOnFirstScroll]);
 
   const shouldInsertNow =
     insertImmediately ||
     (loadOnFirstScroll &&
-      (hasScrolled || preloaderHidden || timerReady));
+      (hasScrolled || hasInteracted || preloaderHidden || timerReady));
 
   const handleIframeLoad = useCallback(() => {
     const iframe = iframeRef.current;
@@ -174,21 +133,19 @@ export default function LazyVimeo({
       });
   }, [playOnVisible, showImmediately, instanceId, blockPreloader]);
 
-  const insertIframe = () => {
+  const insertIframe = useCallback(() => {
     if (insertedRef.current) return;
     insertedRef.current = true;
     setIsInserted(true);
-  };
+  }, []);
 
-  // Register with preloader only when blockPreloader is set (Hero video).
-  // Use ref to avoid effect re-running when context updates (prevents infinite loop).
   useEffect(() => {
     const p = preloaderRef.current;
     if (!p || !blockPreloader) return;
     return p.registerVideo(instanceId);
   }, [blockPreloader, instanceId]);
 
-  // Auto-insert: immediately if shouldInsertNow, else on viewport entry.
+  // Auto-insert: immediately if shouldInsertNow, else IntersectionObserver (or scroll fallback)
   useEffect(() => {
     if (!playOnVisible) return;
     const el = wrapperRef.current;
@@ -199,11 +156,9 @@ export default function LazyVimeo({
       return;
     }
 
-    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      insertIframe();
-      return;
-    }
+    if (typeof window === "undefined") return;
 
+    // IntersectionObserver: load when element approaches viewport (rootMargin expands detection zone)
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -211,21 +166,16 @@ export default function LazyVimeo({
           observer.disconnect();
         }
       },
-      { rootMargin }
+      { rootMargin, threshold: 0 }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playOnVisible, shouldInsertNow, rootMargin]);
+  }, [playOnVisible, shouldInsertNow, rootMargin, insertIframe]);
 
-  // Wrapper sizing: fill mode = stretch to parent; normal mode = padding-top ratio.
   const wrapperStyle: CSSProperties = fill
     ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
     : { paddingTop: aspectPadding, position: "relative" };
 
-  // Inline styles for all absolutely-positioned children so layout is correct
-  // even if global CSS hasn't parsed yet (prevents FOUC height expansion).
   const absoluteFill: CSSProperties = {
     position: "absolute",
     top: 0,

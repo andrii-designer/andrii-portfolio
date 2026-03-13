@@ -114,7 +114,7 @@ const Skills = ({
             <LazyVimeo
               poster="/assets/images/thumbs/showreel2026-thumb.webp"
               posterPriority
-              iframeSrc="https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto"
+              iframeSrc="https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto&playsinline=1"
               ariaLabel="Showreel"
               playOnVisible
               insertImmediately

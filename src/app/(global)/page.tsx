@@ -29,7 +29,7 @@ import LazyVimeo from "@/components/media/LazyVimeo";
  */
 
 const SHOWREEL_URL =
-  "https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto";
+  "https://player.vimeo.com/video/1173027362?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0&quality=360p&preload=auto&playsinline=1";
 
 export default function HomePage() {
   return (
@@ -112,6 +112,7 @@ export default function HomePage() {
             ariaLabel="Showreel 2026"
             playOnVisible
             loadOnFirstScroll
+            rootMargin="100%"
             iframeLoading="lazy"
           />
         </div>

@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PreloaderProvider } from "@/components/Preloader/Preloader";
 import { FirstScrollProvider } from "@/contexts/FirstScrollContext";
+import { FirstInteractionProvider } from "@/contexts/FirstInteractionContext";
 import "./globals.css";
 
 /**
@@ -47,8 +48,10 @@ export default function RootLayout({
       <body className={manrope.className}>
         <PreloaderProvider>
           <FirstScrollProvider>
-            {children}
-            <SpeedInsights />
+            <FirstInteractionProvider>
+              {children}
+              <SpeedInsights />
+            </FirstInteractionProvider>
           </FirstScrollProvider>
         </PreloaderProvider>
       </body>
