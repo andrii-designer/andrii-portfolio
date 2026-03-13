@@ -10,6 +10,16 @@ import {
 
 const FirstScrollContext = createContext<boolean>(false);
 
+/**
+ * Detects when the user has "engaged" so we can load below-fold videos.
+ *
+ * Primary trigger: preloaderhidden — when the preloader hides (Hero has played),
+ * we immediately start loading. This is device-agnostic and works on all mobile
+ * browsers (iOS Safari, Chrome, etc.) where scroll/touch events can be unreliable.
+ *
+ * Fallbacks: scroll, touchstart, touchmove — for navigation paths where the
+ * preloader might not fire (e.g. direct link to anchor).
+ */
 export function FirstScrollProvider({ children }: { children: ReactNode }) {
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -18,31 +28,20 @@ export function FirstScrollProvider({ children }: { children: ReactNode }) {
 
     const markScrolled = () => setHasScrolled(true);
 
-    // scroll: fires on desktop; on iOS Safari it fires only after scroll stops
+    // Primary: preloader hidden — Hero has played, user can see the page
+    const onPreloaderHidden = () => markScrolled();
+    window.addEventListener("preloaderhidden", onPreloaderHidden);
+
+    // Fallbacks: scroll/touch for direct navigation to #section
     window.addEventListener("scroll", markScrolled, { passive: true });
-    // touchstart: fires on any touch — iOS Safari may steal touchmove for native scroll
     document.addEventListener("touchstart", markScrolled, { passive: true });
-    // touchmove: fires during scroll on Android and some iOS cases
     document.addEventListener("touchmove", markScrolled, { passive: true });
 
-    // Fallback: poll scroll position — iOS updates scrollY during gesture even when scroll event is delayed
-    const pollScroll = () => {
-      const y = window.scrollY ?? document.documentElement.scrollTop ?? 0;
-      if (y > 5) {
-        markScrolled();
-        return;
-      }
-      rafRef = requestAnimationFrame(pollScroll);
-    };
-    let rafRef = requestAnimationFrame(pollScroll);
-    const timeout = setTimeout(() => cancelAnimationFrame(rafRef), 60000);
-
     return () => {
+      window.removeEventListener("preloaderhidden", onPreloaderHidden);
       window.removeEventListener("scroll", markScrolled);
       document.removeEventListener("touchstart", markScrolled);
       document.removeEventListener("touchmove", markScrolled);
-      cancelAnimationFrame(rafRef);
-      clearTimeout(timeout);
     };
   }, [hasScrolled]);
 
