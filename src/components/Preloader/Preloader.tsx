@@ -32,10 +32,8 @@ function PreloaderOverlay() {
     const start = Date.now();
 
     const hide = () => {
+      preloaderRef.current?.setPreloaderHidden?.(true);
       setIsVisible(false);
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("preloaderhidden"));
-      }
     };
 
     const checkHide = () => {

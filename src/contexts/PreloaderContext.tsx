@@ -15,6 +15,8 @@ type PreloaderContextValue = {
   reset: () => void;
   allVideosLoaded: boolean;
   hasVideos: boolean;
+  preloaderHidden: boolean;
+  setPreloaderHidden: (value: boolean) => void;
 };
 
 const PreloaderContext = createContext<PreloaderContextValue | null>(null);
@@ -22,10 +24,12 @@ const PreloaderContext = createContext<PreloaderContextValue | null>(null);
 export function PreloaderContextProvider({ children }: { children: ReactNode }) {
   const [registered, setRegistered] = useState<Set<string>>(() => new Set());
   const [loaded, setLoaded] = useState<Set<string>>(() => new Set());
+  const [preloaderHidden, setPreloaderHidden] = useState(false);
 
   const reset = useCallback(() => {
     setRegistered(() => new Set());
     setLoaded(() => new Set());
+    setPreloaderHidden(false);
   }, []);
 
   const registerVideo = useCallback((id: string) => {
@@ -62,8 +66,10 @@ export function PreloaderContextProvider({ children }: { children: ReactNode }) 
       reset,
       allVideosLoaded,
       hasVideos,
+      preloaderHidden,
+      setPreloaderHidden,
     }),
-    [registerVideo, markVideoLoaded, reset, allVideosLoaded, hasVideos]
+    [registerVideo, markVideoLoaded, reset, allVideosLoaded, hasVideos, preloaderHidden]
   );
 
   return (

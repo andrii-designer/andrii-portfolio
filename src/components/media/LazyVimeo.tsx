@@ -125,7 +125,10 @@ export default function LazyVimeo({
   const preloaderRef = useRef(preloader);
   preloaderRef.current = preloader;
   const hasScrolled = useFirstScroll();
-  const shouldInsertNow = insertImmediately || (loadOnFirstScroll && hasScrolled);
+  const preloaderHidden = preloader?.preloaderHidden ?? false;
+  const shouldInsertNow =
+    insertImmediately ||
+    (loadOnFirstScroll && (hasScrolled || preloaderHidden));
 
   const handleIframeLoad = useCallback(() => {
     const iframe = iframeRef.current;
