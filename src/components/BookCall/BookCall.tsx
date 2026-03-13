@@ -95,8 +95,9 @@ export default function BookCall({ id }: BookCallProps) {
                 aspectPadding="56.25%"
                 ariaLabel="Showreel"
                 playOnVisible
-                insertImmediately
-                iframeLoading="eager"
+                insertImmediately={false}
+                rootMargin="200px"
+                iframeLoading="lazy"
               />
             </div>
           </div>
@@ -120,8 +121,9 @@ export default function BookCall({ id }: BookCallProps) {
               aspectPadding="56.25%"
               ariaLabel="Showreel"
               playOnVisible
-              insertImmediately
-              iframeLoading="eager"
+              insertImmediately={false}
+              rootMargin="200px"
+              iframeLoading="lazy"
             />
           </div>
 
