@@ -15,9 +15,15 @@ export function FirstScrollProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (hasScrolled) return;
-    const onScroll = () => setHasScrolled(true);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const markScrolled = () => setHasScrolled(true);
+    // scroll: fires on desktop; on iOS Safari it fires only after scroll stops
+    window.addEventListener("scroll", markScrolled, { passive: true });
+    // touchmove: fires during scroll on mobile — iOS delays scroll until gesture ends
+    window.addEventListener("touchmove", markScrolled, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", markScrolled);
+      window.removeEventListener("touchmove", markScrolled);
+    };
   }, [hasScrolled]);
 
   return (
