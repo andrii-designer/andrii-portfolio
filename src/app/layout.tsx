@@ -18,12 +18,15 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Bump version to bust favicon cache when deploying (mobile browsers cache aggressively)
+const ASSET_VERSION = "v4";
+
 export const metadata: Metadata = {
   title: "Andrii Portfolio",
   description: "Portfolio website",
   icons: {
-    icon: "/hero-assets/logo.svg",
-    apple: "/hero-assets/logo.svg",
+    icon: `/hero-assets/logo.svg?${ASSET_VERSION}`,
+    apple: `/hero-assets/logo.svg?${ASSET_VERSION}`,
   },
 };
 
@@ -45,7 +48,7 @@ export default function RootLayout({
         />
         <link rel="preload" href="/hero-assets/logo.svg" as="image" />
       </head>
-      <body className={manrope.className}>
+      <body className={manrope.className} data-build={ASSET_VERSION}>
         <PreloaderProvider>
           <FirstScrollProvider>
             <FirstInteractionProvider>
