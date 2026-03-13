@@ -44,6 +44,18 @@ a {
   scroll-margin-top: calc(var(--token-size-64) + var(--token-space-24));
 }
 
+/* Preloader logo — 2.5x on mobile/tablet, 2x on desktop */
+.preloader-logo {
+  width: clamp(120px, 30vw, 200px);
+  aspect-ratio: 69 / 70;
+  flex-shrink: 0;
+}
+@media (min-width: 1024px) {
+  .preloader-logo {
+    width: clamp(96px, 24vw, 160px);
+  }
+}
+
 /* Footer email row (used for copy tooltip positioning) */
 .footer-email-row {
   position: relative;

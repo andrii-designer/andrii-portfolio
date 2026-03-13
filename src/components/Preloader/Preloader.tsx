@@ -81,11 +81,6 @@ function PreloaderOverlay() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              style={{
-                width: "clamp(48px, 12vw, 80px)",
-                aspectRatio: "69 / 70",
-                flexShrink: 0,
-              }}
             >
               <img
                 src="/hero-assets/logo.svg"
