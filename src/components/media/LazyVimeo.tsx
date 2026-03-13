@@ -126,9 +126,19 @@ export default function LazyVimeo({
   preloaderRef.current = preloader;
   const hasScrolled = useFirstScroll();
   const preloaderHidden = preloader?.preloaderHidden ?? false;
+
+  // Timer fallback: load after 2.5s regardless of events. iOS can block scroll/touch/context updates.
+  const [timerReady, setTimerReady] = useState(false);
+  useEffect(() => {
+    if (!loadOnFirstScroll) return;
+    const t = setTimeout(() => setTimerReady(true), 2500);
+    return () => clearTimeout(t);
+  }, [loadOnFirstScroll]);
+
   const shouldInsertNow =
     insertImmediately ||
-    (loadOnFirstScroll && (hasScrolled || preloaderHidden));
+    (loadOnFirstScroll &&
+      (hasScrolled || preloaderHidden || timerReady));
 
   const handleIframeLoad = useCallback(() => {
     const iframe = iframeRef.current;
