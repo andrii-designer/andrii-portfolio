@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { usePreloader } from "@/contexts/PreloaderContext";
+import { useFirstScroll } from "@/contexts/FirstScrollContext";
 
 const VIMEO_PLAYER_SCRIPT = "https://player.vimeo.com/api/player.js";
 
@@ -78,6 +79,11 @@ export type LazyVimeoProps = {
    * Use only for the primary Hero video so preloader hides exactly when it starts.
    */
   blockPreloader?: boolean;
+  /**
+   * When true, defer insert until user scrolls for the first time.
+   * Use for below-fold videos so they start loading on first scroll (before user reaches them).
+   */
+  loadOnFirstScroll?: boolean;
 };
 
 /**
@@ -107,6 +113,7 @@ export default function LazyVimeo({
   rootMargin = "200px",
   iframeLoading = "lazy",
   blockPreloader = false,
+  loadOnFirstScroll = false,
 }: LazyVimeoProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -117,6 +124,8 @@ export default function LazyVimeo({
   const preloader = usePreloader();
   const preloaderRef = useRef(preloader);
   preloaderRef.current = preloader;
+  const hasScrolled = useFirstScroll();
+  const shouldInsertNow = insertImmediately || (loadOnFirstScroll && hasScrolled);
 
   const handleIframeLoad = useCallback(() => {
     const iframe = iframeRef.current;
@@ -166,13 +175,13 @@ export default function LazyVimeo({
     return p.registerVideo(instanceId);
   }, [blockPreloader, instanceId]);
 
-  // Auto-insert: immediately if insertImmediately, else on viewport entry.
+  // Auto-insert: immediately if shouldInsertNow, else on viewport entry.
   useEffect(() => {
     if (!playOnVisible) return;
     const el = wrapperRef.current;
     if (!el) return;
 
-    if (insertImmediately) {
+    if (shouldInsertNow) {
       insertIframe();
       return;
     }
@@ -195,7 +204,7 @@ export default function LazyVimeo({
     observer.observe(el);
     return () => observer.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playOnVisible, insertImmediately, rootMargin]);
+  }, [playOnVisible, shouldInsertNow, rootMargin]);
 
   // Wrapper sizing: fill mode = stretch to parent; normal mode = padding-top ratio.
   const wrapperStyle: CSSProperties = fill

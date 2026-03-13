@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PreloaderProvider } from "@/components/Preloader/Preloader";
+import { FirstScrollProvider } from "@/contexts/FirstScrollContext";
 import "./globals.css";
 
 /**
@@ -45,8 +46,10 @@ export default function RootLayout({
       </head>
       <body className={manrope.className}>
         <PreloaderProvider>
-          {children}
-          <SpeedInsights />
+          <FirstScrollProvider>
+            {children}
+            <SpeedInsights />
+          </FirstScrollProvider>
         </PreloaderProvider>
       </body>
     </html>
