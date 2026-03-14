@@ -19,15 +19,9 @@ const manrope = Manrope({
   display: "swap",
 });
 
-import { FAVICON_VERSION } from "@/constants";
-
 export const metadata: Metadata = {
   title: "Andrii Portfolio",
   description: "Portfolio website",
-  icons: {
-    icon: `/favicon-${FAVICON_VERSION}.svg`,
-    apple: `/favicon-${FAVICON_VERSION}.svg`,
-  },
 };
 
 export default function RootLayout({
@@ -48,7 +42,7 @@ export default function RootLayout({
         />
         <link rel="preload" href="/hero-assets/logo.svg" as="image" />
       </head>
-      <body className={manrope.className} data-build={FAVICON_VERSION}>
+      <body className={manrope.className}>
         <PreloaderProvider>
           <FirstScrollProvider>
             <FirstInteractionProvider>

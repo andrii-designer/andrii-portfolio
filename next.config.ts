@@ -1,12 +1,6 @@
 import type { NextConfig } from "next";
-import { FAVICON_VERSION } from "./src/constants";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      { source: `/favicon-${FAVICON_VERSION}.svg`, destination: "/hero-assets/logo.svg" },
-    ];
-  },
   images: {
     // Serve AVIF first, WebP as fallback — Vercel Edge handles transcoding on demand
     formats: ["image/avif", "image/webp"],

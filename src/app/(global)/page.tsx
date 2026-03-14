@@ -111,8 +111,7 @@ export default function HomePage() {
             iframeSrc={SHOWREEL_URL}
             ariaLabel="Showreel 2026"
             playOnVisible
-            loadOnFirstScroll
-            rootMargin="100%"
+            insertImmediately
             iframeLoading="lazy"
           />
         </div>
