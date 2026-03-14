@@ -47,6 +47,8 @@ export type LazyVimeoProps = {
   iframeLoading?: "lazy" | "eager";
   blockPreloader?: boolean;
   loadOnFirstScroll?: boolean;
+  /** When true with insertImmediately, defer insert ~50-150ms past page init (Vercel/mobile fix) */
+  deferInsert?: boolean;
 };
 
 /**
@@ -72,6 +74,7 @@ export default function LazyVimeo({
   iframeLoading = "lazy",
   blockPreloader = false,
   loadOnFirstScroll = false,
+  deferInsert = false,
 }: LazyVimeoProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -152,7 +155,19 @@ export default function LazyVimeo({
     if (!el) return;
 
     if (shouldInsertNow) {
-      insertIframe();
+      if (deferInsert) {
+        // Defer insert past page init — fixes Vercel/mobile "iframe before page load" empty content
+        const schedule = () => {
+          if (typeof requestIdleCallback !== "undefined") {
+            requestIdleCallback(() => insertIframe(), { timeout: 150 });
+          } else {
+            setTimeout(insertIframe, 50);
+          }
+        };
+        schedule();
+      } else {
+        insertIframe();
+      }
       return;
     }
 
@@ -170,7 +185,7 @@ export default function LazyVimeo({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [playOnVisible, shouldInsertNow, rootMargin, insertIframe]);
+  }, [playOnVisible, shouldInsertNow, rootMargin, insertIframe, deferInsert]);
 
   const wrapperStyle: CSSProperties = fill
     ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
