@@ -50,7 +50,7 @@ export default function HomePage() {
       >
         <div className="section-inner">
           <Hero
-            title="Digital designer helping founders and product owners"
+            title="Digital designer focused on visual design and motion for products"
             cta={{ text: "Book a call", href: "/contact" }}
             media={{
               type: "vimeo",
