@@ -53,10 +53,6 @@ export default function AboutDescription() {
               create visuals and interactions that are expressive while
               remaining practical to build.
             </p>
-            <p style={{ margin: 0 }}>
-              8 years designing for digital products, combining technical
-              fluency with motion-first visual strategy.
-            </p>
           </div>
 
           <OptimizedImage
