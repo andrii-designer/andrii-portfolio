@@ -48,7 +48,7 @@ const defaultServices: ServiceData[] = [
   {
     title: "Web & Mobile Apps",
     description:
-      "We'll discuss your goals, define the scope, and outline a clear plan so you know exactly what to expect.",
+      "Web and mobile apps that combine clear product thinking with strong visual design and motion, creating interfaces that are distinctive, intuitive, and ready for development.",
     imageSrc: "/assets/Web & Mobile Apps.png",
     imageAlt: "Web and mobile app design preview",
   },
@@ -184,14 +184,65 @@ const Services = ({
           </div>
         )}
         <ul className="services-list-mobile" role="list">
-          {services.map((service, serviceIndex) => (
-            <li key={serviceIndex} className="services-item-mobile">
-              {serviceIndex > 0 && (
-                <div className="services-item-divider" aria-hidden="true" />
-              )}
-              <h3 className="services-item-title-mobile">{service.title}</h3>
-            </li>
-          ))}
+          {services.flatMap((service, serviceIndex) => {
+            const contentItem = (
+              <li
+                key={serviceIndex}
+                className="services-item-mobile"
+                style={{
+                  paddingTop: "var(--token-space-24)",
+                  paddingBottom:
+                    serviceIndex === services.length - 1
+                      ? 0
+                      : "var(--token-space-24)",
+                }}
+              >
+                <div
+                  className="services-item-content-mobile"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <h3 className="services-item-title-mobile">{service.title}</h3>
+                  {service.description && (
+                    <p
+                      className="process-desc services-item-description-mobile"
+                      style={{
+                        fontFamily: "var(--token-font-family-base)",
+                        fontSize: "var(--token-size-body-sm)",
+                        fontWeight: "var(--token-weight-semibold)",
+                        lineHeight: "var(--token-leading-150)",
+                        color: "var(--token-color-accent)",
+                        margin: 0,
+                        marginTop: "var(--token-space-16)",
+                        maxWidth: "448px",
+                      }}
+                    >
+                      {service.description}
+                    </p>
+                  )}
+                </div>
+              </li>
+            );
+            if (serviceIndex === 0) return [contentItem];
+            return [
+              <li
+                key={`divider-${serviceIndex}`}
+                className="services-item-divider-li"
+                aria-hidden="true"
+                style={{
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  margin: 0,
+                  listStyle: "none",
+                }}
+              >
+                <div className="services-item-divider" />
+              </li>,
+              contentItem,
+            ];
+          })}
         </ul>
         <div className="services-cta-mobile">
           <BookCallButton href="/contact" />

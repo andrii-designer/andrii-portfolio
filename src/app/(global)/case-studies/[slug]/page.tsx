@@ -56,7 +56,7 @@ const caseStudies: Record<
   raccord: {
     title: "Raccord",
     client: "Raccord",
-    services: ["Product design", "3D motion"],
+    services: ["Product design", "Branding", "3D motion", "2D motion"],
     heroImage: "/assets/case-studies/Raccord.png",
     heroVideo:
       "https://player.vimeo.com/video/1172613529?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0",
@@ -71,7 +71,7 @@ const caseStudies: Record<
     introVideoPoster: "/assets/images/thumbs/raccord-section2-thumb.webp",
     bodyTitle: "Project tasks",
     bodyParagraph:
-      "1. Increase dashboard engagement and personalisation\n2. Enhance data clarity\n3. Reduce time to insight\n\nThe part of the user flow I worked on:",
+      "1. Create a unique branding and visual experience including motion.\n2. Increase dashboard engagement and personalisation.\n3. Enhance data clarity.\n4. Reduce time to insight.\n\nThe part of the user flow I worked on:",
     bodyImage: "/assets/case-studies/raccord-section3.png",
     gridImages: [
       "/assets/case-studies/Raccord.png",
@@ -91,7 +91,7 @@ const caseStudies: Record<
   "x-pand": {
     title: "X-pand",
     client: "X-pand",
-    services: ["Product design"],
+    services: ["Branding", "3D motion", "Web design", "2D motion"],
     heroImage: "/assets/case-studies/X-Pand.png",
     heroVideo:
       "https://player.vimeo.com/video/1117263493?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&controls=0",
@@ -166,6 +166,7 @@ export default async function CaseStudyPage({ params }: Props) {
         paragraph={data.bodyParagraph ?? fallback.bodyParagraph}
         image={data.bodyImage ?? fallback.bodyImage}
         noSectionBottomPadding={data.title === "Raccord"}
+        preserveLineBreaks={data.title === "Raccord"}
       />
 
       {/* Title + Paragraph + 2 vertically stacked full-width images — X-pand only */}
@@ -251,11 +252,12 @@ export default async function CaseStudyPage({ params }: Props) {
         />
       )}
 
-      {/* Final single-image full-width section — Raccord only */}
+      {/* Results section — Raccord only: Title + paragraph + image */}
       {data.title === "Raccord" && (
-        <CaseStudyFullImage
-          topImage="/assets/case-studies/raccord-section11.png"
-          innerStyle={{ paddingTop: "0px", paddingBottom: "var(--token-space-128)" }}
+        <CaseStudyTextImage
+          title="Results"
+          paragraph="For Raccord, the goal was to turn a complex investment platform into a clearer and more engaging experience. I created a distinct brand identity and motion style that connected the product and its marketing. The dashboard was redesigned to improve personalization, clarify data, and help users reach insights faster, while a lightweight design system and motion assets ensured consistency for future product development."
+          image="/assets/case-studies/raccord-section11.png"
         />
       )}
 

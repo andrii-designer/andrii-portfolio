@@ -15,6 +15,8 @@ export type CaseStudyTextImageProps = {
   noSectionBottomPadding?: boolean;
   /** Optional variant for special typography/layout cases */
   variant?: "default" | "problemSolution";
+  /** When true, preserves newlines in paragraph text (white-space: pre-line) */
+  preserveLineBreaks?: boolean;
   video?: string;
   /** Poster image shown in LazyVimeo before iframe is inserted (Vimeo video only) */
   videoPoster?: string;
@@ -36,6 +38,7 @@ export default function CaseStudyTextImage({
   duplicateTextBelow,
   noSectionBottomPadding,
   variant = "default",
+  preserveLineBreaks = false,
   video,
   videoPoster = "",
   videoAspectPadding = "56.25%",
@@ -105,6 +108,8 @@ export default function CaseStudyTextImage({
       ? "section-paragraph problem-solution-paragraph"
       : "section-paragraph";
 
+  const paragraphStyle = preserveLineBreaks ? { whiteSpace: "pre-line" as const } : undefined;
+
   return (
     <motion.section
       {...containerMotion}
@@ -148,7 +153,7 @@ export default function CaseStudyTextImage({
             }}
             {...paragraphMotion}
           >
-            <p className={paragraphClassName}>{bodyText}</p>
+            <p className={paragraphClassName} style={paragraphStyle}>{bodyText}</p>
           </motion.div>
         </div>
       </div>
@@ -249,7 +254,7 @@ export default function CaseStudyTextImage({
               }}
               {...paragraphMotion}
             >
-            <p className={paragraphClassName}>
+            <p className={paragraphClassName} style={paragraphStyle}>
               {bottomParagraph ?? bodyText}
             </p>
             </motion.div>

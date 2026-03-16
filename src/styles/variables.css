@@ -96,6 +96,10 @@
     --token-size-h4: 2rem;             /* 32px */
     --token-size-h5: 1.5rem;           /* 24px */
     --token-size-h6: 1.25rem;          /* 20px */
+    --token-size-body-lg: 1.25rem;     /* 20px — tablet */
+    --token-size-body-md: 1.125rem;    /* 18px — tablet */
+    --token-size-body-sm: 1rem;        /* 16px — tablet */
+    --token-size-body-xs: 0.9375rem;   /* 15px — tablet */
   }
 }
 

@@ -197,6 +197,12 @@ a {
 
   .services-item-mobile {
     width: 100%;
+    padding-top: var(--token-space-32) !important;
+    padding-bottom: var(--token-space-32) !important;
+  }
+
+  .services-list-mobile .services-item-mobile:last-child {
+    padding-bottom: 0 !important;
   }
 
   .services-item-divider {
@@ -208,9 +214,7 @@ a {
 
   .services-item-title-mobile {
     display: block;
-    margin-top: var(--token-space-24);
-    margin-bottom: var(--token-space-24);
-    min-height: var(--token-size-48);
+    margin: 0;
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h3);
     font-weight: var(--token-weight-semibold);
@@ -218,8 +222,8 @@ a {
     letter-spacing: var(--token-tracking-header-3);
   }
 
-  .services-list-mobile .services-item-mobile:last-child .services-item-title-mobile {
-    margin-bottom: 0;
+  .services-item-description-mobile {
+    display: block;
   }
 
   .services-cta-mobile {
@@ -293,6 +297,12 @@ a {
 
   .services-item-mobile {
     width: 100%;
+    padding-top: var(--token-space-32) !important;
+    padding-bottom: var(--token-space-32) !important;
+  }
+
+  .services-list-mobile .services-item-mobile:last-child {
+    padding-bottom: 0 !important;
   }
 
   .services-item-divider {
@@ -304,9 +314,7 @@ a {
 
   .services-item-title-mobile {
     display: block;
-    margin-top: var(--token-space-24);
-    margin-bottom: var(--token-space-24);
-    min-height: var(--token-size-48); /* tappable target ≥44px */
+    margin: 0;
     font-family: var(--token-font-family-base);
     font-size: var(--token-size-h3);
     font-weight: var(--token-weight-semibold);
@@ -314,9 +322,8 @@ a {
     letter-spacing: var(--token-tracking-header-3);
   }
 
-  /* Last item: no extra bottom margin so CTA gap is exactly token-space-64 */
-  .services-list-mobile .services-item-mobile:last-child .services-item-title-mobile {
-    margin-bottom: 0;
+  .services-item-description-mobile {
+    display: block;
   }
 
   .services-cta-mobile {

@@ -24,8 +24,10 @@ import OptimizedImage from "@/components/OptimizedImage";
 export type WorkCardProps = {
   /** Project title */
   title: string;
-  /** Client/company name */
+  /** Client/company name (used when services is not provided) */
   client?: string;
+  /** Services from case study SERVICES label (displayed as caption when provided) */
+  services?: string[];
   /** Image source path (use placeholder if not available) */
   imageSrc: string;
   /** Image alt text */
@@ -37,10 +39,12 @@ export type WorkCardProps = {
 const WorkCard = ({
   title,
   client,
+  services,
   imageSrc,
   imageAlt,
   href = "#",
 }: WorkCardProps) => {
+  const caption = services?.length ? services.join(", ") : client;
   const CardContent = (
     <article
       className="group flex flex-col w-full"
@@ -87,8 +91,8 @@ const WorkCard = ({
           {title}
         </h5>
 
-        {/* Client Name — label-md (16px), regular */}
-        {client && (
+        {/* Caption — services (from case study) or client name — label-md (16px), regular */}
+        {caption && (
           <p
             className="text-accent"
             style={{
@@ -99,7 +103,7 @@ const WorkCard = ({
               margin: 0,
             }}
           >
-            {client}
+            {caption}
           </p>
         )}
       </div>

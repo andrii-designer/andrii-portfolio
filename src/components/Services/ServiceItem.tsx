@@ -148,7 +148,7 @@ const ServiceItem = ({
                   fontWeight: "var(--token-weight-semibold)",
                   lineHeight: "var(--token-leading-150)",
                   margin: 0,
-                  maxWidth: "320px",
+                  maxWidth: "448px",
                 }}
               >
                 {description}
