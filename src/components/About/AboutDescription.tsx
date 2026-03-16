@@ -46,14 +46,16 @@ export default function AboutDescription() {
             }}
           >
             <p style={{ margin: 0 }}>
-              Hey there, I’m Andrii, a UX/UI designer from Ukraine. I started my
-              journey messing around with code (HTML, CSS, JS), but I quickly
-              figured out that my real passion is design.
+              Hey, I’m Andrii, a designer focused on visual design and motion
+              for products. I started out exploring HTML, CSS and JavaScript,
+              but soon realised that design is where I found my voice. That
+              technical background still shapes how I work today and helps me
+              create visuals and interactions that are expressive while
+              remaining practical to build.
             </p>
             <p style={{ margin: 0 }}>
-              My heart belongs to crafting interfaces that feel clean, neat,
-              stylish, and just work for the user, while absolutely crushing it
-              for the business goals.
+              8 years designing for digital products, combining technical
+              fluency with motion-first visual strategy.
             </p>
           </div>
 
