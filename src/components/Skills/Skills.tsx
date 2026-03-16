@@ -58,7 +58,7 @@ const defaultSkills = [
 ];
 
 const Skills = ({
-  title = "With over 7 years of hands-on experience in SaaS and digital products, I bring a rare blend of code fluency and creative thinking.",
+  title = "8 years designing for digital products, combining technical fluency with motion-first visual strategy.",
   skills = defaultSkills,
   photoSrc = "/assets/images/about/placeholder-square.svg",
   photoAlt = "Portrait placeholder",
